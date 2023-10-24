@@ -19,10 +19,10 @@ function AppHeader() {
             <Link href="/contact" className='nav-link'>
               Về chúng tôi
             </Link>
-            <Link href="#" className='nav-link'>Phòng nghỉ</Link>
-            <Link href="#" className='nav-link'>Ẩm thực</Link>
-            <Link href="#" className='nav-link'>Chăm sóc sức khỏe</Link>
-            <Link href="#" className='nav-link'>Thư viện</Link>
+            <Link href="/rooms&suites" className='nav-link'>Phòng nghỉ</Link>
+            <Link href="/restaurant" className='nav-link'>Ẩm thực</Link>
+            <Link href="/spa" className='nav-link'>Chăm sóc sức khỏe</Link>
+            <Link href="/gallery" className='nav-link'>Thư viện</Link>
             <Link href="/blogs" className='nav-link'>Sự kiện</Link>
             <Button>Đặt Ngay</Button>
           </Nav>
