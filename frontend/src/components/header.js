@@ -5,25 +5,36 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 
+const links = [
+  { href: '/', text: 'Trang chủ' },
+  { href: '/contact', text: 'Về chúng tôi' },
+  { href: '/rooms&suites', text: 'Phòng nghỉ' },
+  { href: '/restaurant', text: 'Ẩm thực' },
+  { href: '/spa', text: 'Chăm sóc sức khỏe' },
+  { href: '/gallery', text: 'Thư viện' },
+  { href: '/blogs', text: 'Sự kiện' },
+];
+
 function AppHeader() {
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+    <Navbar fixed="top" collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
-      <Nav className="me-auto">
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Nav className="me-auto">
+          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav" className='justify-content-end'>
+        <Navbar.Collapse id="responsive-navbar-nav" className='justify-content-end flex-wrap'>
+        <Nav>
+        <span>Địa chỉ: 123 Đường ABC, Thành phố XYZ</span>
+        <span>Email: example@example.com</span>
+        <span>Điện thoại: 0123 456 789</span>
+      </Nav>
           <Nav>
-            <Link href="/" className='nav-link'>Trang chủ</Link>
-            <Link href="/contact" className='nav-link'>
-              Về chúng tôi
-            </Link>
-            <Link href="/rooms&suites" className='nav-link'>Phòng nghỉ</Link>
-            <Link href="/restaurant" className='nav-link'>Ẩm thực</Link>
-            <Link href="/spa" className='nav-link'>Chăm sóc sức khỏe</Link>
-            <Link href="/gallery" className='nav-link'>Thư viện</Link>
-            <Link href="/blogs" className='nav-link'>Sự kiện</Link>
+            {links.map((link, index) => (
+              <Link key={index} href={link.href} className='nav-link me-3'>
+                {link.text}
+              </Link>
+            ))}
             <Button>Đặt Ngay</Button>
           </Nav>
         </Navbar.Collapse>
