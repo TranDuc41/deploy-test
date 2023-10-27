@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
 import { Button } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 const links = [
   { href: '/', text: 'Trang chủ' },
@@ -15,6 +16,12 @@ const links = [
   { href: '/blogs', text: 'Sự kiện' },
 ];
 
+const contacts = [
+  {icon: '', text: 'Võ Văn Ngân'},
+  {icon: '', text: 'info@dominion.com'},
+  {icon: '', text: '0123456789'},
+]
+
 function AppHeader() {
   const [expanded, setExpanded] = useState(false);
 
@@ -24,15 +31,19 @@ function AppHeader() {
   };
 
   return (
-    <Navbar fixed="top" collapseOnSelect expand="lg" className="bg-body-tertiary" expanded={expanded}>
+    <Navbar fixed="top" expand="lg" className="bg-body-tertiary" expanded={expanded}>
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <Image></Image>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(!expanded)} />
         <Navbar.Collapse id="responsive-navbar-nav" className='justify-content-end flex-wrap'>
         <Nav>
-            <span>Địa chỉ: 123 Đường ABC, Thành phố XYZ</span>
-            <span>Email: example@example.com</span>
-            <span>Điện thoại: 0123 456 789</span>
+            {contacts.map((contact, index) => (
+              <div key={index} className='me-5'>
+                <span>{contact.text}</span>
+              </div>
+            ))}
           </Nav>
           <Nav>
             {links.map((link, index) => (

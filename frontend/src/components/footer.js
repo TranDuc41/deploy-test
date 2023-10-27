@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 
 function AppHeader() {
   return (
-    <footer collapseOnSelect expand="lg" className="bg-body-tertiary">
+    <footer expand="lg" className="bg-body-tertiary">
       <Container>
       <Row>
         <Col>
