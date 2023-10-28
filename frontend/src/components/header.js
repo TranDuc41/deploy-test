@@ -46,7 +46,7 @@ function AppHeader() {
           </Image>
           <Image src="/dominion--.png"
             width={120}
-            height={25}
+            height={30}
             alt="Dominion logo">
           </Image>
         </Navbar.Brand>
