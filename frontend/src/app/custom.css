@@ -182,6 +182,10 @@ footer .socialsing a {
     #responsive-navbar-nav .navbar-nav:first-child{
         display: flex;
     }
+
+    .categories-wrap button {
+        max-width: 100% !important;
+    }
 }
 
 /* END REPONSIVE */
@@ -252,5 +256,53 @@ footer .socialsing a {
 
 .categories-wrap button {
     margin-left: unset !important;
+    margin-top: 18%;
+    max-width: 156px;
 }
 /* END SELECT DATE */
+
+/* REPONSIVE BANNER HOME AND CHECK NOW*/
+/* Phones */
+@media only screen and (max-width:576px) {
+    .banner-title h4 {
+        font-size: unset;
+    }
+
+    .banner-title h3 {
+        font-size: 28px;
+    }
+
+    .banner-description span {
+        font-size: 13px;
+    }
+
+    .react-datepicker__input-container input {
+        max-width: 100%;
+    }
+
+    .categoris-section .categories-wrap .cate-items select.form-select {
+        max-width: 100%;
+    }
+
+    .categories-wrap div.w-100 {
+        width: inherit !important;
+    }
+
+    .react-datepicker-wrapper {
+        display: block !important;
+    }
+
+    .react-datepicker__input-container input {
+        width: 100%;
+    }
+
+    .categories-wrap button {
+        margin-top: 10%;
+        max-width: 100%;
+    }
+
+    .categories-wrap div.w-100 div.col-sm-4 {
+        margin-bottom: 20px !important;
+    }
+    /* END REPONSIVE BANNER HOME AND CHECK NOW*/
+}
