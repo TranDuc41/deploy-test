@@ -66,8 +66,8 @@ function AppHeader() {
                         <h5>Giới Thiệu</h5>
                         <ul className='list-unstyled'>
                             {links.map((link, index) => (
-                                <li>
-                                    <Link href={link.href} key={index} className='text-decoration-none'>{link.text}</Link>
+                                <li key={index}>
+                                    <Link href={link.href} className='text-decoration-none'>{link.text}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -76,7 +76,7 @@ function AppHeader() {
                         <h5>Liên Hệ</h5>
                         <ul className='list-unstyled'>
                             {contacts.map((contact, index) => (
-                                <li>
+                                <li key={index}>
                                     <span className='navIcon'>{contact.icon}</span>
                                     <span className='ms-2'>{contact.text}</span>
                                 </li>
