@@ -171,6 +171,10 @@ footer .socialsing a {
 }
 
 @media only screen and (min-width:1200px) {
+    footer .container .row .list-group {
+        display: unset;
+    }
+
     #responsive-navbar-nav {
         font-size: 1rem;
     }
@@ -181,3 +185,72 @@ footer .socialsing a {
 }
 
 /* END REPONSIVE */
+
+/* BANNER */
+.banner {
+    background-image: url('/banner 2.png');
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+}
+
+.banner-title h3 {
+    color: #AA8453;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.banner-title h4 {
+    font-size: 25px;
+}
+
+.banner-description span {
+    font-size: 24px;
+    width: 70%;
+}
+
+.banner-content {
+    text-align: center;
+    margin: 0 auto;
+    padding: 125px 0 225px;
+    position: relative;
+}
+/* END BANNER */
+
+/* SELECT DATE */
+.categoris-section .categories-wrap {
+    background-color: #fff;
+    box-shadow: 0 6px 20px rgba(87,86,86,.1);
+    border-radius: 10px;
+    padding: 40px 50px;
+    transform: translateY(-80px);
+    margin-bottom: -100px;
+}
+
+.react-datepicker__input-container input {
+    border: 1px solid #E4A853;
+    border-radius: 6px;
+    max-width: 156px;
+    text-align: center;
+    padding: 6px 0;
+}
+
+.categories-wrap button {
+    margin-left: 2.3rem!important;
+}
+
+.align-items-flex-end {
+    align-items: flex-end;
+}
+
+.categoris-section .categories-wrap .cate-items select.form-select {
+    max-width: 156px;
+    border: 1px solid #E4A853;
+}
+
+.categories-wrap button {
+    margin-left: unset !important;
+}
+/* END SELECT DATE */

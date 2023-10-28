@@ -33,7 +33,7 @@ const socials = [
 
 function AppHeader() {
     return (
-        <footer expand="lg" className="bg-body-tertiary">
+        <footer expand="lg" className="bg-body-tertiary pt-5">
             <Container>
                 <Row className='mb-5'>
                     <Col className='col-12 col-sm-6 col-lg-3'>
