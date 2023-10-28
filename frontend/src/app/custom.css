@@ -1,0 +1,42 @@
+.bg-body-tertiary {
+    background-color: #FFFFFF !important;
+}
+
+.navbar-nav .nav-link.active {
+    color: #E4A853;
+}
+
+.navbar-nav a{
+    color: black;
+}
+
+.navbar-nav a:hover{
+    color: #AA8453;
+}
+
+.navIcon {
+    color: #E4A853;
+    font-size: 20px;
+    margin-right: 6px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+#responsive-navbar-nav .navbar-nav:last-child{
+    border-top: 1px solid rgba(170, 132, 83, 0.24);
+}
+
+.btn-check-now {
+    background-color: #AA8453;
+    border: 1px solid #AA8453;
+}
+
+.btn-check-now:hover {
+    background-color: #E4A853;
+    border: 1px solid #AA8453;
+}

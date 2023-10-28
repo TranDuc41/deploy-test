@@ -1,3 +1,4 @@
+import '../app/custom.css';
 import { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -5,6 +6,8 @@ import Container from 'react-bootstrap/Container';
 import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
+import { LuMapPin, LuMail, LuPhone } from 'react-icons/lu';
+import { usePathname} from 'next/navigation';
 
 const links = [
   { href: '/', text: 'Trang chủ' },
@@ -17,13 +20,15 @@ const links = [
 ];
 
 const contacts = [
-  {icon: '', text: 'Võ Văn Ngân'},
-  {icon: '', text: 'info@dominion.com'},
-  {icon: '', text: '0123456789'},
+  { icon: <LuMapPin />, text: 'Võ Văn Ngân' },
+  { icon: <LuMail />, text: 'info@dominion.com' },
+  { icon: <LuPhone />, text: '0123456789' },
 ]
 
 function AppHeader() {
   const [expanded, setExpanded] = useState(false);
+
+  const pathname = usePathname();
 
   const handleNavItemClick = () => {
     // Khi bạn nhấp vào một liên kết, hãy đặt expanded về giá trị false để đóng collapse.
@@ -33,25 +38,35 @@ function AppHeader() {
   return (
     <Navbar fixed="top" expand="lg" className="bg-body-tertiary" expanded={expanded}>
       <Container>
-        <Navbar.Brand href="/">
-          <Image></Image>
+        <Navbar.Brand href="/" className='logo'>
+          <Image src="/dominion-logo.png"
+            width={50}
+            height={36}
+            alt="Dominion Logo">
+          </Image>
+          <Image src="/dominion--.png"
+            width={120}
+            height={25}
+            alt="Dominion logo">
+          </Image>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(!expanded)} />
         <Navbar.Collapse id="responsive-navbar-nav" className='justify-content-end flex-wrap'>
-        <Nav>
+          <Nav>
             {contacts.map((contact, index) => (
-              <div key={index} className='me-5'>
+              <div key={index} className='me-5 text-black-50'>
+                <span className='navIcon'>{contact.icon}</span>
                 <span>{contact.text}</span>
               </div>
             ))}
           </Nav>
           <Nav>
             {links.map((link, index) => (
-              <Link key={index} href={link.href}className='nav-link me-3' onClick={handleNavItemClick}>
-                  {link.text}
+              <Link key={index} href={link.href} className= {`nav-link me-3 mt-2 ${pathname == link.href ? "active" : ""}`}  onClick={handleNavItemClick}>
+                {link.text}
               </Link>
             ))}
-            <Button>Đặt Ngay</Button>
+            <Button className='mt-2 px-4 btn-check-now'>Đặt Ngay</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>
