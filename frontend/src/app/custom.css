@@ -308,6 +308,10 @@ footer .socialsing a {
 }
 
 /* SWIPER */
+.text-18 {
+    font-size: 18px;
+}
+
 .text-24 {
     font-size: 24px;
 }
@@ -405,3 +409,99 @@ footer .socialsing a {
     }
 }
 /* END SWIPER */
+
+/* ROOMS-SUITES */
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper {
+    margin-bottom: 4%;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col svg {
+    color: #E4A853;
+    margin-right: 6px;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col:not(:last-child) {
+    border-right: 1px solid #AA8453;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-content,
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom {
+    padding: 0 26px;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-content .room-price {
+    color: #E4A853;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.content-rooms-suites h2{
+    color: #AA8453;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper {
+        margin-bottom: 16%;
+    }
+
+    .content-rooms-suites .rooms-suites-top {
+        width: 100% !important;
+    }
+
+    .content-rooms-suites .rooms-suites-top .text-45 {
+        font-size: 36px;
+    }
+
+    .content-rooms-suites .rooms-suites-top .text-18 {
+        font-size: 16px;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide {
+        width: 100% !important;
+        background-color: var(--white-color);
+        border-radius: 6px;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-img img {
+        width: 100% !important;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper {
+        margin-bottom: 8%;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+        font-size: 18px;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide {
+        width: 100% !important;
+        background-color: var(--white-color);
+        border-radius: 6px;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-img img {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+/* PC */
+@media only screen and (min-width:1200px) {
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide {
+        background-color: var(--white-color);
+        border-radius: 6px;
+        width: 409px !important;
+    }
+}

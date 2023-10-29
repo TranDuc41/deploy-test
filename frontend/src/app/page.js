@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Container } from 'react-bootstrap'
 import DatePicker from '../components/datePicker'
 import Swiper from '../components/swiper'
+import RoomsSuites from '../components/roomsSuites'
 
 export const metadata = {
   title: 'Home Page',
@@ -42,7 +43,24 @@ export default function Home() {
           <DatePicker />
         </Container>
       </div>
-      <div className='mt-5'></div>
+      <div className='rooms-suites pt-5 pb-5'>
+        <Container>
+          <div className='content-rooms-suites'>
+            <div className='rooms-suites-top text-center m-auto w-50 mb-5'>
+              <Image
+              src="/dominion-logo.png"
+              width={114}
+              height={90}
+              alt="Dominion Logo"></Image>
+              <h2 className='text-45'>Rooms & Suites</h2>
+              <span className='text-18'>Những phòng dành cho gia đình, cá nhân với views cực đẹp giúp bạn có những kỳ nghỉ đáng nhớ bên gia đình và người thân.</span>
+            </div>
+            <div className='rooms-suites-bottom'>
+              <RoomsSuites />
+            </div>
+          </div>
+        </Container>
+      </div>
       <div className='reviews-section'>
         <Container>
           <div className='review-title-head'>
