@@ -306,3 +306,102 @@ footer .socialsing a {
     }
     /* END REPONSIVE BANNER HOME AND CHECK NOW*/
 }
+
+/* SWIPER */
+.text-24 {
+    font-size: 24px;
+}
+
+.text-45 {
+    font-size: 45px;
+}
+
+.reviews-section{
+    background-image: url(/review-bg.png);
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+    padding: 120px 0;
+}
+
+.reviews-section .review-title-head {
+    margin-bottom: 94px;
+}
+
+.client-reviews {
+    max-width: 750px;
+    margin: 0 auto;
+    background-color: var(--white-color);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.client-reviews .review-top {
+    text-align: center;
+}
+
+.client-reviews .review-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.client-reviews .review-bottom .review-left {
+    display: flex;
+    gap: 20px;
+}
+
+.reviews-section .swiper .swiper-wrapper {
+    margin-bottom: 4%;
+}
+
+.swiper-pagination span {
+    width: 12px;
+    height: 12px;
+}
+
+.swiper-pagination-bullet {
+    background: #E4A853 !important;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .review-bottom {
+        flex-direction: column;
+    }
+
+    .reviews-section .swiper .swiper-wrapper {
+        margin-bottom: 10%;
+    }
+
+    .review-title-head div:first-child {
+        width: 100% !important;
+    }
+
+    .review-title-head div:first-child h2{
+        font-size: 28px;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .reviews-section .swiper .swiper-wrapper {
+        margin-bottom: 8%;
+    }
+
+    .review-title-head div:first-child {
+        width: 100% !important;
+    }
+}
+
+/* PC */
+@media only screen and (min-width:1200px) {
+    .reviews-section .swiper .swiper-wrapper {
+        margin-bottom: 4%;
+    }
+
+    .review-title-head div:first-child {
+        width: 50% !important;
+    }
+}
+/* END SWIPER */

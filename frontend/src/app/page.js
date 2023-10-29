@@ -2,6 +2,7 @@ import '../app/custom.css';
 import Image from 'next/image'
 import { Container } from 'react-bootstrap'
 import DatePicker from '../components/datePicker'
+import Swiper from '../components/swiper'
 
 export const metadata = {
   title: 'Home Page',
@@ -39,6 +40,18 @@ export default function Home() {
       <div className='categoris-section'>
         <Container>
           <DatePicker />
+        </Container>
+      </div>
+      <div className='mt-5'></div>
+      <div className='reviews-section'>
+        <Container>
+          <div className='review-title-head'>
+            <div className='text-center m-auto'>
+              <h5 className='text-white text-24 mb-5'>Đánh Giá</h5>
+              <h2 className='text-white text-45'>Lời đánh giá của khách hàng về chúng tôi</h2>
+            </div>
+          </div>
+          <Swiper />
         </Container>
       </div>
     </main>

@@ -1,5 +1,7 @@
 :root {
   --background-color: #F3EEE7;
+  --white-color: #FFF;
+  --swiper-theme-color: #E4A853 !important;
 }
 
 * {
