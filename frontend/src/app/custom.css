@@ -1,0 +1,407 @@
+/* HEADER */
+.bg-body-tertiary {
+    background-color: #FFFFFF !important;
+}
+
+.navbar-nav .nav-link.active {
+    color: #E4A853;
+}
+
+.navbar-nav a {
+    color: black;
+}
+
+.navbar-nav a:hover {
+    color: #AA8453;
+}
+
+.navIcon {
+    color: #E4A853;
+    font-size: 20px;
+    margin-right: 6px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+#responsive-navbar-nav .navbar-nav:last-child {
+    border-top: 1px solid rgba(170, 132, 83, 0.24);
+}
+
+.btn-check-now {
+    background-color: #AA8453;
+    border: 1px solid #AA8453;
+}
+
+.btn-check-now:hover {
+    background-color: #E4A853;
+    border: 1px solid #AA8453;
+}
+
+/* END HEADER */
+
+/* FOOTER */
+.container .row .col ul li a {
+    color: #666;
+}
+
+.container .row .col ul li {
+    margin-bottom: 16px;
+}
+
+.container .row .col ul li a:hover {
+    color: #E4A853;
+}
+
+footer .list-group .list-group-item:first-child {
+    text-align: center;
+    max-width: 40%;
+    margin-bottom: 6px;
+}
+
+.list-group-item {
+    padding: 0;
+    border: unset;
+    max-width: 50%;
+}
+
+footer .row .col form input {
+    border: 1px solid #E4A853;
+}
+
+footer .row .col form button {
+    background-color: #AA8453;
+    border: none;
+}
+
+footer .row .col form button:hover {
+    background-color: #E4A853;
+}
+
+footer .coppyright {
+    border-top: 1px solid rgba(102, 102, 102, 0.50);
+}
+
+footer .socialsing {
+    display: flex;
+    justify-content: space-between;
+    max-width: 90%;
+}
+
+footer .socialsing a {
+    color: #AA8453;
+    font-size: 30px;
+}
+
+/* END FOOTER */
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    #responsive-navbar-nav .navbar-nav:first-child{
+        display: none;
+    }
+
+    footer .container .col-sm-6 {
+        margin-bottom: 36px;
+    }
+
+    footer .container .col-sm-6:last-child {
+        margin-bottom: 0;
+    }
+
+    footer .list-group .list-group-item:first-child {
+        text-align: left;
+    }
+
+    footer .socialsing {
+        justify-content: flex-start;
+    }
+
+    footer .socialsing a {
+        margin-right: 26px;
+    }
+
+    footer .container .row .list-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    footer .container .row .list-group .list-group-item:first-child{
+        margin-right: 16px;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    #responsive-navbar-nav {
+        font-size: 0.84rem;
+    }
+
+    #responsive-navbar-nav .navbar-nav:first-child{
+        display: none;
+    }
+
+    footer .container .col-sm-6 {
+        margin-bottom: 36px;
+    }
+
+    footer .container .row .list-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    footer .socialsing {
+        justify-content: flex-start;
+    }
+
+    footer .socialsing a {
+        margin-right: 26px;
+    }
+
+    .container .row .col ul li {
+        margin-bottom: 6px;
+    }
+}
+
+@media only screen and (min-width:1200px) {
+    footer .container .row .list-group {
+        display: unset;
+    }
+
+    #responsive-navbar-nav {
+        font-size: 1rem;
+    }
+
+    #responsive-navbar-nav .navbar-nav:first-child{
+        display: flex;
+    }
+
+    .categories-wrap button {
+        max-width: 100% !important;
+    }
+}
+
+/* END REPONSIVE */
+
+/* BANNER */
+.banner {
+    background-image: url('/banner 2.png');
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+}
+
+.banner-title h3 {
+    color: #AA8453;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.banner-title h4 {
+    font-size: 25px;
+}
+
+.banner-description span {
+    font-size: 24px;
+    width: 70%;
+}
+
+.banner-content {
+    text-align: center;
+    margin: 0 auto;
+    padding: 125px 0 225px;
+    position: relative;
+}
+/* END BANNER */
+
+/* SELECT DATE */
+.categoris-section .categories-wrap {
+    background-color: #fff;
+    box-shadow: 0 6px 20px rgba(87,86,86,.1);
+    border-radius: 10px;
+    padding: 40px 50px;
+    transform: translateY(-80px);
+    margin-bottom: -100px;
+}
+
+.react-datepicker__input-container input {
+    border: 1px solid #E4A853;
+    border-radius: 6px;
+    max-width: 156px;
+    text-align: center;
+    padding: 6px 0;
+}
+
+.categories-wrap button {
+    margin-left: 2.3rem!important;
+}
+
+.align-items-flex-end {
+    align-items: flex-end;
+}
+
+.categoris-section .categories-wrap .cate-items select.form-select {
+    max-width: 156px;
+    border: 1px solid #E4A853;
+}
+
+.categories-wrap button {
+    margin-left: unset !important;
+    margin-top: 18%;
+    max-width: 156px;
+}
+/* END SELECT DATE */
+
+/* REPONSIVE BANNER HOME AND CHECK NOW*/
+/* Phones */
+@media only screen and (max-width:576px) {
+    .banner-title h4 {
+        font-size: unset;
+    }
+
+    .banner-title h3 {
+        font-size: 28px;
+    }
+
+    .banner-description span {
+        font-size: 13px;
+    }
+
+    .react-datepicker__input-container input {
+        max-width: 100%;
+    }
+
+    .categoris-section .categories-wrap .cate-items select.form-select {
+        max-width: 100%;
+    }
+
+    .categories-wrap div.w-100 {
+        width: inherit !important;
+    }
+
+    .react-datepicker-wrapper {
+        display: block !important;
+    }
+
+    .react-datepicker__input-container input {
+        width: 100%;
+    }
+
+    .categories-wrap button {
+        margin-top: 10%;
+        max-width: 100%;
+    }
+
+    .categories-wrap div.w-100 div.col-sm-4 {
+        margin-bottom: 20px !important;
+    }
+    /* END REPONSIVE BANNER HOME AND CHECK NOW*/
+}
+
+/* SWIPER */
+.text-24 {
+    font-size: 24px;
+}
+
+.text-45 {
+    font-size: 45px;
+}
+
+.reviews-section{
+    background-image: url(/review-bg.png);
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+    padding: 120px 0;
+}
+
+.reviews-section .review-title-head {
+    margin-bottom: 94px;
+}
+
+.client-reviews {
+    max-width: 750px;
+    margin: 0 auto;
+    background-color: var(--white-color);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.client-reviews .review-top {
+    text-align: center;
+}
+
+.client-reviews .review-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.client-reviews .review-bottom .review-left {
+    display: flex;
+    gap: 20px;
+}
+
+.reviews-section .swiper .swiper-wrapper {
+    margin-bottom: 4%;
+}
+
+.swiper-pagination span {
+    width: 12px;
+    height: 12px;
+}
+
+.swiper-pagination-bullet {
+    background: #E4A853 !important;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .review-bottom {
+        flex-direction: column;
+    }
+
+    .reviews-section .swiper .swiper-wrapper {
+        margin-bottom: 10%;
+    }
+
+    .review-title-head div:first-child {
+        width: 100% !important;
+    }
+
+    .review-title-head div:first-child h2{
+        font-size: 28px;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .reviews-section .swiper .swiper-wrapper {
+        margin-bottom: 8%;
+    }
+
+    .review-title-head div:first-child {
+        width: 100% !important;
+    }
+}
+
+/* PC */
+@media only screen and (min-width:1200px) {
+    .reviews-section .swiper .swiper-wrapper {
+        margin-bottom: 4%;
+    }
+
+    .review-title-head div:first-child {
+        width: 50% !important;
+    }
+}
+/* END SWIPER */
