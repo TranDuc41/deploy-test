@@ -411,13 +411,9 @@ footer .socialsing a {
 /* END SWIPER */
 
 /* ROOMS-SUITES */
-.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper {
-    margin-bottom: 4%;
-}
-
 .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
     text-align: center;
-    font-size: 14px;
+    font-size: 10px;
     color: #666;
 }
 
@@ -503,5 +499,13 @@ footer .socialsing a {
         background-color: var(--white-color);
         border-radius: 6px;
         width: 409px !important;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper {
+        margin-bottom: 5%;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+        font-size: 14px;
     }
 }
