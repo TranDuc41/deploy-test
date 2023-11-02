@@ -509,3 +509,100 @@ footer .socialsing a {
         font-size: 14px;
     }
 }
+
+/* BOOKING */
+.address-booking {
+    background-color: rgba(255, 255, 255, 0.70);
+}
+
+.banner-booking {
+    background-image: url('/banner-booking.png');
+    position: relative;
+    background-size: cover;
+}
+
+.select-booking {
+    background-color: #FFF;
+    border: 1px solid #E4A853;
+    border-radius: 20px;
+}
+
+.banner-booking .categories-wrap {
+    background-color: #fff;
+    box-shadow: 0 6px 20px rgba(87,86,86,.1);
+    border-radius: 20px;
+    padding: 20px 30px;
+    transform: translateY(60px);
+    border: 1px solid #AA8453;
+}
+
+.banner-booking .address-booking {
+    transform: translateY(78px);
+    padding: 16px 58px;
+}
+
+.banner-booking .address-booking .address {
+    margin-left: 16px;
+    line-height: 36px;
+}
+
+.address-booking .address div span {
+    margin-left: 16px;
+}
+
+.banner-booking .form-select {
+    border: 1px solid #E4A853;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .address-booking {
+        max-width: 100%;
+    }
+}
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .address-booking {
+        max-width: 100%;
+    }
+}
+/* PC */
+@media only screen and (min-width:1200px) {
+    .address-booking {
+        max-width: 30%;
+    }
+}
+
+/* SELECT ROOM */
+.room-select {
+    padding: 120px 0;
+}
+
+.select-room .select-items {
+    background-color: #FFF;
+    padding: 8px 16px;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .select-room .select-items select {
+        max-width: 37%;
+        border: none;
+    }
+}
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .select-room .select-items select {
+        max-width: 20%;
+        border: none;
+    }
+}
+/* PC */
+@media only screen and (min-width:1200px) {
+    .select-room .select-items select {
+        max-width: 22%;
+        border: none;
+    }
+}
