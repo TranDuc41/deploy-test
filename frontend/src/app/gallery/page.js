@@ -29,10 +29,17 @@ export default function Gallery() {
                   <span>{addres.text}</span>
                 </div>
               ))}
-              <div></div>
             </div>
           </div>
-          <BannerBooking />
+        </Container>
+      </div>
+      <div className='seclect-booking'>
+        <Container>
+          <div className='row'>
+            <div className='col-12 col-xl-6'>
+              <BannerBooking />
+            </div>
+          </div>
         </Container>
       </div>
       <div className='room-select'>

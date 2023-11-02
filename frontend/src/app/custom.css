@@ -102,7 +102,7 @@ footer .socialsing a {
 /* REPONSIVE */
 /* Phones */
 @media only screen and (max-width:576px) {
-    #responsive-navbar-nav .navbar-nav:first-child{
+    #responsive-navbar-nav .navbar-nav:first-child {
         display: none;
     }
 
@@ -132,7 +132,7 @@ footer .socialsing a {
         align-items: center;
     }
 
-    footer .container .row .list-group .list-group-item:first-child{
+    footer .container .row .list-group .list-group-item:first-child {
         margin-right: 16px;
     }
 }
@@ -143,7 +143,7 @@ footer .socialsing a {
         font-size: 0.84rem;
     }
 
-    #responsive-navbar-nav .navbar-nav:first-child{
+    #responsive-navbar-nav .navbar-nav:first-child {
         display: none;
     }
 
@@ -179,7 +179,7 @@ footer .socialsing a {
         font-size: 1rem;
     }
 
-    #responsive-navbar-nav .navbar-nav:first-child{
+    #responsive-navbar-nav .navbar-nav:first-child {
         display: flex;
     }
 
@@ -221,12 +221,13 @@ footer .socialsing a {
     padding: 125px 0 225px;
     position: relative;
 }
+
 /* END BANNER */
 
 /* SELECT DATE */
 .categoris-section .categories-wrap {
     background-color: #fff;
-    box-shadow: 0 6px 20px rgba(87,86,86,.1);
+    box-shadow: 0 6px 20px rgba(87, 86, 86, .1);
     border-radius: 10px;
     padding: 40px 50px;
     transform: translateY(-80px);
@@ -242,7 +243,7 @@ footer .socialsing a {
 }
 
 .categories-wrap button {
-    margin-left: 2.3rem!important;
+    margin-left: 2.3rem !important;
 }
 
 .align-items-flex-end {
@@ -259,6 +260,7 @@ footer .socialsing a {
     margin-top: 18%;
     max-width: 156px;
 }
+
 /* END SELECT DATE */
 
 /* REPONSIVE BANNER HOME AND CHECK NOW*/
@@ -304,6 +306,7 @@ footer .socialsing a {
     .categories-wrap div.w-100 div.col-sm-4 {
         margin-bottom: 20px !important;
     }
+
     /* END REPONSIVE BANNER HOME AND CHECK NOW*/
 }
 
@@ -320,7 +323,7 @@ footer .socialsing a {
     font-size: 45px;
 }
 
-.reviews-section{
+.reviews-section {
     background-image: url(/review-bg.png);
     background-size: cover;
     position: relative;
@@ -349,6 +352,7 @@ footer .socialsing a {
     justify-content: space-between;
     align-items: center;
 }
+
 .client-reviews .review-bottom .review-left {
     display: flex;
     gap: 20px;
@@ -382,7 +386,7 @@ footer .socialsing a {
         width: 100% !important;
     }
 
-    .review-title-head div:first-child h2{
+    .review-title-head div:first-child h2 {
         font-size: 28px;
     }
 }
@@ -408,6 +412,7 @@ footer .socialsing a {
         width: 50% !important;
     }
 }
+
 /* END SWIPER */
 
 /* ROOMS-SUITES */
@@ -437,7 +442,7 @@ footer .socialsing a {
     border-bottom: 1px solid #BDBDBD;
 }
 
-.content-rooms-suites h2{
+.content-rooms-suites h2 {
     color: #AA8453;
 }
 
@@ -521,23 +526,7 @@ footer .socialsing a {
     background-size: cover;
 }
 
-.select-booking {
-    background-color: #FFF;
-    border: 1px solid #E4A853;
-    border-radius: 20px;
-}
-
-.banner-booking .categories-wrap {
-    background-color: #fff;
-    box-shadow: 0 6px 20px rgba(87,86,86,.1);
-    border-radius: 20px;
-    padding: 20px 30px;
-    transform: translateY(60px);
-    border: 1px solid #AA8453;
-}
-
 .banner-booking .address-booking {
-    transform: translateY(78px);
     padding: 16px 58px;
 }
 
@@ -550,23 +539,72 @@ footer .socialsing a {
     margin-left: 16px;
 }
 
-.banner-booking .form-select {
-    border: 1px solid #E4A853;
+.seclect-booking {
+    padding-top: 29px;
 }
 
+.seclect-booking .categories-wrap {
+    background-color: #FFF;
+}
+
+.seclect-booking h5 {
+    font-size: 15px;
+}
+
+.seclect-booking input {
+    width: 136px;
+    border-radius: unset;
+    border: 1px solid #666;
+}
+
+.seclect-booking select {
+    width: 116px;
+    border-radius: unset;
+    border: unset;
+}
+
+.seclect-booking .cate-items .input:last-child {
+    border: 1px solid #666;
+    align-items: center;
+    padding: 0 6px;
+}
+
+.form-select:focus {
+    border-color: unset;
+    box-shadow: unset;
+}
+
+
+.seclect-booking .categories-wrap .row {
+    padding: 7px 0;
+}
 /* REPONSIVE */
 /* Phones */
 @media only screen and (max-width:576px) {
     .address-booking {
         max-width: 100%;
     }
+
+    .seclect-booking .input {
+        width: 136px;
+    }
+
+    .seclect-booking .categories-wrap .row div {
+        margin-top: 6px;
+    }
+
+    .seclect-booking .categories-wrap .row {
+        padding: 7px 28px 20px 28px;
+    }
 }
+
 /* Tablets */
 @media only screen and (min-width:576px) {
     .address-booking {
         max-width: 100%;
     }
 }
+
 /* PC */
 @media only screen and (min-width:1200px) {
     .address-booking {
@@ -576,7 +614,7 @@ footer .socialsing a {
 
 /* SELECT ROOM */
 .room-select {
-    padding: 120px 0;
+    padding: 16px 0 120px 0;
 }
 
 .select-room .select-items {
@@ -592,6 +630,7 @@ footer .socialsing a {
         border: none;
     }
 }
+
 /* Tablets */
 @media only screen and (min-width:576px) {
     .select-room .select-items select {
@@ -599,6 +638,7 @@ footer .socialsing a {
         border: none;
     }
 }
+
 /* PC */
 @media only screen and (min-width:1200px) {
     .select-room .select-items select {
