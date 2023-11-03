@@ -524,6 +524,7 @@ footer .socialsing a {
     background-image: url('/banner-booking.png');
     position: relative;
     background-size: cover;
+    padding-top: 118px;
 }
 
 .banner-booking .address-booking {
@@ -716,6 +717,11 @@ footer .socialsing a {
     line-height: normal;
     width: 155.433px;
     height: 46px;
+    background-color: #E4A853;
+    
+}
+#block-dominion-content .card-footer .btn-booking:hover{
+    background-color: #e78d0f;
     
 }
 #block-dominion-content .card-media{
