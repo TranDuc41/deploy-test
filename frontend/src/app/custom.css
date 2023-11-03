@@ -102,7 +102,7 @@ footer .socialsing a {
 /* REPONSIVE */
 /* Phones */
 @media only screen and (max-width:576px) {
-    #responsive-navbar-nav .navbar-nav:first-child{
+    #responsive-navbar-nav .navbar-nav:first-child {
         display: none;
     }
 
@@ -132,7 +132,7 @@ footer .socialsing a {
         align-items: center;
     }
 
-    footer .container .row .list-group .list-group-item:first-child{
+    footer .container .row .list-group .list-group-item:first-child {
         margin-right: 16px;
     }
 }
@@ -143,7 +143,7 @@ footer .socialsing a {
         font-size: 0.84rem;
     }
 
-    #responsive-navbar-nav .navbar-nav:first-child{
+    #responsive-navbar-nav .navbar-nav:first-child {
         display: none;
     }
 
@@ -179,7 +179,7 @@ footer .socialsing a {
         font-size: 1rem;
     }
 
-    #responsive-navbar-nav .navbar-nav:first-child{
+    #responsive-navbar-nav .navbar-nav:first-child {
         display: flex;
     }
 
@@ -221,12 +221,13 @@ footer .socialsing a {
     padding: 125px 0 225px;
     position: relative;
 }
+
 /* END BANNER */
 
 /* SELECT DATE */
 .categoris-section .categories-wrap {
     background-color: #fff;
-    box-shadow: 0 6px 20px rgba(87,86,86,.1);
+    box-shadow: 0 6px 20px rgba(87, 86, 86, .1);
     border-radius: 10px;
     padding: 40px 50px;
     transform: translateY(-80px);
@@ -242,7 +243,7 @@ footer .socialsing a {
 }
 
 .categories-wrap button {
-    margin-left: 2.3rem!important;
+    margin-left: 2.3rem !important;
 }
 
 .align-items-flex-end {
@@ -259,6 +260,7 @@ footer .socialsing a {
     margin-top: 18%;
     max-width: 156px;
 }
+
 /* END SELECT DATE */
 
 /* REPONSIVE BANNER HOME AND CHECK NOW*/
@@ -304,10 +306,15 @@ footer .socialsing a {
     .categories-wrap div.w-100 div.col-sm-4 {
         margin-bottom: 20px !important;
     }
+
     /* END REPONSIVE BANNER HOME AND CHECK NOW*/
 }
 
 /* SWIPER */
+.text-18 {
+    font-size: 18px;
+}
+
 .text-24 {
     font-size: 24px;
 }
@@ -316,7 +323,7 @@ footer .socialsing a {
     font-size: 45px;
 }
 
-.reviews-section{
+.reviews-section {
     background-image: url(/review-bg.png);
     background-size: cover;
     position: relative;
@@ -345,6 +352,7 @@ footer .socialsing a {
     justify-content: space-between;
     align-items: center;
 }
+
 .client-reviews .review-bottom .review-left {
     display: flex;
     gap: 20px;
@@ -378,7 +386,7 @@ footer .socialsing a {
         width: 100% !important;
     }
 
-    .review-title-head div:first-child h2{
+    .review-title-head div:first-child h2 {
         font-size: 28px;
     }
 }
@@ -404,4 +412,240 @@ footer .socialsing a {
         width: 50% !important;
     }
 }
+
 /* END SWIPER */
+
+/* ROOMS-SUITES */
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+    text-align: center;
+    font-size: 10px;
+    color: #666;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col svg {
+    color: #E4A853;
+    margin-right: 6px;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col:not(:last-child) {
+    border-right: 1px solid #AA8453;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-content,
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom {
+    padding: 0 26px;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-content .room-price {
+    color: #E4A853;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.content-rooms-suites h2 {
+    color: #AA8453;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper {
+        margin-bottom: 16%;
+    }
+
+    .content-rooms-suites .rooms-suites-top {
+        width: 100% !important;
+    }
+
+    .content-rooms-suites .rooms-suites-top .text-45 {
+        font-size: 36px;
+    }
+
+    .content-rooms-suites .rooms-suites-top .text-18 {
+        font-size: 16px;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide {
+        width: 100% !important;
+        background-color: var(--white-color);
+        border-radius: 6px;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-img img {
+        width: 100% !important;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper {
+        margin-bottom: 8%;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+        font-size: 18px;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide {
+        width: 100% !important;
+        background-color: var(--white-color);
+        border-radius: 6px;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-img img {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+
+/* PC */
+@media only screen and (min-width:1200px) {
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide {
+        background-color: var(--white-color);
+        border-radius: 6px;
+        width: 409px !important;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper {
+        margin-bottom: 5%;
+    }
+
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+        font-size: 14px;
+    }
+}
+
+/* BOOKING */
+.address-booking {
+    background-color: rgba(255, 255, 255, 0.70);
+}
+
+.banner-booking {
+    background-image: url('/banner-booking.png');
+    position: relative;
+    background-size: cover;
+}
+
+.banner-booking .address-booking {
+    padding: 16px 58px;
+}
+
+.banner-booking .address-booking .address {
+    margin-left: 16px;
+    line-height: 36px;
+}
+
+.address-booking .address div span {
+    margin-left: 16px;
+}
+
+.seclect-booking {
+    padding-top: 29px;
+}
+
+.seclect-booking .categories-wrap {
+    background-color: #FFF;
+}
+
+.seclect-booking h5 {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.seclect-booking input {
+    width: 136px;
+    color: #666;
+    border-radius: unset;
+    border: 1px solid #666;
+}
+
+.seclect-booking select {
+    width: 116px;
+    border-radius: unset;
+    border: unset;
+    color: #666;
+}
+
+.seclect-booking .cate-items .input:last-child {
+    border: 1px solid #666;
+    align-items: center;
+    padding: 0 6px;
+}
+
+.form-select:focus {
+    border-color: unset;
+    box-shadow: unset;
+}
+
+
+.seclect-booking .categories-wrap .row {
+    padding: 7px 0;
+}
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .address-booking {
+        max-width: 100%;
+    }
+
+    .seclect-booking .input {
+        width: 136px;
+    }
+
+    .seclect-booking .categories-wrap .row div {
+        margin-top: 6px;
+    }
+
+    .seclect-booking .categories-wrap .row {
+        padding: 7px 28px 20px 28px;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .address-booking {
+        max-width: 100%;
+    }
+}
+
+/* PC */
+@media only screen and (min-width:1200px) {
+    .address-booking {
+        max-width: 30%;
+    }
+}
+
+/* SELECT ROOM */
+.room-select {
+    padding: 16px 0 120px 0;
+}
+
+.select-room .select-items {
+    background-color: #FFF;
+    padding: 8px 16px;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .select-room .select-items select {
+        max-width: 37%;
+        border: none;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .select-room .select-items select {
+        max-width: 20%;
+        border: none;
+    }
+}
+
+/* PC */
+@media only screen and (min-width:1200px) {
+    .select-room .select-items select {
+        max-width: 22%;
+        border: none;
+    }
+}

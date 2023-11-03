@@ -14,7 +14,7 @@ export default function MyDatePicker() {
     const [startDate, setStartDate] = useState(new Date());
 
     return (
-        <div className='categories-wrap d-flex'>
+        <div className='categories-wrap d-flex justify-content-evenly'>
             <div className='row align-items-center justify-content-between w-100'>
                 {titles.map((title, index) => (
                     <div key={index} className='col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-sm-4'>

@@ -1,5 +1,5 @@
 'use client'
-import './globals.css'
+import '@/app/globals.css'
 import { Arima } from 'next/font/google'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppHeader from '@/components/header';
