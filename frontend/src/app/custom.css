@@ -581,6 +581,7 @@ footer .socialsing a {
 .seclect-booking .categories-wrap .row {
     padding: 7px 0;
 }
+
 /* REPONSIVE */
 /* Phones */
 @media only screen and (max-width:576px) {
@@ -647,5 +648,131 @@ footer .socialsing a {
     .select-room .select-items select {
         max-width: 22%;
         border: none;
+    }
+}
+
+
+/* Trong Tri */
+
+.row-home .row {
+    padding-top: 150px
+}
+
+.row-home .row-content-home {
+    padding-top: 124px
+}
+
+.img1-home {
+    width: 100%;
+}
+
+.img2-home {
+    width: 100%;
+    padding-top: 21px;
+}
+
+.color-span-home {
+    color: #AA8453;
+}
+
+.icon-restaurant {
+    color: #E4A853;
+    width: 70.968px;
+    height: 45.101px;
+    margin-right: 17px;
+}
+
+.icon-world {
+    color: #E4A853;
+    width: 52.968px;
+    height: 51.101px;
+    margin-right: 17px;
+}
+
+.color-span-home {
+    margin-top: 20px;
+}
+
+.title-home h2 {
+    font-weight: 600;
+    padding-top: 10px;
+    font-size: 45px;
+    line-height: normal;
+    letter-spacing: 4.5px;
+
+}
+
+.row-content-home p {
+    color: #000;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.row-content-home h3 {
+    display: flex;
+    width: 545px;
+    height: 55px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 3.2px;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .row-content-home {
+        padding-top: 23px !important;
+    }
+
+    .row-home .row-content-home .d-block,
+    .row-home .row-content-home .d-block h3 {
+        max-width: 100%;
+    }
+
+    .row-home .row-content-home .d-block p{
+        margin-top: 22px;
+    }
+
+    .row-content-home .title-home {
+        margin-bottom: 40px;
+    }
+
+    .row-content-home svg {
+        display: none;
+    }
+
+    .row-home .img-home img {
+        width: 100%;
+        height: 50%;
+    }
+
+    .row-home .row {
+        padding-right: unset !important;
+        margin-left: -7px;
+    }
+
+    .row-home .col-6:first-child {
+        display: none;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .img-home img {
+        width: 100%;
+    }
+}
+
+/* PC */
+@media only screen and (min-width:1200px) {
+    .img-home img {
+        width: 90%;
     }
 }
