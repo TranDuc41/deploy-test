@@ -1,9 +1,9 @@
-import '../app/custom.css';
+import '@/app/custom.css';
 import Image from 'next/image'
 import { Container } from 'react-bootstrap'
-import DatePicker from '../components/datePicker'
-import Swiper from '../components/swiper'
-import RoomsSuites from '../components/roomsSuites'
+import DatePicker from '@/components/datePicker'
+import Swiper from '@/components/swiper'
+import RoomsSuites from '@/components/roomsSuites'
 
 export const metadata = {
   title: 'Home Page',

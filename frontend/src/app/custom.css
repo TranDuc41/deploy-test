@@ -549,10 +549,12 @@ footer .socialsing a {
 
 .seclect-booking h5 {
     font-size: 15px;
+    font-weight: 800;
 }
 
 .seclect-booking input {
     width: 136px;
+    color: #666;
     border-radius: unset;
     border: 1px solid #666;
 }
@@ -561,6 +563,7 @@ footer .socialsing a {
     width: 116px;
     border-radius: unset;
     border: unset;
+    color: #666;
 }
 
 .seclect-booking .cate-items .input:last-child {
