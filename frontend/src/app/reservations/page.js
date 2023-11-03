@@ -1,36 +1,34 @@
+'use client'
+//Css #
 import '@/app/reservations/custom-1.css';
 import Image from 'next/image';
 
+//react-bootstrap-icon
 import { Container, Row } from 'react-bootstrap'
 import { FaLink, FaPhoneAlt, FaRegBuilding } from 'react-icons/fa';
 import Form from 'react-bootstrap/Form';
-import BannerBooking from '@/components/selectBooking';
 import React from 'react';
+
+//component
+import BannerBooking from '@/components/selectBooking';
 import ItemRoomKeepBook from '@/components/itemRoomKeepBook';
 
-export const metadata = {
-  title: 'Home Page',
-  description: 'Description bla bla',
-}
-//data
-export default function Home() {
 
+
+export default function Page() {
   return (
     <div className='content'>
       {/* seclect booking */}
       <Container>
-        <Row>
-          <div className='seclect-booking'>
-            <BannerBooking />
-          </div>
+        <Row className='seclect-booking'>
+          <BannerBooking />
         </Row>
       </Container>
       {/* end seclect booking */}
       {/* room seclect booking */}
       <Container>
-        <Row>
-          <div className='room-select'>
-            <div className='select-room'>
+        <Row className='room-select my-3'>
+            <div className='select-room p-0'>
               <h4>Chọn Phòng</h4>
               <div className='select-items text-end'>
                 <h6>Xem kết quả theo</h6>
@@ -43,13 +41,12 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
         </Row>
       </Container>
-       {/* end room seclect booking */}
+      {/* end room seclect booking */}
       {/* Item room keep book */}
       <Container>
-         <ItemRoomKeepBook/>
+        <ItemRoomKeepBook />
       </Container>
       {/* end Item room keep book */}
     </div>

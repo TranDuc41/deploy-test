@@ -103,10 +103,6 @@
 .seclect-booking .categories-wrap .row {
     padding: 7px 0;
 }
-.room-select {
-    padding: 16px 0 120px 0;
-}
-
 .select-room .select-items {
     background-color: #FFF;
     padding: 8px 16px;
@@ -118,38 +114,110 @@
     }
 }
 /* end select Booking */
-/* ttt */
-.thumb-cards_trigger_and_room_info{
+/* item keep room */
+.thumb-cards_trigger_and_room_{
+    margin: 10px 0;
+}
+.thumb-cards_trigger_and_room_info_1{
     display: flex;
 }
-.thumb-cards_trigger_and_room_info .trigger{
+.thumb-cards_trigger_and_room_info_1 .trigger{
     color: #000;
     font-family: Arima Madurai;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    padding: 0 10px;
-    margin: 10px 0;
+    
 }
-.thumb-cards_trigger_and_room_info .trigger.guests_number{
+.thumb-cards_trigger_and_room_info_1 .trigger.guests_number{
     border-right: #000 solid 1px;
+    padding-right: 10px;
+}
+.thumb-cards_trigger_and_room_info_1 .trigger.roomsize_bed{
+    padding-left: 10px;
+}
+.thumb-cards_trigger_and_room_info_2 p{
+    color: #000;
+    font-family: Arima Madurai;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    margin-bottom: 0;
 }
 .thumb-cards_keep_room .thumb-cards_images{
     padding: 20px 0 0 20px;
 }
 .thumb-cards_cardHeader{
-    padding: 20px 5px;
     border-bottom: #AA8453 solid 1px;
+    margin: 20px 20px 0;
 
 }
-.thumb-cards_cardHeader .app_heading_room{
+.app_heading_room{
     color: #AA8453;
     font-family: Inknut Antiqua;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+.thumb-cards_detailsLink button{
+    color: #AA8453;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+.thumb-cards_footer{
+    padding: 20px;
+}
+.thumb-cards_footer .thumb-cards_price{
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.thumb-cards_footer .price-and-nights-text_perNight{
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+.thumb-cards_footer .thumb-cards_taxesFees{
+    color: rgba(0, 0, 0, 0.70);
+    font-family: Inria Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+.thumb-cards_footer .thumb-cards_button .btn-booking{
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    line-height: normal;
+    height: 46px;
+    padding: 5px 25px;
+    background-color: #E4A853;
+    border: 0;
+    margin-top: 15px;
+    
+}
+.thumb-cards_footer .thumb-cards_button .btn-booking:hover{
+    background-color: #ffd79f;
+    
+}
+ .modal-footer .btn-booking{
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    line-height: normal;
+    padding: 5px 25px;
+    background-color: #E4A853;
+    border: 0;
 }
 /*  */
 /* footer reservations */

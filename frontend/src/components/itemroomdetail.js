@@ -1,5 +1,4 @@
 'use client'
-import { useState } from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import Image from "next/image";
 import Card from 'react-bootstrap/Card';
@@ -8,10 +7,6 @@ import Button from 'react-bootstrap/Button';
 import '../app/custom.css'
 
 const ItemContentRoomDetail = ({room}) => {
-    const [index, setIndex] = useState(0);
-    const handleSelect = (selectedIndex, e) => {
-        setIndex(selectedIndex);
-    };
     return (
         <section id="block-dominion-content">
             <Container>

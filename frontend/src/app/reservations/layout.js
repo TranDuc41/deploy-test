@@ -8,19 +8,17 @@ import { Col, Container, Row } from 'react-bootstrap';
 
 const arima = Arima({ subsets: ['latin'] })
 
-export default function RootLayout({ children, summary, showHeader = true}) {
+export default function RootLayout({ children}) {
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className={arima.className}>
-        {showHeader && (
-          <Header/>
-        )}
+      <Header/>
         <Container>
           <Row>
             {/* trong moi thanh phan  children phair goi row*/}
             <Col lg={7}>{children}</Col>
-            <Col  lg={5}>{summary}</Col>
+            <Col  lg={5}></Col>
           </Row>
         </Container>
         <Footer/>
