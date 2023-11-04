@@ -1,12 +1,19 @@
 'use client'
+import { useState } from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import Image from "next/image";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
+import Modal from 'react-bootstrap/Modal';
+import SelectBooking from '@/components/selectBooking';
 import '../app/custom.css'
 
 const ItemContentRoomDetail = ({room}) => {
+     //Modal edit item keep room
+     const [showEdit, setShowEdit] = useState(false);
+
+     const handleCloseEdit = () => setShowEdit(false);
+     const handleShowEdit = () => setShowEdit(true);
     return (
         <section id="block-dominion-content">
             <Container>
@@ -23,7 +30,7 @@ const ItemContentRoomDetail = ({room}) => {
                                 <Card.Subtitle className="mb-2 text-muted text-center">
                                     <del>{room.price.toLocaleString()} vnd</del><span className="room-price">{(room.price - (room.price * room.sale) / 100).toLocaleString()} </span>vnd/mỗi đêm </Card.Subtitle>
                             </Card.Body>
-                            <Card.Footer className="text-muted text-center"><Button className="btn-booking" variant="warning">Đặt phòng</Button></Card.Footer>
+                            <Card.Footer className="text-muted text-center"><Button className="btn-booking" variant="warning" onClick={handleShowEdit}>Đặt phòng</Button></Card.Footer>
                         </Card>
                     </Col>
                     <Col lg={7} className={`card-media`}>
@@ -52,6 +59,19 @@ const ItemContentRoomDetail = ({room}) => {
                     </Col>
                 </Row>
             </Container>
+            <Modal show={showEdit} keyboard={false} backdrop="static" size='lg'>
+                <Modal.Header closeButton>
+                    <Modal.Title>Thông tin đặt phòng </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row className='seclect-booking'>
+                            <SelectBooking />
+                        </Row>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button className="btn-booking text-light" variant="warning" onClick={handleCloseEdit}>Đặt phòng</Button>
+                </Modal.Footer>
+            </Modal>
         </section>
     )
 }

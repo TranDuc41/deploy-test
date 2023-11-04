@@ -63,9 +63,6 @@
     margin-left: 16px;
 }
 
-.seclect-booking {
-    padding-top: 29px; 
-}
 
 .seclect-booking .categories-wrap {
     background-color: #FFF;
@@ -77,7 +74,7 @@
 }
 
 .seclect-booking input {
-    width: 136px;
+    width: 156px;
     color: #666;
     border-radius: unset;
     border: 1px solid #666;
@@ -194,7 +191,7 @@
     font-weight: 300;
     line-height: normal;
 }
-.thumb-cards_footer .thumb-cards_button .btn-booking{
+.thumb-cards_footer .thumb-cards_button .btn-booking {
     color: #FFF;
     text-align: center;
     font-size: 18px;
@@ -220,6 +217,66 @@
     border: 0;
 }
 /*  */
+/* Summary */
+.summary-total-heading{
+    color: #000;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+section#summary .summary-header,.summary-content {
+    border-bottom: rgba(0, 0, 0, 0.50) solid 1px;
+}
+.item-keep_room-date_checkin_checkout{
+    color: #000;
+    font-family: Inria Serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+.accordion-header p{
+    margin-bottom: 0;
+}
+.display-prices, .summary--keep_room_info{
+    justify-content: space-between;
+}
+.summary-total-footer{
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.thumb-cards_button .btn-continue {
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    line-height: normal;
+    height: 46px;
+    padding: 5px 85px;
+    background-color: #E4A853;
+    border: 0;
+    margin-top: 15px;
+    
+}
+.item-keep_room_footer .delete-keep_room{
+    border-right: #000 solid 1px;
+}
+.item-keep_room_footer a{
+    color: #000;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-decoration: none;
+}
+.thumb-cards_button .btn-continue:hover{
+    background-color: #ffd79f;
+    
+}
+/* end Summary */
 /* footer reservations */
 footer#footer-reservations{
     padding: 29px 0;

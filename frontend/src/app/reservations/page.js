@@ -14,13 +14,12 @@ import BannerBooking from '@/components/selectBooking';
 import ItemRoomKeepBook from '@/components/itemRoomKeepBook';
 
 
-
 export default function Page() {
   return (
     <div className='content'>
       {/* seclect booking */}
       <Container>
-        <Row className='seclect-booking'>
+        <Row className='seclect-booking mt-5'>
           <BannerBooking />
         </Row>
       </Container>
@@ -47,6 +46,8 @@ export default function Page() {
       {/* Item room keep book */}
       <Container>
         <ItemRoomKeepBook />
+        <ItemRoomKeepBook />
+        <ItemRoomKeepBook />  
       </Container>
       {/* end Item room keep book */}
     </div>

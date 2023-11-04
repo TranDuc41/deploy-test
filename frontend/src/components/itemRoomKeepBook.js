@@ -11,7 +11,6 @@ import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 //component
-import showModals from '@/components/itemModalKeepRoom';
 import ImageModals from '@/components/bannerroomdetail';
 
 //Data
@@ -124,8 +123,6 @@ function ItemRoomKeepBook() {
                     </div>
                     <div class="thumb-cards_button">
                         <button className="btn-booking" variant="warning">Đặt phòng</button>
-
-
                     </div>
                 </div>
             </Col>
@@ -156,9 +153,12 @@ function ItemRoomKeepBook() {
                                 </div>
                                 <div className="thumb-cards_trigger_and_room_ thumb-cards_trigger_and_room_info_2">
                                     <p><span className="room_area">95 m²</span> | <span className="room_view">View</span></p><br/>
-                                    <p>{room.description}</p>
+                                    
                                 </div>
                             </Col>
+                        </Row>
+                        <Row>
+                            <Col> <p>{room.description}</p></Col>
                         </Row>
                     </Container>
                 </Modal.Body>

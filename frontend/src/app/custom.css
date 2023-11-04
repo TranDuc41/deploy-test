@@ -540,9 +540,6 @@ footer .socialsing a {
     margin-left: 16px;
 }
 
-.seclect-booking {
-    padding-top: 29px;
-}
 
 .seclect-booking .categories-wrap {
     background-color: #FFF;
@@ -554,7 +551,7 @@ footer .socialsing a {
 }
 
 .seclect-booking input {
-    width: 136px;
+    width: 150px;
     color: #666;
     border-radius: unset;
     border: 1px solid #666;
@@ -655,12 +652,12 @@ footer .socialsing a {
 /*  BANNER ROOM DETAIL */
 #banner-room .image-room{
     width: 100%;
-    height: 700px;
+    height: 600px;
     object-fit: cover;
 }
 #banner-room .carousel-item{
-    width: 1440px;
-    height: 700px;
+    width: 100;
+    height: 600px;
     overflow: hidden;
 }
 /*  END BANNER ROOM DETAIL */
