@@ -19,7 +19,7 @@ function IteamKeepRoom() {
     const handleCloseEdit = () => setShowEdit(false);
     const handleShowEdit = () => setShowEdit(true);
     return (
-        <section className="item-keep_room">
+        <section className="item-keep_room py-3">
             <div className="item-keep_room_header mb-5">
                 <div className="item-keep_room-date_checkin_checkout">
                     Ngày 15 tháng 10 năm 2023  - Ngày 17 tháng 10 năm 2023

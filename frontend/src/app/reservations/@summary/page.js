@@ -34,7 +34,7 @@ function Summary() {
           </Row>
         </div>
         <div className="summary-content">
-          <Row className="py-3 ">
+          <Row>
             <ItemKeepRoom />
           </Row>
         </div>

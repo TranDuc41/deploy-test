@@ -225,7 +225,7 @@
     font-weight: 800;
     line-height: normal;
 }
-section#summary .summary-header,.summary-content {
+section#summary .summary-header,.item-keep_room {
     border-bottom: rgba(0, 0, 0, 0.50) solid 1px;
 }
 .item-keep_room-date_checkin_checkout{
