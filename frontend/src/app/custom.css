@@ -736,7 +736,7 @@ footer .socialsing a {
         max-width: 100%;
     }
 
-    .row-home .row-content-home .d-block p{
+    .row-home .row-content-home .d-block p {
         margin-top: 22px;
     }
 
@@ -775,4 +775,32 @@ footer .socialsing a {
     .img-home img {
         width: 90%;
     }
+}
+ /* Contact */
+.contact-page {
+    margin-top: 97px;
+
+}
+
+.contact-form div {
+    margin-bottom: 37px;
+
+}
+
+.contact-form input,
+.contact-form textarea {
+    border: 1px solid #666;
+    border-radius: 8px;
+    background-color: #f2eee7;
+}
+.form-control:focus {
+    background-color: #f2eee7;
+}
+.contact-form div .btn {
+    background-color: #E4A853;
+    border: unset;
+}
+
+.contact-form div .btn {
+    width: 38%;
 }
