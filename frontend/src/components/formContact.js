@@ -34,7 +34,6 @@ function FormContact() {
                     </Col>
                 </Row>
             </Form>
-
         </Container>
     );
 }

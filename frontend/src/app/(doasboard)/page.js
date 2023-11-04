@@ -6,6 +6,7 @@ import Swiper from '@/components/swiper'
 import RoomsSuites from '@/components/roomsSuites'
 import { TbWorld } from 'react-icons/tb'
 import { MdRestaurant } from 'react-icons/Md'
+import { IconBase } from 'react-icons';
 
 export const metadata = {
   title: 'Home Page',
@@ -127,6 +128,40 @@ export default function Home() {
           </div>
           <Swiper />
         </Container>
+      </div>
+      <div className='title-spa'>
+        <Container>
+          <div className='main-title-spa'>
+            <div className='content-wrapper'>
+              <div className='title-spa-top text-center m-auto w-50 mb-5'>
+                <Image
+                  src="/dominion-logo.png"
+                  width={114}
+                  height={90}
+                  alt="Dominion Logo"></Image>
+                <h2 className='text-45'>Sức khỏe & Spa</h2>
+                <span className='text-18'>Chất lượng dịch vụ hàng đầu, nhân viên nhiều năm kinh nghiệm hứa hẹn mang đên trải nghiệm khó quên khi sử dụng.</span>
+              </div>
+            </div>
+          </div>
+        </Container>
+       
+          <div className='spa-introduction'>
+          <div className="container">
+            <div className="row">
+              <div className="content-spa col-12 col-md-6 col-lg-6">
+                <h3>XEM KHÁCH SẠN SANG TRỌNG CỦA CHÚNG TÔI</h3>
+                <h2>Video thực tế</h2>
+                <p>Những không gian, dịch vụ hiện tại của chúng tôi gói gọn trong video giúp bạn có cái nhìn tổng quan hơn.</p>
+                <div><button>Tổng Quan &rarr; </button><IconBase /></div>
+              </div>
+              <div className="video-spa col-12 col-md-6 col-lg-6">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/wjjcYfccDFI?si=xyWqEa9bx4zjdi-H" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </main>
   )

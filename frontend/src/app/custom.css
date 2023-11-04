@@ -776,7 +776,8 @@ footer .socialsing a {
         width: 90%;
     }
 }
- /* Contact */
+
+/* Contact */
 .contact-page {
     margin-top: 97px;
 
@@ -793,9 +794,11 @@ footer .socialsing a {
     border-radius: 8px;
     background-color: #f2eee7;
 }
+
 .form-control:focus {
     background-color: #f2eee7;
 }
+
 .contact-form div .btn {
     background-color: #E4A853;
     border: unset;
@@ -803,4 +806,133 @@ footer .socialsing a {
 
 .contact-form div .btn {
     width: 38%;
+}
+
+
+/* Spa */
+.main-title-spa .content-wrapper h2 {
+    color: #9E853F;
+    font-size: 45px;
+
+}
+
+
+.spa-introduction .row h3 {
+    color: #FFF;
+    font-family: Arima Madurai;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.spa-introduction .row p {
+    color: #FFF;
+    font-family: Arima Madurai;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px
+}
+
+.spa-introduction .row h2 {
+    font-size: 45px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.spa-introduction {
+    background-image: url('/promo-bg 1.png');
+    background-size: cover;
+    padding: 80px 50px;
+}
+
+
+
+.spa-introduction .container .row .video-spa img {
+
+    border-radius: 10px;
+
+}
+
+.spa-introduction .row .content-spa {
+    color: #FFFFFF;
+    margin-top: 35px;
+
+}
+
+.spa-introduction .row button {
+
+    border: 1px solid #AA8453;
+    color: #AA8453;
+    background-color: unset;
+    text-decoration: underline;
+    text-decoration-color: #AA8453;
+    color: #AA8453;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    padding: 9px 30px;
+    margin-top: 17px;
+}
+
+.spa-introduction .row .video-spa {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.spa-introduction .row .video-spa iframe {
+    border-radius: 6px;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .title-spa .main-title-spa .content-wrapper {
+        padding-top: 100px;
+    }
+
+    .main-title-spa .content-wrapper h2 {
+        font-size: 36px;
+    }
+
+    .main-title-spa .content-wrapper span {
+        font-size: 16px;
+    }
+
+    .main-title-spa .content-wrapper .title-spa-top {
+        width: 100% !important;
+    }
+
+    .spa-introduction .row h2 {
+        font-size: 36px;
+
+    }
+
+    .spa-introduction .row button {
+        padding: 13px 11px;
+        margin-bottom: 11%;
+    }
+
+    .spa-introduction .row .video-spa {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .spa-introduction {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .title-spa .main-title-spa {
+        padding-top: 50px;
+    }
 }
