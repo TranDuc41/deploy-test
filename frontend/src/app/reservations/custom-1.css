@@ -1,3 +1,6 @@
+main.content_reservations{
+    padding-top: 0;
+}
 /* header reservations */
 #header-reservations #responsive-navbar-nav .navbar-nav:last-child{
     border-top: 0;

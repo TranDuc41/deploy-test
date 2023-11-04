@@ -13,14 +13,8 @@ export default function RootLayout({ children,summary}) {
     <html lang="en">
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className={arima.className}>
-      <Header/>
-        <Container>
-          <Row>
-            {/* trong moi thanh phan  children phair goi row*/}
-            <Col lg={7}>{children}</Col>
-            <Col  lg={5}>{summary}</Col>
-          </Row>
-        </Container>
+        <Header/>
+        {children}
         <Footer/>
       </body>
     </html>
