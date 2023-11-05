@@ -88,12 +88,13 @@ function ItemRoomKeepBook() {
         <Row className="bg-light thumb-cards_keep_room my-4" key={''}>
             <Col lg={5} className="px-0">
                 <div className="thumb-cards_images">
-                    <Image className=""
+                     <ImageModals images={room.images}/>
+                    {/* <Image className=""
                         src="/ocean-pool-family-villa/Amanoi, Vietnam - Ocean Pool Family Villa, aerial view.jpg"
                         alt=""
                         width={'100%'}
                         height={'auto'}
-                    />
+                    /> */}
                 </div>
             </Col>
             <Col lg={7} className="px-0">
@@ -139,7 +140,7 @@ function ItemRoomKeepBook() {
                     <Container>
                         <Row>
                             <Col>
-                                <ImageModals images={room.images} />
+                                <ImageModals images={room.images}/>
                             </Col>
                             <Col>
                                 <h2 class="app_heading_room">Ocean Pool Villa</h2>

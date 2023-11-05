@@ -78,7 +78,7 @@ const room = {
 export default function RoomSuites() {
     return (
         <main>
-            <Banner images={room.images} />
+            <Banner images={room.images}/>
             <ItemContent room={room} />
             <ItemContentRoomDetail spacerTitle={'Tiện ích'} listContent={room.amenities} />
             <ItemContentRoomDetail spacerTitle={'Thời gian lưu trú của bạn bao gồm'} listContent={room.packages} />

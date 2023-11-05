@@ -24,7 +24,7 @@ function IteamKeepRoom() {
     const handleCloseDE = () => setShowDE(false);
     const handleShowDE = () => setShowDE(true);
     return (
-        <section className="item-keep_room py-3">
+        <section className="item-keep_room pt-3">
             <div className="item-keep_room_header mb-5">
                 <div className="item-keep_room-date_checkin_checkout">
                     Ngày 15 tháng 10 năm 2023  - Ngày 17 tháng 10 năm 2023
@@ -36,7 +36,7 @@ function IteamKeepRoom() {
                     <div className="item-keep_room--guests-night"><span>1 người lớn</span> <span>2 đêm</span></div>
                     <div className="item-keep_room--price_night">70.791.126 vnd</div>
                 </div>
-                <div className="accordion">
+                <div className="accordion text-muted">
                     <div className="accordion-header" onClick={toggleAccordion}>
                         <p>Chi tiết  <RiArrowDropDownLine /></p>
                     </div>
@@ -58,7 +58,7 @@ function IteamKeepRoom() {
                     )}
                 </div>
             </div>
-            <div className="item-keep_room_footer">
+            <div className="item-keep_room_footer pb-3">
                 <a variant="link" className='delete-keep_room pe-2' onClick={handleShowDE}><RiDeleteBinLine /> Xóa</a>
                 <a variant="link" className='edit-keep_room px-2' onClick={handleShow}><RiEditLine /> Sửa</a>
             </div>

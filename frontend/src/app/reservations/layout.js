@@ -8,12 +8,12 @@ import { Col, Container, Row } from 'react-bootstrap';
 
 const arima = Arima({ subsets: ['latin'] })
 
-export default function RootLayout({ children,summary}) {
+export default function RootLayout({ children, showHeader=true}) {
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className={arima.className}>
-        <Header/>
+        {showHeader && (<Header/>)}
         {children}
         <Footer/>
       </body>
