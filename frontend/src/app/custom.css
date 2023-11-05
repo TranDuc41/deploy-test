@@ -775,7 +775,7 @@ footer .socialsing a {
     }
 }
 
-/* Contact */
+/* Contact  - Trong Tri */
 .contact-page {
     margin-top: 97px;
 
@@ -807,7 +807,7 @@ footer .socialsing a {
 }
 
 
-/* Spa */
+/* Spa- Trong Tri */
 .main-title-spa .content-wrapper h2 {
     color: #9E853F;
     font-size: 45px;
@@ -930,38 +930,238 @@ footer .socialsing a {
         background-repeat: no-repeat;
         background-size: cover;
     }
+
     .title-spa .main-title-spa {
         padding-top: 50px;
     }
 }
 
+/* Trọng Tri */
+/* ROOMSUITES */
+
+.SwiperSlide {
+    color: rgb(0, 0, 0);
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    margin: auto;
+}
+
+.roomsuite-main-section {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    border: 2px
+}
+
+.roomsuite-section img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+
+}
+
+.roomsuite-description {
+    padding: 12px 16px;
+    background: #fff;
+}
+
+.room-short-description span,
+.room-short-description h3 {
+    display: block;
+}
+
+.room-short-description span {
+    color: #000000;
+    font-size: 0.7em;
+}
+
+.room-short-description h3 {
+    color: #000000;
+    font-size: 1.2em;
+}
+
+.over-view-button {
+    text-align: center;
+    padding: 10px 0;
+    background: #fff
+}
+
+.over-view-button .btn .overview-btn {
+    font-size: 0.85em;
+    padding: 10px 50px;
+    background-color: #FFF;
+    color: #fff;
+    cursor: pointer;
+    background-color: #E4A853;
+    border: 1px solid #E4A853 !important;
+    border-radius: 10px;
+}
+
+.gold-line {
+    height: 2px;
+    background-color: #E4A853;
+    width: 100%;
+    margin: 16px auto;
+}
+
+.swiper-wrapper {
+    transform: translate3d(0px, 0px, 0px);
+    padding-bottom: 28px;
+}
+
+/* CSS cho màn hình lớn và máy tính để bàn */
+/* CSS phản hồi cho máy tính bảng */
+@media (max-width: 768px) {
+    .SwiperSlide {
+        width: 90%;
+        margin: auto;
+    }
+
+    .roomsuite-description {
+        padding: 10px 14px;
+    }
+
+    .room-short-description h3 {
+        font-size: 1.1em;
+    }
+
+    .over-view-button .btn .overview-btn {
+        padding: 8px 16px;
+    }
+
+    .gold-line {
+        width: 100%;
+        margin: 12px auto;
+    }
+}
+
+/* CSS phản hồi cho điện thoại di động */
+@media (max-width: 480px) {
+    .SwiperSlide {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .roomsuite-description {
+        padding: 8px 12px;
+    }
+
+    .room-short-description h3 {
+        font-size: 1em;
+    }
+
+    .over-view-button .btn .overview-btn {
+        padding: 6px 12px;
+    }
+
+    .gold-line {
+        width: 100%;
+        margin: 8px auto;
+    }
+}
+
+/* Map - Trong Tri*/
+.map-content {
+    width: 100%;
+    height: 500px;
+    margin: 0 auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px solid transparent;
+    ;
+    position: relative;
+}
+
+.map-container .map-content iframe {
+    width: 100%;
+    height: 100%;
+
+}
+
+.map-container {
+    margin: 7% 4%;
+}
+
+.contact-page .map-container {
+    margin-top: 15rem;
+}
+
+.contact-page .map-container {
+    margin-top: -2rem;
+}
+
+/* CSS phản hồi cho điện thoại di động */
+@media (max-width: 767px) {
+    .map-content {
+        height: 400px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 8px solid transparent;
+        ;
+        position: relative;
+    }
+
+
+}
+
+/* CSS phản hồi cho máy tính bảng */
+@media (min-width: 768px) and (max-width: 991px) {
+    .map-content {
+        height: 400px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 8px solid transparent;
+        ;
+        position: relative;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /* Lan Anh */
 /* Lan anh */
 /*  BANNER ROOM DETAIL */
-#banner-room .image-room{
+#banner-room .image-room {
     width: 100%;
     height: 600px;
     object-fit: cover;
 }
-#banner-room .carousel-item{
+
+#banner-room .carousel-item {
     width: 100;
     height: 600px;
     overflow: hidden;
 }
+
 /*  END BANNER ROOM DETAIL */
 /* ITEM CONTENT ROOM DETAIL */
 
-#block-dominion-content{
-    margin : 60px 0;
+#block-dominion-content {
+    margin: 60px 0;
 }
-#block-dominion-content .room-price{
+
+#block-dominion-content .room-price {
     color: #E4A853;
     margin-left: 10px;
 }
-#block-dominion-content .card-header{
+
+#block-dominion-content .card-header {
     padding-left: 0;
-    border-bottom : 0;  
+    border-bottom: 0;
     background-color: #f3eee7;
     color: #666;
     font-family: Inika;
@@ -972,12 +1172,14 @@ footer .socialsing a {
     letter-spacing: 7.5px;
     text-transform: uppercase;
 }
-#block-dominion-content .card{
-    border : 0;
+
+#block-dominion-content .card {
+    border: 0;
     background-color: #f3eee7;
     color: #666666;
 }
-#block-dominion-content .card-title{
+
+#block-dominion-content .card-title {
     color: #AA8453;
     font-family: Inria Serif;
     font-size: 30px;
@@ -985,18 +1187,21 @@ footer .socialsing a {
     font-weight: 500;
     line-height: normal;
 }
-#block-dominion-content .card-text{
+
+#block-dominion-content .card-text {
     padding-right: 59px;
     text-align: justify;
     margin-bottom: 50px;
     font-size: 16px;
 }
-#block-dominion-content .card-footer{
-    border-top : 0;  
+
+#block-dominion-content .card-footer {
+    border-top: 0;
     background-color: #f3eee7;
-    
+
 }
-#block-dominion-content .card-footer .btn-booking{
+
+#block-dominion-content .card-footer .btn-booking {
     color: #FFF;
     text-align: center;
     font-size: 18px;
@@ -1004,92 +1209,110 @@ footer .socialsing a {
     width: 155.433px;
     height: 46px;
     background-color: #E4A853;
-    
+
 }
-#block-dominion-content .card-footer .btn-booking:hover{
+
+#block-dominion-content .card-footer .btn-booking:hover {
     background-color: #e78d0f;
-    
+
 }
-#block-dominion-content .card-media{
+
+#block-dominion-content .card-media {
     display: flex;
     margin-top: 55px;
-  }
-#block-dominion-content .card-media-item-2{
+}
+
+#block-dominion-content .card-media-item-2 {
     margin-top: 10rem;
 }
+
 /* END ITEM CONTENT ROOM DETAIL */
 /* TAB CONTENT ROOM DETAIL */
-section.spacer{
-    margin : 100px 0;
+section.spacer {
+    margin: 100px 0;
 }
-section.spacer header.heading-h{
+
+section.spacer header.heading-h {
     color: #000;
     font-size: 25px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
 }
-section.spacer ul.grid-list{
+
+section.spacer ul.grid-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 26px 40px;
     background-color: #fff;
 }
-section.spacer ul.grid-list li{
+
+section.spacer ul.grid-list li {
     width: calc(33.33% - 10px);
     margin: 5px;
     padding-right: 20px;
 
 }
+
 /* END TAB CONTENT ROOM DETAIL */
 /* REPONSIVE ROOM DETAIL */
 /* Phones */
 @media only screen and (max-width:576px) {
-    #banner-room .carousel-item{
+    #banner-room .carousel-item {
         width: 100%;
         height: 100%;
         overflow: auto;
     }
-    #banner-room .image-room{
+
+    #banner-room .image-room {
         width: 100%;
         height: auto;
     }
-    #block-dominion-content{
-        margin : 20px 0;
+
+    #block-dominion-content {
+        margin: 20px 0;
     }
-    #block-dominion-content .card-text{
+
+    #block-dominion-content .card-text {
         padding-right: 0;
         text-align: justify;
         margin-bottom: 50px;
         font-size: 16px;
     }
-    #block-dominion-content .card-media{
+
+    #block-dominion-content .card-media {
         display: flex;
         margin-top: 55px;
-      }
-    #block-dominion-content .card-media-item-1{
+    }
+
+    #block-dominion-content .card-media-item-1 {
         width: 50%;
     }
-    #block-dominion-content .card-media-item-2{
+
+    #block-dominion-content .card-media-item-2 {
         margin-top: 0;
         width: 50%;
     }
-    #block-dominion-content img{
+
+    #block-dominion-content img {
         width: 100%;
         height: auto;
     }
-    section.spacer{
-        margin : 50px 0;
+
+    section.spacer {
+        margin: 50px 0;
     }
-    section.spacer ul.grid-list{
+
+    section.spacer ul.grid-list {
         display: block;
         flex-wrap: wrap;
         justify-content: space-between;
         padding: 26px 40px;
         background-color: #fff;
     }
-    section.spacer ul.grid-list li{
+
+    section.spacer ul.grid-list li {
         width: 100%;
         margin: 5px;
         padding-right: 20px;
@@ -1097,54 +1320,65 @@ section.spacer ul.grid-list li{
 }
 
 @media only screen and (min-width:768px) and (max-width: 992px) {
-    #banner-room .carousel-item{
+    #banner-room .carousel-item {
         width: 100%;
         height: 100%;
         overflow: auto;
     }
-    #banner-room .image-room{
+
+    #banner-room .image-room {
         width: 100%;
         height: auto;
     }
-    #block-dominion-content{
-        margin : 20px 0;
+
+    #block-dominion-content {
+        margin: 20px 0;
     }
-    #block-dominion-content .card-text{
+
+    #block-dominion-content .card-text {
         padding-right: 0;
         text-align: justify;
         margin-bottom: 50px;
         font-size: 16px;
     }
-    #block-dominion-content .card-media{
+
+    #block-dominion-content .card-media {
         display: flex;
         margin-top: 55px;
-      }
-      #block-dominion-content .card-media-item-1{
+    }
+
+    #block-dominion-content .card-media-item-1 {
         width: 50%;
     }
-    #block-dominion-content .card-media-item-2{
+
+    #block-dominion-content .card-media-item-2 {
         margin-top: 0;
         width: 50%;
     }
-    #block-dominion-content img{
+
+    #block-dominion-content img {
         width: 100%;
         height: auto;
     }
-    section.spacer{
-        margin : 50px 0;
+
+    section.spacer {
+        margin: 50px 0;
     }
-    section.spacer ul.grid-list{
+
+    section.spacer ul.grid-list {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         padding: 26px 40px;
         background-color: #fff;
     }
-    section.spacer ul.grid-list li{
+
+    section.spacer ul.grid-list li {
         width: calc(50% - 10px);
         margin: 5px;
         padding-right: 20px;
-    
+
     }
 }
+
 /* END REPONSIVE ROOM DETAIL */

@@ -1,4 +1,5 @@
-import styles from '@/app/page.module.css'
+import { Container } from 'react-bootstrap'
+import Room from '@/components/roomSuites'
 
 export const metadata = {
   title: 'Room & Suites Page',
@@ -7,8 +8,10 @@ export const metadata = {
 
 export default function RoomSuites() {
   return (
-    <main className={styles.main}>
-      <h1>Room & Suites Page</h1>
+    <main>
+      <Container>
+        <Room/>
+      </Container>
     </main>
   )
 }

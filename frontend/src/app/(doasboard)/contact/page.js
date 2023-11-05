@@ -2,6 +2,7 @@ import '@/app/custom.css';
 import { Container } from 'react-bootstrap'
 import { LuMapPin, LuMail, LuPhone } from 'react-icons/lu';
 import FormContact from '@/components/formContact';
+import GoogleMap from '@/components/map';
 
 export const metadata = {
   title: 'Contact Page',
@@ -39,7 +40,9 @@ export default function Contact() {
               <FormContact/>
             </div>
           </div>
+          <div className='map-container'><GoogleMap /></div>
         </Container>
+       
       </div>
     </main>
   )
