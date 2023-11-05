@@ -1,0 +1,290 @@
+main.content_reservations{
+    padding-top: 0;
+}
+/* header reservations */
+#header-reservations #responsive-navbar-nav .navbar-nav:last-child{
+    border-top: 0;
+
+}
+#header-reservations #responsive-navbar-nav .navbar-nav a{
+    color: #AA8453;
+    text-align: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 50px;
+}
+.logo {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding-right: 30px;
+    border-right: #AA8453 solid 1px;
+}
+/* banner */
+.banner-booking {
+    background-image: url('/banner-booking.png');
+    position: relative;
+    background-size: cover;
+    padding-top: 118px;
+}
+
+.banner-booking .address-booking {
+    padding: 16px 58px;
+}
+
+.banner-booking .address-booking .address {
+    margin-left: 16px;
+    line-height: 36px;
+}
+/* end header reservations */
+/* Select Booking */
+.address-booking {
+    background-color: rgba(255, 255, 255, 0.70);
+    width: 550px;
+}
+
+.banner-booking {
+    background-image: url('/banner-booking.png');
+    position: relative;
+    background-size: cover;
+    padding-top: 118px;
+}
+
+.banner-booking .address-booking {
+    padding: 16px 58px;
+}
+
+.banner-booking .address-booking .address {
+    margin-left: 16px;
+    line-height: 36px;
+}
+
+.address-booking .address div span {
+    margin-left: 16px;
+}
+
+
+.seclect-booking .categories-wrap {
+    background-color: #FFF;
+}
+
+.seclect-booking h5 {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.seclect-booking input {
+    width: 156px;
+    color: #666;
+    border-radius: unset;
+    border: 1px solid #666;
+}
+
+.seclect-booking select {
+    width: 116px;
+    height: 35px;
+    border-radius: unset;
+    border: unset;
+    color: #666;
+}
+
+.seclect-booking .cate-items .input:last-child {
+    border: 1px solid #666;
+    align-items: center;
+    padding: 0 6px;
+}
+
+.form-select:focus {
+    border-color: unset;
+    box-shadow: unset;
+}
+.seclect-booking .categories-wrap .row {
+    padding: 7px 0;
+}
+.select-room .select-items {
+    background-color: #FFF;
+    padding: 8px 16px;
+}
+.select-room .select-items .justify-content-end{
+    width: 20%;
+    margin-left: auto;
+}
+@media only screen and (min-width:1200px) {
+    .select-room .select-items select {
+        /* max-width: 22%; */
+        border: none;
+    }
+}
+/* end select Booking */
+/* item keep room */
+.thumb-cards_trigger_and_room_{
+    margin: 10px 0;
+}
+.thumb-cards_trigger_and_room_info_1{
+    display: flex;
+}
+.thumb-cards_trigger_and_room_info_1 .trigger{
+    color: #000;
+    font-family: Arima Madurai;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    
+}
+.thumb-cards_trigger_and_room_info_1 .trigger.guests_number{
+    border-right: #000 solid 1px;
+    padding-right: 10px;
+}
+.thumb-cards_trigger_and_room_info_1 .trigger.roomsize_bed{
+    padding-left: 10px;
+}
+.thumb-cards_trigger_and_room_info_2 p{
+    color: #000;
+    font-family: Arima Madurai;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    margin-bottom: 0;
+}
+.thumb-cards_keep_room .thumb-cards_images{
+    padding: 20px 0 0 20px;
+}
+.thumb-cards_cardHeader{
+    border-bottom: #AA8453 solid 1px;
+    margin: 20px 20px 0;
+
+}
+.app_heading_room{
+    color: #AA8453;
+    font-family: Inknut Antiqua;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.thumb-cards_detailsLink button{
+    color: #AA8453;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+.thumb-cards_footer{
+    padding: 20px;
+}
+.thumb-cards_footer .thumb-cards_price{
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.thumb-cards_footer .price-and-nights-text_perNight{
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+.thumb-cards_footer .thumb-cards_taxesFees{
+    color: rgba(0, 0, 0, 0.70);
+    font-family: Inria Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+.thumb-cards_footer .thumb-cards_button .btn-booking {
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    line-height: normal;
+    padding: 10px 25px;
+    background-color: #E4A853;
+    border: 0;
+    margin-top: 15px;
+    
+}
+.thumb-cards_footer .thumb-cards_button .btn-booking:hover{
+    background-color: #ffd79f;
+    
+}
+ .modal-footer .btn-booking{
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    line-height: normal;
+    padding: 10px 25px;
+    background-color: #E4A853;
+    border: 0;
+}
+/*  */
+/* Summary */
+.summary-total-heading{
+    color: #000;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+.item-keep_room-date_checkin_checkout{
+    color: #000;
+    font-family: Inria Serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+.accordion-header p{
+    margin-bottom: 0;
+}
+.display-prices, .summary--keep_room_info{
+    justify-content: space-between;
+}
+.summary-total-footer{
+    color: #000;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.thumb-cards_button .btn-continue {
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    line-height: normal;
+    padding: 10px 85px;
+    background-color: #E4A853;
+    border: 0;
+    margin-top: 15px;
+    
+}
+.item-keep_room_footer, .summary-header{
+    border-bottom: rgba(0, 0, 0, 0.50) solid 1px;
+}
+.item-keep_room_footer .delete-keep_room{
+    border-right: #000 solid 1px;
+}
+.item-keep_room_footer a{
+    color: #000;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-decoration: none;
+}
+.thumb-cards_button .btn-continue:hover{
+    background-color: #ffd79f;
+    
+}
+/* end Summary */
+/* footer reservations */
+footer#footer-reservations{
+    padding: 29px 0;
+}
+/* end footer reservations */

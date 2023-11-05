@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from 'react-icons/fa';
 
-function BannerBooking() {
+function SelectBooking() {
     const [startDate, setStartDate] = useState(new Date());
 
     return (
@@ -27,7 +27,7 @@ function BannerBooking() {
                         />
                     </div>
                 </div>
-                <div className='col-6 col-md-3'>
+                <div className='col-6 col-md-3 my-1'>
                     <div className='cate-items'>
                         <h5>Ngày Trả</h5>
                         <DatePicker
@@ -79,4 +79,4 @@ function BannerBooking() {
     );
 }
 
-export default BannerBooking;
+export default SelectBooking;
