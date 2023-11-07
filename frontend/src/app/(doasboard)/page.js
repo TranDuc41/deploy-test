@@ -8,6 +8,8 @@ import { TbWorld } from 'react-icons/tb'
 import { MdRestaurant } from 'react-icons/Md'
 import { IconBase } from 'react-icons';
 import GoogleMap from '@/components/map';
+import RestaurantsPage from '@/components/restaurant';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Home Page',
@@ -130,6 +132,37 @@ export default function Home() {
           <Swiper />
         </Container>
       </div>
+
+
+
+
+
+
+      <div className='restaurant pt-5 pb-5'>
+        <Container>
+          <div className='content-restaurant'>
+            <div className='restaurant-top'>
+              <Image src="/dominion-logo.png"
+                width={90}
+                height={66}
+                alt="Dominion Logo">
+              </Image>
+              <h2 className='text-45'>Nhà Hàng</h2>
+              <span className='text-18'>Các dịch vụ, món ăn chuẩn 5 sao với nhiều lựa chọn giúp bạn cảm nhận được nhiều hương vị mới lạ mỗi ngày.</span>
+            </div>
+            <div className='restaurant-bottom'>
+              <div className='restaurant-img'>
+                <RestaurantsPage />
+              </div>
+            </div>
+            <Link className='loadmore' href="/loadmore">
+              <span className="text">Xem Thêm</span>
+              <span className="arrow">&rarr;</span>
+            </Link>
+          </div>
+        </Container>
+      </div>
+
       <div className='title-spa'>
         <Container>
           <div className='main-title-spa'>

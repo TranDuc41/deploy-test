@@ -1121,6 +1121,213 @@ footer .socialsing a {
     }
 }
 
+/* TRONG TRI */
+/* RESTAURANT */
+.restaurant {
+    background-color: #fff;
+}
+
+.content-restaurant .restaurant-top {
+    text-align: center;
+    padding: 0 26px;
+}
+
+.content-restaurant .restaurant-top h2 {
+    color: #9B833D;
+    text-align: center;
+    font-family: Arima Madurai;
+    font-size: 45px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 9px;
+}
+
+.content-restaurant .restaurant-top image {
+    width: 114px;
+    height: 103px;
+
+}
+
+.content-restaurant .restaurant-top span {
+    color: #666;
+    text-align: center;
+    font-family: Arima Madurai;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/* Restaurant-page home - Trong Tri */
+.restaurant-module {
+    margin: 7% 6%;
+}
+
+.image-container img {
+    width: 100%;
+    display: block;
+}
+
+.text-container {
+    background: #fff;
+    padding: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+    padding: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 100%;
+}
+
+.text-container h5,
+.text-container h3,
+.text-container p {
+    margin: 0 0 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+}
+
+.text-container a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #666 !important;
+    font-family: Inria Sans;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 3.6px;
+    text-decoration-line: underline;
+    margin-top: 10px;
+}
+
+.text-container a:hover {
+    text-decoration: underline;
+}
+
+.image-container img {
+    width: 394px;
+    height: 499px;
+    flex-shrink: 0;
+}
+
+.restaurant-module .text-container .text-uppercase {
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #666;
+    font-family: Inika;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 3.9px;
+    text-transform: uppercase;
+}
+
+.restaurant-module .text-container h3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #AA8453;
+    font-family: Inria Serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.restaurant-module .text-container p {
+    color: #000;
+    font-family: Inria Serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.restaurant-module .text-container a {
+    margin-top: 3px;
+}
+
+/* CSS cho màn hình tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .restaurant-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .restaurant-row .restaurant-module {
+        margin-bottom: 20px;
+    }
+
+    .restaurant-row .restaurant-module:nth-child(3) {
+        flex: 0 0 100% !important;
+        max-width: 100%;
+        order: 2;
+    }
+}
+
+/* CSS cho màn hình điện thoại */
+@media (max-width: 767.98px) {
+    .restaurant-row .restaurant-module {
+        flex: 0 0 100%;
+        margin-bottom: 20px;
+    }
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.restaurant .content-restaurant .loadmore {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    display: block;
+    color: #AA8453;
+    font-family: Arima Madurai;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 5px;
+    text-decoration: none; 
+    display: inline-flex; 
+    align-items: center; 
+}
+
+.restaurant .content-restaurant .loadmore .text {
+    text-decoration: underline; 
+  }
+  
+.restaurant .content-restaurant  .loadmore .arrow {
+    margin-left: 8px; 
+  }
+
+
+
+
+
+
+
+
+
+
 
 
 
