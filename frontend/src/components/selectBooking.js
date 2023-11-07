@@ -27,7 +27,7 @@ function SelectBooking() {
                         />
                     </div>
                 </div>
-                <div className='col-6 col-md-3'>
+                <div className='col-6 col-md-3 my-1'>
                     <div className='cate-items'>
                         <h5>Ngày Trả</h5>
                         <DatePicker

@@ -12,7 +12,7 @@ const BannerCarousel = ({ images }) => {
         <section id="banner-room">
             <Carousel activeIndex={index} onSelect={handleSelect} indicators={false}>
                 {images.map((item) => (
-                    <Carousel.Item key={item.img_id} interval={1000} className=''>
+                    <Carousel.Item key={item.img_id} interval={3000} className=''>
                         <Image className="image-room"
                             src={item.imageUrl}
                             alt={item.alt}

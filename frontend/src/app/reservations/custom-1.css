@@ -1,3 +1,6 @@
+main.content_reservations{
+    padding-top: 0;
+}
 /* header reservations */
 #header-reservations #responsive-navbar-nav .navbar-nav:last-child{
     border-top: 0;
@@ -82,6 +85,7 @@
 
 .seclect-booking select {
     width: 116px;
+    height: 35px;
     border-radius: unset;
     border: unset;
     color: #666;
@@ -104,9 +108,13 @@
     background-color: #FFF;
     padding: 8px 16px;
 }
+.select-room .select-items .justify-content-end{
+    width: 20%;
+    margin-left: auto;
+}
 @media only screen and (min-width:1200px) {
     .select-room .select-items select {
-        max-width: 22%;
+        /* max-width: 22%; */
         border: none;
     }
 }
@@ -196,8 +204,7 @@
     text-align: center;
     font-size: 18px;
     line-height: normal;
-    height: 46px;
-    padding: 5px 25px;
+    padding: 10px 25px;
     background-color: #E4A853;
     border: 0;
     margin-top: 15px;
@@ -212,7 +219,7 @@
     text-align: center;
     font-size: 18px;
     line-height: normal;
-    padding: 5px 25px;
+    padding: 10px 25px;
     background-color: #E4A853;
     border: 0;
 }
@@ -224,9 +231,6 @@
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-}
-section#summary .summary-header,.summary-content {
-    border-bottom: rgba(0, 0, 0, 0.50) solid 1px;
 }
 .item-keep_room-date_checkin_checkout{
     color: #000;
@@ -254,12 +258,14 @@ section#summary .summary-header,.summary-content {
     text-align: center;
     font-size: 18px;
     line-height: normal;
-    height: 46px;
-    padding: 5px 85px;
+    padding: 10px 85px;
     background-color: #E4A853;
     border: 0;
     margin-top: 15px;
     
+}
+.item-keep_room_footer, .summary-header{
+    border-bottom: rgba(0, 0, 0, 0.50) solid 1px;
 }
 .item-keep_room_footer .delete-keep_room{
     border-right: #000 solid 1px;
