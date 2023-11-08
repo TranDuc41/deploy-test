@@ -11,6 +11,7 @@ import GoogleMap from '@/components/map';
 import RestaurantsPage from '@/components/restaurant';
 import Link from 'next/link';
 
+
 export const metadata = {
   title: 'Home Page',
   description: 'Description bla bla',
@@ -70,6 +71,7 @@ export default function Home() {
               </div>
               <div className="col-12 col-sm-6">
                 <div className='img-home'><Image src="/Amanoi_Gallery_3.jpg"
+                  priority
                   width={269}
                   height={493}
                   alt="">
