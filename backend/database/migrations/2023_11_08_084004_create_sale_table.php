@@ -14,17 +14,13 @@ return new class extends Migration
         Schema::create('sale', function (Blueprint $table) {
             $table->bigIncrements('sale_id');
             $table->integer('discount');
-            $table->unsignedBigInteger('room_id');
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
-            $table->unsignedBigInteger('ad_id');
+            $table->timestamp('start_date')->nullable()->useCurrent(); 
+            $table->timestamp('end_date')->nullable()->useCurrent();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
-            // Liên kết với bảng 'rooms' qua trường 'room_id'
-            $table->foreign('room_id')->references('room_id')->on('rooms')->onDelete('cascade');
-
-             // Liên kết với bảng 'admin' qua trường 'ad_id'
-             $table->foreign('ad_id')->references('ad_id')->on('admin')->onDelete('cascade');
+            // Liên kết với bảng 'users' qua trường 'user_id'
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 
