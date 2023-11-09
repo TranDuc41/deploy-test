@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,39 +14,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', function () {
+        return view('dashboard');
+    });
+
+    Route::get('/rooms', function () {
+        return view('rooms');
+    })->name('rooms');
+
+    Route::get('/images', function () {
+        return view('image');
+    })->name('images');
+
+    Route::get('/users', function () {
+        return view('users');
+    })->name('users');
 });
-Route::get('/tables', function () {
-    return view('tables');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/billing', function () {
-    return view('billing');
-});
-Route::get('/images', function () {
-    return view('image');
-});
-Route::get('/users', function () {
-    return view('users');
-});
-Route::get('/rooms', function () {
-    return view('rooms');
-});
-Route::get('/edit-room', function () {
-    return view('editRoom');
-});
-Route::get('/virtual-reality', function () {
-    return view('virtual-reality');
-});
-Route::get('/rtl', function () {
-    return view('rtl');
-});
-Route::get('/profile', function () {
-    return view('profile');
-});
-Route::get('/sign-in', function () {
-    return view('sign-in');
-});
-Route::get('/sign-up', function () {
-    return view('sign-up');
-});
+
+require __DIR__ . '/auth.php';
