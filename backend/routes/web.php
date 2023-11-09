@@ -22,6 +22,18 @@ Route::get('/tables', function () {
 Route::get('/billing', function () {
     return view('billing');
 });
+Route::get('/images', function () {
+    return view('image');
+});
+Route::get('/users', function () {
+    return view('users');
+});
+Route::get('/rooms', function () {
+    return view('rooms');
+});
+Route::get('/edit-room', function () {
+    return view('editRoom');
+});
 Route::get('/virtual-reality', function () {
     return view('virtual-reality');
 });
