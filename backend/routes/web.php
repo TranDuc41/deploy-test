@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +28,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('image');
     })->name('images');
 
-    Route::get('/users', function () {
-        return view('users');
-    })->name('users');
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/create', [UserController::class, 'create']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+
+    // Route::post('/items', [UserController::class, 'store']);
+    // Route::get('/items/{id}/edit', [UserController::class, 'edit']);
+    // Route::put('/items/{id}', [UserController::class, 'update']);
+    // Route::delete('/items/{id}', [UserController::class, 'destroy']);
 });
 
 Route::middleware('auth')->group(function () {

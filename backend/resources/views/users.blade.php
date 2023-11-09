@@ -52,6 +52,23 @@
             </div>
         </div>
         <div class="row mt-4">
+            @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span class="alert-text text-white"><strong>Success!</strong> {{ session('success') }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+
+            @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="alert-text text-white"><strong>Danger!</strong> {{ session('error') }}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-6">
                     <button class="btn btn-icon btn-3 btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addNewUser">
@@ -77,41 +94,42 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($results as $result)
                             <tr>
                                 <td>
                                     <div class="d-flex px-2 py-1">
-                                        <div>
-                                            <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/team-2.jpg" class="avatar avatar-sm me-3">
-                                        </div>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-xs">John Michael</h6>
-                                            <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                                            <h6 class="mb-0 text-xs">{{ $result->name }}</h6>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                    <p class="text-xs text-secondary mb-0">Organization</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $result->email }}</p>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">User</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $result->uesr_type }}</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">Hoạt Động</span>
+                                    @if($result->active == 0)
+                                    <span class="text-success text-xs font-weight-bold">Hoạt động</span>
+                                    @else
+                                    <span class="text-danger text-xs font-weight-bold">Đang khóa</span>
+                                    @endif
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">23/04/2018</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $result->created_at }}</span>
                                 </td>
                                 <td class="align-middle">
                                     <div class="col-md-4">
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn bg-gradient-warning btn-block mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalMessage">
+                                        <button type="button" data-user-id="{{ $result->user_id }}" class="editButton btn bg-gradient-warning btn-block mb-3" data-bs-toggle="modal" data-bs-target="#Modal-Edit-User">
                                             Edit
                                         </button>
                                         <button type="button" class="btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete</button>
                                     </div>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -143,7 +161,7 @@
         </div>
 
         <!-- Modal Edit-->
-        <div class="modal fade" id="exampleModalMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+        <div class="modal fade" id="Modal-Edit-User" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -153,28 +171,30 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="user-form" action="/users/" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="user-name" class="col-form-label">User Name:</label>
-                                <input type="text" class="form-control" id="user-name" require>
+                                <input type="text" class="form-control" id="user-name" name="user-name" require>
                             </div>
                             <div class="form-group">
                                 <label for="user-email" class="col-form-label">Email:</label>
-                                <input type="email" class="form-control" id="user-email" require>
+                                <input type="email" class="form-control" id="user-email" name="user-email" require>
                             </div>
                             <div class="form-group">
                                 <label for="Select-role" class="col-form-label">Vai Trò</label>
-                                <select class="form-control" id="Select-role">
-                                    <option>User</option>
-                                    <option>Admin</option>
-                                    <option>Supper Admin</option>
+                                <select class="form-control" id="Select-role" name="Select-role">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="sp-admin">Supper Admin</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="Select-active" class="col-form-label">Trạng Thái</label>
-                                <select class="form-control" id="Select-active">
-                                    <option>Cấm</option>
-                                    <option>Hoạt Động</option>
+                                <select class="form-control" id="Select-active" name="Select-active">
+                                    <option value="1">Cấm</option>
+                                    <option value="0">Hoạt Động</option>
                                 </select>
                             </div>
                             <div class="modal-footer">
@@ -198,39 +218,39 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="/users/create">
                             <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">User Name:</label>
-                                <input type="text" class="form-control" id="recipient-name">
+                                <label for="name" class="col-form-label">User Name:</label>
+                                <input type="text" class="form-control" id="name" name="name-user" value="{{ old('name-user') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="recipient-email" class="col-form-label">Email:</label>
-                                <input class="form-control" id="recipient-email"></input>
+                                <label for="user-email" class="col-form-label">Email:</label>
+                                <input type="email" class="form-control" id="user-email" name="email-user" value="{{ old('email-user') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="recipient-email" class="col-form-label">Mật Khẩu:</label>
-                                <input class="form-control" id="recipient-email"></input>
+                                <label for="user-pass" class="col-form-label">Mật Khẩu:</label>
+                                <input type="text" class="form-control" id="user-pass" name="pass-user" value="{{ old('pass-user') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlSelect2" class="col-form-label">Vai Trò</label>
-                                <select class="form-control" id="exampleFormControlSelect2">
-                                    <option>User</option>
-                                    <option>Admin</option>
-                                    <option>Supper Admin</option>
+                                <label for="type" class="col-form-label">Vai Trò</label>
+                                <select class="form-control" id="type" name="type" required>
+                                    <option value="user" {{ old('type') == 'user' ? 'selected' : '' }}>User</option>
+                                    <option value="admin" {{ old('type') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="s-admin" {{ old('type') == 's-admin' ? 'selected' : '' }}>Supper Admin</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlSelect2" class="col-form-label">Trạng Thái</label>
-                                <select class="form-control" id="exampleFormControlSelect2">
-                                    <option>Cấm</option>
-                                    <option>Hoạt Động</option>
+                                <label for="active-user" class="col-form-label">Trạng Thái</label>
+                                <select class="form-control" id="active-user" name="active-user" required>
+                                    <option value="1" {{ old('active-user') == '1' ? 'selected' : '' }}>Cấm</option>
+                                    <option value="0" {{ old('active-user') == '0' ? 'selected' : '' }}>Hoạt Động</option>
                                 </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn bg-gradient-primary">Sửa</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn bg-gradient-primary">Sửa</button>
                     </div>
                 </div>
             </div>
@@ -337,6 +357,8 @@
     </div>
 </div>
 <!--   Core JS Files   -->
+<!-- JS -->
+<script src="/js/app.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
