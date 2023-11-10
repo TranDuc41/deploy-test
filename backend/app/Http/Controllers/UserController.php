@@ -13,8 +13,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $results = DB::table('users')->get();
-        return view('users', compact('results'));
+        $results = DB::table('users')->whereNull('deleted_at')->get();
+        $totalUsers = DB::table('users')->whereNull('deleted_at')->count();
+        return view('users', compact('results', 'totalUsers'));
     }
 
     public function create(Request $request)
@@ -24,7 +25,6 @@ class UserController extends Controller
             'email-user' => 'required|email|max:55',
             'pass-user' => 'required|max:255',
             'type' => 'required|max:11',
-            'active-user' => 'required|numeric|max:10',
         ]);
 
         if ($validator->fails()) {
@@ -41,15 +41,21 @@ class UserController extends Controller
             return redirect('users')->with('error', 'Người dùng với địa chỉ email này đã tồn tại.')->withInput();
         }
 
-        // Người dùng chưa tồn tại, tiếp tục thêm người dùng mới vào cơ sở dữ liệu
         $currentDateTime = now();
+
+        $requestedType = $request->input('type');
+        // kiểm tra xem giá trị của '$request->input('type')' có tồn tại trong mảng
+        if (!in_array($requestedType, ['staff', 'admin', 'sp-admin'])) {
+            
+            return redirect()->back()->with('error', 'Vai trò không hợp lệ!');
+        }
 
         DB::table('users')->insert([
             'name' => $request->input('name-user'),
             'email' => $request->input('email-user'),
             'password' => Hash::make($request->input('pass-user')),
-            'user_type' => $request->input('type'),
-            'active' => $request->input('active-user'),
+            'uesr_type' => $requestedType,
+            'active' => 0,
             'created_at' => $currentDateTime,
         ]);
 
@@ -63,7 +69,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $result = DB::table('users')->select('name', 'email', 'uesr_type', 'active')->where('user_id', '=', $id)->first();
+        $result = DB::table('users')->select('name', 'email', 'uesr_type')->where('user_id', '=', $id)->first();
         return response()->json($result);
     }
 
@@ -88,19 +94,50 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Email đã tồn tại.');
         }
 
+        $requestedType = $request->input('Select-role');
+        // kiểm tra xem giá trị của '$request->input('Select-role')' có tồn tại trong mảng
+        if (!in_array($requestedType, ['staff', 'admin', 'sp-admin'])) {
+
+            return redirect()->back()->with('error', 'Vai trò không hợp lệ!');
+        }
+
         // Cập nhật thông tin user
         $user->name = $request->input('user-name');
         $user->email = $request->input('user-email');
-        $user->uesr_type = $request->input('Select-role');
-        $user->active = $request->input('Select-active');
+        $user->uesr_type = $requestedType;
         $user->save();
 
         // Xử lý logic thành công
         return redirect()->route('users')->with('success', 'Dữ liệu đã được cập nhật thành công.');
     }
 
+    // public function softDelete($id)
+    // {
+    //     $user = User::find($id);
+
+    //     if ($user) {
+    //         $user->delete(); // Thực hiện xóa mềm
+    //         return redirect()->route('users')->with('success', 'Xóa thành công.');
+    //     } else {
+    //         return redirect()->back()->with('error', 'Không tìm thấy người dùng.');
+    //     }
+    // }
+
     public function destroy($id)
     {
-        // Logic để xóa dữ liệu có ID tương ứng từ cơ sở dữ liệu
+        $user = User::find($id);
+
+        if (!$user) {
+            session()->flash('error', 'Không tìm thấy người dùng.');
+            return response()->json(['message' => 'Xóa thất bại.']);
+        }
+        if ($user) {
+            $user->delete(); // Thực hiện xóa mềm
+            session()->flash('success', 'Xóa thành công.');
+            return response()->json(['message' => 'Xóa thành công.']);
+        } else {
+            session()->flash('error', 'Không tìm thấy người dùng.');
+            return response()->json(['message' => 'Xóa thất bại.']);
+        }
     }
 }

@@ -24,11 +24,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('rooms');
     })->name('rooms');
 
+    Route::get('/edit-room', function () {
+        return view('editRoom');
+    })->name('edit-room');
+
     Route::get('/images', function () {
         return view('image');
     })->name('images');
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
     Route::get('/users/create', [UserController::class, 'create']);
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::put('/users/{id}', [UserController::class, 'update']);

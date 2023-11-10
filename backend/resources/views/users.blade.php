@@ -5,7 +5,7 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('includes.header')
     <div class="container-fluid py-4">
-        <div class="row d-flex justify-content-center">
+        <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
@@ -14,7 +14,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Tổng User Hiện Có</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        10
+                                        {{ $totalUsers }}
                                         <!-- <span class="text-success text-sm font-weight-bolder">+55%</span> -->
                                     </h5>
                                 </div>
@@ -22,28 +22,6 @@
                             <div class="col-4 text-end">
                                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
                                     <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Users Bị Cấm</p>
-                                    <h5 class="font-weight-bolder mb-0">
-                                        1
-                                        <!-- <span class="text-success text-sm font-weight-bolder">+3%</span> -->
-                                    </h5>
-                                </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -77,18 +55,17 @@
                     </button>
                 </div>
                 <div class="col-6">
-                    <input class="form-control" type="search" value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
+                    <input class="form-control" onkeyup="searchInTableFunction()" type="search" value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
                 </div>
             </div>
             <div class="card">
                 <div class="table-responsive">
-                    <table class="table align-items-center mb-0">
+                    <table id="usersTable" class="table align-items-center mb-0">
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Name</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vai trò</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày Tạo</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
@@ -110,13 +87,6 @@
                                     <span class="text-secondary text-xs font-weight-bold">{{ $result->uesr_type }}</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    @if($result->active == 0)
-                                    <span class="text-success text-xs font-weight-bold">Hoạt động</span>
-                                    @else
-                                    <span class="text-danger text-xs font-weight-bold">Đang khóa</span>
-                                    @endif
-                                </td>
-                                <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $result->created_at }}</span>
                                 </td>
                                 <td class="align-middle">
@@ -125,7 +95,7 @@
                                         <button type="button" data-user-id="{{ $result->user_id }}" class="editButton btn bg-gradient-warning btn-block mb-3" data-bs-toggle="modal" data-bs-target="#Modal-Edit-User">
                                             Edit
                                         </button>
-                                        <button type="button" class="btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete</button>
+                                        <button type="button" data-user-id="{{ $result->user_id }}" class="delete-btn btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -151,15 +121,14 @@
                             <h4 class="text-gradient text-danger mt-4">Bạn có chắc muốn Xóa!</h4>
                             <p>Sau khi xóa, dữ liệu sẽ không thể khôi phục.</p>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">Xác nhận</button>
-                        <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="confirm-btn">Xác nhận</button>
+                            <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- Modal Edit-->
         <div class="modal fade" id="Modal-Edit-User" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -185,16 +154,9 @@
                             <div class="form-group">
                                 <label for="Select-role" class="col-form-label">Vai Trò</label>
                                 <select class="form-control" id="Select-role" name="Select-role">
-                                    <option value="user">User</option>
+                                    <option value="staff">Staff</option>
                                     <option value="admin">Admin</option>
                                     <option value="sp-admin">Supper Admin</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="Select-active" class="col-form-label">Trạng Thái</label>
-                                <select class="form-control" id="Select-active" name="Select-active">
-                                    <option value="1">Cấm</option>
-                                    <option value="0">Hoạt Động</option>
                                 </select>
                             </div>
                             <div class="modal-footer">
@@ -234,21 +196,14 @@
                             <div class="form-group">
                                 <label for="type" class="col-form-label">Vai Trò</label>
                                 <select class="form-control" id="type" name="type" required>
-                                    <option value="user" {{ old('type') == 'user' ? 'selected' : '' }}>User</option>
+                                    <option value="staff" {{ old('type') == 'staff' ? 'selected' : '' }}>Staff</option>
                                     <option value="admin" {{ old('type') == 'admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="s-admin" {{ old('type') == 's-admin' ? 'selected' : '' }}>Supper Admin</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="active-user" class="col-form-label">Trạng Thái</label>
-                                <select class="form-control" id="active-user" name="active-user" required>
-                                    <option value="1" {{ old('active-user') == '1' ? 'selected' : '' }}>Cấm</option>
-                                    <option value="0" {{ old('active-user') == '0' ? 'selected' : '' }}>Hoạt Động</option>
+                                    <option value="s-admin" {{ old('type') == 'sp-admin' ? 'selected' : '' }}>Supper Admin</option>
                                 </select>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Hủy</button>
-                                <button type="submit" class="btn bg-gradient-primary">Sửa</button>
+                                <button type="submit" class="btn bg-gradient-primary">Thêm</button>
                             </div>
                         </form>
                     </div>
@@ -357,8 +312,6 @@
     </div>
 </div>
 <!--   Core JS Files   -->
-<!-- JS -->
-<script src="/js/app.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
