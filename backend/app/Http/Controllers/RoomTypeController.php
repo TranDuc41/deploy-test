@@ -38,7 +38,6 @@ class RoomTypeController extends Controller
 
     public function update(Request $request, $rty_id)
     {
-        
         $room_type = RoomType::find($rty_id);
         
         if (!$room_type) {

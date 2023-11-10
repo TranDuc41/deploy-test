@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Amenities extends Model
 {
+    protected $table = 'amenities';
     protected $primaryKey = 'amenities_id';
     use HasFactory;
 }

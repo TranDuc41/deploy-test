@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomType extends Model
 {
+    protected $table = 'room_type';
     protected $primaryKey = 'rty_id';
     use HasFactory;
 }

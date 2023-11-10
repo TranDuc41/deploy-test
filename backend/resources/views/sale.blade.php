@@ -7,23 +7,24 @@
         <div class="container-fluid py-4">
             <div class="row">
                 @if (session('success'))
-                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                        <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                    <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 @endif
-                @if ($errors->any())
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                        <span class="alert-text"><strong>Lỗi!</strong> {{ $errors->first() }}</span>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                @if (session('error'))
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                    <span class="alert-text"><strong>Lỗi !</strong> {{ session('error') }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 @endif
+
             </div>
             <div class="row">
                 <div class="row">
@@ -37,7 +38,7 @@
                                             data-bs-target="#exampleModalAddRoomType">Thêm</button>
                                         {{-- Modal thêm --}}
                                         <div class="modal fade" id="exampleModalAddRoomType" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -56,11 +57,12 @@
                                                                 <div class="input-group">
                                                                     <span class="input-group-text">%</span>
                                                                     <input type="text" class="form-control"
-                                                                        name="discount">
+                                                                        name="discount" required>
+                                                                        <div class="invalid-feedback">
+                                                                            Please provide a valid.
+                                                                        </div>
                                                                 </div>
-
                                                             </div>
-
                                                             <div class="form-group">
                                                                 <label for="example-datetime-local-input"
                                                                     class="form-control-label">Ngày bắt
@@ -84,13 +86,11 @@
                                                             <div class="form-group">
                                                                 <label for="example-datetime-local-input"
                                                                     class="form-control-label">ID Admin</label>
-                                                                <select class="form-select"
-                                                                    aria-label="Default select example" name="ad_id">
-                                                                    <option selected>Admin 1</option>
-                                                                    <option value="1">...</option>
-                                                                    <option value="2">...</option>
-                                                                    <option value="3">..</option>
-                                                                </select>
+                                                                <input type="hidden" name="user_id" value="1">
+                                                                <div class="alert alert-outline-primary" role="alert">
+                                                                    <strong>Mã hiện tại của user!</strong>Không thể thay đổi
+                                                                    mã.
+                                                                </div>
                                                             </div>
                                                             <button type="submit"
                                                                 class="btn bg-gradient-primary">Thêm</button>
@@ -146,7 +146,7 @@
                                                             </td>
                                                             <td>
                                                                 <p class="text-xs font-weight-bold mb-0">
-                                                                    {{ $item->ad_id }}
+                                                                    {{ $item->user_id }}
                                                                 </p>
                                                             </td>
                                                             <td class="align-middle">
@@ -183,9 +183,9 @@
                 </div>
 
             </div>
-            {{-- Modal Edit --}}
+            {{-- Modal Edit Chỉ admin mới có quyền được sửa--}}
             <div class="modal fade" id="exampleModalEditRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -202,14 +202,14 @@
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Discount</label>
-                                    <input type="text" class="form-control" name="name" id="nameEdit">
+                                    <input type="text" class="form-control" name="name" id="nameEdit" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày bắt
                                         đầu</label>
                                     <input class="form-control" type="datetime-local" id="start-datetime-input"
                                         value="{{ $currentDateTime->format('Y-m-d\TH:i') }}"
-                                        min="{{ $currentDateTime->format('Y-m-d\TH:i') }}" required>
+                                        min="{{ $currentDateTime->format('Y-m-d\TH:i') }}" >
                                 </div>
                                 <div class="form-group">
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày kết
@@ -219,15 +219,12 @@
                                         min="{{ $currentDateTime->format('Y-m-d\TH:i') }}">
                                 </div>
                                 <div class="form-group">
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Admin 1</option>
-                                        <option value="1">...</option>
-                                        <option value="2">...</option>
-                                        <option value="3">..</option>
-                                    </select>
+                                    <label for="example-datetime-local-input" class="form-control-label">ID Admin</label>
+                                    <input type="hidden" name="user_id" value="1">
+                                    <div class="alert alert-outline-primary" role="alert">
+                                        <strong>Mã hiện tại của user!</strong>Không thể thay đổi mã.
+                                    </div>
                                 </div>
-                                {{-- tạm thời  --}}
-
                                 <button type="submit" class="btn bg-gradient-success">Lưu</button>
                             </form>
                         </div>
@@ -236,7 +233,7 @@
             </div>
             <!-- Modal Delete -->
             <div class="modal fade" id="exampleModalDeleteRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

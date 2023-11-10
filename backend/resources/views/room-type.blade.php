@@ -35,7 +35,7 @@
                                 data-bs-target="#exampleModalAddRoomType">Thêm</button>
                             {{-- Modal thêm --}}
                             <div class="modal fade" id="exampleModalAddRoomType" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -143,7 +143,7 @@
             </div>
             {{-- Modal Edit --}}
             <div class="modal fade" id="exampleModalEditRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -177,7 +177,7 @@
             </div>
             <!-- Modal Delete -->
             <div class="modal fade" id="exampleModalDeleteRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

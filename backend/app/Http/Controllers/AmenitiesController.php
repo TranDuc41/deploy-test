@@ -21,18 +21,18 @@ class AmenitiesController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:100',
-            'slug' => 'required|max:100',
+            'name' => 'required|max:500',
+            'slug' => 'required|max:500',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('amenities')->with('error', 'Sửa không thành công. Hãy kiểm tra lại dữ liệu nhập.');
+            return redirect()->route('amenities')->with('error', 'Thêm không thành công. Hãy kiểm tra lại dữ liệu nhập.');
         }
         $amenities = new Amenities;
         $amenities->name = $request->input('name');
         $amenities->slug = $request->input('slug');
 
         $amenities->save();
-        return redirect()->route('amenities')->with('success', 'Room type added successfully.');
+        return redirect()->route('amenities')->with('success', 'Tiện ích đã được thêm thành công.');
     }
 
     public function update(Request $request, $amenities_id)
@@ -41,7 +41,7 @@ class AmenitiesController extends Controller
         $amenities = Amenities::find($amenities_id);
         
         if (!$amenities) {
-            return redirect()->route('amenitiess')->with('error', 'Sửa không thành công. Hãy kiểm tra lại dữ liệu nhập.');
+            return redirect()->route('amenities')->with('error', 'Sửa không thành công. Hãy kiểm tra lại dữ liệu nhập.');
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:100',

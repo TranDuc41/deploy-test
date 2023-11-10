@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Sale;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +14,8 @@ class SaleController extends Controller
     {
         $sale = Sale::all();
         $currentDateTime = Carbon::now();
-        return view('sale', compact('sale','currentDateTime'));
+        $user = User::all();
+        return view('sale', compact('sale','currentDateTime','user'));
     }
     public function show($sale_id)
     {
@@ -23,19 +25,19 @@ class SaleController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'discount' => 'required|min:1|max:100',
+            'discount' => 'required|numeric|max:100',
             'start_date' => 'required|date|date_format:Y-m-d H:i:s',
-            'end_date' => 'required|date|date_format:Y-m-d H:i:s',
-            'ad_id ' => 'required|max:100',
+            'end_date' => 'required|date|date_format:Y-m-d H:i:s|after:start_date',
+            // 'user_id ' => 'required|max:100',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('sales')->withErrors('success', 'Thêm không thành công.Hãy kiểm tra lại dữ liệu nhập.');
+            return redirect()->route('sales')->with('error', 'Thêm không thành công.Hãy kiểm tra lại dữ liệu nhập.');
         }
         $sale = new Sale;
         $sale->discount = $request->input('discount');
         $sale->start_date = $request->input('start_date');
         $sale->end_date = $request->input('end_date');
-        $sale->ad_id = $request->input('ad_id');
+        // $sale->user_id = $request->input('user_id');
         $sale->save();
         return redirect()->route('sales')->with('success', 'Mã đã được thêm thành công.');
     }
@@ -49,7 +51,7 @@ class SaleController extends Controller
             'discount' => 'required|min:1|max:100',
             'start_date' => 'required|date|date_format:Y-m-d H:i:s',
             'end_date' => 'required|date|date_format:Y-m-d H:i:s',
-            'ad_id ' => 'required|max:100',
+            'user_id ' => 'required|max:100',
         ]);
         if ($validator->fails()) {
             return redirect()
@@ -65,7 +67,7 @@ class SaleController extends Controller
         $sale->discount = $request->input('discount');
         $sale->start_date = $request->input('start_date');
         $sale->end_date = $request->input('end_date');
-        $sale->ad_id = $request->input('ad_id');
+        $sale->user_id = $request->input('user_id');
 
         $sale->save();
         return redirect('sale')->with('success', 'Mã đã được cập nhật thành công.');
