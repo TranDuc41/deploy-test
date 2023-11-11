@@ -25,7 +25,11 @@
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script src="./js/custom1.js"></script>
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
-  
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <!-- Scripts -->
+  @vite(['resources/js/app.js'])
+  <!-- JS -->
+<script src="/js/app.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
