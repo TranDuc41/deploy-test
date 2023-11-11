@@ -139,14 +139,14 @@ if(confirmImgBtn != null){
 }
 
 
-    //Xử lý ẩn alert() sau 3s
+    //Xử lý ẩn alert() sau 5s
         var alerts = document.querySelectorAll('.alert');
 
         setTimeout(function () {
             alerts.forEach(function (alert) {
                 alert.style.display = 'none';
             });
-        }, 3000);
+        }, 5000);
 });
 
 //Xử lý tìm kiếm trong table

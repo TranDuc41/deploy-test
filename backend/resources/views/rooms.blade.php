@@ -14,7 +14,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Tổng Số Phòng</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        100
+                                        {{ $totalRoom }}
                                     </h5>
                                 </div>
                             </div>
@@ -35,7 +35,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Tổng Loại Phòng</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        6
+                                        {{ $totalRoomType }}
                                     </h5>
                                 </div>
                             </div>
@@ -116,17 +116,19 @@
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Loại Phòng</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Giá</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giảm Giá</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tổng Người Dùng</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người Lớn</th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trẻ Em</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trạng Thái</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($rooms as $room)
                             <tr>
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-xs">Phòng 01</h6>
+                                            <h6 class="mb-0 text-xs">{{ $room->title }}</h6>
                                         </div>
                                     </div>
                                 </td>
@@ -134,13 +136,16 @@
                                     <p class="text-xs font-weight-bold mb-0">Villa</p>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">4.000.000đ</span>
+                                <span class="text-secondary text-xs font-weight-bold">{{ number_format($room->price, 0, ',', '.') }} đ</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">0</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">6</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $room->adults }}</span>
+                                </td>
+                                <td class="align-middle text-center">
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $room->children }}</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <span class="text-danger text-xs font-weight-bold">Trống</span>
@@ -148,7 +153,7 @@
                                 <td class="align-middle">
                                     <div class="col-md-4">
                                         <!-- Button trigger modal -->
-                                        <a href="/edit-room/1">
+                                        <a href="/edit-room/{{ $room->slug }}">
                                             <button type="button" class="btn bg-gradient-warning btn-block mb-3">
                                                 Edit
                                             </button>
@@ -157,6 +162,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

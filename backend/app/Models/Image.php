@@ -12,8 +12,10 @@ class Image extends Model
     protected $fillable = [
         'name',
         'img_src',
-        'img_type',
+        'imageable_type',
+        'imageable_id',
     ];
 
+    protected $table = 'image';
     protected $primaryKey = 'img_id';
 }

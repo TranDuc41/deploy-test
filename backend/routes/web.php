@@ -25,9 +25,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
-    Route::get('/create-room', [RoomController::class, 'store'])->name('edit-room.store');
+    Route::post('/create-room', [RoomController::class, 'store'])->name('edit-room.store');
     Route::get('/edit-room', [RoomController::class, 'create'])->name('room');
-    Route::get('/edit-room/{id}', [RoomController::class, 'update'])->name('edit-room.update');
+    Route::get('/edit-room/{slug}', [RoomController::class, 'edit'])->name('edit-room.edit');
+    Route::post('/edit-room/{slug}', [RoomController::class, 'update'])->name('edit-room.update');
 
     // IMAGES
     Route::get('/images', [ImageController::class, 'index'])->name('images.index');

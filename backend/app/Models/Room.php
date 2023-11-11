@@ -9,6 +9,8 @@ class Room extends Model
 {
     use HasFactory;
 
+    protected $table = 'room';
+
     protected $fillable = [
         'title',
         'slug',
@@ -23,6 +25,10 @@ class Room extends Model
         'packages_id',
         'img_id',
     ];
-
     protected $primaryKey = 'room_id';
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }
