@@ -5,23 +5,41 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('includes.header')
     <div class="container-fluid py-4">
-        <h4 class="font-weight-bolder mb-5">{{ isset($roomId) ? 'Chỉnh Sửa' : 'Tạo Mới' }} Thông Tin Phòng</h4>
+        <h4 class="font-weight-bolder mb-5">{{ isset($room) ? 'Chỉnh Sửa' : 'Tạo Mới' }} Thông Tin Phòng</h4>
+        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span class="alert-text text-white"><strong>Success!</strong> {{ session('success') }}</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span class="alert-text text-white"><strong>Danger!</strong> {{ session('error') }}</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <div class="row">
-            <form action="{{ route('edit-room.store') }}">
+            <form action="{{ isset($room) ? route('edit-room.edit', $room) : route('edit-room.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group">
                     <label for="room-name" class="form-control-label">Tên Phòng</label>
-                    <input class="form-control" type="text" value="" id="room-name" name="room-name" required>
+                    <input class="form-control" type="text" id="room-name" name="room-name" required value="{{ isset($room) ? $room->title : '' }}">
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="room-price" class="form-control-label">Giá Phòng</label>
-                        <input class="form-control" type="number" value="" id="room-price" name="room-price" required>
+                        <input class="form-control" type="number" value="{{ isset($room) ? $room->price : '' }}" id="room-price" name="room-price" required>
                     </div>
                     <div class="form-group col-6">
                         <label for="Sale-Select">Giảm Giá</label>
                         <select class="form-control" id="Sale-Select" name="sale-select">
                             @foreach($sales as $sale)
-                            <option value="{{ $sale->discount }}">{{ $sale->discount }}%</option>
+                            <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>{{ $sale->discount }}%</option>
                             @endforeach
                         </select>
                     </div>
@@ -29,21 +47,23 @@
                 <div class="row">
                     <div class="form-group col-3">
                         <label for="room-adults" class="form-control-label">Số người lớn</label>
-                        <input class="form-control" type="number" value="" id="room-adults" name="room-adults" required>
+                        <input class="form-control" type="number" value="{{ isset($room) ? $room->adults : '' }}" id="room-adults" name="room-adults" required>
                     </div>
                     <div class="form-group col-3">
                         <label for="room-children" class="form-control-label">Số trẻ em</label>
-                        <input class="form-control" type="number" value="" id="room-children" name="room-children" required>
+                        <input class="form-control" type="number" value="{{ isset($room) ? $room->children : '' }}" id="room-children" name="room-children" required>
                     </div>
                     <div class="form-group col-3">
-                        <label for="room-area" class="form-control-label">Kích thước phòng</label>
-                        <input class="form-control" type="number" value="" id="room-area" id="room-area" required>
+                        <label for="room-area" class="form-control-label">Kích thước phòng (m&sup2;)</label>
+                        <input class="form-control" type="number" value="{{ isset($room) ? $room->area : '' }}" id="room-area" id="room-area" name="room-area" required>
                     </div>
                     <div class="form-group col-3">
                         <label for="kind-room">Loại phòng</label>
                         <select class="form-control" id="kind-room" name="kind-room">
-                            @foreach( $roomTypes as $roomType)
-                            <option value="{{$roomType->slug}}">{{$roomType->name}}</option>
+                            @foreach($roomTypes as $roomType)
+                            <option value="{{ $roomType->rty_id }}" {{ isset($room) && $room->rty_id == $roomType->rty_id ? 'selected' : '' }}>
+                                {{ $roomType->name }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -51,42 +71,67 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="package-room">Gói lưu trú</label>
-                        <select class="form-control" id="package-room" name="package-room">
+                        <select class="form-control" id="package-room" name="package-room[]" multiple size="6">
                             @foreach($packages as $package)
-                            <option value="{{ $package->name }}">{{ $package->name }}</option>
+                            <option value="{{ $package->packages_id }}" {{ isset($room) && $room->packages->contains('packages_id', $package->packages_id) ? 'selected' : '' }}>
+                                {{ $package->name }}
+                            </option>
                             @endforeach
                         </select>
+
+
                     </div>
                     <div class="form-group col-6">
-                        <label for="room-status">Trạng thái phòng</label>
-                        <select class="form-control" id="room-status" name="room-status">
-                            <option value="work">Hoạt động</option>
-                            <option value="maintenance">Bảo trì</option>
-                            <option value="used">Đang được sử dụng</option>
+                        <label for="room-amenities">Tiện nghi</label>
+                        <select class="form-control" id="room-amenities" name="room-amenities[]" multiple size="6">
+                            @foreach($amenities as $amenitie)
+                            <option value="{{ $amenitie->amenities_id }}" {{ isset($room) && $room->amenities->contains('amenities_id', $amenitie->amenities_id) ? 'selected' : '' }}>
+                                {{ $amenitie->name }}
+                            </option>
+                            @endforeach
                         </select>
+
                     </div>
                 </div>
                 <div class="row">
-                <div class="form-group col-6">
-                        <label for="room-amenities">Tiện nghi</label>
-                        <select class="form-control" id="room-amenities" name="room-amenities[]" multiple>
-                            <option value="Vip">Vip</option>
-                            <option value="Villa">Villa</option>
-                            <option value="Normal">Thường</option>
+                    <div class="form-group col-6">
+                        <label for="room-status">Trạng thái phòng</label>
+                        <select class="form-control" id="room-status" name="room-status">
+                            <option value="work" {{ isset($room) && $room->status == 'work' ? 'selected' : '' }}>Hoạt động</option>
+                            <option value="maintenance" {{ isset($room) && $room->status == 'maintenance' ? 'selected' : '' }}>Bảo trì</option>
+                            <option value="used" {{ isset($room) && $room->status == 'used' ? 'selected' : '' }}>Đang được sử dụng</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group col">
+                <div class="form-group row">
+                    <div class="col-6">
                         <label for="exampleFormControlSelect1">Hình ảnh</label>
-                        <input type="file" name="images[]" id="image" class="form-control" multiple required>
+                        <input type="file" name="images[]" id="image" class="form-control" multiple {{ isset($room) ? '' : 'required' }}>
                     </div>
+                    @if(isset($images))
+                    <div class="col-6">
+                        <label for="exampleFormControlSelect1">Ảnh đã tải lên</label>
+                        <div>
+                            @if($images->count() > 0)
+                            @foreach($images as $image)
+                            <img src="{{ $image->img_src }}" alt="" class="avatar avatar-xxl me-3">
+                            @endforeach
+                            {{ $images->links('pagination::bootstrap-5') }} <!-- Hiển thị link phân trang -->
+                            @else
+                            <p>Không có hình ảnh.</p>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
+                </div>
                 <div class="form-group">
                     <label for="description-input" class="form-control-label">Mô tả</label>
-                    <textarea class="form-control" rows="10" value="@example.com" id="description-input" name="description-input" required></textarea>
+                    <textarea class="form-control" rows="10" value="@example.com" id="description-input" name="description-input" required>{{ isset($room) ? $room->description : '' }}</textarea>
                 </div>
-                <a {{ isset($roomId) ? 'href=/edit-room/1' : 'href=/create-room' }}>
-                    <button type="submit" class="btn bg-gradient-primary">{{ isset($roomId) ? 'Sửa' : 'Tạo Mới' }}</button>
-                </a>
+                    <input class="form-control d-none" type="text" value="{{ isset($room) ? $room->slug : '' }}" name="room-slug">
+                <!-- <a href="{{ isset($room) ? '/edit-room/' . $room->slug : '/create-room' }}"> -->
+                <button type="submit" class="btn bg-gradient-primary">{{ isset($room) ? 'Sửa' : 'Tạo Mới' }}</button>
+                <!-- </a> -->
             </form>
         </div>
     </div>

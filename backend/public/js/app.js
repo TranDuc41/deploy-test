@@ -60,10 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
             confirmBtn.setAttribute('data-user-id', userId);
         });
     })
-    if(confirmBtn != null){
+    if (confirmBtn != null) {
         confirmBtn.addEventListener('click', function () {
             var userId = this.getAttribute('data-user-id');
-    
+
             fetch(`/users/${userId}`, {
                 method: 'DELETE',
                 headers: {
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     // Xử lý kết quả từ server
                     console.log(data);
-    
+
                     // Kiểm tra thông báo từ server và chuyển hướng trang
                     if (data.message === 'Xóa thành công.') {
                         // Chuyển hướng trang /users
@@ -96,58 +96,102 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     //Xử lý để xóa hình ảnh
-var deleteImgBtns = document.querySelectorAll('.delete-img-btn');
-var confirmImgBtn = document.getElementById('confirm-img-btn');
-deleteImgBtns.forEach(function (deleteImgBtn) {
-    deleteImgBtn.addEventListener('click', function () {
-        var imgId = this.getAttribute('data-delete-img');
-        confirmImgBtn.setAttribute('delete-img', imgId);
-    });
-})
-if(confirmImgBtn != null){
-    confirmImgBtn.addEventListener('click', function () {
-        var imgId = this.getAttribute('delete-img');
+    var deleteImgBtns = document.querySelectorAll('.delete-img-btn');
+    var confirmImgBtn = document.getElementById('confirm-img-btn');
+    deleteImgBtns.forEach(function (deleteImgBtn) {
+        deleteImgBtn.addEventListener('click', function () {
+            var imgId = this.getAttribute('data-delete-img');
+            confirmImgBtn.setAttribute('delete-img', imgId);
+        });
+    })
+    if (confirmImgBtn != null) {
+        confirmImgBtn.addEventListener('click', function () {
+            var imgId = this.getAttribute('delete-img');
 
-        fetch(`/image/${imgId}`, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Xử lý kết quả từ server
-                // console.log(data);
-
-                // Kiểm tra thông báo từ server và chuyển hướng trang
-                if (data.message === 'Xóa thành công.') {
-                    // Chuyển hướng trang /images
-                    window.location.href = '/images';
-                } else if (data.message === 'Xóa thất bại') {
-                    window.location.href = '/images';
-                }
-                else {
-                    window.location.href = '/images';
+            fetch(`/image/${imgId}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
                 }
             })
-            .catch(error => {
-                // Xử lý lỗi
-                console.error('Error:', error);
-            });
-    });
-}
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý kết quả từ server
+                    // console.log(data);
+
+                    // Kiểm tra thông báo từ server và chuyển hướng trang
+                    if (data.message === 'Xóa thành công.') {
+                        // Chuyển hướng trang /images
+                        window.location.href = '/images';
+                    } else if (data.message === 'Xóa thất bại') {
+                        window.location.href = '/images';
+                    }
+                    else {
+                        window.location.href = '/images';
+                    }
+                })
+                .catch(error => {
+                    // Xử lý lỗi
+                    console.error('Error:', error);
+                });
+        });
+    }
 
 
-    //Xử lý ẩn alert() sau 3s
-        var alerts = document.querySelectorAll('.alert');
+    //Xử lý ẩn alert() sau 5s
+    var alerts = document.querySelectorAll('.alert');
 
-        setTimeout(function () {
-            alerts.forEach(function (alert) {
-                alert.style.display = 'none';
-            });
-        }, 3000);
+    setTimeout(function () {
+        alerts.forEach(function (alert) {
+            alert.style.display = 'none';
+        });
+    }, 5000);
+
+    //Delete Room
+    var deleteRooms = document.querySelectorAll('.delete-room');
+    var comfirmDeleteRoom = document.getElementById('comfirm-delete-room');
+    deleteRooms.forEach(function (deleteRoom) {
+        deleteRoom.addEventListener("click", function () {
+            var roomSlug = this.getAttribute('data-slug');
+            comfirmDeleteRoom.setAttribute('delete-room', roomSlug);
+        })
+    })
+    if (comfirmDeleteRoom != null) {
+        comfirmDeleteRoom.addEventListener('click', function () {
+            var roomSlug = this.getAttribute('delete-room');
+            fetch(`/edit-room/${roomSlug}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý kết quả từ server
+                    // console.log(data);
+
+                    // Kiểm tra thông báo từ server và chuyển hướng trang
+                    if (data.message === 'Xóa thành công.') {
+                        // Chuyển hướng trang /images
+                        window.location.href = '/rooms';
+                    } else if (data.message === 'Xóa thất bại') {
+                        window.location.href = '/rooms';
+                    }
+                    else {
+                        window.location.href = '/rooms';
+                    }
+                })
+                .catch(error => {
+                    // Xử lý lỗi
+                    console.error('Error:', error);
+                });
+        });
+    }
 });
+
+
 
 //Xử lý tìm kiếm trong table
 function searchInTableFunction() {

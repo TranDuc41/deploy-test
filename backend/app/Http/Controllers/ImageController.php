@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class ImageController extends Controller
-{
+{    
     public function index()
     {
         $results = DB::table('image')->paginate(10);
