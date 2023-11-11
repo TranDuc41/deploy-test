@@ -103,6 +103,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $results->links('pagination::bootstrap-5') }}
             </div>
         </div>
         <!-- Modal Delete-->

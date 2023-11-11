@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    //Xử lý để yêu cầu sửa user
     // Lấy tham chiếu đến nút "Edit"
     var editButtons = document.querySelectorAll('.editButton');
 
@@ -48,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
+    //Xử lý để yêu cầu xóa user
     var deleteBtns = document.querySelectorAll('.delete-btn');
     var confirmBtn = document.getElementById('confirm-btn');
 
@@ -90,6 +93,53 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
+
+
+    //Xử lý để xóa hình ảnh
+var deleteImgBtns = document.querySelectorAll('.delete-img-btn');
+var confirmImgBtn = document.getElementById('confirm-img-btn');
+deleteImgBtns.forEach(function (deleteImgBtn) {
+    deleteImgBtn.addEventListener('click', function () {
+        var imgId = this.getAttribute('data-delete-img');
+        confirmImgBtn.setAttribute('delete-img', imgId);
+    });
+})
+if(confirmImgBtn != null){
+    confirmImgBtn.addEventListener('click', function () {
+        var imgId = this.getAttribute('delete-img');
+
+        fetch(`/image/${imgId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Xử lý kết quả từ server
+                // console.log(data);
+
+                // Kiểm tra thông báo từ server và chuyển hướng trang
+                if (data.message === 'Xóa thành công.') {
+                    // Chuyển hướng trang /images
+                    window.location.href = '/images';
+                } else if (data.message === 'Xóa thất bại') {
+                    window.location.href = '/images';
+                }
+                else {
+                    window.location.href = '/images';
+                }
+            })
+            .catch(error => {
+                // Xử lý lỗi
+                console.error('Error:', error);
+            });
+    });
+}
+
+
+    //Xử lý ẩn alert() sau 3s
         var alerts = document.querySelectorAll('.alert');
 
         setTimeout(function () {
@@ -99,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 3000);
 });
 
+//Xử lý tìm kiếm trong table
 function searchInTableFunction() {
     var input, filter, table, tr, td, i, j, txtValue;
     input = document.getElementById("search-input");
@@ -130,5 +181,3 @@ function searchInTableFunction() {
         }
     }
 }
-
-

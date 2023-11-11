@@ -5,86 +5,88 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('includes.header')
     <div class="container-fluid py-4">
-        <h4 class="font-weight-bolder mb-5">Chỉnh Sửa Thông Tin Phòng</h4>
+        <h4 class="font-weight-bolder mb-5">{{ isset($roomId) ? 'Chỉnh Sửa' : 'Tạo Mới' }} Thông Tin Phòng</h4>
         <div class="row">
-            <form>
+            <form action="{{ route('edit-room.store') }}">
                 <div class="form-group">
                     <label for="room-name" class="form-control-label">Tên Phòng</label>
-                    <input class="form-control" type="text" value="" id="room-name">
+                    <input class="form-control" type="text" value="" id="room-name" name="room-name" required>
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="room-price" class="form-control-label">Giá Phòng</label>
-                        <input class="form-control" type="number" value="" id="room-price">
+                        <input class="form-control" type="number" value="" id="room-price" name="room-price" required>
                     </div>
                     <div class="form-group col-6">
-                        <label for="exampleFormControlSelect1">Giảm Giá</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>0</option>
-                            <option>10%</option>
-                            <option>20%</option>
+                        <label for="Sale-Select">Giảm Giá</label>
+                        <select class="form-control" id="Sale-Select" name="sale-select">
+                            @foreach($sales as $sale)
+                            <option value="{{ $sale->discount }}">{{ $sale->discount }}%</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-3">
-                        <label for="room-price" class="form-control-label">Số người lớn</label>
-                        <input class="form-control" type="number" value="" id="room-price">
+                        <label for="room-adults" class="form-control-label">Số người lớn</label>
+                        <input class="form-control" type="number" value="" id="room-adults" name="room-adults" required>
                     </div>
                     <div class="form-group col-3">
-                        <label for="room-price" class="form-control-label">Số trẻ em</label>
-                        <input class="form-control" type="number" value="" id="room-price">
+                        <label for="room-children" class="form-control-label">Số trẻ em</label>
+                        <input class="form-control" type="number" value="" id="room-children" name="room-children" required>
                     </div>
                     <div class="form-group col-3">
-                        <label for="room-price" class="form-control-label">Kích thước phòng</label>
-                        <input class="form-control" type="number" value="" id="room-price">
+                        <label for="room-area" class="form-control-label">Kích thước phòng</label>
+                        <input class="form-control" type="number" value="" id="room-area" id="room-area" required>
                     </div>
                     <div class="form-group col-3">
-                        <label for="exampleFormControlSelect1">Loại phòng</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Vip</option>
-                            <option>Villa</option>
-                            <option>Thường</option>
+                        <label for="kind-room">Loại phòng</label>
+                        <select class="form-control" id="kind-room" name="kind-room">
+                            @foreach( $roomTypes as $roomType)
+                            <option value="{{$roomType->slug}}">{{$roomType->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
-                        <label for="exampleFormControlSelect1">Gói lưu trú</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Vip</option>
-                            <option>Villa</option>
-                            <option>Thường</option>
+                        <label for="package-room">Gói lưu trú</label>
+                        <select class="form-control" id="package-room" name="package-room">
+                            @foreach($packages as $package)
+                            <option value="{{ $package->name }}">{{ $package->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group col-6">
-                        <label for="exampleFormControlSelect1">Tiện nghi</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Vip</option>
-                            <option>Villa</option>
-                            <option>Thường</option>
+                        <label for="room-status">Trạng thái phòng</label>
+                        <select class="form-control" id="room-status" name="room-status">
+                            <option value="work">Hoạt động</option>
+                            <option value="maintenance">Bảo trì</option>
+                            <option value="used">Đang được sử dụng</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-6">
-                        <label for="exampleFormControlSelect1">Trạng thái phòng</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>Hoạt động</option>
-                            <option>Bảo trì</option>
-                            <option>Đang được sử dụng</option>
+                <div class="form-group col-6">
+                        <label for="room-amenities">Tiện nghi</label>
+                        <select class="form-control" id="room-amenities" name="room-amenities[]" multiple>
+                            <option value="Vip">Vip</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Normal">Thường</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group col">
                         <label for="exampleFormControlSelect1">Hình ảnh</label>
-                        <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" multiple>
+                        <input type="file" name="images[]" id="image" class="form-control" multiple required>
                     </div>
                 <div class="form-group">
-                    <label for="example-email-input" class="form-control-label">Mô tả</label>
-                    <textarea class="form-control" rows="10" value="@example.com" id="example-email-input"></textarea>
+                    <label for="description-input" class="form-control-label">Mô tả</label>
+                    <textarea class="form-control" rows="10" value="@example.com" id="description-input" name="description-input" required></textarea>
                 </div>
-                <button type="button" class="btn bg-gradient-primary">Sửa</button>
+                <a {{ isset($roomId) ? 'href=/edit-room/1' : 'href=/create-room' }}>
+                    <button type="submit" class="btn bg-gradient-primary">{{ isset($roomId) ? 'Sửa' : 'Tạo Mới' }}</button>
+                </a>
             </form>
         </div>
     </div>
@@ -194,176 +196,6 @@
 <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
 <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script src="../assets/js/plugins/chartjs.min.js"></script>
-<script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
-
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Sales",
-                tension: 0.4,
-                borderWidth: 0,
-                borderRadius: 4,
-                borderSkipped: false,
-                backgroundColor: "#fff",
-                data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-                maxBarThickness: 6
-            }, ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                    },
-                    ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 500,
-                        beginAtZero: true,
-                        padding: 15,
-                        font: {
-                            size: 14,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        color: "#fff"
-                    },
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false
-                    },
-                    ticks: {
-                        display: false
-                    },
-                },
-            },
-        },
-    });
-
-
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
-
-    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
-
-    new Chart(ctx2, {
-        type: "line",
-        data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                    label: "Mobile apps",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#cb0c9f",
-                    borderWidth: 3,
-                    backgroundColor: gradientStroke1,
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-
-                },
-                {
-                    label: "Websites",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#3A416F",
-                    borderWidth: 3,
-                    backgroundColor: gradientStroke2,
-                    fill: true,
-                    data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-                    maxBarThickness: 6
-                },
-            ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        display: true,
-                        padding: 10,
-                        color: '#b2b9bf',
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        display: true,
-                        color: '#b2b9bf',
-                        padding: 20,
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-            },
-        },
-    });
-</script>
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {

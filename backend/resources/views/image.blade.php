@@ -14,7 +14,7 @@
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">Tổng Số Hình Ảnh</p>
                                     <h5 class="font-weight-bolder mb-0">
-                                        100
+                                        {{ $totalImage }}
                                     </h5>
                                 </div>
                             </div>
@@ -37,46 +37,68 @@
                     </button>
                 </div>
                 <div class="col-6">
-                    <input class="form-control" type="search" value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
+                    <input class="form-control" onkeyup="searchInTableFunction()" type="search" value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
                 </div>
             </div>
             <div class="card">
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span class="alert-text text-white"><strong>Success!</strong> {{ session('success') }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+
+                @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span class="alert-text text-white"><strong>Danger!</strong> {{ session('error') }}</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
                 <div class="table-responsive">
                     <table id="usersTable" class="table align-items-center mb-0">
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Hình ảnh</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên</th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vị Trí</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($results as $result)
                             <tr>
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div>
-                                            <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/team-4.jpg" class="avatar avatar-xxl me-3">
+                                            <img src="{{ asset('uploads/' . $result->name) }}" class="avatar avatar-xxl me-3">
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0">Name</p>
-                                </td>
-                                <td class="align-middle text-center text-sm">
-                                    <span class="badge badge-sm badge-secondary">Offline</span>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $result->name }}</p>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $result->created_at }}</span>
                                 </td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete</button>
+                                    <button type="button" class="delete-img-btn btn btn-block bg-gradient-danger mb-3" data-delete-img="{{ $result->img_id }}" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete</button>
                                 </td>
                             </tr>
+                            @empty
+                            <tr>
+                                <td colspan="4" class="text-center">
+                                    <span>Không có dữ liệu.</span>
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
+                {{ $results->links('pagination::bootstrap-5') }}
             </div>
         </div>
         <!-- Modal Delete-->
@@ -97,7 +119,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">Xác nhận</button>
+                        <button type="button" class="btn btn-danger" id="confirm-img-btn">Xác nhận</button>
                         <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
                     </div>
                 </div>
@@ -115,16 +137,17 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="{{ route('upload.store') }}" method="post" enctype="multipart/form-data">
+                            @csrf
                             <div class="form-group">
-                                <label for="fileToUpload" class="col-form-label">Chọn Ảnh:</label>
-                                <input type="file" name="fileToUpload" id="fileToUpload" class="form-control" multiple>
+                                <label for="image" class="col-form-label">Chọn Ảnh:</label>
+                                <input type="file" name="images[]" id="image" class="form-control" multiple>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Hủy</button>
+                                <button type="Submit" class="btn bg-gradient-primary">Thêm</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="button" class="btn bg-gradient-primary">Thêm</button>
                     </div>
                 </div>
             </div>

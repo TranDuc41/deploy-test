@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -20,18 +22,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     });
 
-    Route::get('/rooms', function () {
-        return view('rooms');
-    })->name('rooms');
+    Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
+    Route::get('/create-room', [RoomController::class, 'store'])->name('edit-room.store');
+    Route::get('/edit-room', [RoomController::class, 'create'])->name('room');
+    Route::get('/edit-room/{id}', [RoomController::class, 'update'])->name('edit-room.update');
 
-    Route::get('/edit-room', function () {
-        return view('editRoom');
-    })->name('edit-room');
+    // IMAGES
+    Route::get('/images', [ImageController::class, 'index'])->name('images.index');
+    Route::post('/upload', [ImageController::class, 'store'])->name('upload.store');
+    Route::delete('/image/{id}', [ImageController::class, 'destroy'])->name('images.destroy');
 
-    Route::get('/images', function () {
-        return view('image');
-    })->name('images');
-
+    // USERS
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::delete('/users/{id}', [UserController::class, 'destroy']);
     Route::get('/users/create', [UserController::class, 'create']);
