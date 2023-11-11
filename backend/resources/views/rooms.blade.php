@@ -105,16 +105,35 @@
                 <div class="col-6">
                     <input class="form-control" onkeyup="searchInTableFunction()" type="search" value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
                 </div>
+                <div class="col-12">
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span class="alert-text text-white"><strong>Success!</strong> {{ session('success') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
+
+                    @if(session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span class="alert-text text-white"><strong>Danger!</strong> {{ session('error') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
+                </div>
             </div>
             <div></div>
             <div class="card">
                 <div class="table-responsive">
-                    <table class="table align-items-center mb-0">
+                    <table class="table align-items-center mb-0" id="usersTable">
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Phòng</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Loại Phòng</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Giá</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Giá Gốc</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Giảm Giá</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Người Lớn</th>
                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Trẻ Em</th>
@@ -136,10 +155,10 @@
                                     <p class="text-xs font-weight-bold mb-0">Villa</p>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                <span class="text-secondary text-xs font-weight-bold">{{ number_format($room->price, 0, ',', '.') }} đ</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ number_format($room->price, 0, ',', '.') }} đ</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">0</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $room->discount_percentage }}%</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $room->adults }}</span>
@@ -148,7 +167,19 @@
                                     <span class="text-secondary text-xs font-weight-bold">{{ $room->children }}</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-danger text-xs font-weight-bold">Trống</span>
+                                    @if ($room->status == 'work')
+                                    <span class="text-primary text-xs font-weight-bold">
+                                        Hoạt động
+                                    </span>
+                                    @elseif ($room->status == 'used')
+                                    <span class="text-success text-xs font-weight-bold">
+                                        Đang được dử dụng
+                                    </span>
+                                    @else
+                                    <span class="text-danger text-xs font-weight-bold">
+                                        Bảo trì
+                                    </span>
+                                    @endif
                                 </td>
                                 <td class="align-middle">
                                     <div class="col-md-4">
@@ -158,7 +189,7 @@
                                                 Edit
                                             </button>
                                         </a>
-                                        <button type="button" class="btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification">Delete</button>
+                                        <button type="button" class="delete-room btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $room->slug }}">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -183,10 +214,11 @@
                             <i class="ni ni-bell-55 ni-3x"></i>
                             <h4 class="text-gradient text-danger mt-4">Bạn có chắc muốn Xóa!</h4>
                             <p>Sau khi xóa, dữ liệu sẽ không thể khôi phục.</p>
+                            <span class="d-none" id="slug-value"></span>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger">Xác nhận</button>
+                        <button type="button" id="comfirm-delete-room" class="btn btn-danger">Xác nhận</button>
                         <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
                     </div>
                 </div>

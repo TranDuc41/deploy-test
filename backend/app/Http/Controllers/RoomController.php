@@ -17,9 +17,15 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $rooms = DB::table('room')->paginate('10');
+        // Lấy danh sách phòng với thông tin giảm giá
+        $rooms = DB::table('room')
+            ->select('room.*', 'sale.discount as discount_percentage')
+            ->leftJoin('sale', 'room.sale_id', '=', 'sale.sale_id')
+            ->paginate(10);
+
         $totalRoom = DB::table('room')->count();
         $totalRoomType = DB::table('room_type')->count();
+
         return view('rooms', compact('rooms', 'totalRoom', 'totalRoomType'));
     }
 
@@ -37,6 +43,7 @@ class RoomController extends Controller
     public function store(Request $request)
     {
         try {
+            $validStatusValues = ['work', 'maintenance', 'used'];
             // Lấy giá trị từ request
             $title = trim($request->input('room-name'));
             $price = trim($request->input('room-price'));
@@ -48,6 +55,7 @@ class RoomController extends Controller
             $sale_id = $request->input('sale-select');
             $packageIds = $request->input('package-room');
             $amenitieIds = $request->input('room-amenities');
+            $inputStatus = $request->input('room-status');
 
             //Kiểm tra package
             $existingPackageIds  = DB::table('packages')
@@ -73,13 +81,13 @@ class RoomController extends Controller
 
             //Kiểm tra rty_id
             $checkRty_id = DB::table('room_type')->where('rty_id', $rty_id)->first();
-            if (!$checkRty_id){
+            if (!$checkRty_id) {
                 return redirect()->back()->with('error', 'Giá trị trong loại phòng không hợp lệ!');
             }
 
             //Kiểm tra sale_id
             $checkSale_id = DB::table('sale')->where('sale_id', $sale_id)->first();
-            if (!$checkSale_id){
+            if (!$checkSale_id) {
                 return redirect()->back()->with('error', 'Giá trị trong giảm giá không hợp lệ!');
             }
 
@@ -90,12 +98,13 @@ class RoomController extends Controller
                 $adults > 0 && $adults < 30 &&
                 $children > 0 && $children < 6 &&
                 $area > 0 && $area < 300 &&
+                $inputStatus && in_array($inputStatus, $validStatusValues) &&
                 !empty(trim($description))
             ) {
                 // Tạo đối tượng Room
                 $room = new Room([
                     'title' => $title,
-                    'slug' => $this->createUniqueSlug($title),
+                    'slug' => $this->createUniqueSlug($title) . '-' . uniqid(),
                     'price' => $price,
                     'adults' => $adults,
                     'children' => $children,
@@ -103,10 +112,31 @@ class RoomController extends Controller
                     'rty_id' => $rty_id,
                     'sale_id' => $sale_id,
                     'description' => $description,
+                    'status' => $inputStatus,
                 ]);
 
                 // Lưu phòng để có được ID
                 $room->save();
+
+                // Kiểm tra và xử lý ảnh
+                $images = $request->file('images');
+                foreach ($images as $image) {
+                    // Kiểm tra xem có phải là file ảnh hay không
+                    if ($image->isValid() && $this->isImage($image)) {
+                        $imageName = 'dominion' . '_' . $image->getClientOriginalName();
+                        $image->move(public_path('uploads'), $imageName);
+
+                        // Lưu thông tin ảnh vào bảng image và liên kết với phòng thông qua mối quan hệ đa hình
+                        $imageModel = new Image([
+                            'name' => $imageName,
+                            'img_src' => '/uploads/' . $imageName,
+                        ]);
+
+                        $room->images()->save($imageModel);
+                    } else {
+                        return redirect()->back()->with('error', 'Vui lòng chỉ chọn file hình ảnh.');
+                    }
+                }
 
                 // Lưu vào bảng room_package
                 $roomPackageData = [];
@@ -128,22 +158,7 @@ class RoomController extends Controller
                 DB::table('room_package')->insert($roomPackageData);
                 DB::table('room_amenities')->insert($amenitiesData);
 
-                // Kiểm tra và xử lý ảnh
-                $images = $request->file('images');
-                foreach ($images as $image) {
-                    $imageName = 'dominion' . '_' . $image->getClientOriginalName();
-                    $image->move(public_path('uploads'), $imageName);
-
-                    // Lưu thông tin ảnh vào bảng image và liên kết với phòng thông qua mối quan hệ đa hình
-                    $imageModel = new Image([
-                        'name' => $imageName,
-                        'img_src' => '/uploads/' . $imageName,
-                    ]);
-
-                    $room->images()->save($imageModel);
-                }
-
-                return redirect()->back()->with('success', 'Thêm phòng thành công.');
+                return redirect()->route('rooms.index')->with('success', 'Thêm phòng thành công.');
             } else {
                 return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin hoặc kiểm tra giá trị nhập vào.');
             }
@@ -175,15 +190,122 @@ class RoomController extends Controller
         return view('editRoom', compact('room', 'images', 'sales', 'packages', 'roomTypes', 'amenities'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        dd($request->file('images'));
+        try {
+            $validStatusValues = ['work', 'maintenance', 'used'];
+            // Lấy giá trị từ request
+            $title = trim($request->input('room-name'));
+            $price = trim($request->input('room-price'));
+            $slug = trim($request->input('room-slug'));
+            $adults = trim($request->input('room-adults'));
+            $children = trim($request->input('room-children'));
+            $area = trim($request->input('room-area'));
+            $description = $request->input('description-input');
+            $rty_id = $request->input('kind-room');
+            $sale_id = $request->input('sale-select');
+            $packageIds = $request->input('package-room');
+            $amenitieIds = $request->input('room-amenities');
+            $inputStatus = $request->input('room-status');
+
+            $room = Room::where('slug', $slug)->firstOrFail(); // Lấy ra phòng cần cập nhật
+
+            // Kiểm tra và xử lý giá trị trước khi lưu vào cơ sở dữ liệu
+            if (
+                $title &&
+                $price > 0 && $price < 1000000000 &&
+                $adults > 0 && $adults < 30 &&
+                $children > 0 && $children < 6 &&
+                $area > 0 && $area < 300 &&
+                $inputStatus && in_array($inputStatus, $validStatusValues) &&
+                !empty(trim($description))
+            ) {
+                // Cập nhật thông tin phòng
+                $room->title = $title;
+                $room->slug = $this->createUniqueSlug($title) . '-' . uniqid();
+                $room->price = $price;
+                $room->adults = $adults;
+                $room->children = $children;
+                $room->area = $area;
+                $room->rty_id = $rty_id;
+                $room->sale_id = $sale_id;
+                $room->description = $description;
+                $room->status = $inputStatus;
+
+                // Lưu các thay đổi
+                $room->save();
+
+                // Xóa hình ảnh cũ trước khi thêm hình ảnh mới
+                // $room->images()->delete();
+
+                // Kiểm tra và xử lý ảnh tương tự như trong hàm store
+                $images = $request->file('images');
+                if (!empty($images)) {
+                    foreach ($images as $image) {
+                        // Kiểm tra xem có phải là file ảnh hay không
+                        if ($image->isValid() && $this->isImage($image)) {
+                            $imageName = 'dominion' . '_' . $image->getClientOriginalName();
+                            $image->move(public_path('uploads'), $imageName);
+
+                            // Lưu thông tin ảnh vào bảng image và liên kết với phòng thông qua mối quan hệ đa hình
+                            $imageModel = new Image([
+                                'name' => $imageName,
+                                'img_src' => '/uploads/' . $imageName,
+                            ]);
+
+                            $room->images()->save($imageModel);
+                        } else {
+                            return redirect()->back()->with('error', 'Vui lòng chỉ chọn file hình ảnh.');
+                        }
+                    }
+                }
+                // Lưu vào bảng room_package
+                $roomPackageData = [];
+                foreach ($packageIds as $packageId) {
+                    $roomPackageData[] = [
+                        'room_id' => $room->room_id,
+                        'packages_id' => $packageId,
+                    ];
+                }
+                // Lưu vào bảng room_amenities
+                $amenitiesData = [];
+                foreach ($amenitieIds as $amenitieId) {
+                    $amenitiesData[] = [
+                        'room_id' => $room->room_id,
+                        'amenities_id' => $amenitieId,
+                    ];
+                }
+
+                DB::table('room_package')->insert($roomPackageData);
+                DB::table('room_amenities')->insert($amenitiesData);
+                return redirect()->route('rooms.index')->with('success', 'Cập nhật phòng thành công.');
+            } else {
+                return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin hoặc kiểm tra giá trị nhập vào.');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Có lỗi xảy ra!. Cập nhật thất bại!');
+        }
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
+        // Lấy thông tin của room từ cơ sở dữ liệu
+        $room = DB::table('room')->where('slug', $slug)->first();
+        DB::table('image')->where('imageable_id', $room->room_id)->delete();
+
+        if (!$room) {
+            session()->flash('error', 'Không tìm thấy phòng.');
+            return response()->json(['message' => 'Xóa thất bại.']);
+        }
+
+        // Xóa room từ cơ sở dữ liệu
+        DB::table('room')->where('slug', $slug)->delete();
+
+        session()->flash('success', 'Xóa thành công.');
+        return response()->json(['message' => 'Xóa thành công.']);
     }
 
+    //Tạo slug
     private function createUniqueSlug($title)
     {
         $slug = Str::slug($title);
@@ -195,5 +317,20 @@ class RoomController extends Controller
         }
 
         return $slug;
+    }
+
+    //Kiểm tra file ảnh
+    public function isImage($file)
+    {
+        // Kiểm tra xem tệp có phải là hình ảnh hay không
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if ($file instanceof \Illuminate\Http\UploadedFile && $file->isValid()) {
+            $extension = $file->getClientOriginalExtension();
+
+            return in_array(strtolower($extension), $allowedExtensions);
+        }
+
+        return false;
     }
 }

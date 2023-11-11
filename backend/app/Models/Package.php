@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Amenities extends Model
+class Package extends Model
 {
-    protected $table = 'amenities';
-    protected $primaryKey = 'amenities_id';
     use HasFactory;
 
+    protected $primaryKey = 'packages_id';
     protected $fillable = [
         'name',
-        'slug',
     ];
 }

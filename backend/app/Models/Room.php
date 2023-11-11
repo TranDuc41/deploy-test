@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Package;
 
 class Room extends Model
 {
@@ -24,11 +25,22 @@ class Room extends Model
         'amenities_id',
         'packages_id',
         'img_id',
+        'status',
     ];
     protected $primaryKey = 'room_id';
 
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class, 'room_package', 'room_id', 'packages_id');
+    }
+
+    public function amenities()
+    {
+        return $this->belongsToMany(Amenities::class, 'room_amenities', 'room_id', 'amenities_id');
     }
 }
