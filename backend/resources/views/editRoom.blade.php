@@ -24,7 +24,7 @@
         </div>
         @endif
         <div class="row">
-            <form action="{{ isset($room) ? route('edit-room.edit', $room) : route('edit-room.update') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ isset($room) ? route('edit-room.edit', $room) : route('edit-room.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="room-name" class="form-control-label">Tên Phòng</label>
@@ -39,7 +39,7 @@
                         <label for="Sale-Select">Giảm Giá</label>
                         <select class="form-control" id="Sale-Select" name="sale-select">
                             @foreach($sales as $sale)
-                            <option value="{{ $sale->discount }}">{{ $sale->discount }}%</option>
+                            <option value="{{ $sale->sale_id }}">{{ $sale->discount }}%</option>
                             @endforeach
                         </select>
                     </div>
@@ -61,7 +61,7 @@
                         <label for="kind-room">Loại phòng</label>
                         <select class="form-control" id="kind-room" name="kind-room">
                             @foreach($roomTypes as $roomType)
-                            <option value="{{ $roomType->slug }}" {{ isset($room) && $room->room_type == $roomType->slug ? 'selected' : '' }}>
+                            <option value="{{ $roomType->rty_id }}" {{ isset($room) && $room->room_type == $roomType->slug ? 'selected' : '' }}>
                                 {{ $roomType->name }}
                             </option>
                             @endforeach
@@ -73,7 +73,7 @@
                         <label for="package-room">Gói lưu trú</label>
                         <select class="form-control" id="package-room" name="package-room[]" multiple size="6">
                             @foreach($packages as $package)
-                            <option value="{{ $package->name }}">{{ $package->name }}</option>
+                            <option value="{{ $package->packages_id }}">{{ $package->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -81,7 +81,7 @@
                         <label for="room-amenities">Tiện nghi</label>
                         <select class="form-control" id="room-amenities" name="room-amenities[]" multiple size="6">
                             @foreach($amenities as $amenitie)
-                            <option value="{{ $amenitie->slug }}">{{ $amenitie->name }}</option>
+                            <option value="{{ $amenitie->amenities_id }}">{{ $amenitie->name }}</option>
                             @endforeach
                         </select>
                     </div>
