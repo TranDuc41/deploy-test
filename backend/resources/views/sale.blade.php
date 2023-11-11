@@ -7,22 +7,22 @@
         <div class="container-fluid py-4">
             <div class="row">
                 @if (session('success'))
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                    <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                        <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
                 @if (session('error'))
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                    <span class="alert-text"><strong>Lỗi !</strong> {{ session('error') }}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                        <span class="alert-text"><strong>Lỗi !</strong> {{ session('error') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
 
             </div>
@@ -38,7 +38,8 @@
                                             data-bs-target="#exampleModalAddRoomType">Thêm</button>
                                         {{-- Modal thêm --}}
                                         <div class="modal fade" id="exampleModalAddRoomType" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false"
+                                            data-bs-backdrop="static">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -58,9 +59,9 @@
                                                                     <span class="input-group-text">%</span>
                                                                     <input type="text" class="form-control"
                                                                         name="discount" required>
-                                                                        <div class="invalid-feedback">
-                                                                            Please provide a valid.
-                                                                        </div>
+                                                                    <div class="invalid-feedback">
+                                                                        Please provide a valid.
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -69,8 +70,8 @@
                                                                     đầu</label>
                                                                 <input class="form-control" type="datetime-local"
                                                                     id="start-datetime-input"
-                                                                    value="{{ $currentDateTime->format('Y-m-d\TH:i') }}"
-                                                                    min="{{ $currentDateTime->format('Y-m-d\TH:i') }}"
+                                                                    value="{{ $currentDateTime->format('Y-m-d H:i:s') }}"
+                                                                    min="{{ $currentDateTime->format('Y-m-d H:i:s') }}"
                                                                     name="start_date" required>
                                                             </div>
                                                             <div class="form-group">
@@ -79,21 +80,20 @@
                                                                     thúc</label>
                                                                 <input class="form-control" type="datetime-local"
                                                                     id="end-datetime-input"
-                                                                    value="{{ $currentDateTime->format('Y-m-d\TH:i') }}"
-                                                                    min="{{ $currentDateTime->format('Y-m-d\TH:i') }}"
-                                                                    name="end_date">
+                                                                    value="{{ $currentDateTime->format('Y-m-d H:i:s') }}"
+                                                                    min="{{ $currentDateTime->format('Y-m-d H:i:s') }}"
+                                                                    name="end_date" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="example-datetime-local-input"
-                                                                    class="form-control-label">ID Admin</label>
-                                                                <input type="hidden" name="user_id" value="1">
-                                                                <div class="alert alert-outline-primary" role="alert">
-                                                                    <strong>Mã hiện tại của user!</strong>Không thể thay đổi
-                                                                    mã.
-                                                                </div>
+                                                                    class="form-control-label">Name Admin</label>
+                                                                <input type="hidden" name="user_id"
+                                                                    value="{{ Auth::user()->user_id }}">
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ Auth::user()->name }}" disabled>
                                                             </div>
                                                             <button type="submit"
-                                                                class="btn bg-gradient-primary">Thêm</button>
+                                                                class="btn bg-gradient-primary btnAddSale">Thêm</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -151,22 +151,22 @@
                                                             </td>
                                                             <td class="align-middle">
                                                                 <div class="d-flex px-2 py-1">
-                                                                    <a class="text-info font-weight-bold text-xs mx-3 editRoomtype"
-                                                                        data-original-title="Edit user"
+                                                                    <button type="button"
+                                                                        class="btn btn-link editRoomtype"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#exampleModalEditRoomType"
-                                                                        data-sale_id ="{{ $item->sale_id }}">
-                                                                        <i class="fas fa-pencil-alt text-default me-2"
-                                                                            aria-hidden="true"></i>Edit
-                                                                    </a>
-                                                                    <a class="text-danger font-weight-bold text-xs mx-3 deleteRoomType"
+                                                                        data-sale_id ="{{ $item->sale_id }}"><i
+                                                                            class="fas fa-pencil-alt text-default me-2"
+                                                                            aria-hidden="true"></i>Edit</button>
+                                                                    <button type="button"
+                                                                        class="btn btn-link text-danger font-weight-bold text-xs mx-3 deleteRoomType"
                                                                         data-toggle="tooltip"
                                                                         data-original-title="Delete user"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#exampleModalDeleteRoomType"
                                                                         data-sale_id ="{{ $item->sale_id }}">
                                                                         <i class="far fa-trash-alt me-2"></i>Xóa
-                                                                    </a>
+                                                                    </button>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -183,14 +183,15 @@
                 </div>
 
             </div>
-            {{-- Modal Edit Chỉ admin mới có quyền được sửa--}}
+            {{-- Modal Edit Chỉ admin mới có quyền được sửa --}}
             <div class="modal fade" id="exampleModalEditRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false"
+                data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Sửa
-                                Loại phòng</h5>
+                                mã giảm giá</h5>
                             <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -202,20 +203,20 @@
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Discount</label>
-                                    <input type="text" class="form-control" name="name" id="nameEdit" required>
+                                    <input type="text" class="form-control" name="discount" id="nameEdit" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày bắt
                                         đầu</label>
                                     <input class="form-control" type="datetime-local" id="start-datetime-input"
                                         value="{{ $currentDateTime->format('Y-m-d\TH:i') }}"
-                                        min="{{ $currentDateTime->format('Y-m-d\TH:i') }}" >
+                                        min="{{ $currentDateTime->format('Y-m-d\TH:i') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày kết
                                         thúc</label>
                                     <input class="form-control" type="datetime-local" id="end-datetime-input"
-                                        value="{{ $currentDateTime->format('Y-m-d\TH:i') }}"
+                                        name="" value="{{ $currentDateTime->format('Y-m-d\TH:i') }}"
                                         min="{{ $currentDateTime->format('Y-m-d\TH:i') }}">
                                 </div>
                                 <div class="form-group">
@@ -233,7 +234,8 @@
             </div>
             <!-- Modal Delete -->
             <div class="modal fade" id="exampleModalDeleteRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false"
+                data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

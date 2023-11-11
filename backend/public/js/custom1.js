@@ -142,12 +142,16 @@ document.addEventListener("DOMContentLoaded", function() {
 //tạo slug
 function createSlug(name) {
     return name
-        .toLowerCase()
-        .replace(/[^a-z0-9\s]/g, '')
-        .replace(/\s+/g, '-')
-        .trim();
-}
+        .toLowerCase() // Chuyển đổi thành chữ thường
+        .normalize('NFD') // Chuyển đổi các ký tự có dấu thành ký tự không dấu
+        .replace(/[\u0300-\u036f]/g, '') // Loại bỏ các ký tự dấu
+        .replace(/\s+/g, '-') // Thay thế khoảng trắng bằng dấu gạch ngang
+        .replace(/[^a-z0-9-]/g, '') // Loại bỏ các ký tự không phải chữ cái, số, hoặc dấu gạch ngang
+        .replace(/-+/g, '-') // Loại bỏ các dấu gạch ngang liên tiếp
+        .replace(/^-+|-+$/g, ''); // Loại bỏ dấu gạch ngang ở đầu và cuối chuỗi
 
+}
+//update slug
 function updateSlug() {
     var nameInput = document.getElementById('name');
     var slugInput = document.getElementById('slug');

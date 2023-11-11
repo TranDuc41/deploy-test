@@ -32,7 +32,7 @@
                         <div class="col-12">
                             <div class="card mb-4">
                                 <div class="justify-content-between card-header pb-0">
-                                    <h6>Tiện ích phòng</h6>
+                                    <h6 >Tiện ích phòng</h6>
                                 </div>
                                 <div class="card-body px-0 pt-0 pb-2">
                                     <div class="table-responsive p-0">
@@ -66,18 +66,18 @@
                                                         </td>
                                                         <td class="align-middle">
                                                             <div class="d-flex px-2 py-1">
-                                                                <a class="text-info font-weight-bold text-xs mx-3 editAmenities"
+                                                                <button class="btn btn-link text-info font-weight-bold text-xs mx-3 editAmenities"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#exampleModalEditAmenities"
                                                                     data-amenities_id="{{ $item->amenities_id }}">
                                                                     <i class="fas fa-pencil-alt text-default me-2" aria-hidden="true"></i>Edit
-                                                                </a>
-                                                                <a class="text-danger font-weight-bold text-xs mx-3 deleteAmenities"
+                                                                </button>
+                                                                <button class="btn btn-link text-danger font-weight-bold text-xs mx-3 deleteAmenities"
                                                                     data-toggle="tooltip" data-bs-toggle="modal"
                                                                     data-bs-target="#exampleModalDeleteAmenities"
                                                                     data-amenities_id="{{ $item->amenities_id }}"><i class="far fa-trash-alt me-2"></i>
                                                                     Xóa
-                                                                </a>
+                                                                </button>
                                                             </div>
                                                         </td>
                                                     </tr>

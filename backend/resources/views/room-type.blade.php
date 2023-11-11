@@ -117,19 +117,19 @@
                                                 </td>
                                                 <td class="align-middle">
                                                     <div class="d-flex px-2 py-1">
-                                                        <a class="text-info font-weight-bold text-xs mx-3 editRoomtype"
+                                                        <button class="btn btn-link text-info font-weight-bold text-xs mx-3 editRoomtype"
                                                             data-original-title="Edit user" data-bs-toggle="modal"
                                                             data-bs-target="#exampleModalEditRoomType"
                                                             data-rty_id="{{ $room_type->rty_id }}">
                                                             <i class="fas fa-pencil-alt text-default me-2" aria-hidden="true"></i>Edit
-                                                        </a>
-                                                        <a class="text-danger font-weight-bold text-xs mx-3 deleteRoomType"
+                                                        </button>
+                                                        <button class="btn btn-link text-danger font-weight-bold text-xs mx-3 deleteRoomType"
                                                             data-toggle="tooltip" data-original-title="Delete user"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#exampleModalDeleteRoomType"
                                                             data-rty_id="{{ $room_type->rty_id }}">
                                                             <i class="far fa-trash-alt me-2"></i>Xóa
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>

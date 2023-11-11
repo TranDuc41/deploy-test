@@ -45,6 +45,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('/items/{id}/edit', [UserController::class, 'edit']);
     // Route::put('/items/{id}', [UserController::class, 'update']);
     // Route::delete('/items/{id}', [UserController::class, 'destroy']);
+
+    //Room type
+    Route::get('/room-type', [RoomTypeController::class, 'index'])->name('room-types');
+    Route::post('/room-type', [RoomTypeController::class, 'create'])->name('room-types');
+
+    Route::get('/room-type/{rty_id}', [RoomTypeController::class, 'show'])->name('room-type');
+    Route::put('/room-type/{rty_id}', [RoomTypeController::class, 'update'])->name('room-type');
+    Route::delete('/room-type/{rty_id}', [RoomTypeController::class, 'delete'])->name('room-type');
+
+    //Sale
+    Route::get('/sale', [SaleController::class, 'index'])->name('sales');
+    Route::post('/sale', [SaleController::class, 'create'])->name('sale.create');
+    Route::get('/sale/{sale_id}', [SaleController::class, 'show'])->name('sale.show');
+    Route::put('/sale/{sale_id}', [SaleController::class, 'update'])->name('sale.update');
+    Route::delete('/sale/{sale_id}', [SaleController::class, 'delete'])->name('sale.delete');
+
+    //Amenities
+    Route::get('/amenities', [AmenitiesController::class, 'index'])->name('amenities');
+    Route::post('/amenities', [AmenitiesController::class, 'create'])->name('amenities.create');
+    Route::get('/amenities/{amenities_id}', [AmenitiesController::class, 'show'])->name('amenities.update');
+    Route::put('/amenities/{amenities_id}', [AmenitiesController::class, 'update'])->name('amenities.update');
+    Route::delete('/amenities/{amenities_id}', [AmenitiesController::class, 'delete'])->name('amenities.delete');
 });
 
 Route::middleware('auth')->group(function () {
@@ -73,25 +95,3 @@ require __DIR__ . '/auth.php';
 // Route::get('/sign-up', function () {
 //     return view('sign-up');
 // });
-
-//Room type
-Route::get('/room-type', [RoomTypeController::class, 'index'])->name('room-types');
-Route::post('/room-type', [RoomTypeController::class, 'create'])->name('room-types');
-
-Route::get('/room-type/{rty_id}', [RoomTypeController::class, 'show'])->name('room-type');
-Route::put('/room-type/{rty_id}', [RoomTypeController::class, 'update'])->name('room-type');
-Route::delete('/room-type/{rty_id}', [RoomTypeController::class, 'delete'])->name('room-type');
-
-//Sale
-Route::get('/sale', [SaleController::class, 'index'])->name('sales');
-Route::post('/sale', [SaleController::class, 'create'])->name('sale.create');
-Route::get('/sale/{sale_id}', [SaleController::class, 'show'])->name('sale.show');
-Route::put('/sale/{sale_id}', [SaleController::class, 'update'])->name('sale.update');
-Route::delete('/sale/{sale_id}', [SaleController::class, 'delete'])->name('sale.delete');
-
-//Amenities
-Route::get('/amenities', [AmenitiesController::class, 'index'])->name('amenities');
-Route::post('/amenities', [AmenitiesController::class, 'create'])->name('amenities.create');
-Route::get('/amenities/{amenities_id}', [AmenitiesController::class, 'show'])->name('amenities.update');
-Route::put('/amenities/{amenities_id}', [AmenitiesController::class, 'update'])->name('amenities.update');
-Route::delete('/amenities/{amenities_id}', [AmenitiesController::class, 'delete'])->name('amenities.delete');
