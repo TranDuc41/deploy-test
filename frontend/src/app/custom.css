@@ -579,6 +579,7 @@ footer .socialsing a {
 .seclect-booking .categories-wrap .row {
     padding: 7px 0;
 }
+
 /* REPONSIVE */
 /* Phones */
 @media only screen and (max-width:576px) {
@@ -647,32 +648,738 @@ footer .socialsing a {
         border: none;
     }
 }
+
+
+/* Trong Tri */
+
+.row-home .row {
+    padding-top: 150px
+}
+
+.row-home .row-content-home {
+    padding-top: 124px
+}
+
+.img1-home img{
+    width: auto;
+    height: auto;
+}
+
+.img2-home img{
+    width: auto;
+    padding-top: 21px;
+    height: auto;
+}
+
+.img-home {
+    height: 100%;
+}
+
+.img-home img {
+    width: auto;
+    height: 100%;
+}
+
+.color-span-home {
+    color: #AA8453;
+}
+
+.icon-restaurant {
+    color: #E4A853;
+    width: 70.968px;
+    height: 45.101px;
+    margin-right: 17px;
+}
+
+.icon-world {
+    color: #E4A853;
+    width: 52.968px;
+    height: 51.101px;
+    margin-right: 17px;
+}
+
+.color-span-home {
+    margin-top: 20px;
+}
+
+.title-home h2 {
+    font-weight: 600;
+    padding-top: 10px;
+    font-size: 45px;
+    line-height: normal;
+    letter-spacing: 4.5px;
+
+}
+
+.row-content-home p {
+    color: #000;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.row-content-home h3 {
+    display: flex;
+    width: 545px;
+    height: 55px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 3.2px;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .row-content-home {
+        padding-top: 23px !important;
+    }
+
+    .row-home .row-content-home .d-block,
+    .row-home .row-content-home .d-block h3 {
+        max-width: 100%;
+    }
+
+    .row-home .row-content-home .d-block p {
+        margin-top: 22px;
+    }
+
+    .row-content-home .title-home {
+        margin-bottom: 40px;
+    }
+
+    .row-content-home svg {
+        display: none;
+    }
+
+    .row-home .img-home img {
+        width: 100%;
+        height: auto;
+    }
+
+    .row-home .row {
+        padding-right: unset !important;
+        margin-left: -7px;
+    }
+
+    .row-home .col-6:first-child {
+        display: none;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .img-home img {
+        width: 100%;
+    }
+}
+
+/* PC */
+@media only screen and (min-width:1200px) {
+    .img-home img {
+        width: 100%;
+    }
+}
+
+/* Contact  - Trong Tri */
+.contact-page {
+    margin-top: 97px;
+
+}
+
+.contact-form div {
+    margin-bottom: 37px;
+
+}
+
+.contact-form input,
+.contact-form textarea {
+    border: 1px solid #666;
+    border-radius: 8px;
+    background-color: #f2eee7;
+}
+
+.form-control:focus {
+    background-color: #f2eee7;
+}
+
+.contact-form div .btn {
+    background-color: #E4A853;
+    border: unset;
+}
+
+.contact-form div .btn {
+    width: 38%;
+}
+
+
+/* Spa- Trong Tri */
+.main-title-spa .content-wrapper h2 {
+    color: #9E853F;
+    font-size: 45px;
+
+}
+
+
+.spa-introduction .row h3 {
+    color: #FFF;
+    font-family: Arima Madurai;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.spa-introduction .row p {
+    color: #FFF;
+    font-family: Arima Madurai;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px
+}
+
+.spa-introduction .row h2 {
+    font-size: 45px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.spa-introduction {
+    background-image: url('/promo-bg 1.png');
+    background-size: cover;
+    padding: 80px 50px;
+}
+
+
+
+.spa-introduction .container .row .video-spa img {
+
+    border-radius: 10px;
+
+}
+
+.spa-introduction .row .content-spa {
+    color: #FFFFFF;
+    margin-top: 35px;
+
+}
+
+.spa-introduction .row button {
+
+    border: 1px solid #AA8453;
+    color: #AA8453;
+    background-color: unset;
+    text-decoration: underline;
+    text-decoration-color: #AA8453;
+    color: #AA8453;
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    padding: 9px 30px;
+    margin-top: 17px;
+}
+
+.spa-introduction .row .video-spa {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.spa-introduction .row .video-spa iframe {
+    border-radius: 6px;
+}
+
+/* REPONSIVE */
+/* Phones */
+@media only screen and (max-width:576px) {
+    .title-spa .main-title-spa .content-wrapper {
+        padding-top: 100px;
+    }
+
+    .main-title-spa .content-wrapper h2 {
+        font-size: 36px;
+    }
+
+    .main-title-spa .content-wrapper span {
+        font-size: 16px;
+    }
+
+    .main-title-spa .content-wrapper .title-spa-top {
+        width: 100% !important;
+    }
+
+    .spa-introduction .row h2 {
+        font-size: 36px;
+
+    }
+
+    .spa-introduction .row button {
+        padding: 13px 11px;
+        margin-bottom: 11%;
+    }
+
+    .spa-introduction .row .video-spa {
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Tablets */
+@media only screen and (min-width:576px) {
+    .spa-introduction {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .title-spa .main-title-spa {
+        padding-top: 50px;
+    }
+}
+
+/* Trọng Tri */
+/* ROOMSUITES */
+
+.SwiperSlide {
+    color: rgb(0, 0, 0);
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    margin: auto;
+}
+
+.roomsuite-main-section {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    border: 2px
+}
+
+.roomsuite-section img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+
+}
+
+.roomsuite-description {
+    padding: 12px 16px;
+    background: #fff;
+}
+
+.room-short-description span,
+.room-short-description h3 {
+    display: block;
+}
+
+.room-short-description span {
+    color: #000000;
+    font-size: 0.7em;
+}
+
+.room-short-description h3 {
+    color: #000000;
+    font-size: 1.2em;
+}
+
+.over-view-button {
+    text-align: center;
+    padding: 10px 0;
+    background: #fff
+}
+
+.over-view-button .btn .overview-btn {
+    font-size: 0.85em;
+    padding: 10px 50px;
+    background-color: #FFF;
+    color: #fff;
+    cursor: pointer;
+    background-color: #E4A853;
+    border: 1px solid #E4A853 !important;
+    border-radius: 10px;
+}
+
+.gold-line {
+    height: 2px;
+    background-color: #E4A853;
+    width: 100%;
+    margin: 16px auto;
+}
+
+.swiper-wrapper {
+    transform: translate3d(0px, 0px, 0px);
+    padding-bottom: 28px;
+}
+
+/* CSS cho màn hình lớn và máy tính để bàn */
+/* CSS phản hồi cho máy tính bảng */
+@media (max-width: 768px) {
+    .SwiperSlide {
+        width: 90%;
+        margin: auto;
+    }
+
+    .roomsuite-description {
+        padding: 10px 14px;
+    }
+
+    .room-short-description h3 {
+        font-size: 1.1em;
+    }
+
+    .over-view-button .btn .overview-btn {
+        padding: 8px 16px;
+    }
+
+    .gold-line {
+        width: 100%;
+        margin: 12px auto;
+    }
+}
+
+/* CSS phản hồi cho điện thoại di động */
+@media (max-width: 480px) {
+    .SwiperSlide {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .roomsuite-description {
+        padding: 8px 12px;
+    }
+
+    .room-short-description h3 {
+        font-size: 1em;
+    }
+
+    .over-view-button .btn .overview-btn {
+        padding: 6px 12px;
+    }
+
+    .gold-line {
+        width: 100%;
+        margin: 8px auto;
+    }
+}
+
+/* Map - Trong Tri*/
+.map-content {
+    width: 100%;
+    height: 500px;
+    margin: 0 auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px solid transparent;
+    ;
+    position: relative;
+}
+
+.map-container .map-content iframe {
+    width: 100%;
+    height: 100%;
+
+}
+
+.map-container {
+    margin: 7% 4%;
+}
+
+.contact-page .map-container {
+    margin-top: 15rem;
+}
+
+.contact-page .map-container {
+    margin-top: -2rem;
+}
+
+/* CSS phản hồi cho điện thoại di động */
+@media (max-width: 767px) {
+    .map-content {
+        height: 400px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 8px solid transparent;
+        ;
+        position: relative;
+    }
+
+
+}
+
+/* CSS phản hồi cho máy tính bảng */
+@media (min-width: 768px) and (max-width: 991px) {
+    .map-content {
+        height: 400px;
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 8px solid transparent;
+        ;
+        position: relative;
+    }
+}
+
+/* TRONG TRI */
+/* RESTAURANT */
+.restaurant {
+    background-color: #fff;
+}
+
+.content-restaurant .restaurant-top {
+    text-align: center;
+    padding: 0 26px;
+}
+
+.content-restaurant .restaurant-top h2 {
+    color: #9B833D;
+    text-align: center;
+    font-family: Arima Madurai;
+    font-size: 45px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 9px;
+}
+
+.content-restaurant .restaurant-top image {
+    width: 114px;
+    height: 103px;
+
+}
+
+.content-restaurant .restaurant-top span {
+    color: #666;
+    text-align: center;
+    font-family: Arima Madurai;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/* Restaurant-page home - Trong Tri */
+.restaurant-module {
+    margin: 7% 6%;
+}
+
+.image-container img {
+    width: 100%;
+    display: block;
+}
+
+.text-container {
+    background: #fff;
+    padding: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+    padding: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 100%;
+}
+
+.text-container h5,
+.text-container h3,
+.text-container p {
+    margin: 0 0 10px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+}
+
+.text-container a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #666 !important;
+    font-family: Inria Sans;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 3.6px;
+    text-decoration-line: underline;
+    margin-top: 10px;
+}
+
+.text-container a:hover {
+    text-decoration: underline;
+}
+
+.image-container img {
+    width: 394px;
+    height: 499px;
+    flex-shrink: 0;
+}
+
+.restaurant-module .text-container .text-uppercase {
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #666;
+    font-family: Inika;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 3.9px;
+    text-transform: uppercase;
+}
+
+.restaurant-module .text-container h3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #AA8453;
+    font-family: Inria Serif;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.restaurant-module .text-container p {
+    color: #000;
+    font-family: Inria Serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.restaurant-module .text-container a {
+    margin-top: 3px;
+}
+
+/* CSS cho màn hình tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .restaurant-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .restaurant-row .restaurant-module {
+        margin-bottom: 20px;
+    }
+
+    .restaurant-row .restaurant-module:nth-child(3) {
+        flex: 0 0 100% !important;
+        max-width: 100%;
+        order: 2;
+    }
+}
+
+/* CSS cho màn hình điện thoại */
+@media (max-width: 767.98px) {
+    .restaurant-row .restaurant-module {
+        flex: 0 0 100%;
+        margin-bottom: 20px;
+    }
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.restaurant .content-restaurant .loadmore {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    display: block;
+    color: #AA8453;
+    font-family: Arima Madurai;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 5px;
+    text-decoration: none; 
+    display: inline-flex; 
+    align-items: center; 
+}
+
+.restaurant .content-restaurant .loadmore .text {
+    text-decoration: underline; 
+  }
+  
+.restaurant .content-restaurant  .loadmore .arrow {
+    margin-left: 8px; 
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Lan Anh */
 /* Lan anh */
 /*  BANNER ROOM DETAIL */
-#banner-room .image-room{
+#banner-room .image-room {
     width: 100%;
     height: 600px;
     object-fit: cover;
 }
-#banner-room .carousel-item{
+
+#banner-room .carousel-item {
     width: 100;
     height: 600px;
     overflow: hidden;
 }
+
 /*  END BANNER ROOM DETAIL */
 /* ITEM CONTENT ROOM DETAIL */
 
-#block-dominion-content{
-    margin : 60px 0;
+#block-dominion-content {
+    margin: 60px 0;
 }
-#block-dominion-content .room-price{
+
+#block-dominion-content .room-price {
     color: #E4A853;
     margin-left: 10px;
 }
-#block-dominion-content .card-header{
+
+#block-dominion-content .card-header {
     padding-left: 0;
-    border-bottom : 0;  
+    border-bottom: 0;
     background-color: #f3eee7;
     color: #666;
     font-family: Inika;
@@ -683,12 +1390,14 @@ footer .socialsing a {
     letter-spacing: 7.5px;
     text-transform: uppercase;
 }
-#block-dominion-content .card{
-    border : 0;
+
+#block-dominion-content .card {
+    border: 0;
     background-color: #f3eee7;
     color: #666666;
 }
-#block-dominion-content .card-title{
+
+#block-dominion-content .card-title {
     color: #AA8453;
     font-family: Inria Serif;
     font-size: 30px;
@@ -696,18 +1405,21 @@ footer .socialsing a {
     font-weight: 500;
     line-height: normal;
 }
-#block-dominion-content .card-text{
+
+#block-dominion-content .card-text {
     padding-right: 59px;
     text-align: justify;
     margin-bottom: 50px;
     font-size: 16px;
 }
-#block-dominion-content .card-footer{
-    border-top : 0;  
+
+#block-dominion-content .card-footer {
+    border-top: 0;
     background-color: #f3eee7;
-    
+
 }
-#block-dominion-content .card-footer .btn-booking{
+
+#block-dominion-content .card-footer .btn-booking {
     color: #FFF;
     text-align: center;
     font-size: 18px;
@@ -715,149 +1427,176 @@ footer .socialsing a {
     width: 155.433px;
     height: 46px;
     background-color: #E4A853;
-    
+
 }
-#block-dominion-content .card-footer .btn-booking:hover{
+
+#block-dominion-content .card-footer .btn-booking:hover {
     background-color: #e78d0f;
-    
+
 }
-#block-dominion-content .card-media{
+
+#block-dominion-content .card-media {
     display: flex;
     margin-top: 55px;
-  }
-#block-dominion-content .card-media-item-2{
+}
+
+#block-dominion-content .card-media-item-2 {
     margin-top: 10rem;
 }
+
 /* END ITEM CONTENT ROOM DETAIL */
 /* TAB CONTENT ROOM DETAIL */
-section.spacer{
-    margin : 100px 0;
+section.spacer {
+    margin: 100px 0;
 }
-section.spacer header.heading-h{
+
+section.spacer header.heading-h {
     color: #000;
     font-size: 25px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
 }
-section.spacer ul.grid-list{
+
+section.spacer ul.grid-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 26px 40px;
     background-color: #fff;
 }
-section.spacer ul.grid-list li{
+
+section.spacer ul.grid-list li {
     width: calc(33.33% - 10px);
     margin: 5px;
     padding-right: 20px;
 
 }
+
 /* END TAB CONTENT ROOM DETAIL */
 /* REPONSIVE ROOM DETAIL */
 /* Phones */
 @media only screen and (max-width:576px) {
-    #banner-room .carousel-item{
+    #banner-room .carousel-item {
         width: 100%;
         height: 100%;
         overflow: auto;
     }
-    #banner-room .image-room{
+
+    #banner-room .image-room {
         width: 100%;
         height: auto;
     }
-    #block-dominion-content{
-        margin : 20px 0;
+
+    #block-dominion-content {
+        margin: 20px 0;
     }
-    #block-dominion-content .card-text{
+
+    #block-dominion-content .card-text {
         padding-right: 0;
         text-align: justify;
         margin-bottom: 50px;
         font-size: 16px;
     }
-    #block-dominion-content .card-media{
+
+    #block-dominion-content .card-media {
         display: flex;
         margin-top: 55px;
-      }
-    #block-dominion-content .card-media-item-1{
+    }
+
+    #block-dominion-content .card-media-item-1 {
         width: 50%;
     }
-    #block-dominion-content .card-media-item-2{
+
+    #block-dominion-content .card-media-item-2 {
         margin-top: 0;
         width: 50%;
     }
-    #block-dominion-content img{
+
+    #block-dominion-content img {
         width: 100%;
         height: auto;
     }
-    section.spacer{
-        margin : 50px 0;
+
+    section.spacer {
+        margin: 50px 0;
     }
-    section.spacer ul.grid-list{
+
+    section.spacer ul.grid-list {
         display: block;
         flex-wrap: wrap;
         justify-content: space-between;
         padding: 26px 40px;
         background-color: #fff;
     }
-    section.spacer ul.grid-list li{
+
+    section.spacer ul.grid-list li {
         width: 100%;
         margin: 5px;
         padding-right: 20px;
-    
     }
 }
 
-/* Tablets */
 @media only screen and (min-width:768px) and (max-width: 992px) {
-    #banner-room .carousel-item{
+    #banner-room .carousel-item {
         width: 100%;
         height: 100%;
         overflow: auto;
     }
-    #banner-room .image-room{
+
+    #banner-room .image-room {
         width: 100%;
         height: auto;
     }
-    #block-dominion-content{
-        margin : 20px 0;
+
+    #block-dominion-content {
+        margin: 20px 0;
     }
-    #block-dominion-content .card-text{
+
+    #block-dominion-content .card-text {
         padding-right: 0;
         text-align: justify;
         margin-bottom: 50px;
         font-size: 16px;
     }
-    #block-dominion-content .card-media{
+
+    #block-dominion-content .card-media {
         display: flex;
         margin-top: 55px;
-      }
-      #block-dominion-content .card-media-item-1{
+    }
+
+    #block-dominion-content .card-media-item-1 {
         width: 50%;
     }
-    #block-dominion-content .card-media-item-2{
+
+    #block-dominion-content .card-media-item-2 {
         margin-top: 0;
         width: 50%;
     }
-    #block-dominion-content img{
+
+    #block-dominion-content img {
         width: 100%;
         height: auto;
     }
-    section.spacer{
-        margin : 50px 0;
+
+    section.spacer {
+        margin: 50px 0;
     }
-    section.spacer ul.grid-list{
+
+    section.spacer ul.grid-list {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         padding: 26px 40px;
         background-color: #fff;
     }
-    section.spacer ul.grid-list li{
+
+    section.spacer ul.grid-list li {
         width: calc(50% - 10px);
         margin: 5px;
         padding-right: 20px;
-    
+
     }
 }
+
 /* END REPONSIVE ROOM DETAIL */
