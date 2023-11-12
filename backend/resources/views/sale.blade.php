@@ -27,28 +27,25 @@
 
             </div>
             <div class="row">
-                <div class="col-md-8 mt-2">
+                <div class="col-md-7 mt-2">
                     <div class="card">
-                        <div class="card-header pb-1">
+                        <div class="card-header pb-0 p-3">
                             <div class="row">
-                                <div class="col-lg-4 col-4">
-                                    <h5>Mã giảm giá</h5>
-                                </div>
-                                <div class="col-lg-8 col-8 my-auto mb-2 d-flex text-end">
-                                    <input class="form-control mx-3 mt" onkeyup="searchInTableFunction()" type="search"
-                                        value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
-
-                                    <button class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModalAddSale">Thêm</button>
-                                </div>
+                              <div class="col-6 d-flex align-items-center">
+                                <h5 class="mb-0">Mã giảm giá</h5>
+                              </div>
+                              <div class="col-6 text-end">
+                                <button class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#exampleModalAddSale"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Thêm</button>
+                              </div>
                             </div>
-                        </div>
+                          </div>
                         <div class="card-body pt-4 p-3">
                             <ul class="list-group">
                                 @foreach ($sales as $item)
                                     <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
                                         <div class="d-flex flex-column">
-                                            <h4 class="mb-3"> {{ $item->discount }} %</h4>
+                                            <h4 class="mb-3 text-primary "><span class="text-lg text-dark">Mã giảm : </span>
+                                                {{ $item->discount }}%</h4>
                                             <span class="mb-2 text-xs">ID : <span
                                                     class="text-dark font-weight-bold ms-sm-2">
                                                     {{ $item->sale_id }}</span></span>
@@ -60,12 +57,12 @@
                                                     class="text-dark ms-sm-2 font-weight-bold">{{ $item->user->name }}</span></span>
                                         </div>
                                         <div class="ms-auto text-end">
-                                            <button class="btn btn-link text-primary px-3 mb-0 editSale"
+                                            <button class="btn btn-link text-info px-3 mb-0 editSale"
                                                 data-bs-toggle="modal" data-sale_id ="{{ $item->sale_id }}"
                                                 data-user_id ="{{ $item->user_id }}"><i
-                                                    class="fas fa-pencil-alt text-primary me-2"
+                                                    class="fas fa-pencil-alt text-info me-2"
                                                     aria-hidden="true"></i>Sửa</button>
-                                            <button class="btn btn-link text-danger text-gradient px-3 mb-0 deleteSale"
+                                            <button class="btn btn-link text-dark text-gradient px-3 mb-0 deleteSale"
                                                 data-toggle="tooltip" data-original-title="Delete user"
                                                 data-bs-toggle="modal" data-sale_id ="{{ $item->sale_id }}"
                                                 data-user_id ="{{ $item->user_id }}"><i
@@ -77,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mt-4">
+                <div class="col-md-5 mt-4">
                     <div class="card h-100 mb-4">
                         <div class="card-header pb-0 px-3">
                             <div class="row">
@@ -270,13 +267,14 @@
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Discount</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">%</span>
-                                            <input type="text" class="form-control" name="discount" id="discountEdit" required>
-                                            <div class="invalid-feedback">
-                                                Please provide a valid.
-                                            </div>
+                                    <div class="input-group">
+                                        <span class="input-group-text">%</span>
+                                        <input type="text" class="form-control" name="discount" id="discountEdit"
+                                            required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid.
                                         </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày bắt

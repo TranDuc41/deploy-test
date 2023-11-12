@@ -285,3 +285,67 @@ function decodeID(encodedID) {
     var decodedID = atob(encodedID);
     return decodedID;
 }
+//Xử lý tìm kiếm trong tienich
+function searchInTableAmenitiesFunction() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("search-input-amenities");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("table-amenities");
+    tr = table.getElementsByTagName("tr");
+
+    // Lặp qua tất cả các hàng trong bảng
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = ""; // Hiển thị tất cả các hàng trước khi kiểm tra
+        var rowContainsSearchTerm = false;
+
+        // Loop qua từng ô trong hàng
+        for (j = 0; j < tr[i].cells.length; j++) {
+            td = tr[i].cells[j];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    // Nếu tìm thấy kết quả trong ô nào đó, không ẩn hàng và thoát khỏi vòng lặp
+                    rowContainsSearchTerm = true;
+                    break;
+                }
+            }
+        }
+
+        // Ẩn hoặc hiển thị hàng tùy thuộc vào việc có chứa kết quả tìm kiếm không
+        if (!rowContainsSearchTerm) {
+            tr[i].style.display = "none";
+        }
+    }
+}
+//Xử lý tìm kiếm trong room type
+function searchInTableRoomTypeFunction() {
+    var input, filter, table, tr, td, i, j, txtValue;
+    input = document.getElementById("search-input-roomRype");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("table-room-type");
+    tr = table.getElementsByTagName("tr");
+
+    // Lặp qua tất cả các hàng trong bảng
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = ""; // Hiển thị tất cả các hàng trước khi kiểm tra
+        var rowContainsSearchTerm = false;
+
+        // Loop qua từng ô trong hàng
+        for (j = 0; j < tr[i].cells.length; j++) {
+            td = tr[i].cells[j];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    // Nếu tìm thấy kết quả trong ô nào đó, không ẩn hàng và thoát khỏi vòng lặp
+                    rowContainsSearchTerm = true;
+                    break;
+                }
+            }
+        }
+
+        // Ẩn hoặc hiển thị hàng tùy thuộc vào việc có chứa kết quả tìm kiếm không
+        if (!rowContainsSearchTerm) {
+            tr[i].style.display = "none";
+        }
+    }
+}

@@ -35,8 +35,8 @@
                                     <h5>Loại phòng</h5>
                                 </div>
                                 <div class="col-lg-5 col-5 my-auto mb-2 d-flex text-end">
-                                    <input class="form-control mx-3 mt" onkeyup="searchInTableFunction()" type="search"
-                                        value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
+                                    <input class="form-control mx-3 mt" onkeyup="searchInTableRoomTypeFunction()" type="search"
+                                        value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input-roomRype">
 
                                     <button class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal"
                                         data-bs-target="#exampleModalAddRoomType">Thêm</button>
