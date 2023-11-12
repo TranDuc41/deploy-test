@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Pagination, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Link from 'next/link';
 import { IoIosBed, IoIosWifi } from 'react-icons/io';
 import { GiBathtub } from 'react-icons/gi';
 
@@ -14,121 +15,132 @@ import 'swiper/css/autoplay';
 import { Button } from 'react-bootstrap';
 
 
-const rooms = [
-    {
-        img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
-            {
-                "icon": <IoIosBed />,
-                "text": "4 phòng ngủ",
-            },
-            {
-                "icon": <GiBathtub />,
-                "text": "Bồn tắm",
-            },
-            {
-                "icon": <IoIosWifi />,
-                "text": "Wifi miễn phí",
+// const rooms = [
+//     {
+//         img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
+//             {
+//                 "icon": <IoIosBed />,
+//                 "text": "4 phòng ngủ",
+//             },
+//             {
+//                 "icon": <GiBathtub />,
+//                 "text": "Bồn tắm",
+//             },
+//             {
+//                 "icon": <IoIosWifi />,
+//                 "text": "Wifi miễn phí",
+//             }
+//         ]
+//     },
+//     {
+//         img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
+//             {
+//                 "icon": <IoIosBed />,
+//                 "text": "4 phòng ngủ",
+//             },
+//             {
+//                 "icon": <GiBathtub />,
+//                 "text": "Bồn tắm",
+//             },
+//             {
+//                 "icon": <IoIosWifi />,
+//                 "text": "Wifi miễn phí",
+//             }
+//         ]
+//     },
+//     {
+//         img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
+//             {
+//                 "icon": <IoIosBed />,
+//                 "text": "4 phòng ngủ",
+//             },
+//             {
+//                 "icon": <GiBathtub />,
+//                 "text": "Bồn tắm",
+//             },
+//             {
+//                 "icon": <IoIosWifi />,
+//                 "text": "Wifi miễn phí",
+//             }
+//         ]
+//     },
+//     {
+//         img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
+//             {
+//                 "icon": <IoIosBed />,
+//                 "text": "4 phòng ngủ",
+//             },
+//             {
+//                 "icon": <GiBathtub />,
+//                 "text": "Bồn tắm",
+//             },
+//             {
+//                 "icon": <IoIosWifi />,
+//                 "text": "Wifi miễn phí",
+//             }
+//         ]
+//     },
+//     {
+//         img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
+//             {
+//                 "icon": <IoIosBed />,
+//                 "text": "4 phòng ngủ",
+//             },
+//             {
+//                 "icon": <GiBathtub />,
+//                 "text": "Bồn tắm",
+//             },
+//             {
+//                 "icon": <IoIosWifi />,
+//                 "text": "Wifi miễn phí",
+//             }
+//         ]
+//     },
+
+// ]
+const RoomsSuites = () => {
+    const [rooms, setRooms] = useState([]);
+    const [slidesPerView, setSlidesPerView] = useState(3);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/api/rooms');
+                const data = await response.json();
+                setRooms(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
-        ]
-    },
-    {
-        img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
-            {
-                "icon": <IoIosBed />,
-                "text": "4 phòng ngủ",
-            },
-            {
-                "icon": <GiBathtub />,
-                "text": "Bồn tắm",
-            },
-            {
-                "icon": <IoIosWifi />,
-                "text": "Wifi miễn phí",
+        };
+
+        if (rooms.length === 0) {
+            fetchData();
+        }
+    }, [rooms]); // Thêm rooms vào dependencies để tránh gọi fetchData liên tục
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 1200) {
+                setSlidesPerView(1);
+            } else {
+                setSlidesPerView(3);
             }
-        ]
-    },
-    {
-        img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
-            {
-                "icon": <IoIosBed />,
-                "text": "4 phòng ngủ",
-            },
-            {
-                "icon": <GiBathtub />,
-                "text": "Bồn tắm",
-            },
-            {
-                "icon": <IoIosWifi />,
-                "text": "Wifi miễn phí",
-            }
-        ]
-    },
-    {
-        img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
-            {
-                "icon": <IoIosBed />,
-                "text": "4 phòng ngủ",
-            },
-            {
-                "icon": <GiBathtub />,
-                "text": "Bồn tắm",
-            },
-            {
-                "icon": <IoIosWifi />,
-                "text": "Wifi miễn phí",
-            }
-        ]
-    },
-    {
-        img: '/Amanoi_Accommodation_Interior 1.png', roomName: 'Room', price: 4000000, content: 'Nội dung chi tiết cần hiển thị', utilities: [
-            {
-                "icon": <IoIosBed />,
-                "text": "4 phòng ngủ",
-            },
-            {
-                "icon": <GiBathtub />,
-                "text": "Bồn tắm",
-            },
-            {
-                "icon": <IoIosWifi />,
-                "text": "Wifi miễn phí",
-            }
-        ]
-    },
+        };
 
-]
+        handleResize();
 
-export default () => {
-    const [slidesPerView, setSlidesPerView] = useState(3); // Giá trị mặc định cho desktop
+        window.addEventListener('resize', handleResize);
 
-  useEffect(() => {
-    // Lắng nghe sự kiện thay đổi kích thước màn hình
-    const handleResize = () => {
-      // Kiểm tra kích thước màn hình và cập nhật giá trị slidesPerView tương ứng
-      if (window.innerWidth < 1200) {
-        setSlidesPerView(1); // Trên mobile, hiển thị một slide mỗi lần
-      } else {
-        setSlidesPerView(3); // Trên desktop, hiển thị ba slide mỗi lần
-      }
-    };
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []); // Dependency rỗng để chỉ gọi một lần khi mount
 
-    // Gọi hàm handleResize ngay khi component được mount
-    handleResize();
-
-    // Lắng nghe sự kiện resize và gọi hàm handleResize khi kích thước màn hình thay đổi
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup: loại bỏ sự kiện lắng nghe khi component bị unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
     return (
         <Swiper
             modules={[Pagination, A11y, Autoplay]}
             pagination={{ clickable: true }}
             loop={true}
-            // autoplay={{delay: 3000}}
             spaceBetween={34}
             slidesPerView={slidesPerView}
         >
@@ -136,34 +148,33 @@ export default () => {
                 <SwiperSlide key={index}>
                     <div>
                         <div className='room-img'>
-                            <Image src={room.img}
-                                width={409}
-                                height={243}
-                                alt="Dominion Logo">
-                            </Image>
+                            <Image src={'http://localhost:8000' + room.images[0].img_src} width={409} height={243} alt="Dominion Logo" />
                         </div>
                         <div className='room-content text-center my-4'>
                             <div className='mb-4'>
-                                <h3>{room.roomName}</h3>
-                                <span>{room.content}</span>
+                                <Link href={""} className="text-decoration-none text-black">
+                                <h3>{room.title}</h3>
+                                </Link>
+                                <span className="room-description">{room.description}</span>
                             </div>
                             <div className='room-price d-flex justify-content-center'>
-                                <h3>{new Intl.NumberFormat('vi-VN', {
-                                    style: 'currency',
-                                    currency: 'VND'
-                                }).format(room.price)}
-                                </h3>
+                                <h3>{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(room.price)}</h3>
                                 <span>/đêm</span>
                             </div>
                         </div>
                         <div className='room-bottom'>
-                            <div className='row'>
-                                {room.utilities.map((utilitie, index) => (
-                                    <div className='col' key={index}>{utilitie.icon}<span>{utilitie.text}</span></div>
-                                ))}
-                            </div>
+                            {Array.isArray(room.amenities) && (
+                                <div className='row'>
+                                    {room.amenities.slice(0, 3).map((amenitie, index) => (
+                                        <div className='col' key={index}>
+                                            {/* {utilitie.icon} */}
+                                            <span>{amenitie.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                             <div className='text-center my-4'>
-                                <Button className='mt-2 px-5 btn-check-now btn btn-primary'>Đặt Ngay</Button>
+                                <Button className='mt-2 px-5 btn-check-now btn btn-primary' datatype={room.slug}>Đặt Ngay</Button>
                             </div>
                         </div>
                     </div>
@@ -172,3 +183,5 @@ export default () => {
         </Swiper>
     );
 };
+
+export default RoomsSuites;

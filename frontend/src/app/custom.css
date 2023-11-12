@@ -436,6 +436,10 @@ footer .socialsing a {
     padding: 0 26px;
 }
 
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-content a:hover {
+    color: #E4A853 !important;
+}
+
 .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-content .room-price {
     color: #E4A853;
     padding-bottom: 20px;
@@ -444,6 +448,14 @@ footer .socialsing a {
 
 .content-rooms-suites h2 {
     color: #AA8453;
+}
+
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-content .room-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* REPONSIVE */
@@ -494,7 +506,7 @@ footer .socialsing a {
 
     .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-img img {
         width: 100% !important;
-        height: 100% !important;
+        /* height: 100% !important; */
     }
 }
 
