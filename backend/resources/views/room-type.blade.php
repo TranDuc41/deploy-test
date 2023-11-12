@@ -7,76 +7,43 @@
         <div class="container-fluid py-4">
             <div class="row">
                 @if (session('success'))
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                    <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                        <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
                 @if (session('error'))
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                    <span class="alert-text"><strong>Lỗi !</strong> {{ session('error') }}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                        <span class="alert-text"><strong>Lỗi !</strong> {{ session('error') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
 
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card mb-4">
-                        <div class="d-flex justify-content-between card-header pb-0">
-                            <h6>Loại phòng</h6>
-                            <button class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal"
-                                data-bs-target="#exampleModalAddRoomType">Thêm</button>
-                            {{-- Modal thêm --}}
-                            <div class="modal fade" id="exampleModalAddRoomType" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Thêm loại phòng</h5>
-                                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="{{ route('room-types') }}" method="POST"
-                                                class="needs-validation">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlInput1">Tên</label>
-                                                    <input type="text" class="form-control" name="name" id="name"
-                                                        placeholder="Pavilions & Villas" oninput="updateSlug()" required>
-                                                    <div class="invalid-feedback">
-                                                        Please provide a valid.
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlInput1">Slug</label>
-                                                    <input type="text" class="form-control" name="slug" id="slug"
-                                                        placeholder="pavilions-&-villas" required>
-                                                    <div class="invalid-feedback">
-                                                        Please provide a valid.
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlTextarea1">Nội dung</label>
-                                                    <textarea class="form-control" name="description" rows="3"></textarea>
-                                                </div>
-                                                <button type="submit" class="btn bg-gradient-primary">Thêm</button>
-                                            </form>
-                                        </div>
-                                    </div>
+                    <div class="card my-4">
+                        <div class="card-header pb-1  border-bottom-1">
+                            <div class="row">
+                                <div class="col-lg-7 col-7">
+                                    <h5>Loại phòng</h5>
+                                </div>
+                                <div class="col-lg-5 col-5 my-auto mb-2 d-flex text-end">
+                                    <input class="form-control mx-3 mt" onkeyup="searchInTableFunction()" type="search"
+                                        value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
+
+                                    <button class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModalAddRoomType">Thêm</button>
+
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
                                 <table class="table align-items-center mb-0 " id="table-room-type">
@@ -112,18 +79,21 @@
                                                     <p class="text-xs font-weight-bold mb-0">{{ $room_type->slug }}</p>
                                                 </td>
                                                 <td>
-                                                    <p class="text-xs font-weight-bold mb-0" >{{ $room_type->description }}
+                                                    <p class="text-xs font-weight-bold mb-0">{{ $room_type->description }}
                                                     </p>
                                                 </td>
-                                                <td class="align-middle">
+                                                <td class="align-middle ">
                                                     <div class="d-flex px-2 py-1">
-                                                        <button class="btn btn-link text-info font-weight-bold text-xs mx-3 editRoomtype"
+                                                        <button
+                                                            class="btn btn-link text-info font-weight-bold text-xs mx-3 editRoomtype"
                                                             data-original-title="Edit user" data-bs-toggle="modal"
                                                             data-bs-target="#exampleModalEditRoomType"
                                                             data-rty_id="{{ $room_type->rty_id }}">
-                                                            <i class="fas fa-pencil-alt text-default me-2" aria-hidden="true"></i>Edit
+                                                            <i class="fas fa-pencil-alt text-default me-2"
+                                                                aria-hidden="true"></i>Edit
                                                         </button>
-                                                        <button class="btn btn-link text-danger font-weight-bold text-xs mx-3 deleteRoomType"
+                                                        <button
+                                                            class="btn btn-link text-danger font-weight-bold text-xs mx-3 deleteRoomType"
                                                             data-toggle="tooltip" data-original-title="Delete user"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#exampleModalDeleteRoomType"
@@ -141,15 +111,59 @@
                     </div>
                 </div>
             </div>
+            {{-- Modal thêm --}}
+            <div class="modal fade" id="exampleModalAddRoomType" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false"
+                data-bs-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Thêm loại phòng</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('room-types') }}" method="POST" class="needs-validation">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Tên</label>
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        placeholder="Pavilions & Villas" oninput="updateSlug()" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlInput1">Slug</label>
+                                    <input type="text" class="form-control" name="slug" id="slug"
+                                        placeholder="pavilions-&-villas" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Nội dung</label>
+                                    <textarea class="form-control" name="description" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn bg-gradient-primary">Thêm</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{-- Modal Edit --}}
             <div class="modal fade" id="exampleModalEditRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false"
+                data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Sửa
                                 Loại phòng</h5>
-                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -177,7 +191,8 @@
             </div>
             <!-- Modal Delete -->
             <div class="modal fade" id="exampleModalDeleteRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false"
+                data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">

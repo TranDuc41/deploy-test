@@ -17,7 +17,10 @@
         }, false)
     })
 })()
+
 document.addEventListener("DOMContentLoaded", function() {
+
+    // ---------------------------------------------------------------------------------------------------------------------
     //Edit room type
     var editRoomtypes = document.querySelectorAll('.editRoomtype');
     if (editRoomtypes !== null) {
@@ -31,7 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 const descriptionText = document.getElementById('descriptionEdit')
                     //Lấy ra id của user
                 const rty_id = item.dataset.rty_id;
-                console.log(rty_id);
                 const formEditRoomType = document.getElementById('formEditRoomType')
                     // Sử dụng Fetch API để gửi yêu cầu GET tới "/room-type/{id}"
                 fetch(`/room-type/${rty_id}`, {
@@ -42,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data);
                         // Xử lý dữ liệu nhận được từ server (data) ở đây
                         if (data !== null && data !== undefined) {
                             if (Object.keys(data).length !== 0) {
@@ -75,12 +76,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 const formEditRoomType = document.getElementById('formDeleteRoomType')
                 formEditRoomType.action = "/room-type/" + rty_id;
                 // Sử dụng Fetch API để gửi yêu cầu GET tới "/room-type/{id}"
-
             });
         });
     }
     // 
-
+    // ---------------------------------------------------------------------------------------------------------------------
     //Edit amenities 
     var editAmenities = document.querySelectorAll('.editAmenities');
     if (editAmenities !== null) {
@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data);
                         // Xử lý dữ liệu nhận được từ server (data) ở đây
                         if (data !== null && data !== undefined) {
                             if (Object.keys(data).length !== 0) {
@@ -125,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     //Delete amenities 
-
     var deleteAmenities = document.querySelectorAll('.deleteAmenities');
     if (deleteAmenities !== null) {
         deleteAmenities.forEach(function(item) {
@@ -138,6 +136,101 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+    // Lấy phần tử input bằng id
+    var user_id = document.getElementById('user_id_item');
+    const user_id_original = user_id.value;
+    // Đặt giá trị cho phần tử input
+    user_id.value = encodeID(user_id.value);;
+
+    //create sale
+    var btnCreateSale = document.getElementById('btnAddSale');
+    const formCreateSale = document.getElementById('formCreateSale');
+    btnCreateSale.addEventListener('click', function() {
+        if (user_id_original === decodeID(user_id.value)) {
+            formCreateSale.action = "/sale";
+            formCreateSale.method = "POST"
+        } else {
+
+        }
+    })
+
+    // edit sale
+    var editSale = document.querySelectorAll('.editSale');
+    if (editSale !== null) {
+        editSale.forEach(function(item) {
+            item.dataset.user_id = encodeID(item.dataset.user_id);
+            // Thêm sự kiện click cho nút "Edit"
+            item.addEventListener('click', function() {
+                //so sánh id user
+                // Nếu trùng thì bạn được quyền sửa nếu không trùng thì bạn ko được xóa
+                if (user_id_original === decodeID(item.dataset.user_id)) {
+                    $('#exampleModalEditSale').modal('show');
+                    //Tham chiều đến các trường input/select
+                    const discountEdit = document.getElementById('discountEdit');
+                    const startDateTime = document.getElementById('start-datetime-edit');
+                    const endDateTime = document.getElementById('end-datetime-edit');
+                    //Lấy ra id của sale
+                    const sale_id = item.dataset.sale_id;
+                    const formEditSale = document.getElementById('formEditSale');
+                    // Sử dụng Fetch API để gửi yêu cầu GET tới "/sale/{id}"
+                    fetch(`/sale/${sale_id}`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Xử lý dữ liệu nhận được từ server (data) ở đây
+                            if (data !== null && data !== undefined) {
+                                if (Object.keys(data).length !== 0) {
+                                    discountEdit.value = data.discount;
+                                    startDateTime.value = data.start_date;
+                                    endDateTime.value = data.end_date;
+                                    formEditSale.action = "/sale/" + sale_id;
+                                } else {
+                                    console.log("Không có dữ liệu. Vui lòng thử lại!");
+                                }
+                            } else {
+                                console.log("Không có dữ liệu. Vui lòng thử lại!");
+                            }
+                        })
+                        .catch(error => {
+                            // Xử lý lỗi ở đây
+                            console.error('Error:', error);
+                        });
+                } else {
+                    $('#modal-notification').modal('show');
+                }
+            });
+        });
+    }
+
+    //Delete sale 
+    var deleteSale = document.querySelectorAll('.deleteSale');
+    if (deleteSale !== null) {
+        deleteSale.forEach(function(item) {
+            //hash id user
+            item.dataset.user_id = encodeID(item.dataset.user_id);
+            // Thêm sự kiện click cho nút "delete"
+            item.addEventListener('click', function() {
+                //so sánh id user
+                // Nếu trùng thì bạn được quyền sửa nếu không trùng thì bạn ko được xóa
+                if (user_id_original === decodeID(item.dataset.user_id)) {
+                    $('#exampleModalDeleteSale').modal('show');
+                    const sale_id = item.dataset.sale_id;
+                    const formDeleteSale = document.getElementById('formDeleteSale')
+                    formDeleteSale.action = "/sale/" + sale_id;
+                } else {
+                    $('#modal-notification').modal('show');
+                }
+            });
+        });
+    }
+    // ---------------------------------------------------------------------------------------------------------------------
+
 });
 //tạo slug
 function createSlug(name) {
@@ -160,4 +253,35 @@ function updateSlug() {
     var slugValue = createSlug(nameValue);
 
     slugInput.value = slugValue;
+}
+//Random chuỗi 5 kí tự
+function generateRandomString(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
+}
+//ghep key va encodeID
+function insertStringAtIndex(str1, str2, position) {
+    const result = str1.slice(0, position) + str2 + str1.slice(position);
+    return result;
+}
+
+function encodeID(id) {
+    const encodedID = btoa(id);
+    const key = generateRandomString(5);
+    var result = insertStringAtIndex(encodedID, key, 1);
+    return result;
+}
+
+function decodeID(encodedID) {
+    //caắt chuỗi key và id hash
+    encodedID = encodedID.slice(0, 1) + encodedID.slice(6);
+    //giải mã
+    var decodedID = atob(encodedID);
+    return decodedID;
 }

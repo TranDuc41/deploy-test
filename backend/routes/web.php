@@ -23,6 +23,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     });
+    Route::get('/billing', function () {
+        return view('billing');
+    });
 
     Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
     Route::post('/create-room', [RoomController::class, 'store'])->name('edit-room.store');
@@ -60,7 +63,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/sale', [SaleController::class, 'index'])->name('sales');
     Route::post('/sale', [SaleController::class, 'create'])->name('sale.create');
     Route::get('/sale/{sale_id}', [SaleController::class, 'show'])->name('sale.show');
-    Route::put('/sale/{sale_id}', [SaleController::class, 'update'])->name('sale.update');
+    Route::put('/sale/{sale_id}', [SaleController::class, 'update']);
     Route::delete('/sale/{sale_id}', [SaleController::class, 'delete'])->name('sale.delete');
 
     //Amenities
