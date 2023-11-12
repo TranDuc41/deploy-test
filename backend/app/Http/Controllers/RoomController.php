@@ -11,6 +11,7 @@ use App\Models\Room;
 use App\Models\Sale;
 use App\Models\RoomType;
 use App\Models\Amenities;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 
 class RoomController extends Controller
@@ -24,9 +25,11 @@ class RoomController extends Controller
             ->paginate(10);
 
         $totalRoom = DB::table('room')->count();
+        $totalRoomMaintenance = DB::table('room')->where('status', 'maintenance')->count();
+        $totalRoomUsed = DB::table('room')->where('status', 'used')->count();
         $totalRoomType = DB::table('room_type')->count();
 
-        return view('rooms', compact('rooms', 'totalRoom', 'totalRoomType'));
+        return view('rooms', compact('rooms', 'totalRoom', 'totalRoomType', 'totalRoomMaintenance', 'totalRoomUsed'));
     }
 
     public function create()
@@ -291,15 +294,24 @@ class RoomController extends Controller
     {
         // Lấy thông tin của room từ cơ sở dữ liệu
         $room = DB::table('room')->where('slug', $slug)->first();
-        DB::table('image')->where('imageable_id', $room->room_id)->delete();
+        $images = DB::table('image')->where('imageable_id', $room->room_id)->get();
 
         if (!$room) {
             session()->flash('error', 'Không tìm thấy phòng.');
             return response()->json(['message' => 'Xóa thất bại.']);
         }
 
+        foreach ($images as $image) {
+            // Xóa hình ảnh từ thư mục uploads
+            $filePath = public_path($image->img_src);
+            
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
         // Xóa room từ cơ sở dữ liệu
         DB::table('room')->where('slug', $slug)->delete();
+        DB::table('image')->where('imageable_id', $room->room_id)->delete();
 
         session()->flash('success', 'Xóa thành công.');
         return response()->json(['message' => 'Xóa thành công.']);
