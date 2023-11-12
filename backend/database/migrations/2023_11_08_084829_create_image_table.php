@@ -15,7 +15,8 @@ return new class extends Migration
             $table->bigIncrements('img_id');
             $table->string('name', 255)->nullable();
             $table->string('img_src', 255)->nullable();
-            $table->string('img_type', 255)->nullable();
+            $table->string('imageable_type', 255)->nullable();
+            $table->text('imageable_id')->nullable();
             $table->timestamps();
         });
     }
