@@ -22,14 +22,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
-        
-        Blade::directive('hashId', function ($id) {
-            //random 5 kí tự
-            $randomString = Str::random(5);
-            $encryptedId = Crypt::encrypt($id);
-            $encodeID =  substr_replace($encryptedId, $randomString, 4, 0);
-            return $encodeID;
-        });
     }
 }

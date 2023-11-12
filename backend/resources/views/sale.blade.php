@@ -2,7 +2,7 @@
 
 @section('content')
     @include('includes.sidebar')
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative max-height-vh-100 h-100">
         @include('includes.header')
         <div class="container-fluid py-4" id="sale-container">
             <div class="row">
@@ -333,6 +333,7 @@
                     </div>
                 </div>
             </div>
+            @include('includes.footer')
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

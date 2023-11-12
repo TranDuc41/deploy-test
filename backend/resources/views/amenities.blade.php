@@ -2,27 +2,27 @@
 
 @section('content')
     @include('includes.sidebar')
-    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <main class="main-content position-relative max-height-vh-100 h-100">
         @include('includes.header')
         <div class="container-fluid py-4">
             <div class="row">
                 @if (session('success'))
-                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                    <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                        <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
                 @if (session('error'))
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
-                    <span class="alert-text"><strong>Lỗi !</strong> {{ session('error') }}</span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+                        <span class="alert-text"><strong>Lỗi !</strong> {{ session('error') }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 @endif
 
             </div>
@@ -37,8 +37,9 @@
                                             <h5>Tiện ích phòng</h5>
                                         </div>
                                         <div class="col-lg-8 col-8 my-auto mb-2 d-flex text-end">
-                                            <input class="form-control mx-3 mt" onkeyup="searchInTableAmenitiesFunction()" type="search"
-                                                value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input-amenities">
+                                            <input class="form-control mx-3 mt" onkeyup="searchInTableAmenitiesFunction()"
+                                                type="search" value="" placeholder="Nhập nội dung tìm kiếm..."
+                                                id="search-input-amenities">
                                         </div>
                                     </div>
                                 </div>
@@ -64,7 +65,8 @@
                                                     <tr>
 
                                                         <td class="align-middle text-left text-sm ps-4">
-                                                            <p class="text-xs font-weight-bold mb-0">{{ $item->amenities_id }}</p>
+                                                            <p class="text-xs font-weight-bold mb-0">
+                                                                {{ $item->amenities_id }}</p>
                                                         </td>
                                                         <td>
                                                             <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
@@ -74,16 +76,20 @@
                                                         </td>
                                                         <td class="align-middle">
                                                             <div class="d-flex px-2 py-1">
-                                                                <button class="btn btn-link text-info font-weight-bold text-xs mx-3 editAmenities"
+                                                                <button
+                                                                    class="btn btn-link text-info font-weight-bold text-xs mx-3 editAmenities"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#exampleModalEditAmenities"
                                                                     data-amenities_id="{{ $item->amenities_id }}">
-                                                                    <i class="fas fa-pencil-alt text-default me-2" aria-hidden="true"></i>Edit
+                                                                    <i class="fas fa-pencil-alt text-default me-2"
+                                                                        aria-hidden="true"></i>Edit
                                                                 </button>
-                                                                <button class="btn btn-link text-danger font-weight-bold text-xs mx-3 deleteAmenities"
+                                                                <button
+                                                                    class="btn btn-link text-danger font-weight-bold text-xs mx-3 deleteAmenities"
                                                                     data-toggle="tooltip" data-bs-toggle="modal"
                                                                     data-bs-target="#exampleModalDeleteAmenities"
-                                                                    data-amenities_id="{{ $item->amenities_id }}"><i class="far fa-trash-alt me-2"></i>
+                                                                    data-amenities_id="{{ $item->amenities_id }}"><i
+                                                                        class="far fa-trash-alt me-2"></i>
                                                                     Xóa
                                                                 </button>
                                                             </div>
@@ -195,6 +201,7 @@
                     </div>
                 </div>
             </div>
+            @include('includes.footer')
     </main>
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
