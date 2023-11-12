@@ -10,4 +10,9 @@ class Sale extends Model
     protected $primaryKey = 'sale_id';
     //Thêm trường username
     use HasFactory;
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'sale_id');
+    }
 }
