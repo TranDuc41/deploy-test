@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Kiểm tra thông báo từ server và chuyển hướng trang
                     if (data.message === 'Xóa thành công.') {
-                        // Chuyển hướng trang /images
+                        // Chuyển hướng trang /rooms
                         window.location.href = '/rooms';
                     } else if (data.message === 'Xóa thất bại') {
                         window.location.href = '/rooms';
