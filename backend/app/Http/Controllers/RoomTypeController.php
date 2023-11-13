@@ -22,7 +22,7 @@ class RoomTypeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:100',
-            'slug' => 'required|max:100',
+            'slug' => 'required|max:100|unique:room_type,slug',
             'description' => 'required|max:500',
         ]);
         if ($validator->fails()) {

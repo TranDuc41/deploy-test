@@ -1,7 +1,7 @@
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+<nav class="navbar navbar-main text-light bg-gradient-primary navbar-expand-lg shadow-none id="navbarBlur" navbar-scroll="true">
   <div class="container-fluid py-1 px-3">
     <nav aria-label="breadcrumb">
-      <h4 class="font-weight-bolder mb-0">Dashboard</h4>
+      <h4 class="font-weight-bolder mb-0 text-light">Dashboard</h4>
     </nav>
     <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
       <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -10,12 +10,12 @@
           <input type="text" class="form-control" placeholder="Type here...">
         </div>
       </div>
-      <ul class="navbar-nav  justify-content-end">
+      <ul class="navbar-nav  justify-content-end ">
         <li class="nav-item d-flex align-items-center">
           <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ Auth::user()->name }}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
@@ -50,10 +50,10 @@
         </li>
         <li class="nav-item px-3 d-flex align-items-center">
           <a href="javascript:;" class="nav-link text-body p-0">
-            <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+            <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer "></i>
           </a>
         </li>
-        <li class="nav-item dropdown pe-2 d-flex align-items-center">
+        <li class="nav-item dropdown pe-2 d-flex align-items-center ">
           <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa fa-bell cursor-pointer"></i>
           </a>

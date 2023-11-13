@@ -22,7 +22,7 @@ class AmenitiesController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:500',
-            'slug' => 'required|max:500',
+            'slug' => 'required|max:500|unique:amenities,slug',
         ]);
         if ($validator->fails()) {
             return redirect()->route('amenities')->with('error', 'Thêm không thành công. Hãy kiểm tra lại dữ liệu nhập.');
@@ -45,7 +45,7 @@ class AmenitiesController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:100',
-            'slug' => 'required|max:100',
+            'slug' => 'required|max:100|unique:amenities,slug',
         ]);
         if ($validator->fails()) {
             return redirect()->route('amenities')->with('error', 'Sửa không thành công. Hãy kiểm tra lại dữ liệu nhập.');

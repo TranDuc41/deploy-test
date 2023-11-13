@@ -2,7 +2,7 @@
 
 @section('content')
   @include('includes.sidebar')
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  <main class="main-content position-relative max-height-vh-100 h-100">
   @include('includes.header')
     <div class="container-fluid py-4">
       <div class="row">
