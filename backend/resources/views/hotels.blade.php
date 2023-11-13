@@ -4,15 +4,12 @@
 @include('includes.sidebar')
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('includes.header')
-
-
-    <div class="container-fluid py-4">
-        @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        @endif
-        <!-- @if ($errors->any())
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+    <!-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -21,11 +18,36 @@
             </ul>
         </div>
         @endif -->
-        @if(session('err'))
-        <div class="alert alert-success">
-            {{ session('err') }}
+    @if(session('err'))
+    <div class="alert alert-success">
+        {{ session('err') }}
+    </div>
+    @endif
+
+    <div class="container-fluid py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div class="row">
+                <div class="col-8">
+                    <div class="numbers">
+                        <p class="text-sm mb-0 text-capitalize font-weight-bold "></p>
+                        <h5 class="font-weight-bolder mb-0">
+                            Tổng Hotel hiện có {{ $hotels->count() }}
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-4 text-end">
+                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                        <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <form action="{{ route('hotels.index') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Nhập nội dung tìm kiếm..." aria-label="Search" aria-describedby="search-addon" />
+                </div>
+            </form>
         </div>
-        @endif
         <!-- TABLE -->
         <div class="card">
             <!-- Card header -->
@@ -68,23 +90,28 @@
                                     <p class="text-xs text-secondary mb-0">{{ $hotel->phone }}</p>
                                 </td>
                                 <td class="text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $hotel->created_at->format('d/m/Y') }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $hotel->created_at->format('d/m/Y H:i:s') }}</span>
                                 </td></span>
                                 </td>
                                 <td class="text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $hotel->updated_at->format('d/m/Y') }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $hotel->updated_at->format('d/m/Y H:i:s') }}</span>
                                 </td>
                                 <td class="align-middle">
-                                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editHotelModal" onclick="editHotel({{ json_encode($hotel)}})">
-                                        Edit
-                                    </button>
-                                    <form action="{{ route('hotel.destroy', ['hotel_id' => $hotel->hotel_id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa hotel này?');">
-                                            Delete
+                                    <div class="d-flex justify-content-start gap-2">
+                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editHotelModal" onclick="editHotel({{ json_encode($hotel)}})">
+                                            Sửa
                                         </button>
-                                    </form>
+                                        <form action="{{ route('hotel.destroy', ['hotel_id' => $hotel->hotel_id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa hotel này?');">
+                                                Xóa
+                                            </button> -->
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteHotelModal-{{ $hotel->hotel_id }}">
+                                                Xóa
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             <!-- Modal chỉnh sửa thông tin khách sạn -->
@@ -173,7 +200,32 @@
                 </div>
             </div>
         </div>
-
+        @foreach($hotels as $hotel)
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteHotelModal-{{ $hotel->hotel_id }}" tabindex="-1" aria-labelledby="deleteHotelModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteHotelModalLabel">Cảnh Báo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <i class="bi bi-exclamation-triangle-fill" style="color: #FFA726; font-size: 2rem;"></i>
+                        <p class="text-bold mt-2">Bạn có chắc muốn Xóa!</p>
+                        <p>Sau khi xóa, dữ liệu sẽ không thể khôi phục.</p>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <form action="{{ route('hotel.destroy', ['hotel_id' => $hotel->hotel_id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-danger">Xác Nhận</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
     </div>
 
@@ -337,6 +389,21 @@
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+</script>
+<script>
+    // JavaScript for live search
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function() {
+        const searchText = this.value.trim().toLowerCase();
+        const rows = document.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            const name = row.querySelector('td:nth-child(2)').textContent.trim().toLowerCase();
+            const address = row.querySelector('td:nth-child(3)').textContent.trim().toLowerCase();
+            const found = name.includes(searchText) || address.includes(searchText);
+            row.style.display = found ? 'table-row' : 'none';
+        });
+    });
 </script>
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>

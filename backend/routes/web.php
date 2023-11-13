@@ -5,11 +5,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HotelsController;
-use App\Http\Controllers\InfoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\AmenitiesController;
+use App\Http\Controllers\InfoController;
+use App\Http\Controllers\PackageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,45 +78,39 @@ Route::get('/sign-up', function () {
 });
 
 
-
 //Hotels
-
 Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels');
-
 Route::post('/hotels', [HotelsController::class, 'store'])->name('hotelData');
-
 Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels.index');
 Route::delete('/hotels/{hotel_id}', [HotelsController::class, 'destroy'])->name('hotel.destroy');
-
 Route::get('/hotels/{hotel_id}/edit', [HotelsController::class, 'edit'])->name('hotels.edit');
 Route::put('/hotels/{hotel_id}', [HotelsController::class, 'update'])->name('hotels.update');
-
+Route::get('/hotels/search', [HotelsController::class, 'search'])->name('hotels.search');
 //Info
+Route::get('/info', [InfoController::class, 'index'])->name('info.index');
+Route::post('/info', [InfoController::class, 'store'])->name('info.store');
+Route::delete('/info/{info_id}', [InfoController::class, 'destroy'])->name('info.destroy');
+Route::put('/info/{info}', [InfoController::class, 'update'])->name('info.update');
+Route::get('/info/{info}/edit', [InfoController::class, 'edit'])->name('info.edit');
+Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels.index');
 
-Route::get('/info', function () {
-    return view('info');
-});
+//Package
+// Hiển thị danh sách package
+Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
+// Tạo package mới (hiển thị form là phương thức GET, lưu là POST)
+Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');
+Route::post('/packages', [PackageController::class, 'store'])->name('packages.store');
+// Hiển thị form chỉnh sửa package và cập nhật thông tin
+Route::get('/packages/{packages_id}/edit', [PackageController::class, 'edit'])->name('packages.edit');
+Route::put('/packages/{packages_id}', [PackageController::class, 'update'])->name('packages.update');
+// Xóa package
+Route::delete('/packages/{packages_id}', [PackageController::class, 'destroy'])->name('packages.destroy');
+Route::get('/search-packages', [PackageController::class, 'search']);
 
 
-Route::resource('info', InfoController::class);
-// Route::get('/info', [InfoController::class, 'index'])->name('info.index');
-// Route::post('/info', [InfoController::class, 'store'])->name('info.store');
-// Route::put('/info/{id}', [InfoController::class, 'update'])->name('info.update');
-// Route::delete('/info/{id}', [InfoController::class, 'destroy'])->name('info.destroy');
-
-// Route::get('/infos', [InfoController::class, 'index'])->name('info.index');
-// Route::post('/infos', [InfoController::class, 'store'])->name('info.store');
-// Route::put('/infos/{info}', [InfoController::class, 'update'])->name('info.update');
-// Route::delete('/infos/{info}', [InfoController::class, 'destroy'])->name('info.destroy');
 
 
-// Route::get('/info', [InfoController::class, 'index'])->name('info.index');
-// Route::post('/info', [InfoController::class, 'store'])->name('info.store');
-// Route::put('/info/{id}', [InfoController::class, 'update'])->name('info.update');
-// Route::delete('/info/{id}', [InfoController::class, 'destroy'])->name('info.destroy');
-
-Route::post('/info', 'InfoController@store')->name('info.store');
-
+Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('profile.edit');
 require __DIR__ . '/auth.php';
 
 // Route::get('/billing', function () {

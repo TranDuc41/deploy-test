@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Info;
+use App\Models\Hotels;
+use Illuminate\Http\Request;
 
 class InfoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     $infos = Info::all();
-    //     return view('info', ['infos' => $infos]); // Truyền biến $infos sang view
-    // }
     public function index()
     {
-        $infos = Info::all();
-        return view('info', compact('infos'));
-       
+
+        $hotels = Hotels::all(); // Hoặc lấy hotels theo một điều kiện cụ thể
+        $infos = Info::with('hotel')->get();
+        return view('info', compact('infos', 'hotels'));
+        $infoCount = Info::count(); // Đếm tổng số ID
     }
 
     /**
@@ -33,40 +31,18 @@ class InfoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'title' => 'required|max:255',
-    //         'link' => 'nullable|url',
-    //         'hotel_id' => 'required|exists:hotels,hotel_id', // Kiểm tra xem hotel_id có tồn tại không
-    //         'content' => 'nullable|string'
-    //     ]);
-    
-    //     Info::create($validatedData);
-    //     return redirect()->route('info.index')->with('success', 'Info has been added.');
-    // }
     public function store(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'title' => 'required|max:255',
-        //     'link' => 'nullable|url',
-        //     'hotel_id' => 'required|exists:hotels,hotel_id',
-        //     'content' => 'nullable|string'
-        // ]);
-
-        // Info::create($validatedData);
-        // return redirect()->back()->with('success', 'Info has been added.');
-        $info = Info::create([
-            'title' => $request->input('title'),
-            'link' => $request->input('link'),
-            'hotel_id' => $request->input('hotel_id'),
-            'content' => $request->input('content'),
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'link' => 'nullable|url',
+            'hotel_id' => 'required|exists:hotels,hotel_id',
+            'content' => 'required',
         ]);
 
-        return redirect()->back()->with('success', 'Info added successfully!');
+        Info::create($validated);
+        return redirect()->route('info.index')->with('success', 'Info created successfully');
     }
-    
-    
 
     /**
      * Display the specified resource.
@@ -79,51 +55,56 @@ class InfoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+   // Inside InfoController.php
+
+public function edit($info_id)
+{
+    $info = Info::findOrFail($info_id);
+    $hotels = Hotels::all(); // Assuming you want to list all hotels in the dropdown
+
+    // Pass the 'info' and 'hotels' data to the edit view
+    return view('info.edit', compact('info', 'hotels'));
+}
+
 
     /**
      * Update the specified resource in storage.
      */
-    // public function update(Request $request, $id)
-    // {
-    //     $info = Info::findOrFail($id);
-    //     $validatedData = $request->validate([
-    //         'title' => 'required|max:255',
-    //         'link' => 'nullable|url',
-    //         'content' => 'nullable|string'
-    //     ]);
+    public function update(Request $request, $info_id)
+{
+    $info = Info::findOrFail($info_id);
 
-    //     $info->update($validatedData);
-    //     return redirect()->back()->with('success', 'Info has been updated.');
-    // }
-    public function update(Request $request, $id)
-    {
-        // $info = Info::findOrFail($id);
-        // $validatedData = $request->validate([
-        //     'title' => 'required|max:255',
-        //     'link' => 'nullable|url',
-        //     'content' => 'nullable|string'
-        // ]);
+    $validatedData = $request->validate([
+        'title' => 'required|max:255',
+        'link' => 'nullable|url',
+        'hotel_id' => 'required|exists:hotels,hotel_id', // Đảm bảo hotel_id tồn tại trong bảng hotels
+        'content' => 'required',
+    ]);
 
-        // $info->update($validatedData);
-        // return redirect()->back()->with('success', 'Info has been updated.');
-    }
+    $info->update($validatedData);
+
+    return redirect()->route('info.index')->with('success', 'Information updated successfully');
+}
+
+
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy($id)
-    // {
-    //     $info = Info::findOrFail($id);
-    //     $info->delete();
-    //     return redirect()->back()->with('success', 'Info has been deleted.');
-    // }
-    public function destroy($id)
-    {
-        // $info = Info::findOrFail($id);
-        // $info->delete();
-        // return redirect()->back()->with('success', 'Info has been deleted.');
+    public function destroy($info_id)
+{
+    // Tìm bản ghi thông tin dựa trên info_id
+    $info = Info::findOrFail($info_id);
+
+    // Optional: Kiểm tra quyền xóa thông tin
+    // $this->authorize('delete', $info);
+
+    // Xóa bản ghi và kiểm tra kết quả
+    if ($info->delete()) {
+        // Nếu xóa thành công, chuyển hướng với thông báo success
+        return redirect()->route('info.index')->with('success', 'Info deleted successfully.');
+    } else {
+        // Nếu xóa không thành công, chuyển hướng với thông báo error
+        return redirect()->route('info.index')->with('error', 'An error occurred while deleting the info.');
     }
+}
 }

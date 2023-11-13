@@ -10,13 +10,20 @@ class HotelsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // $data = Hotels::get();
-        // return view('hotels', compact('data'));
+   public function index(Request $request)
 
-        $hotels = Hotels::get(); // Đổi $data thành $hotels
-        return view('hotels', compact('hotels')); // Đổi 'data' thành 'hotels'
+    {
+        $query = Hotels::query(); 
+
+        // Nếu có truy vấn tìm kiếm, lọc kết quả
+        if ($request->has('search')) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('address', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('phone', 'LIKE', '%' . $request->search . '%');
+        }
+
+        $hotels = $query->get();
+        return view('hotels', compact('hotels'));
     }
 
     /**

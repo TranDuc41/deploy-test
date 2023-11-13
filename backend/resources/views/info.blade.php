@@ -4,28 +4,58 @@
 @include('includes.sidebar')
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('includes.header')
-
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+    <!-- @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif -->
+    @if(session('err'))
+    <div class="alert alert-success">
+        {{ session('err') }}
+    </div>
+    @endif
 
     <div class="container-fluid py-4">
-        @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-        @endif
-        @if(session('err'))
-        <div class="alert alert-success">
-            {{ session('err') }}
-        </div>
-        @endif
+        <div class="d-flex justify-content-between align-items-center mb-4">
 
+            <div class="row">
+                <div class="col-8">
+                    <div class="numbers">
+                        <p class="text-sm mb-0 text-capitalize font-weight-bold "></p>
+                        <h5 class="font-weight-bolder mb-0">
+                            Tổng Info hiện có {{ $infos->count() }}
+                        </h5>
+                    </div>
+                </div>
+                <div class="col-4 text-end">
+                    <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                        <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <form action="{{ route('info.index') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" id="search" class="form-control" placeholder="Nhập nội dung tìm kiếm..." aria-label="Search" aria-describedby="search-addon" />
+
+                </div>
+            </form>
+        </div>
         <!-- Info Table -->
         <div class="card">
-            <!-- Card header -->
 
             <div class="card-header pb-0">
                 <h6>Info Table</h6>
                 <button type="button" class="btn btn-sm bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#addInfoModal">
-                    Add New Info
+                    Thêm Info
                 </button>
             </div>
             <div class="card-body pt-0 pb-2">
@@ -44,48 +74,49 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            <!-- This is a static example row -->
+                            @foreach($infos as $info)
                             <tr>
                                 <td class="align-middle text-xs">
-                                    1 <!-- Placeholder for info_id -->
+                                    {{ $info->info_id }}
                                 </td>
                                 <td class="align-middle text-xs">
-                                    Sample Title <!-- Placeholder for title -->
+                                    {{ $info->title }}
                                 </td>
                                 <td class="align-middle text-xs">
-                                    <a href="https://example.com" target="_blank">Link</a> <!-- Placeholder for link -->
+                                    <a href="{{ $info->link }}" target="_blank">{{ $info->link }}</a>
                                 </td>
                                 <td class="align-middle text-xs">
-                                    10 <!-- Placeholder for hotel_id -->
+                                    {{ $info->hotel->name }}
                                 </td>
                                 <td class="align-middle text-xs">
-                                    This is a sample content. <!-- Placeholder for content -->
+                                    {{ $info->content }}
                                 </td>
                                 <td class="align-middle text-xs">
-                                    12/11/2023 <!-- Placeholder forCreate_at -->
+                                    {{ $info->created_at->format('d/m/Y H:i:s') }}
                                 </td>
                                 <td class="align-middle text-xs">
-                                    12/11/2023 <!-- Placeholder for  Update_at Update_at< -->
+                                    {{ $info->updated_at->format('d/m/Y H:i:s') }}
                                 </td>
+
                                 <td class="align-middle">
-                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#editInfoModal">
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editInfoModal-{{ $info->info_id }}" onclick="editInfo({{ json_encode($info) }})">
                                         Edit
-                                    </a> |
-                                    <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#deleteInfoModal">
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteInfoModal-{{ $info->info_id }}" data-info-id="{{ $info->info_id }}">
                                         Delete
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
-                            <!-- End of example row -->
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Modal for Adding New Info -->
-        <!-- Modal for Adding New Info -->
+
+
+        <!-- Modal Thêm Info -->
         <div class="modal fade" id="addInfoModal" tabindex="-1" aria-labelledby="addInfoModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -93,7 +124,7 @@
                         <h5 class="modal-title" id="addInfoModalLabel">Add New Info</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="" method="POST">
+                    <form action="{{ route('info.store') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
@@ -103,6 +134,14 @@
                             <div class="mb-3">
                                 <label for="link" class="form-label">Link</label>
                                 <input type="url" class="form-control" id="link" name="link">
+                            </div>
+                            <div class="mb-3">
+                                <label for="hotel_id" class="form-label">Hotel</label>
+                                <select class="form-control" id="hotel_id" name="hotel_id" required>
+                                    @foreach($hotels as $hotel)
+                                    <option value="{{ $hotel->hotel_id }}">{{ $hotel->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="content" class="form-label">Content</label>
@@ -117,31 +156,63 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal for Editing Info -->
-        <div class="modal fade" id="editInfoModal" tabindex="-1" aria-labelledby="editInfoModalLabel" aria-hidden="true">
+        @foreach($infos as $info)
+        <!-- Modal xóa -->
+        <div class="modal fade" id="deleteInfoModal-{{ $info->info_id }}" tabindex=" F-1" role="dialog" aria-labelledby="deleteInfoModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteInfoModalLabel">Confirm Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this info?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <!-- Form xóa -->
+                        <form method="POST" action="{{ route('info.destroy', $info->info_id) }}" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" id="deleteInfoId" name="info_id" value="{{ $info->info_id }}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal sửa Info -->
+        <div class="modal fade" id="editInfoModal-{{ $info->info_id }}" tabindex="-1" aria-labelledby="editInfoModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editInfoModalLabel">Edit Info</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="" method="POST">
+                    <form id="editInfoForm-{{ $info->info_id }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="modal-body">
-                            <input type="hidden" name="info_id" id="editInfoId">
+                            <input type="hidden" name="info_id" id="editInfoId-{{ $info->info_id }}">
                             <div class="mb-3">
                                 <label for="editTitle" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="editTitle" name="title" required>
+                                <input type="text" class="form-control" id="editTitle-{{ $info->info_id }}" name="title" required>
                             </div>
                             <div class="mb-3">
                                 <label for="editLink" class="form-label">Link</label>
-                                <input type="url" class="form-control" id="editLink" name="link">
+                                <input type="url" class="form-control" id="editLink-{{ $info->info_id }}" name="link">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editHotelId" class="form-label">Hotel Name</label>
+                                <select class="form-control" id="editHotelId-{{ $info->info_id }}" name="hotel_id" required>
+                                    @foreach($hotels as $hotel)
+                                    <option value="{{ $hotel->hotel_id }}">{{ $hotel->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="editContent" class="form-label">Content</label>
-                                <textarea class="form-control" id="editContent" name="content" rows="3"></textarea>
+                                <textarea class="form-control" id="editContent-{{ $info->info_id }}" name="content" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -152,76 +223,68 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal for Deleting Info -->
-        <div class="modal fade" id="deleteInfoModal" tabindex="-1" aria-labelledby="deleteInfoModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteInfoModalLabel">Delete Info</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <div class="modal-body">
-                            <p>Are you sure you want to delete this info?</p>
-                            <input type="hidden" name="info_id" id="deleteInfoId">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
-                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-        <!-- Button trigger modal -->
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="addInfoModal" tabindex="-1" aria-labelledby="addInfoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addInfoModalLabel">Add New Info</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="addInfoForm" action="" method="POST">
-                        @csrf
-                        <div class="modal-body">
-                            <!-- Form inputs for title, link, hotel_id, content -->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Info</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!--   Core JS Files   -->
-        <script src="../assets/js/core/popper.min.js"></script>
-        <script src="../assets/js/core/bootstrap.min.js"></script>
-        <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-        <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-        <script>
-            var win = navigator.platform.indexOf('Win') > -1;
-            if (win && document.querySelector('#sidenav-scrollbar')) {
-                var options = {
-                    damping: '0.5'
-                }
-                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        @endforeach
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
             }
-        </script>
-        <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
-        <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-        <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
-        @endsection
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+        // Code Js sửa info
+        function editInfo(info) {
+            document.getElementById('editInfoId-' + info.info_id).value = info.info_id;
+            document.getElementById('editTitle-' + info.info_id).value = info.title;
+            document.getElementById('editLink-' + info.info_id).value = info.link;
+            document.getElementById('editHotelId-' + info.info_id).value = info.hotel_id;
+            document.getElementById('editContent-' + info.info_id).value = info.content;
+
+            var form = document.getElementById('editInfoForm-' + info.info_id);
+            form.action = '/info/' + info.info_id;
+            form.method = 'POST';
+        }
+    </script>
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const tableRows = document.querySelectorAll('.table tbody tr');
+
+            searchInput.addEventListener('input', function(e) {
+                const searchValue = e.target.value.toLowerCase();
+
+                tableRows.forEach(row => {
+                    const id = row.querySelector('.align-middle.text-xs').textContent.toLowerCase();
+                    const title = row.querySelector('.align-middle.text-xs:nth-child(2)').textContent.toLowerCase();
+                    const link = row.querySelector('.align-middle.text-xs:nth-child(3) a').textContent.toLowerCase();
+                    const hotel = row.querySelector('.align-middle.text-xs:nth-child(4)').textContent.toLowerCase();
+                    const content = row.querySelector('.align-middle.text-xs:nth-child(5)').textContent.toLowerCase();
+
+                    if (id.includes(searchValue) || title.includes(searchValue) || link.includes(searchValue) || hotel.includes(searchValue) || content.includes(searchValue)) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+    @endsection
