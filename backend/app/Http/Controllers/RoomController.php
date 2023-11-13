@@ -45,6 +45,7 @@ class RoomController extends Controller
 
     public function store(Request $request)
     {
+        $redirected = false;
         try {
             $validStatusValues = ['work', 'maintenance', 'used'];
             // Lấy giá trị từ request
@@ -82,6 +83,13 @@ class RoomController extends Controller
                 return redirect()->back()->with('error', 'Giá trị trong tiện nghi không hợp lệ!');
             }
 
+            // Đếm số từ trong chuỗi
+            $wordCount = str_word_count($description);
+            // Kiểm tra xem số từ có vượt quá giới hạn không
+            if ($wordCount > 5000) {
+                return redirect()->back()->with('error', 'Nội không được vượt quá 5000 từ!');
+            }
+
             //Kiểm tra rty_id
             $checkRty_id = DB::table('room_type')->where('rty_id', $rty_id)->first();
             if (!$checkRty_id) {
@@ -89,7 +97,7 @@ class RoomController extends Controller
             }
 
             //Kiểm tra sale_id
-            if(!$sale_id == 0){
+            if (!$sale_id == 0) {
                 $checkSale_id = DB::table('sale')->where('sale_id', $sale_id)->first();
                 if (!$checkSale_id) {
                     return redirect()->back()->with('error', 'Giá trị trong giảm giá không hợp lệ!');
@@ -125,21 +133,27 @@ class RoomController extends Controller
 
                 // Kiểm tra và xử lý ảnh
                 $images = $request->file('images');
-                foreach ($images as $image) {
-                    // Kiểm tra xem có phải là file ảnh hay không
-                    if ($image->isValid() && $this->isImage($image)) {
-                        $imageName = 'dominion' . '_' . $image->getClientOriginalName();
-                        $image->move(public_path('uploads'), $imageName);
+                if (!empty($images)) {
+                    foreach ($images as $image) {
+                        // Kiểm tra xem có phải là file ảnh hay không
+                        if ($image->isValid() && $this->isImage($image)) {
+                            $imageName = 'dominion' . '_' . $image->getClientOriginalName();
+                            $image->move(public_path('uploads'), $imageName);
 
-                        // Lưu thông tin ảnh vào bảng image và liên kết với phòng thông qua mối quan hệ đa hình
-                        $imageModel = new Image([
-                            'name' => $imageName,
-                            'img_src' => '/uploads/' . $imageName,
-                        ]);
+                            // Lưu thông tin ảnh vào bảng image và liên kết với phòng thông qua mối quan hệ đa hình
+                            $imageModel = new Image([
+                                'name' => $imageName,
+                                'img_src' => '/uploads/' . $imageName,
+                            ]);
 
-                        $room->images()->save($imageModel);
-                    } else {
-                        return redirect()->back()->with('error', 'Vui lòng chỉ chọn file hình ảnh.');
+                            $room->images()->save($imageModel);
+                        } else {
+                            $redirected = true;
+                            break;
+                        }
+                    }
+                    if ($redirected) {
+                        return redirect()->route('edit-room.edit', ['slug' => $room->slug])->with('error', 'Vui lòng chỉ chọn file hình ảnh.');
                     }
                 }
 
@@ -197,6 +211,7 @@ class RoomController extends Controller
 
     public function update(Request $request, $id)
     {
+        $redirected = false;
         try {
             $validStatusValues = ['work', 'maintenance', 'used'];
             // Lấy giá trị từ request
@@ -215,8 +230,15 @@ class RoomController extends Controller
 
             $room = Room::where('slug', $slug)->firstOrFail(); // Lấy ra phòng cần cập nhật
 
+            // Đếm số từ trong chuỗi
+            $wordCount = str_word_count($description);
+            // Kiểm tra xem số từ có vượt quá giới hạn không
+            if ($wordCount > 5000) {
+                return redirect()->back()->with('error', 'Nội không được vượt quá 5000 từ!');
+            }
+
             //Kiểm tra sale_id
-            if(!$sale_id == 0){
+            if (!$sale_id == 0) {
                 $checkSale_id = DB::table('sale')->where('sale_id', $sale_id)->first();
                 if (!$checkSale_id) {
                     return redirect()->back()->with('error', 'Giá trị trong giảm giá không hợp lệ!');
@@ -228,7 +250,7 @@ class RoomController extends Controller
                 $title &&
                 $price > 0 && $price < 1000000000 &&
                 $adults > 0 && $adults < 30 &&
-                $children > 0 && $children < 6 &&
+                $children >= 0 && $children < 6 &&
                 $area > 0 && $area < 300 &&
                 $inputStatus && in_array($inputStatus, $validStatusValues) &&
                 !empty(trim($description))
@@ -268,8 +290,12 @@ class RoomController extends Controller
 
                             $room->images()->save($imageModel);
                         } else {
-                            return redirect()->back()->with('error', 'Vui lòng chỉ chọn file hình ảnh.');
+                            $redirected = true;
+                            break;
                         }
+                    }
+                    if ($redirected) {
+                        return redirect()->route('edit-room.edit', ['slug' => $room->slug])->with('error', 'Vui lòng chỉ chọn file hình ảnh.');
                     }
                 }
                 // Xóa các package của room trước đó

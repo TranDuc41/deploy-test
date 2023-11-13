@@ -33,7 +33,12 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="room-price" class="form-control-label">Giá Phòng</label>
-                        <input class="form-control" type="number" value="{{ isset($room) ? $room->price : '' }}" id="room-price" name="room-price" required>
+                        <div class="input-group">
+                            <input class="form-control" type="number" value="{{ isset($room) ? $room->price : '' }}" id="room-price" name="room-price" required readonly>
+                            <div class="input-group-append">
+                                <span class="input-group-text">VND</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-6">
                         <label for="Sale-Select">Giảm Giá</label>
@@ -129,7 +134,7 @@
                     <label for="description-input" class="form-control-label">Mô tả</label>
                     <textarea class="form-control" rows="10" value="@example.com" id="description-input" name="description-input" required>{{ isset($room) ? $room->description : '' }}</textarea>
                 </div>
-                    <input class="form-control d-none" type="text" value="{{ isset($room) ? $room->slug : '' }}" name="room-slug">
+                <input class="form-control d-none" type="text" value="{{ isset($room) ? $room->slug : '' }}" name="room-slug">
                 <!-- <a href="{{ isset($room) ? '/edit-room/' . $room->slug : '/create-room' }}"> -->
                 <button type="submit" class="btn bg-gradient-primary">{{ isset($room) ? 'Sửa' : 'Tạo Mới' }}</button>
                 <!-- </a> -->
