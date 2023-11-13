@@ -416,13 +416,13 @@ footer .socialsing a {
 /* END SWIPER */
 
 /* ROOMS-SUITES */
-.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col-4 {
     text-align: center;
-    font-size: 10px;
+    font-size: 14px;
     color: #666;
 }
 
-.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col svg {
+.rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col-4 svg {
     color: #E4A853;
     margin-right: 6px;
 }
@@ -434,7 +434,7 @@ footer .socialsing a {
 .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .row {
     height: 3em;
     overflow: hidden;
-    display: -webkit-box;
+    align-items: center;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
@@ -513,7 +513,7 @@ footer .socialsing a {
         margin-bottom: 8%;
     }
 
-    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col-4 {
         font-size: 18px;
     }
 
@@ -538,7 +538,7 @@ footer .socialsing a {
         margin-bottom: 5%;
     }
 
-    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col {
+    .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-bottom .col-4 {
         font-size: 14px;
     }
 }

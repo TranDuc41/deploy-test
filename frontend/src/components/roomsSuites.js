@@ -17,7 +17,7 @@ import { Button } from 'react-bootstrap';
 const RoomsSuites = () => {
     const [rooms, setRooms] = useState([]);
     const swiper = useRef(null);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -54,7 +54,7 @@ const RoomsSuites = () => {
 
     return (
         <Swiper
-        ref={swiper}
+            ref={swiper}
             spaceBetween={50}
             slidesPerView={1}
             pagination={{ clickable: true }}
@@ -82,16 +82,20 @@ const RoomsSuites = () => {
                             </div>
                         </div>
                         <div className='room-bottom'>
-                            {Array.isArray(room.amenities) && (
-                                <div className='row'>
-                                    {room.amenities.slice(0, 3).map((amenitie, index) => (
-                                        <div className='col-4' key={index}>
-                                            {/* {utilitie.icon} */}
-                                            <span className="room-description">{amenitie.name}</span>
-                                        </div>
-                                    ))}
+                            <div className='row'>
+                                <div className='col-4'>
+                                    <IoIosBed />
+                                    <span className="room-description">Phòng ngủ</span>
                                 </div>
-                            )}
+                                <div className='col-4'>
+                                    <GiBathtub />
+                                    <span className="room-description">Bồn tắm</span>
+                                </div>
+                                <div className='col-4'>
+                                    <IoIosWifi />
+                                    <span className="room-description">Wifi miễn phí</span>
+                                </div>
+                            </div>
                             <div className='text-center my-4'>
                                 <Button className='mt-2 px-5 btn-check-now btn btn-primary' datatype={room.slug}>Đặt Ngay</Button>
                             </div>
