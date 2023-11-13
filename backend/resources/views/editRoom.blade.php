@@ -33,12 +33,7 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="room-price" class="form-control-label">Giá Phòng</label>
-                        <div class="input-group">
-                            <input class="form-control" type="number" value="{{ isset($room) ? $room->price : '' }}" id="room-price" name="room-price" required readonly>
-                            <div class="input-group-append">
-                                <span class="input-group-text">VND</span>
-                            </div>
-                        </div>
+                        <input class="form-control" type="number" value="{{ isset($room) ? $room->price : '' }}" id="room-price" name="room-price" required>
                     </div>
                     <div class="form-group col-6">
                         <label for="Sale-Select">Giảm Giá</label>
