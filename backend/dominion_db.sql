@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2023 at 08:57 AM
+-- Generation Time: Nov 13, 2023 at 03:52 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -98,13 +98,11 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`img_id`, `name`, `img_src`, `imageable_type`, `imageable_id`, `created_at`, `updated_at`) VALUES
-(17, 'dominion_truyen-thong-va-mang-may-tinh.png', '/uploads/dominion_truyen-thong-va-mang-may-tinh.png', 'App\\Models\\Room', '27', '2023-11-11 07:32:53', '2023-11-11 07:32:53'),
-(18, 'dominion_laravelAPI.png', '/uploads/dominion_laravelAPI.png', 'App\\Models\\Room', '28', '2023-11-11 09:30:26', '2023-11-11 09:30:26'),
-(19, 'dominion_thiet-ke-do-hoa.png', '/uploads/dominion_thiet-ke-do-hoa.png', 'App\\Models\\Room', '28', '2023-11-11 09:30:26', '2023-11-11 09:30:26'),
-(20, 'dominion_Laravel.jpg', '/uploads/dominion_Laravel.jpg', 'App\\Models\\Room', '29', '2023-11-11 10:22:08', '2023-11-11 10:22:08'),
-(21, 'dominion_laravel-Query.png', '/uploads/dominion_laravel-Query.png', 'App\\Models\\Room', '29', '2023-11-11 10:22:08', '2023-11-11 10:22:08'),
-(22, 'dominion_Amanoi_Accommodation_Interior 1.png', '/uploads/dominion_Amanoi_Accommodation_Interior 1.png', 'App\\Models\\Room', '30', '2023-11-12 23:40:39', '2023-11-12 23:40:39'),
-(23, 'dominion_Amanoi_Accommodation_Interior 1.png', '/uploads/dominion_Amanoi_Accommodation_Interior 1.png', 'App\\Models\\Room', '31', '2023-11-13 00:01:21', '2023-11-13 00:01:21');
+(31, 'dominion_Amanoi_Accommodation_Interior 1.png', '/uploads/dominion_Amanoi_Accommodation_Interior 1.png', 'App\\Models\\Room', '40', '2023-11-13 06:56:54', '2023-11-13 06:56:54'),
+(33, 'dominion_6552329d2dea0_dominion_Amanoi_Accommodation_Interior 1.png', '/uploads/dominion_6552329d2dea0_dominion_Amanoi_Accommodation_Interior 1.png', 'App\\Models\\Room', '42', '2023-11-13 07:28:45', '2023-11-13 07:28:45'),
+(34, 'dominion_6552378bc0c46_dominion_Amanoi_Accommodation_Interior 1.png', '/uploads/dominion_6552378bc0c46_dominion_Amanoi_Accommodation_Interior 1.png', 'App\\Models\\Room', '43', '2023-11-13 07:49:47', '2023-11-13 07:49:47'),
+(35, 'dominion_655237cf4a69b_dominion_Amanoi_Accommodation_Interior 1.png', '/uploads/dominion_655237cf4a69b_dominion_Amanoi_Accommodation_Interior 1.png', 'App\\Models\\Room', '44', '2023-11-13 07:50:55', '2023-11-13 07:50:55'),
+(36, 'dominion_65523811c7673_dominion_Amanoi_Accommodation_Interior 1.png', '/uploads/dominion_65523811c7673_dominion_Amanoi_Accommodation_Interior 1.png', 'App\\Models\\Room', '45', '2023-11-13 07:52:01', '2023-11-13 07:52:01');
 
 -- --------------------------------------------------------
 
@@ -153,7 +151,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2023_11_08_085204_create_room_table', 5),
 (16, '2023_11_08_084829_create_image_table', 6),
 (18, '2023_11_11_093506_add_rty_id_to_room_table', 7),
-(19, '2023_11_11_094327_add_sale_id_to_room_table', 8),
 (21, '2023_11_11_094658_create_room_package_table', 9),
 (22, '2023_11_11_100612_create_room_amenities_table', 10),
 (23, '2023_11_11_134129_add_status_to_room_table', 11);
@@ -230,8 +227,8 @@ CREATE TABLE `room` (
   `description` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `rty_id` bigint(20) UNSIGNED NOT NULL,
-  `sale_id` bigint(20) UNSIGNED NOT NULL,
+  `rty_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `sale_id` bigint(20) UNSIGNED DEFAULT NULL,
   `status` varchar(255) NOT NULL DEFAULT 'maintenance'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -240,11 +237,11 @@ CREATE TABLE `room` (
 --
 
 INSERT INTO `room` (`room_id`, `title`, `slug`, `price`, `adults`, `children`, `area`, `description`, `created_at`, `updated_at`, `rty_id`, `sale_id`, `status`) VALUES
-(27, 'Phòng 02 Thường', 'phong-02-thuong-6551bdc3ebfd2', 1200000, 3, 1, 26, 'Mô tả', '2023-11-11 07:32:53', '2023-11-12 23:10:11', 1, 1, 'maintenance'),
-(28, 'Phòng 01 VIP', 'phong-01-vip-6551bb7a7f916', 5000000, 6, 2, 211, 'Mô tả VIP 02', '2023-11-11 09:30:26', '2023-11-12 23:00:26', 2, 1, 'work'),
-(29, 'Phòng 01 Thường', 'phong-01-thuong-6551b91410252', 2000000, 4, 1, 26, 'Mô tả chi tiết room 01 thường', '2023-11-11 10:22:08', '2023-11-12 22:50:12', 1, 1, 'used'),
-(30, 'Phòng 02 Villa', 'phong-02-villa-6551c4e728a6d', 8000000, 8, 4, 200, 'Mô tả chi tiết về phòng 02 Villa', '2023-11-12 23:40:39', '2023-11-12 23:40:39', 3, 1, 'work'),
-(31, 'Phòng 02 VIP', 'phong-02-vip-6551c9c1d3bbf', 1000000, 6, 4, 35, 'dfdsfsfs', '2023-11-13 00:01:21', '2023-11-13 00:01:21', 2, 1, 'work');
+(40, 'Phòng 01 Thường', 'phong-01-thuong-655236beaf58d', 1000000, 3, 1, 30, 'Mô tả chi tiết phòng thường 01', '2023-11-13 06:56:54', '2023-11-13 07:46:22', 1, NULL, 'used'),
+(42, 'Phòng 02 Thường', 'phong-02-thuong-6552329d2cfc8', 1200000, 3, 1, 38, 'Mô tả chi tiết phòng 02 thường', '2023-11-13 07:28:45', '2023-11-13 07:28:45', 1, NULL, 'work'),
+(43, 'Phòng 01 VIP', 'phong-01-vip-6552378bbfada', 3000000, 4, 2, 40, 'Mô tả chi tiết cho phòng Vip 01', '2023-11-13 07:49:47', '2023-11-13 07:49:47', 2, NULL, 'work'),
+(44, 'Phòng 02 VIP', 'phong-02-vip-655237cf49a83', 4500000, 5, 2, 50, 'Mô tả chi tiết phòng 02 Vip', '2023-11-13 07:50:55', '2023-11-13 07:50:55', 2, NULL, 'work'),
+(45, 'Phòng 01 Villa', 'phong-01-villa-65523811c677d', 6000000, 6, 3, 66, 'Mô tả chi tiết phòng 01 Villa', '2023-11-13 07:52:01', '2023-11-13 07:52:01', 3, NULL, 'work');
 
 -- --------------------------------------------------------
 
@@ -265,25 +262,19 @@ CREATE TABLE `room_amenities` (
 --
 
 INSERT INTO `room_amenities` (`id`, `room_id`, `amenities_id`, `created_at`, `updated_at`) VALUES
-(28, 28, 9, NULL, NULL),
-(29, 28, 13, NULL, NULL),
-(30, 29, 9, NULL, NULL),
-(31, 29, 12, NULL, NULL),
-(37, 28, 9, NULL, NULL),
-(39, 28, 11, NULL, NULL),
-(40, 28, 13, NULL, NULL),
-(41, 28, 9, NULL, NULL),
-(42, 28, 11, NULL, NULL),
-(43, 28, 12, NULL, NULL),
-(44, 28, 13, NULL, NULL),
-(45, 27, 10, NULL, NULL),
-(46, 30, 9, NULL, NULL),
-(47, 30, 10, NULL, NULL),
-(48, 30, 11, NULL, NULL),
-(49, 30, 12, NULL, NULL),
-(50, 30, 13, NULL, NULL),
-(51, 31, 9, NULL, NULL),
-(52, 31, 10, NULL, NULL);
+(68, 42, 9, NULL, NULL),
+(69, 42, 10, NULL, NULL),
+(71, 40, 9, NULL, NULL),
+(72, 40, 11, NULL, NULL),
+(73, 43, 10, NULL, NULL),
+(74, 43, 11, NULL, NULL),
+(75, 43, 12, NULL, NULL),
+(76, 44, 10, NULL, NULL),
+(77, 44, 13, NULL, NULL),
+(78, 45, 9, NULL, NULL),
+(79, 45, 11, NULL, NULL),
+(80, 45, 12, NULL, NULL),
+(81, 45, 13, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -304,27 +295,21 @@ CREATE TABLE `room_package` (
 --
 
 INSERT INTO `room_package` (`id`, `room_id`, `packages_id`, `created_at`, `updated_at`) VALUES
-(31, 28, 2, NULL, NULL),
-(32, 28, 6, NULL, NULL),
-(33, 29, 2, NULL, NULL),
-(34, 29, 4, NULL, NULL),
-(35, 29, 2, NULL, NULL),
-(36, 29, 4, NULL, NULL),
-(37, 29, 6, NULL, NULL),
-(44, 28, 2, NULL, NULL),
-(45, 28, 6, NULL, NULL),
-(46, 28, 2, NULL, NULL),
-(47, 28, 6, NULL, NULL),
-(48, 27, 2, NULL, NULL),
-(49, 27, 4, NULL, NULL),
-(50, 30, 2, NULL, NULL),
-(51, 30, 3, NULL, NULL),
-(52, 30, 4, NULL, NULL),
-(53, 30, 5, NULL, NULL),
-(54, 30, 6, NULL, NULL),
-(55, 31, 2, NULL, NULL),
-(56, 31, 4, NULL, NULL),
-(57, 31, 6, NULL, NULL);
+(72, 42, 2, NULL, NULL),
+(73, 42, 6, NULL, NULL),
+(75, 40, 2, NULL, NULL),
+(76, 40, 6, NULL, NULL),
+(77, 43, 2, NULL, NULL),
+(78, 43, 3, NULL, NULL),
+(79, 43, 5, NULL, NULL),
+(80, 44, 2, NULL, NULL),
+(81, 44, 4, NULL, NULL),
+(82, 44, 5, NULL, NULL),
+(83, 44, 6, NULL, NULL),
+(84, 45, 2, NULL, NULL),
+(85, 45, 3, NULL, NULL),
+(86, 45, 4, NULL, NULL),
+(87, 45, 6, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -536,7 +521,7 @@ ALTER TABLE `hotels`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `img_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `img_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `info`
@@ -566,19 +551,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-  MODIFY `room_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `room_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `room_amenities`
 --
 ALTER TABLE `room_amenities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `room_package`
 --
 ALTER TABLE `room_package`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `room_type`
