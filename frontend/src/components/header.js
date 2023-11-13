@@ -66,7 +66,7 @@ function AppHeader() {
                 {link.text}
               </Link>
             ))}
-            <Button href="/reservations" className='mt-2 px-4 btn-check-now'>Đặt Ngay</Button>
+            <Button href="/reservations" className='mt-2 px-4 btn-check-now text-white'>Đặt Ngay</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

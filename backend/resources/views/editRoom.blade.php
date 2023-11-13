@@ -38,6 +38,7 @@
                     <div class="form-group col-6">
                         <label for="Sale-Select">Giảm Giá</label>
                         <select class="form-control" id="Sale-Select" name="sale-select">
+                            <option value="0">0%</option>
                             @foreach($sales as $sale)
                             <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>{{ $sale->discount }}%</option>
                             @endforeach
@@ -128,7 +129,7 @@
                     <label for="description-input" class="form-control-label">Mô tả</label>
                     <textarea class="form-control" rows="10" value="@example.com" id="description-input" name="description-input" required>{{ isset($room) ? $room->description : '' }}</textarea>
                 </div>
-                    <input class="form-control d-none" type="text" value="{{ isset($room) ? $room->slug : '' }}" name="room-slug">
+                <input class="form-control d-none" type="text" value="{{ isset($room) ? $room->slug : '' }}" name="room-slug">
                 <!-- <a href="{{ isset($room) ? '/edit-room/' . $room->slug : '/create-room' }}"> -->
                 <button type="submit" class="btn bg-gradient-primary">{{ isset($room) ? 'Sửa' : 'Tạo Mới' }}</button>
                 <!-- </a> -->

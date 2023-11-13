@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('billing');
     });
 
+    //ROOMS
     Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
     Route::post('/create-room', [RoomController::class, 'store'])->name('edit-room.store');
     Route::get('/edit-room', [RoomController::class, 'create'])->name('edit-room.create');
@@ -41,7 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // USERS
     Route::get('/users', [UserController::class, 'index'])->name('users');
-    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::delete('/users/{id}', [UserController::class, 'softDelete']);
     Route::get('/users/create', [UserController::class, 'create']);
     Route::get('/users/{id}', [UserController::class, 'show']);
     Route::put('/users/{id}', [UserController::class, 'update']);

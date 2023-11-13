@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\RoomTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::get('rooms/{slug}', [RoomController::class, 'show']);
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
+Route::get('/rooms', [RoomController::class, 'index']);
+Route::get('/room-types', [RoomTypeController::class, 'index']);
