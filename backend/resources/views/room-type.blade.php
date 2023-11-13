@@ -46,11 +46,9 @@
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
-                                <table class="table align-items-center mb-0 " id="table-room-type">
+                                <table class="table align-items-center mb-0 p-3" id="table-room-type">
                                     <thead>
                                         <tr>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                ID</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Tên</th>
@@ -66,12 +64,6 @@
                                     <tbody>
                                         @foreach ($room_types as $room_type)
                                             <tr>
-
-                                                <td class="align-middle text-left text-sm">
-                                                    <p class="text-xs font-weight-bold mb-0 ps-3 ">{{ $room_type->rty_id }}
-                                                    </p>
-                                                </td>
-
                                                 <td>
                                                     <p class="text-xs font-weight-bold mb-0">{{ $room_type->name }}</p>
                                                 </td>
@@ -83,7 +75,7 @@
                                                     </p>
                                                 </td>
                                                 <td class="align-middle ">
-                                                    <div class="d-flex px-2 py-1">
+                                                    <div class="justify-content-end d-flex px-2 py-1">
                                                         <button
                                                             class="btn btn-link text-info font-weight-bold text-xs mx-3 editRoomtype"
                                                             data-original-title="Edit user" data-bs-toggle="modal"

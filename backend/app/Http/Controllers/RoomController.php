@@ -11,6 +11,7 @@ use App\Models\Room;
 use App\Models\Sale;
 use App\Models\RoomType;
 use App\Models\Amenities;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
 
 class RoomController extends Controller
@@ -168,9 +169,16 @@ class RoomController extends Controller
         }
     }
 
-
-    public function show($id)
+// Lan anh
+    public function show($slug)
     {
+        try {
+            $room = Room::with('images', 'packages','amenities')->findOrFail($slug);
+
+            return response()->json(['room' => $room]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'Room not found'], 404);
+        }
     }
 
     public function edit($slug)
