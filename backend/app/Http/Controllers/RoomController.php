@@ -89,9 +89,11 @@ class RoomController extends Controller
             }
 
             //Kiểm tra sale_id
-            $checkSale_id = DB::table('sale')->where('sale_id', $sale_id)->first();
-            if (!$checkSale_id) {
-                return redirect()->back()->with('error', 'Giá trị trong giảm giá không hợp lệ!');
+            if(!$sale_id == 0){
+                $checkSale_id = DB::table('sale')->where('sale_id', $sale_id)->first();
+                if (!$checkSale_id) {
+                    return redirect()->back()->with('error', 'Giá trị trong giảm giá không hợp lệ!');
+                }
             }
 
             // Kiểm tra và xử lý giá trị trước khi lưu vào cơ sở dữ liệu
@@ -99,7 +101,7 @@ class RoomController extends Controller
                 $title &&
                 $price > 0 && $price < 1000000000 &&
                 $adults > 0 && $adults < 30 &&
-                $children > 0 && $children < 6 &&
+                $children >= 0 && $children < 6 &&
                 $area > 0 && $area < 300 &&
                 $inputStatus && in_array($inputStatus, $validStatusValues) &&
                 !empty(trim($description))
@@ -113,7 +115,7 @@ class RoomController extends Controller
                     'children' => $children,
                     'area' => $area,
                     'rty_id' => $rty_id,
-                    'sale_id' => $sale_id,
+                    'sale_id' => ($sale_id == 0) ? null : $sale_id,
                     'description' => $description,
                     'status' => $inputStatus,
                 ]);
@@ -213,6 +215,14 @@ class RoomController extends Controller
 
             $room = Room::where('slug', $slug)->firstOrFail(); // Lấy ra phòng cần cập nhật
 
+            //Kiểm tra sale_id
+            if(!$sale_id == 0){
+                $checkSale_id = DB::table('sale')->where('sale_id', $sale_id)->first();
+                if (!$checkSale_id) {
+                    return redirect()->back()->with('error', 'Giá trị trong giảm giá không hợp lệ!');
+                }
+            }
+
             // Kiểm tra và xử lý giá trị trước khi lưu vào cơ sở dữ liệu
             if (
                 $title &&
@@ -231,7 +241,7 @@ class RoomController extends Controller
                 $room->children = $children;
                 $room->area = $area;
                 $room->rty_id = $rty_id;
-                $room->sale_id = $sale_id;
+                $room->sale_id = ($sale_id == 0) ? null : $sale_id;
                 $room->description = $description;
                 $room->status = $inputStatus;
 

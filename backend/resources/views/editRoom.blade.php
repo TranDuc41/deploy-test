@@ -38,6 +38,7 @@
                     <div class="form-group col-6">
                         <label for="Sale-Select">Giảm Giá</label>
                         <select class="form-control" id="Sale-Select" name="sale-select">
+                            <option value="0">0%</option>
                             @foreach($sales as $sale)
                             <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>{{ $sale->discount }}%</option>
                             @endforeach
