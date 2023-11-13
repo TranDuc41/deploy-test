@@ -158,7 +158,7 @@
                                     <span class="text-secondary text-xs font-weight-bold">{{ number_format($room->price, 0, ',', '.') }} đ</span>
                                 </td>
                                 <td class="align-middle text-center">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $room->discount_percentage }}%</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $room->discount_percentage ?? 0 }}%</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $room->adults }}</span>
