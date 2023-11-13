@@ -43,4 +43,14 @@ class Room extends Model
     {
         return $this->belongsToMany(Amenities::class, 'room_amenities', 'room_id', 'amenities_id');
     }
+
+    public function roomType()
+    {
+        return $this->belongsTo(RoomType::class, 'rty_id');
+    }
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class, 'sale_id');
+    }
 }

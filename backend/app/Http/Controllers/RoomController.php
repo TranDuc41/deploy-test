@@ -11,6 +11,7 @@ use App\Models\Room;
 use App\Models\Sale;
 use App\Models\RoomType;
 use App\Models\Amenities;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 
 class RoomController extends Controller
@@ -24,9 +25,11 @@ class RoomController extends Controller
             ->paginate(10);
 
         $totalRoom = DB::table('room')->count();
+        $totalRoomMaintenance = DB::table('room')->where('status', 'maintenance')->count();
+        $totalRoomUsed = DB::table('room')->where('status', 'used')->count();
         $totalRoomType = DB::table('room_type')->count();
 
-        return view('rooms', compact('rooms', 'totalRoom', 'totalRoomType'));
+        return view('rooms', compact('rooms', 'totalRoom', 'totalRoomType', 'totalRoomMaintenance', 'totalRoomUsed'));
     }
 
     public function create()
@@ -164,7 +167,7 @@ class RoomController extends Controller
             }
         } catch (\Throwable $th) {
             dd($th);
-            return redirect()->back()->with('error', 'Có lỗi xảy ra!. Thêm thất bại!');
+            return redirect()->back()->with('error', 'Thêm thất bại! Vui lòng kiểm tra lại dữ liệu nhập vào.');
         }
     }
 
@@ -238,7 +241,7 @@ class RoomController extends Controller
                 // Xóa hình ảnh cũ trước khi thêm hình ảnh mới
                 // $room->images()->delete();
 
-                // Kiểm tra và xử lý ảnh tương tự như trong hàm store
+                // Kiểm tra và xử lý ảnh
                 $images = $request->file('images');
                 if (!empty($images)) {
                     foreach ($images as $image) {
@@ -259,6 +262,11 @@ class RoomController extends Controller
                         }
                     }
                 }
+                // Xóa các package của room trước đó
+                DB::table('room_package')
+                    ->where('room_id', $room->room_id)
+                    ->delete();
+
                 // Lưu vào bảng room_package
                 $roomPackageData = [];
                 foreach ($packageIds as $packageId) {
@@ -267,6 +275,11 @@ class RoomController extends Controller
                         'packages_id' => $packageId,
                     ];
                 }
+
+                // Xóa các amenities của room trước đó
+                DB::table('room_amenities')
+                    ->where('room_id', $room->room_id)
+                    ->delete();
                 // Lưu vào bảng room_amenities
                 $amenitiesData = [];
                 foreach ($amenitieIds as $amenitieId) {
@@ -283,7 +296,7 @@ class RoomController extends Controller
                 return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin hoặc kiểm tra giá trị nhập vào.');
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Có lỗi xảy ra!. Cập nhật thất bại!');
+            return redirect()->back()->with('error', 'Cập nhật thất bại! Vui lòng kiểm tra lại dữ liệu nhập vào.');
         }
     }
 
@@ -291,15 +304,34 @@ class RoomController extends Controller
     {
         // Lấy thông tin của room từ cơ sở dữ liệu
         $room = DB::table('room')->where('slug', $slug)->first();
-        DB::table('image')->where('imageable_id', $room->room_id)->delete();
+        $images = DB::table('image')->where('imageable_id', $room->room_id)->get();
 
         if (!$room) {
             session()->flash('error', 'Không tìm thấy phòng.');
             return response()->json(['message' => 'Xóa thất bại.']);
         }
 
+        foreach ($images as $image) {
+            // Xóa hình ảnh từ thư mục uploads
+            $filePath = public_path($image->img_src);
+
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
         // Xóa room từ cơ sở dữ liệu
         DB::table('room')->where('slug', $slug)->delete();
+        DB::table('image')->where('imageable_id', $room->room_id)->delete();
+
+        // Xóa các package của room trước đó
+        DB::table('room_package')
+            ->where('room_id', $room->room_id)
+            ->delete();
+
+        // Xóa các amenities của room trước đó
+        DB::table('room_amenities')
+            ->where('room_id', $room->room_id)
+            ->delete();
 
         session()->flash('success', 'Xóa thành công.');
         return response()->json(['message' => 'Xóa thành công.']);

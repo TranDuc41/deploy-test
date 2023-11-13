@@ -14,6 +14,13 @@ class RoomType extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->rty_id,
+            'loai_phong' => $this->name,
+            'slug' => $this->slug,
+            'mo_ta' => $this->description,
+            'created_at' => $this->created_at->format('d/m/Y'),
+            'updated_at' => $this->updated_at->format('d/m/Y'),
+          ];
     }
 }
