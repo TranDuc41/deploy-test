@@ -16,6 +16,9 @@ const ItemContentRoomDetail = ({ room }) => {
     const handleShowEdit = () => setShowEdit(true);
 
     const ImagesItem = room.images.slice(0, 2);
+    if (room.images.lenght > 2) {
+        const ImagesItem = room.images.slice(0, 2);
+    }
     return (
         <section id="block-dominion-content">
             <Container>
@@ -43,35 +46,33 @@ const ItemContentRoomDetail = ({ room }) => {
                             <Card.Footer className="text-muted text-center"><Button className="btn-booking" variant="warning" onClick={handleShowEdit}>Đặt phòng</Button></Card.Footer>
                         </Card>
                     </Col>
-
-                    {!(room.images && room.images.length > 2) || !(ImagesItem && ImagesItem.length >= 2) (
-                        <div>
-                            <Col lg={7} className={`card-media`}>
-                                <div className={`p-2 card-media-item-1`}>
-                                    <Image
-                                        src={'http://localhost:8000' + ImagesItem[0].img_src}
-                                        alt={ImagesItem[0].name}
-                                        width={340}
-                                        height={450}
-                                        style={{
-                                            objectFit: 'cover',
-                                        }}
-                                    />
-                                </div>
-                                <div className={`p-2 card-media-item-2`}>
-                                    <Image
-                                        src={'http://localhost:8000' + ImagesItem[1].img_src}
-                                        alt={ImagesItem[1].name}
-                                        width={340}
-                                        height={450}
-                                        style={{
-                                            objectFit: 'cover',
-                                        }}
-                                    />
-                                </div>
-                            </Col>
-                        </div>
+                    {ImagesItem && (
+                        <Col lg={7} className={`card-media`}>
+                            <div className={`p-2 card-media-item-1`}>
+                                <Image
+                                    src={'http://localhost:8000' + ImagesItem[0].img_src}
+                                    alt={ImagesItem[0].name}
+                                    width={340}
+                                    height={450}
+                                    style={{
+                                        objectFit: 'cover',
+                                    }}
+                                />
+                            </div>
+                            <div className={`p-2 card-media-item-2`}>
+                                <Image
+                                    src={'http://localhost:8000' + ImagesItem[1].img_src}
+                                    alt={ImagesItem[1].name}
+                                    width={340}
+                                    height={450}
+                                    style={{
+                                        objectFit: 'cover',
+                                    }}
+                                />
+                            </div>
+                        </Col>
                     )}
+
                 </Row>
             </Container>
             <Modal show={showEdit} keyboard={false} backdrop="static" size='lg'>
@@ -84,7 +85,7 @@ const ItemContentRoomDetail = ({ room }) => {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                <Button className="btn-booking " variant="outline-secondary" onClick={handleCloseEdit}>Đóng</Button>
+                    <Button className="btn-booking " variant="outline-secondary" onClick={handleCloseEdit}>Đóng</Button>
                     <Button className="btn-booking text-light" variant="warning" onClick={handleCloseEdit}>Đặt phòng</Button>
                 </Modal.Footer>
             </Modal>

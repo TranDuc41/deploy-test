@@ -10,24 +10,24 @@ const BannerCarousel = ({ images }) => {
     };
     if (images.length == 0) {
         return
+    } else{
+        return (
+            <section id="banner-room">
+                    <Carousel activeIndex={index} onSelect={handleSelect} indicators={false}>
+                        {images.map((item) => (
+                            <Carousel.Item key={item.img_id} interval={3000} className=''>
+                                <Image className="image-room"
+                                    src={'http://localhost:8000' + item.img_src}
+                                    alt={item.name}
+                                    fluid
+                                />
+                            </Carousel.Item>
+                        ))}
+                    </Carousel>
+            </section>
+        )
     }
-    return (
-        <section id="banner-room">
-            {!images && images.length > 0(
-                <Carousel activeIndex={index} onSelect={handleSelect} indicators={false}>
-                    {images.map((item) => (
-                        <Carousel.Item key={item.img_id} interval={3000} className=''>
-                            <Image className="image-room"
-                                src={'http://localhost:8000' + item.img_src}
-                                alt={item.name}
-                                fluid
-                            />
-                        </Carousel.Item>
-                    ))}
-                </Carousel>
-            )}
-        </section>
-    )
+   
 }
 
 export default BannerCarousel;
