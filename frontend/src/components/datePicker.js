@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form';
 import { format, differenceInDays, isValid } from 'date-fns';
+import { useRouter } from 'next/navigation';
 
 const currentDate = new Date();
 const endOfYear = new Date(currentDate.getFullYear(), 11, 31);
@@ -37,6 +38,8 @@ export default function MyDatePicker() {
     const isValidAdults = !isNaN(adults) && adults >= 1 && adults <= 20;
     const isValidChildren = !isNaN(children) && children >= 0 && children <= 5;
 
+    const router = useRouter();
+
     const handleButtonClick = () => {
         const formattedStartDate = startDate ? format(startDate, 'dd/MM/yyyy') : '';
         const formattedEndDate = endDate ? format(endDate, 'dd/MM/yyyy') : '';
@@ -59,10 +62,11 @@ export default function MyDatePicker() {
         } else if (!adults || !children) {
             setError('Nội dung không hợp lệ!');
         } else {
-            console.log('Đã gửi');
+            // console.log('Đã gửi');
             setError('');
-
-            console.log({
+            // Chuyển dữ liệu sang trang Booking
+            router.push('/booking', undefined, { shallow: true });
+            router.query = {
                 formattedStartDate,
                 adults,
                 children,
@@ -70,7 +74,7 @@ export default function MyDatePicker() {
                 isDateRangeValid,
                 isStartDateValid,
                 roomType,
-            });
+            };
         }
     };
 

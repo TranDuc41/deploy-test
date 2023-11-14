@@ -23,7 +23,11 @@ const RoomsSuites = () => {
             try {
                 const response = await fetch('http://localhost:8000/api/rooms');
                 const data = await response.json();
-                setRooms(data);
+
+                // Chỉ lấy 20 phòng từ dữ liệu
+                const limitedRooms = data.slice(0, 20);
+
+                setRooms(limitedRooms);
 
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -57,13 +61,15 @@ const RoomsSuites = () => {
             ref={swiper}
             spaceBetween={50}
             slidesPerView={1}
-            pagination={{ clickable: true }}
+            pagination={{
+                dynamicBullets: true,
+            }}
             breakpoints={breakpoints}
             modules={[Pagination, A11y, Autoplay]}
             loop={rooms.length > 1}
             autoplay={{ delay: 3000 }}
         >
-            {rooms.map((room, index) => (
+            {rooms.slice(0, 20).map((room, index) => (
                 <SwiperSlide key={index}>
                     <div>
                         <div className='room-img'>

@@ -33,14 +33,20 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="room-price" class="form-control-label">Giá Phòng</label>
-                        <input class="form-control" type="number" value="{{ isset($room) ? $room->price : '' }}" id="room-price" name="room-price" required>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon2">VND</span>
+                            <input class="form-control" type="number" value="{{ isset($room) ? $room->price : '' }}" id="room-price" name="room-price" required>
+                        </div>
                     </div>
                     <div class="form-group col-6">
                         <label for="Sale-Select">Giảm Giá</label>
                         <select class="form-control" id="Sale-Select" name="sale-select">
                             <option value="0">0%</option>
                             @foreach($sales as $sale)
-                            <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>{{ $sale->discount }}%</option>
+                            <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>
+                                {{ $sale->discount }}% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                ({{ \Carbon\Carbon::parse($sale->start_date)->format('d/m/Y') }} -- {{ \Carbon\Carbon::parse($sale->end_date)->format('d/m/Y')}})
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -79,8 +85,6 @@
                             </option>
                             @endforeach
                         </select>
-
-
                     </div>
                     <div class="form-group col-6">
                         <label for="room-amenities">Tiện nghi</label>
@@ -91,7 +95,6 @@
                             </option>
                             @endforeach
                         </select>
-
                     </div>
                 </div>
                 <div class="row">
