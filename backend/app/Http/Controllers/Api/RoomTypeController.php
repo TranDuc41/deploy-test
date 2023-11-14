@@ -10,7 +10,7 @@ class RoomTypeController extends Controller
 {
     public function index()
     {
-        $roomTypes = DB::table('room_type')->get();
+        $roomTypes = DB::table('room_type')->orderBy('rty_id', 'desc')->get();
         return response()->json($roomTypes);
     }
 }

@@ -67,7 +67,7 @@ const RoomsSuites = () => {
             breakpoints={breakpoints}
             modules={[Pagination, A11y, Autoplay]}
             loop={rooms.length > 1}
-        // autoplay={{ delay: 3000 }}
+            autoplay={{ delay: 3000 }}
         >
             {rooms.slice(0, 20).map((room, index) => (
                 <SwiperSlide key={index}>
