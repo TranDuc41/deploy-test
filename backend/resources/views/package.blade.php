@@ -9,7 +9,7 @@
         {{ session('success') }}
     </div>
     @endif
-    <!-- @if ($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -17,7 +17,7 @@
                 @endforeach
             </ul>
         </div>
-        @endif -->
+        @endif
     @if(session('err'))
     <div class="alert alert-success">
         {{ session('err') }}
@@ -268,9 +268,6 @@
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
 </script>
-<!-- Bảng package của bạn -->
-
-
 
 <!-- Script JavaScript để thực hiện tìm kiếm -->
 <script>

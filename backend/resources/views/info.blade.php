@@ -97,7 +97,6 @@
                                 <td class="align-middle text-xs">
                                     {{ $info->updated_at->format('d/m/Y H:i:s') }}
                                 </td>
-
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editInfoModal-{{ $info->info_id }}" onclick="editInfo({{ json_encode($info) }})">
                                         Edit

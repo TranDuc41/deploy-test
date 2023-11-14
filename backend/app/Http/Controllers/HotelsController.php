@@ -10,10 +10,10 @@ class HotelsController extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function index(Request $request)
+    public function index(Request $request)
 
     {
-        $query = Hotels::query(); 
+        $query = Hotels::query();
 
         // Nếu có truy vấn tìm kiếm, lọc kết quả
         if ($request->has('search')) {
@@ -22,7 +22,8 @@ class HotelsController extends Controller
                 ->orWhere('phone', 'LIKE', '%' . $request->search . '%');
         }
 
-        $hotels = $query->get();
+        // Áp dụng phân trang với 10 bản ghi mỗi trang
+        $hotels = $query->paginate(10);
         return view('hotels', compact('hotels'));
     }
 
@@ -31,7 +32,6 @@ class HotelsController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -39,22 +39,40 @@ class HotelsController extends Controller
      */
     public function store(Request $request)
     {
+        // Kiểm tra số điện thoại đã tồn tại hay chưa
+        $existingHotel = Hotels::where('phone', $request->input('phone'))->first();
+
+        if ($existingHotel) {
+            // Nếu số điện thoại đã tồn tại, hiển thị thông báo lỗi
+            return redirect()->back()->with('error', 'Số điện thoại đã tồn tại. Vui lòng chọn số điện thoại khác.');
+        }
         try {
-            // Validate dữ liệu đầu vào
+
+            // Nếu số điện thoại chưa tồn tại, tiến hành validation và thêm mới
             $validatedData = $request->validate([
                 'name' => 'required|max:55',
-                'address' => 'required|max:255',
-                'phone' => 'required|size:10'
+                'ward' => 'required',
+                'district' => 'required',
+                'city' => 'required',
+                'phone' => ['required', 'size:10', 'regex:/^0[0-9]*$/'],
             ]);
 
-            // Tạo bản ghi mới
-            Hotels::create($validatedData);
+            // Tạo giá trị cho trường 'address' sau khi đã xác minh
+            $address = $request->input('ward') . ' ' . $request->input('district') . ' ' . $request->input('city');
 
-            // Chuyển hướng với thông báo thành công
-            return redirect('hotels')->with('success', 'Khách sạn mới đã được thêm thành công.');
+            // Tạo instance mới của model Hotel và lưu vào cơ sở dữ liệu
+            $hotel = new Hotels([
+                'name' => $request->input('name'),
+                'phone' => $request->input('phone'),
+                'address' => $address,
+            ]);
+
+            $hotel->save();
+
+            return redirect()->route('hotels')->with('success', 'Khách sạn mới đã được thêm thành công.');
         } catch (\Exception $e) {
             // Trường hợp xảy ra lỗi, chuyển hướng và gửi thông báo lỗi
-            return redirect()->back()->with('err', 'Có lỗi xảy ra: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
         }
     }
 
@@ -85,6 +103,14 @@ class HotelsController extends Controller
             return redirect()->route('hotels.index')->with('error', 'Hotel not found');
         }
 
+        // Kiểm tra số điện thoại đã tồn tại hay chưa
+        $existingHotel = Hotels::where('phone', $request->input('phone'))->first();
+
+        if ($existingHotel) {
+            // Nếu số điện thoại đã tồn tại, hiển thị thông báo lỗi
+            return redirect()->back()->with('error', 'Số điện thoại đã tồn tại. Vui lòng chọn số điện thoại khác.');
+        }
+
         $hotel->name = $request->input('name');
         $hotel->address = $request->input('address');
         $hotel->phone = $request->input('phone');
@@ -100,11 +126,11 @@ class HotelsController extends Controller
         $hotel = Hotels::find($hotel_id);
 
         if (!$hotel) {
-            return redirect()->route('hotels.index')->with('Lỗi', 'Không tìm thấy Hotel');
+            return redirect()->route('hotels.index')->with('error', 'Không tìm thấy Hotel');
         }
 
         $hotel->delete();
 
-        return redirect()->route('hotels.index')->with('Thành công ', 'Xóa thành công.');
+        return redirect()->route('hotels.index')->with('success', 'Xóa thành công.');
     }
 }
