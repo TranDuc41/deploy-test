@@ -44,10 +44,10 @@ export default function Page() {
                     {/* <h6>Xem kết quả theo</h6> */}
                     <div className='justify-content-end'>
                        <Form.Label className="fw-normal fs-6">Xem kết quả theo</Form.Label>
-                          <Form.Select className="p-0 fw-bold" aria-label="Default select example">
+                          <Form.Select className="px-2 fw-bold" aria-label="Default select example">
                             <option value="1">Đề xuất</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option value="2">Giá cao - thấp</option>
+                            <option value="3">Giá thấp - cao</option>
                           </Form.Select>
                     </div>
                   </div>
