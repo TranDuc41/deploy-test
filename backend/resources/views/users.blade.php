@@ -84,7 +84,7 @@
                                     <p class="text-xs font-weight-bold mb-0">{{ $result->email }}</p>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $result->user_type }}</span>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $result->uesr_type }}</span>
                                 </td>
                                 <td class="align-middle text-center">
                                     <span class="text-secondary text-xs font-weight-bold">{{ $result->created_at }}</span>

@@ -20,6 +20,7 @@ class RoomController extends Controller
         $rooms = DB::table('room')
             ->select('room.*', 'sale.discount as discount_percentage')
             ->leftJoin('sale', 'room.sale_id', '=', 'sale.sale_id')
+            ->orderBy('room_id', 'desc')
             ->paginate(10);
 
         $totalRoom = DB::table('room')->count();
@@ -59,17 +60,17 @@ class RoomController extends Controller
 
             // Kiểm tra package và amenities
             if (!$this->validateIds('packages', $packageIds) || !$this->validateIds('amenities', $amenitieIds)) {
-                return redirect()->back()->with('error', 'Giá trị không hợp lệ!');
+                return redirect()->back()->with('error', 'Giá trị trong tiện nghi hoặc gói lưu trú không hợp lệ!')->withInput();
             }
 
             // Kiểm tra số từ trong mô tả
             if ($this->validateWordCount($description, 5000)) {
-                return redirect()->back()->with('error', 'Nội dung không được vượt quá 5000 từ!');
+                return redirect()->back()->with('error', 'Nội dung không được vượt quá 5000 từ!')->withInput();
             }
 
             // Kiểm tra rty_id và sale_id
             if (!$this->validateId('room_type', 'rty_id', $rty_id) || (!$sale_id == 0 && !$this->validateId('sale', 'sale_id', $sale_id))) {
-                return redirect()->back()->with('error', 'Giá trị không hợp lệ!');
+                return redirect()->back()->with('error', 'Giá trị trong giảm giá và loại phòng không hợp lệ!')->withInput();
             }
 
             // Kiểm tra và xử lý giá trị trước khi lưu vào cơ sở dữ liệu
@@ -99,11 +100,11 @@ class RoomController extends Controller
 
                 return redirect()->route('rooms.index')->with('success', 'Thêm phòng thành công.');
             } else {
-                return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin hoặc kiểm tra giá trị nhập vào.');
+                return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin hoặc kiểm tra giá trị nhập vào.')->withInput();
             }
         } catch (\Throwable $th) {
-            dd($th);
-            return redirect()->back()->with('error', 'Thêm thất bại! Vui lòng kiểm tra lại dữ liệu nhập vào.');
+            // dd($th);
+            return redirect()->back()->with('error', 'Thêm thất bại! Vui lòng kiểm tra lại dữ liệu nhập vào.')->withInput();
         }
     }
 
@@ -214,7 +215,6 @@ class RoomController extends Controller
 
     public function update(Request $request, $id)
     {
-        $redirected = false;
         try {
             // Lấy giá trị từ request
             $title = trim($request->input('room-name'));
