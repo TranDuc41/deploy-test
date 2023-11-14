@@ -16,6 +16,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "material-datepicker": "^0.0.1",
         "md5": "^2.3.0",
         "moment": "^2.29.4"
     }

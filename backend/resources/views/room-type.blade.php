@@ -35,10 +35,11 @@
                                     <h5>Loại phòng</h5>
                                 </div>
                                 <div class="col-lg-5 col-5 my-auto mb-2 d-flex text-end">
-                                    <input class="form-control mx-3 mt" onkeyup="searchInTableRoomTypeFunction()" type="search"
-                                        value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input-roomRype">
+                                    <input class="form-control mx-3 mt" onkeyup="searchInTableRoomTypeFunction()"
+                                        type="search" value="" placeholder="Nhập nội dung tìm kiếm..."
+                                        id="search-input-roomRype">
 
-                                    <button class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal"
+                                    <button class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal"
                                         data-bs-target="#exampleModalAddRoomType">Thêm</button>
 
                                 </div>
@@ -100,13 +101,15 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="m-3">
+                            {{ $room_types->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>
             {{-- Modal thêm --}}
             <div class="modal fade" id="exampleModalAddRoomType" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false"
-                data-bs-backdrop="static">
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -211,7 +214,7 @@
                 </div>
             </div>
             @include('includes.footer')
-        </main>
+    </main>
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
