@@ -46,7 +46,7 @@ class UserController extends Controller
         $requestedType = $request->input('type');
         // kiểm tra xem giá trị của '$request->input('type')' có tồn tại trong mảng
         if (!in_array($requestedType, ['staff', 'admin', 'sp-admin'])) {
-            
+
             return redirect()->back()->with('error', 'Vai trò không hợp lệ!');
         }
 
@@ -111,33 +111,21 @@ class UserController extends Controller
         return redirect()->route('users')->with('success', 'Dữ liệu đã được cập nhật thành công.');
     }
 
-    // public function softDelete($id)
-    // {
-    //     $user = User::find($id);
-
-    //     if ($user) {
-    //         $user->delete(); // Thực hiện xóa mềm
-    //         return redirect()->route('users')->with('success', 'Xóa thành công.');
-    //     } else {
-    //         return redirect()->back()->with('error', 'Không tìm thấy người dùng.');
-    //     }
-    // }
-
-    public function destroy($id)
+    public function softDelete($id)
     {
         $user = User::find($id);
 
         if (!$user) {
             session()->flash('error', 'Không tìm thấy người dùng.');
             return response()->json(['message' => 'Xóa thất bại.']);
-        }
-        if ($user) {
+        } else {
             $user->delete(); // Thực hiện xóa mềm
             session()->flash('success', 'Xóa thành công.');
             return response()->json(['message' => 'Xóa thành công.']);
-        } else {
-            session()->flash('error', 'Không tìm thấy người dùng.');
-            return response()->json(['message' => 'Xóa thất bại.']);
         }
+    }
+
+    public function destroy($id)
+    {
     }
 }

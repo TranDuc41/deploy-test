@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Kiểm tra thông báo từ server và chuyển hướng trang
                     if (data.message === 'Xóa thành công.') {
-                        // Chuyển hướng trang /images
+                        // Chuyển hướng trang /rooms
                         window.location.href = '/rooms';
                     } else if (data.message === 'Xóa thất bại') {
                         window.location.href = '/rooms';
@@ -189,6 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
+    
 });
 
 
@@ -200,6 +201,19 @@ function searchInTableFunction() {
     filter = input.value.toUpperCase();
     table = document.getElementById("usersTable");
     tr = table.getElementsByTagName("tr");
+
+    var noResultsRow = document.getElementById("no-results-row");
+    
+    // Tạo dòng "Trống" nếu chưa có
+    if (!noResultsRow) {
+        noResultsRow = table.insertRow();
+        var cell = noResultsRow.insertCell(0);
+        cell.colSpan = tr[0].cells.length; // Đặt colSpan bằng số lượng ô trong mỗi hàng
+        cell.innerHTML = "Không có kết quả phù hợp.";
+        noResultsRow.className = "text-center";
+        noResultsRow.id = "no-results-row";
+        noResultsRow.style.display = "none"; // Ẩn mặc định
+    }
 
     // Lặp qua tất cả các hàng trong bảng
     for (i = 1; i < tr.length; i++) {
@@ -214,6 +228,7 @@ function searchInTableFunction() {
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                     // Nếu tìm thấy kết quả trong ô nào đó, không ẩn hàng và thoát khỏi vòng lặp
                     rowContainsSearchTerm = true;
+                    noResultsRow.style.display = "none";
                     break;
                 }
             }
@@ -222,6 +237,8 @@ function searchInTableFunction() {
         // Ẩn hoặc hiển thị hàng tùy thuộc vào việc có chứa kết quả tìm kiếm không
         if (!rowContainsSearchTerm) {
             tr[i].style.display = "none";
+            noResultsRow.style.display = "table-row";
         }
     }
 }
+

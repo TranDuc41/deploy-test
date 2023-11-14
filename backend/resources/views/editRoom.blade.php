@@ -2,7 +2,7 @@
 
 @section('content')
 @include('includes.sidebar')
-<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+<main class="main-content position-relative max-height-vh-100 h-100">
     @include('includes.header')
     <div class="container-fluid py-4">
         <h4 class="font-weight-bolder mb-5">{{ isset($room) ? 'Chỉnh Sửa' : 'Tạo Mới' }} Thông Tin Phòng</h4>
@@ -38,6 +38,7 @@
                     <div class="form-group col-6">
                         <label for="Sale-Select">Giảm Giá</label>
                         <select class="form-control" id="Sale-Select" name="sale-select">
+                            <option value="0">0%</option>
                             @foreach($sales as $sale)
                             <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>{{ $sale->discount }}%</option>
                             @endforeach
@@ -128,45 +129,14 @@
                     <label for="description-input" class="form-control-label">Mô tả</label>
                     <textarea class="form-control" rows="10" value="@example.com" id="description-input" name="description-input" required>{{ isset($room) ? $room->description : '' }}</textarea>
                 </div>
-                    <input class="form-control d-none" type="text" value="{{ isset($room) ? $room->slug : '' }}" name="room-slug">
+                <input class="form-control d-none" type="text" value="{{ isset($room) ? $room->slug : '' }}" name="room-slug">
                 <!-- <a href="{{ isset($room) ? '/edit-room/' . $room->slug : '/create-room' }}"> -->
                 <button type="submit" class="btn bg-gradient-primary">{{ isset($room) ? 'Sửa' : 'Tạo Mới' }}</button>
                 <!-- </a> -->
             </form>
         </div>
     </div>
-    <footer class="footer pt-3  ">
-        <div class="container-fluid">
-            <div class="row align-items-center justify-content-lg-between">
-                <div class="col-lg-6 mb-lg-0 mb-4">
-                    <div class="copyright text-center text-sm text-muted text-lg-start">
-                        © <script>
-                            document.write(new Date().getFullYear())
-                        </script>,
-                        made with <i class="fa fa-heart"></i> by
-                        <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                        for a better web.
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    @include('includes.footer')
     </div>
 </main>
 <div class="fixed-plugin">
