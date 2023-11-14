@@ -28,14 +28,14 @@
                 @csrf
                 <div class="form-group">
                     <label for="room-name" class="form-control-label">Tên Phòng</label>
-                    <input class="form-control" type="text" id="room-name" name="room-name" required value="{{ isset($room) ? $room->title : '' }}">
+                    <input class="form-control" type="text" id="room-name" name="room-name" required value="{{ old('room-name', isset($room) ? $room->title : '') }}">
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
                         <label for="room-price" class="form-control-label">Giá Phòng</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon2">VND</span>
-                            <input class="form-control" type="number" value="{{ isset($room) ? $room->price : '' }}" id="room-price" name="room-price" required>
+                            <input class="form-control" type="number" value="{{old('room-price', isset($room) ? $room->price : '') }}" id="room-price" name="room-price" required>
                         </div>
                     </div>
                     <div class="form-group col-6">
@@ -44,7 +44,7 @@
                             <option value="0">0%</option>
                             @foreach($sales as $sale)
                             <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>
-                                {{ $sale->discount }}% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                {{ $sale->discount }}% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 ({{ \Carbon\Carbon::parse($sale->start_date)->format('d/m/Y') }} -- {{ \Carbon\Carbon::parse($sale->end_date)->format('d/m/Y')}})
                             </option>
                             @endforeach
@@ -54,15 +54,15 @@
                 <div class="row">
                     <div class="form-group col-3">
                         <label for="room-adults" class="form-control-label">Số người lớn</label>
-                        <input class="form-control" type="number" value="{{ isset($room) ? $room->adults : '' }}" id="room-adults" name="room-adults" required>
+                        <input class="form-control" type="number" value="{{old('room-adults', isset($room) ? $room->adults : '') }}" id="room-adults" name="room-adults" required>
                     </div>
                     <div class="form-group col-3">
                         <label for="room-children" class="form-control-label">Số trẻ em</label>
-                        <input class="form-control" type="number" value="{{ isset($room) ? $room->children : '' }}" id="room-children" name="room-children" required>
+                        <input class="form-control" type="number" value="{{old('room-children', isset($room) ? $room->children : '') }}" id="room-children" name="room-children" required>
                     </div>
                     <div class="form-group col-3">
                         <label for="room-area" class="form-control-label">Kích thước phòng (m&sup2;)</label>
-                        <input class="form-control" type="number" value="{{ isset($room) ? $room->area : '' }}" id="room-area" id="room-area" name="room-area" required>
+                        <input class="form-control" type="number" value="{{old('room-area', isset($room) ? $room->area : '') }}" id="room-area" id="room-area" name="room-area" required>
                     </div>
                     <div class="form-group col-3">
                         <label for="kind-room">Loại phòng</label>
@@ -80,7 +80,10 @@
                         <label for="package-room">Gói lưu trú</label>
                         <select class="form-control" id="package-room" name="package-room[]" multiple size="6">
                             @foreach($packages as $package)
-                            <option value="{{ $package->packages_id }}" {{ isset($room) && $room->packages->contains('packages_id', $package->packages_id) ? 'selected' : '' }}>
+                            <option value="{{ $package->packages_id }}" 
+                            {{ 
+                                in_array($package->packages_id, old('package-room', isset($room) ? $room->packages->pluck('packages_id')->toArray() : [])) ? 'selected' : '' 
+                            }}>
                                 {{ $package->name }}
                             </option>
                             @endforeach
@@ -90,7 +93,9 @@
                         <label for="room-amenities">Tiện nghi</label>
                         <select class="form-control" id="room-amenities" name="room-amenities[]" multiple size="6">
                             @foreach($amenities as $amenitie)
-                            <option value="{{ $amenitie->amenities_id }}" {{ isset($room) && $room->amenities->contains('amenities_id', $amenitie->amenities_id) ? 'selected' : '' }}>
+                            <option value="{{ $amenitie->amenities_id }}" {{ 
+                                in_array($amenitie->amenities_id, old('room-amenities', isset($room) ? $room->amenities->pluck('amenities_id')->toArray() : [])) ? 'selected' : '' 
+                            }}>
                                 {{ $amenitie->name }}
                             </option>
                             @endforeach
@@ -130,7 +135,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description-input" class="form-control-label">Mô tả</label>
-                    <textarea class="form-control" rows="10" value="@example.com" id="description-input" name="description-input" required>{{ isset($room) ? $room->description : '' }}</textarea>
+                    <textarea class="form-control" rows="10" value="@example.com" id="description-input" name="description-input" required>{{old('description-input', isset($room) ? $room->description : '') }}</textarea>
                 </div>
                 <input class="form-control d-none" type="text" value="{{ isset($room) ? $room->slug : '' }}" name="room-slug">
                 <!-- <a href="{{ isset($room) ? '/edit-room/' . $room->slug : '/create-room' }}"> -->

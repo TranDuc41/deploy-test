@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $results = DB::table('users')->whereNull('deleted_at')->paginate(10);
+        $results = DB::table('users')->whereNull('deleted_at')->orderByDesc('user_id')->paginate(10);
         $totalUsers = DB::table('users')->whereNull('deleted_at')->count();
         return view('users', compact('results', 'totalUsers'));
     }
