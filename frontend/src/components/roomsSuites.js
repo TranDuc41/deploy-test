@@ -73,7 +73,7 @@ const RoomsSuites = () => {
                 <SwiperSlide key={index}>
                     <div>
                         <div className='room-img'>
-                            <Image src={'http://localhost:8000' + room.images[0].img_src} width={409} height={243} alt="Dominion Logo" />
+                            <Image src={room.images.length > 0 ? 'http://localhost:8000' + room.images[0].img_src : './dominion-defaul.png'} width={409} height={243} alt="Dominion Logo" />
                         </div>
                         <div className='room-content text-center my-4'>
                             <div className='mb-4'>
