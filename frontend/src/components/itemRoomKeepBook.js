@@ -10,6 +10,7 @@ import '@/app/reservations/custom-1.css'
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import ModalItemRoomKeepBook from '@/components/modalItemRoomKeepBook';
 //component
 import ImageModals from '@/components/bannerroomdetail';
 
@@ -80,45 +81,49 @@ const room = {
 
 }
 
-function ItemRoomKeepBook() {
+function ItemRoomKeepBook({ item }) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const priceitem = item.price - (item.price * item.sale.discount) / 100;
     return (
-        <Row className="bg-light thumb-cards_keep_room my-4" key={''}>
+        <Row className="bg-light thumb-cards_keep_room my-4">
             <Col lg={5} className="px-0">
                 <div className="thumb-cards_images">
-                     <ImageModals images={room.images}/>
-                    {/* <Image className=""
-                        src="/ocean-pool-family-villa/Amanoi, Vietnam - Ocean Pool Family Villa, aerial view.jpg"
-                        alt=""
-                        width={'100%'}
-                        height={'auto'}
-                    /> */}
+                    <ImageModals images={item.images} />
                 </div>
             </Col>
             <Col lg={7} className="px-0">
                 <div className="thumb-cards_cardHeader ">
-                    <h2 class="app_heading_room">Ocean Pool Villa</h2>
+                    <h2 class="app_heading_room">{item.title}</h2>
                     <div className="thumb-cards_trigger_and_room_ thumb-cards_trigger_and_room_info_1">
                         <div className="trigger guests_number">
-                            <BsFillPersonFill /> 2 người
+                            <BsFillPersonFill /> {item.adults} người
                         </div>
                         <div className="trigger roomsize_bed">
-                            <BiSolidBed /> 1 Giường lớn
+                            <BiSolidBed />
+                            {item.adults.length <= 2 && item.children.length <= 1 ? (
+                                1
+                            ) : item.adults.length > 2 && item.adults.length < 6 || item.adults.length < 5 && item.children.length <= 2 ? (
+                                2
+                            ) : item.adults.length > 5 && item.adults.length < 8 || item.adults.length < 7 && item.children.length <= 3 ? (
+                                3
+                            ) : (
+                                4
+                            )} Giường lớn
                         </div>
                     </div>
                     <div className="thumb-cards_trigger_and_room_ thumb-cards_trigger_and_room_info_2">
-                        <p><span className="room_area">95 m²</span> | <span className="room_view">View</span></p>
+                        <p><span className="room_area">{item.area} m²</span> | <span className="room_view">Hướng biển</span></p>
                     </div>
                     <div className="thumb-cards_detailsLink">
-                        <Button variant="link" className="p-0" onClick={handleShow}>Xem chi tiết...</Button>
+                        <Button variant="link" className="p-0" onClick={handleShow} data-slug={item.slug}>Xem chi tiết...</Button>
 
                     </div>
                 </div>
                 <div class="thumb-cards_footer text-end">
                     <div class="thumb-cards_priceContainer">
-                        <div class="thumb-cards_price">23,000,000 vnd</div>
+                        <div class="thumb-cards_price">{priceitem.toLocaleString()} vnd</div>
                         <div class="price-and-nights-text_perNight">Mỗi đêm</div>
                         <div class="thumb-cards_taxesFees">Không bao gồm thuế và phí </div>
                     </div>
@@ -128,7 +133,7 @@ function ItemRoomKeepBook() {
                 </div>
             </Col>
             {/* Modal */}
-            <Modal show={show} onHide={handleClose}
+            {/* <Modal show={show} onHide={handleClose}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
@@ -140,7 +145,7 @@ function ItemRoomKeepBook() {
                     <Container>
                         <Row>
                             <Col>
-                                <ImageModals images={room.images}/>
+                                <ImageModals images={room.images} />
                             </Col>
                             <Col>
                                 <h2 class="app_heading_room">Ocean Pool Villa</h2>
@@ -153,8 +158,8 @@ function ItemRoomKeepBook() {
                                     </div>
                                 </div>
                                 <div className="thumb-cards_trigger_and_room_ thumb-cards_trigger_and_room_info_2">
-                                    <p><span className="room_area">95 m²</span> | <span className="room_view">View</span></p><br/>
-                                    
+                                    <p><span className="room_area">95 m²</span> | <span className="room_view">View</span></p><br />
+
                                 </div>
                             </Col>
                         </Row>
@@ -166,7 +171,8 @@ function ItemRoomKeepBook() {
                 <Modal.Footer>
                     <Button href="/roomdetail" className="btn-booking" variant="warning" onClick={handleClose}>Read more</Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
+            <ModalItemRoomKeepBook show={show} handleClose={handleClose} room={item}/>
             {/*End Modal */}
         </Row>
 

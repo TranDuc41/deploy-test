@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router';
 //Css #
 import '@/app/reservations/custom-1.css';
 import Image from 'react-bootstrap/Image';
@@ -15,11 +16,41 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 //component
 import BannerBooking from '@/components/selectBooking';
 import ItemRoomKeepBook from '@/components/itemRoomKeepBook';
-
 import ItemKeepRoom from '@/components/itemKeepRoom';
 
 
 export default function Page() {
+  const router = useRouter();
+
+  // Lấy dữ liệu từ router.query
+  const { formattedStartDate, adults, children, formattedEndDate, isDateRangeValid, isStartDateValid, roomType } = router.query;
+
+  useEffect(() => {
+    const fetchRoomData = async () => {
+      try {
+
+        const response = await axios.get(`http://127.0.0.1:8000/api/reservations/${adults}/${children}/${roomType}`);
+        setRoom(response.data.room);
+      } catch (error) {
+        console.error('Error fetching room data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Kiểm tra xem slug có giá trị trước khi gọi API
+    if (params.slug) {
+      fetchRoomData();
+    }
+  }, [params.slug]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!room) {
+    const messsign = "...khong tim thay";
+  }
   // -------------------------------------------------------
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => {
@@ -57,6 +88,7 @@ export default function Page() {
     };
   }, []); // Dependency array rỗng để useEffect chỉ chạy một lần khi component mount
   // -------------------------------------------------------
+
   return (
     <main className='content_reservations'>
       <Container>
