@@ -59,7 +59,7 @@
                                             <button class="btn btn-link text-info px-3 mb-0 editSale" data-bs-toggle="modal"
                                                 data-e70b59714528d5798b1c8adaf0d0ed15 ="{{ $item->sale_id }}" 
                                                 data-e8701ad48ba05a91604e480dd60899a3 ="{{ $item->user_id }}"
-                                                data-d7b5164029f944313b08c6b778b7b178 ="{{ Auth::user()->user_id }}"
+                                                data-d7b5164029f944313b08c6b778b7b178 ="{{ Auth::user()->user_type }}"
                                                 ><i
                                                     class="fas fa-pencil-alt text-info me-2"
                                                     aria-hidden="true"></i>Sửa</button>
@@ -67,7 +67,7 @@
                                                 data-toggle="tooltip" data-original-title="Delete user"
                                                 data-bs-toggle="modal" data-e70b59714528d5798b1c8adaf0d0ed15 ="{{ $item->sale_id }}"
                                                 data-e8701ad48ba05a91604e480dd60899a3 ="{{ $item->user_id }}"
-                                                data-d7b5164029f944313b08c6b778b7b178 ="{{ Auth::user()->user_id }}"
+                                                data-d7b5164029f944313b08c6b778b7b178 ="{{ Auth::user()->user_type }}"
                                                 ><i
                                                     class="far fa-trash-alt me-2"></i>Xóa</button>
                                         </div>
