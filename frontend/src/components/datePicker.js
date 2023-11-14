@@ -65,7 +65,7 @@ export default function MyDatePicker() {
             // console.log('Đã gửi');
             setError('');
             // Chuyển dữ liệu sang trang Booking
-            router.push('/booking', undefined, { shallow: true });
+            router.push('/reservations', undefined, { shallow: true });
             router.query = {
                 formattedStartDate,
                 adults,
