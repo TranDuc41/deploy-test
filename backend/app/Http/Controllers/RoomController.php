@@ -12,7 +12,6 @@ use App\Models\Sale;
 use App\Models\RoomType;
 use App\Models\Amenities;
 use Illuminate\Support\Facades\File;
-
 class RoomController extends Controller
 {
     public function index()

@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\RoomType;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class RoomTypeController extends Controller
 {
     public function index()
     {
-        $room_types = RoomType::all();
+        $room_types = RoomType::paginate(10);
+
         return view('room-type', compact('room_types'));
     }
     public function show($rty_id)
@@ -55,7 +57,9 @@ class RoomTypeController extends Controller
         $room_type->name = $request->input('name');
         $room_type->slug = $request->input('slug');
         $room_type->description = $request->input('description');
-
+        //update date
+        $currentDateTime = Carbon::now('Asia/Ho_Chi_Minh');
+        $room_type->updated_at = $currentDateTime;
         $room_type->save();
        
         return redirect('room-type')->with('success', 'Loại phòng đã được cập nhật thành công.');

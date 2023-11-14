@@ -22,3 +22,6 @@ use App\Http\Controllers\Api\RoomTypeController;
 
 Route::get('/rooms', [RoomController::class, 'index']);
 Route::get('/room-types', [RoomTypeController::class, 'index']);
+
+//lan anh
+Route::get('rooms/{slug}', [RoomController::class, 'show']);

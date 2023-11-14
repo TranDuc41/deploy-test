@@ -49,9 +49,6 @@
                                             <thead>
                                                 <tr>
                                                     <th
-                                                        class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                        ID</th>
-                                                    <th
                                                         class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                         Tên</th>
                                                     <th
@@ -63,19 +60,11 @@
                                             <tbody>
                                                 @foreach ($amenities as $item)
                                                     <tr>
-
-                                                        <td class="align-middle text-left text-sm ps-4">
-                                                            <p class="text-xs font-weight-bold mb-0">
-                                                                {{ $item->amenities_id }}</p>
-                                                        </td>
                                                         <td>
                                                             <p class="text-xs font-weight-bold mb-0">{{ $item->name }}</p>
                                                         </td>
-                                                        <td>
-                                                            <p class="text-xs font-weight-bold mb-0">{{ $item->slug }}</p>
-                                                        </td>
                                                         <td class="align-middle">
-                                                            <div class="d-flex px-2 py-1">
+                                                            <div class="justify-content-end d-flex px-2 py-1">
                                                                 <button
                                                                     class="btn btn-link text-info font-weight-bold text-xs mx-3 editAmenities"
                                                                     data-bs-toggle="modal"
@@ -99,6 +88,9 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="m-3" id="Pagination-amenities">
+                                    {{ $amenities->links('pagination::bootstrap-5') }}
                                 </div>
                             </div>
                         </div>
@@ -141,7 +133,6 @@
                     </div>
                 </div>
             </div>
-
             {{-- Modal Edit --}}
             <div class="modal fade" id="exampleModalEditAmenities" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -203,6 +194,15 @@
             </div>
             @include('includes.footer')
     </main>
+    <script>
+        //sua nut phan trang sale
+    var paginationamenities = document.getElementById("Pagination-amenities");
+    var mypaginationamenities = paginationamenities.querySelectorAll("ul");
+        mypaginationamenities.forEach(element => {
+
+        element.classList.add("pagination-primary");
+    });
+    </script>
     <!--   Core JS Files   -->
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
