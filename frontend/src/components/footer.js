@@ -35,7 +35,7 @@ function AppHeader() {
     return (
         <footer expand="lg" className="bg-body-tertiary pt-5">
             <Container>
-                <Row className='mb-5'>
+                <Row className='mb-3'>
                     <Col className='col-12 col-sm-6 col-lg-3'>
                         <ListGroup>
                             <ListGroup.Item>
@@ -96,12 +96,10 @@ function AppHeader() {
                         </Form>
                     </Col>
                 </Row>
-                <Row>
-                    <div className='coppyright'>
-                        <p className="text-center text-body-tertiary py-4 mb-0">Copyright 2022, Dominion Resorts Ltd.</p>
-                    </div>
-                </Row>
             </Container>
+                <div className='coppyright'>
+                    <p className="text-center text-body-tertiary py-4 mb-0">Copyright 2022, Dominion Resorts Ltd.</p>
+                </div>
         </footer>
     );
 }
