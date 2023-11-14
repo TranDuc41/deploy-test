@@ -18,30 +18,30 @@
     })
 })()
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     // ---------------------------------------------------------------------------------------------------------------------
     //Edit room type
     var editRoomtypes = document.querySelectorAll('.editRoomtype');
     if (editRoomtypes !== null) {
-        editRoomtypes.forEach(function(item) {
+        editRoomtypes.forEach(function (item) {
 
             // Thêm sự kiện click cho nút "Edit"
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 //Tham chiều đến các trường input/select
                 const nameInput = document.getElementById('nameEdit');
                 const slugInput = document.getElementById('slugEdit');
                 const descriptionText = document.getElementById('descriptionEdit')
-                    //Lấy ra id của user
+                //Lấy ra id của user
                 const rty_id = item.dataset.rty_id;
                 const formEditRoomType = document.getElementById('formEditRoomType')
-                    // Sử dụng Fetch API để gửi yêu cầu GET tới "/room-type/{id}"
+                // Sử dụng Fetch API để gửi yêu cầu GET tới "/room-type/{id}"
                 fetch(`/room-type/${rty_id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
                     .then(response => response.json())
                     .then(data => {
                         // Xử lý dữ liệu nhận được từ server (data) ở đây
@@ -69,9 +69,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var deleteRoomtypes = document.querySelectorAll('.deleteRoomType');
     if (deleteRoomtypes !== null) {
-        deleteRoomtypes.forEach(function(item) {
+        deleteRoomtypes.forEach(function (item) {
             // Thêm sự kiện click cho nút "delete"
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 const rty_id = item.dataset.rty_id;
                 const formEditRoomType = document.getElementById('formDeleteRoomType')
                 formEditRoomType.action = "/room-type/" + rty_id;
@@ -84,23 +84,23 @@ document.addEventListener("DOMContentLoaded", function() {
     //Edit amenities 
     var editAmenities = document.querySelectorAll('.editAmenities');
     if (editAmenities !== null) {
-        editAmenities.forEach(function(item) {
+        editAmenities.forEach(function (item) {
 
             // Thêm sự kiện click cho nút "Edit"
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 //Tham chiều đến các trường input/select
                 const nameInput = document.getElementById('nameEdit');
                 const slugInput = document.getElementById('slugEdit');
                 //Lấy ra id của user
                 const amenities_id = item.dataset.amenities_id;
                 const formEditAmenities = document.getElementById('formEditAmenities')
-                    // Sử dụng Fetch API để gửi yêu cầu GET tới "/room-type/{id}"
+                // Sử dụng Fetch API để gửi yêu cầu GET tới "/room-type/{id}"
                 fetch(`/amenities/${amenities_id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
                     .then(response => response.json())
                     .then(data => {
                         // Xử lý dữ liệu nhận được từ server (data) ở đây
@@ -126,9 +126,9 @@ document.addEventListener("DOMContentLoaded", function() {
     //Delete amenities 
     var deleteAmenities = document.querySelectorAll('.deleteAmenities');
     if (deleteAmenities !== null) {
-        deleteAmenities.forEach(function(item) {
+        deleteAmenities.forEach(function (item) {
             // Thêm sự kiện click cho nút "delete"
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 const amenities_id = item.dataset.amenities_id;
                 const formDeleteAmenities = document.getElementById('formDeleteRoomType')
                 formDeleteAmenities.action = "/amenities/" + amenities_id;
@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // ---------------------------------------------------------------------------------------------------------------------
     // Lấy phần tử input bằng id
     var user_id = document.getElementById('user_id_item');
+    
     const user_id_original = user_id.value;
     // Đặt giá trị cho phần tử input
     user_id.value = encodeID(user_id.value);;
@@ -147,40 +148,40 @@ document.addEventListener("DOMContentLoaded", function() {
     //create sale
     var btnCreateSale = document.getElementById('btnAddSale');
     const formCreateSale = document.getElementById('formCreateSale');
-    btnCreateSale.addEventListener('click', function() {
+    btnCreateSale.addEventListener('click', function () {
         if (user_id_original === decodeID(user_id.value)) {
             formCreateSale.action = "/sale";
             formCreateSale.method = "POST"
         } else {
-
+            $('#modal-notification').modal('show');
         }
     })
 
     // edit sale
     var editSale = document.querySelectorAll('.editSale');
     if (editSale !== null) {
-        editSale.forEach(function(item) {
-            item.dataset.user_id = encodeID(item.dataset.user_id);
+        editSale.forEach(function (item) {
+            item.dataset.e8701ad48ba05a91604e480dd60899a3 = encodeID(item.dataset.e8701ad48ba05a91604e480dd60899a3);
             // Thêm sự kiện click cho nút "Edit"
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 //so sánh id user
                 // Nếu trùng thì bạn được quyền sửa nếu không trùng thì bạn ko được xóa
-                if (user_id_original === decodeID(item.dataset.user_id)) {
+                if (user_id_original === decodeID(item.dataset.e8701ad48ba05a91604e480dd60899a3) || item.dataset.d7b5164029f944313b08c6b778b7b178 === 'sp-admin') {
                     $('#exampleModalEditSale').modal('show');
                     //Tham chiều đến các trường input/select
                     const discountEdit = document.getElementById('discountEdit');
                     const startDateTime = document.getElementById('start-datetime-edit');
                     const endDateTime = document.getElementById('end-datetime-edit');
                     //Lấy ra id của sale
-                    const sale_id = item.dataset.sale_id;
+                    const sale_id = item.dataset.e70b59714528d5798b1c8adaf0d0ed15;
                     const formEditSale = document.getElementById('formEditSale');
                     // Sử dụng Fetch API để gửi yêu cầu GET tới "/sale/{id}"
                     fetch(`/sale/${sale_id}`, {
-                            method: 'GET',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        })
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
                         .then(response => response.json())
                         .then(data => {
                             // Xử lý dữ liệu nhận được từ server (data) ở đây
@@ -211,14 +212,14 @@ document.addEventListener("DOMContentLoaded", function() {
     //Delete sale 
     var deleteSale = document.querySelectorAll('.deleteSale');
     if (deleteSale !== null) {
-        deleteSale.forEach(function(item) {
+        deleteSale.forEach(function (item) {
             //hash id user
-            item.dataset.user_id = encodeID(item.dataset.user_id);
+            item.dataset.e8701ad48ba05a91604e480dd60899a3 = encodeID(item.dataset.e8701ad48ba05a91604e480dd60899a3);
             // Thêm sự kiện click cho nút "delete"
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 //so sánh id user
                 // Nếu trùng thì bạn được quyền sửa nếu không trùng thì bạn ko được xóa
-                if (user_id_original === decodeID(item.dataset.user_id)) {
+                if (user_id_original === decodeID(item.dataset.e8701ad48ba05a91604e480dd60899a3) || item.dataset.d7b5164029f944313b08c6b778b7b178 === 'sp-admin') {
                     $('#exampleModalDeleteSale').modal('show');
                     const sale_id = item.dataset.sale_id;
                     const formDeleteSale = document.getElementById('formDeleteSale')
@@ -230,7 +231,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     // ---------------------------------------------------------------------------------------------------------------------
-
+    
+    
 });
 //tạo slug
 function createSlug(name) {

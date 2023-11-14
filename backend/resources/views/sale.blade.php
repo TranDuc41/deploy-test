@@ -31,14 +31,16 @@
                     <div class="card">
                         <div class="card-header pb-0 p-3">
                             <div class="row">
-                              <div class="col-6 d-flex align-items-center">
-                                <h5 class="mb-0">Mã giảm giá</h5>
-                              </div>
-                              <div class="col-6 text-end">
-                                <button class="btn bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#exampleModalAddSale"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Thêm</button>
-                              </div>
+                                <div class="col-6 d-flex align-items-center">
+                                    <h5 class="mb-0">Mã giảm giá</h5>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <button class="btn bg-gradient-primary mb-0" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModalAddSale"><i class="fas fa-plus"
+                                            aria-hidden="true"></i>&nbsp;&nbsp;Thêm</button>
+                                </div>
                             </div>
-                          </div>
+                        </div>
                         <div class="card-body pt-4 p-3">
                             <ul class="list-group">
                                 @foreach ($sales as $item)
@@ -46,9 +48,6 @@
                                         <div class="d-flex flex-column">
                                             <h4 class="mb-3 text-primary "><span class="text-lg text-dark">Mã giảm : </span>
                                                 {{ $item->discount }}%</h4>
-                                            <span class="mb-2 text-xs">ID : <span
-                                                    class="text-dark font-weight-bold ms-sm-2">
-                                                    {{ $item->sale_id }}</span></span>
                                             <span class="mb-2 text-xs">Ngày bắt đầu : <span
                                                     class="text-dark ms-sm-2 font-weight-bold">{{ $item->start_date }}</span></span>
                                             <span class="mb-2 text-xs">Ngày kết thúc : <span
@@ -57,23 +56,34 @@
                                                     class="text-dark ms-sm-2 font-weight-bold">{{ $item->user->name }}</span></span>
                                         </div>
                                         <div class="ms-auto text-end">
-                                            <button class="btn btn-link text-info px-3 mb-0 editSale"
-                                                data-bs-toggle="modal" data-sale_id ="{{ $item->sale_id }}"
-                                                data-user_id ="{{ $item->user_id }}"><i
+                                            <button class="btn btn-link text-info px-3 mb-0 editSale" data-bs-toggle="modal"
+                                                data-e70b59714528d5798b1c8adaf0d0ed15 ="{{ $item->sale_id }}" 
+                                                data-e8701ad48ba05a91604e480dd60899a3 ="{{ $item->user_id }}"
+                                                data-d7b5164029f944313b08c6b778b7b178 ="{{ Auth::user()->user_id }}"
+                                                ><i
                                                     class="fas fa-pencil-alt text-info me-2"
                                                     aria-hidden="true"></i>Sửa</button>
                                             <button class="btn btn-link text-dark text-gradient px-3 mb-0 deleteSale"
                                                 data-toggle="tooltip" data-original-title="Delete user"
-                                                data-bs-toggle="modal" data-sale_id ="{{ $item->sale_id }}"
-                                                data-user_id ="{{ $item->user_id }}"><i
+                                                data-bs-toggle="modal" data-e70b59714528d5798b1c8adaf0d0ed15 ="{{ $item->sale_id }}"
+                                                data-e8701ad48ba05a91604e480dd60899a3 ="{{ $item->user_id }}"
+                                                data-d7b5164029f944313b08c6b778b7b178 ="{{ Auth::user()->user_id }}"
+                                                ><i
                                                     class="far fa-trash-alt me-2"></i>Xóa</button>
                                         </div>
                                     </li>
                                 @endforeach
+                                <!-- Hiển thị link phân trang -->
+
                             </ul>
                         </div>
+                        <div class="m-3" id="Pagination-sale">
+                            {{ $sales->links('pagination::bootstrap-5') }}
+                        </div>
+                        
                     </div>
                 </div>
+
                 <div class="col-md-5 mt-4">
                     <div class="card h-100 mb-4">
                         <div class="card-header pb-0 px-3">
@@ -213,7 +223,7 @@
                                     <label for="exampleFormControlInput1">Discount</label>
                                     <div class="input-group">
                                         <span class="input-group-text">%</span>
-                                        <input type="text" class="form-control" name="discount" required>
+                                        <input type="number" class="form-control" min="0" name="discount" required>
                                         <div class="invalid-feedback">
                                             Please provide a valid.
                                         </div>
@@ -223,23 +233,19 @@
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày bắt
                                         đầu</label>
                                     <input class="form-control" type="datetime-local" id="start-datetime-input"
-                                        value="{{ $currentDateTime->format('Y-m-d H:i:s') }}"
-                                        min="{{ $currentDateTime->format('Y-m-d H:i:s') }}" name="start_date" required>
+                                        value="{{ $currentDateTime }}" min="{{ $currentDateTime }}" name="start_date"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày kết
                                         thúc</label>
                                     <input class="form-control" type="datetime-local" id="end-datetime-input"
-                                        value="{{ $currentDateTime->format('Y-m-d H:i:s') }}"
-                                        min="{{ $currentDateTime->format('Y-m-d H:i:s') }}" name="end_date" required>
+                                        value="{{ $currentDateTime }}" min="{{ $currentDateTime }}" name="end_date"
+                                        required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="example-datetime-local-input" class="form-control-label">Name
-                                        Admin</label>
                                     <input type="hidden" id="user_id_item" name="user_id"
                                         value="{{ Auth::user()->user_id }}">
-                                    <input type="text" class="form-control" value="{{ Auth::user()->name }}"
-                                        disabled>
                                 </div>
                                 <button class="btn bg-gradient-primary" id="btnAddSale">Thêm</button>
                             </form>
@@ -269,7 +275,7 @@
                                     <label for="exampleFormControlInput1">Discount</label>
                                     <div class="input-group">
                                         <span class="input-group-text">%</span>
-                                        <input type="text" class="form-control" name="discount" id="discountEdit"
+                                        <input type="number" class="form-control" min="0" name="discount" id="discountEdit"
                                             required>
                                         <div class="invalid-feedback">
                                             Please provide a valid.
@@ -280,13 +286,15 @@
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày bắt
                                         đầu</label>
                                     <input class="form-control" type="datetime-local" id="start-datetime-edit"
-                                        value="{{ $currentDateTime->format('Y-m-d H:i:s') }}" name="start_date">
+                                        value="{{ $currentDateTime }}" name="start_date">
                                 </div>
                                 <div class="form-group">
                                     <label for="example-datetime-local-input" class="form-control-label">Ngày kết
                                         thúc</label>
+                                        <input type="hidden" id="user_id_item" name="user_id_edit"
+                                        value="{{ Auth::user()->user_id }}">
                                     <input class="form-control" type="datetime-local" id="end-datetime-edit"
-                                        value="{{ $currentDateTime->format('Y-m-d H:i:s') }}" name="end_date">
+                                        value="{{ $currentDateTime }}" name="end_date">
                                 </div>
                                 <button type="submit" class="btn bg-gradient-primary">Lưu</button>
                             </form>
@@ -335,6 +343,15 @@
             </div>
             @include('includes.footer')
     </main>
+    <script>
+        //sua nut phan trang sale
+    var paginationSale = document.getElementById("Pagination-sale");
+    var mypaginationSale = paginationSale.querySelectorAll("ul");
+        mypaginationSale.forEach(element => {
+
+        element.classList.add("pagination-primary");
+    });
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

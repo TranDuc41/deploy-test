@@ -12,7 +12,6 @@ use App\Models\Sale;
 use App\Models\RoomType;
 use App\Models\Amenities;
 use Illuminate\Support\Facades\File;
-
 class RoomController extends Controller
 {
     public function index()
@@ -180,7 +179,7 @@ class RoomController extends Controller
     private function validateRoomData($title, $price, $adults, $children, $area, $status, $description)
     {
         return $title && $price > 0 && $price < 1000000000 && $adults > 0 && $adults < 30 &&
-            $children >= 0 && $children < 6 && $area > 0 && $area < 300 && !empty(trim($description)) &&
+            $children >= 0 && $children < 6 && $area > 0  && !empty(trim($description)) &&
             in_array($status, ['work', 'maintenance', 'used']);
     }
 
