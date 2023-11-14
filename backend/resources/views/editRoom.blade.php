@@ -43,7 +43,10 @@
                         <select class="form-control" id="Sale-Select" name="sale-select">
                             <option value="0">0%</option>
                             @foreach($sales as $sale)
-                            <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>{{ $sale->discount }}%</option>
+                            <option value="{{ $sale->sale_id }}" {{ isset($room) && $room->sale_id == $sale->sale_id ? 'selected' : '' }}>
+                                {{ $sale->discount }}% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                ({{ \Carbon\Carbon::parse($sale->start_date)->format('d/m/Y') }} -- {{ \Carbon\Carbon::parse($sale->end_date)->format('d/m/Y')}})
+                            </option>
                             @endforeach
                         </select>
                     </div>
