@@ -24,11 +24,9 @@ export default function Page() {
 
   // Lấy dữ liệu từ router.query
   const { formattedStartDate, adults, children, formattedEndDate, isDateRangeValid, isStartDateValid, roomType } = router.query;
-
   useEffect(() => {
-    const fetchRoomData = async () => {
+    const fetchData = async () => {
       try {
-
         const response = await axios.get(`http://127.0.0.1:8000/api/reservations/${adults}/${children}/${roomType}`);
         setRoom(response.data.room);
       } catch (error) {
@@ -38,11 +36,11 @@ export default function Page() {
       }
     };
 
-    // Kiểm tra xem slug có giá trị trước khi gọi API
-    if (params.slug) {
-      fetchRoomData();
+    // Check if adults, children, and roomType have values before calling the API
+    if (adults !== undefined && children !== undefined && roomType !== undefined) {
+      fetchData();
     }
-  }, [params.slug]);
+  }, [adults, children, roomType]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -110,10 +108,10 @@ export default function Page() {
                     {/* <h6>Xem kết quả theo</h6> */}
                     <div className='justify-content-end'>
                       <Form.Label className="fw-normal fs-6">Xem kết quả theo</Form.Label>
-                      <Form.Select className="p-0 fw-bold" aria-label="Default select example">
+                      <Form.Select className="px-2 fw-bold" aria-label="Default select example">
                         <option value="1">Đề xuất</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        <option value="2">Giá cao - thấp</option>
+                        <option value="3">Giá thấp - cao</option>
                       </Form.Select>
                     </div>
                   </div>
@@ -123,6 +121,7 @@ export default function Page() {
             {/* end room seclect booking */}
             {/* Item room keep book */}
             <Container>
+
               <ItemRoomKeepBook />
               <ItemRoomKeepBook />
               <ItemRoomKeepBook />

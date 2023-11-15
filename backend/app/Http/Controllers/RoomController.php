@@ -18,8 +18,9 @@ class RoomController extends Controller
     {
         // Lấy danh sách phòng với thông tin giảm giá
         $rooms = DB::table('room')
-            ->select('room.*', 'sale.discount as discount_percentage')
+            ->select('room.*', 'sale.discount as discount_percentage', 'room_type.name as room_type_name')
             ->leftJoin('sale', 'room.sale_id', '=', 'sale.sale_id')
+            ->leftJoin('room_type', 'room.rty_id', '=', 'room_type.rty_id')
             ->orderBy('room_id', 'desc')
             ->paginate(10);
 
