@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 //Css #
 import '@/app/reservations/custom-1.css';
 import Image from 'react-bootstrap/Image';
@@ -20,35 +20,25 @@ import ItemKeepRoom from '@/components/itemKeepRoom';
 
 
 export default function Page() {
-  const router = useRouter();
-
-  // Lấy dữ liệu từ router.query
-  const { formattedStartDate, adults, children, formattedEndDate, isDateRangeValid, isStartDateValid, roomType } = router.query;
+  const [rooms, setRooms] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/reservations/${adults}/${children}/${roomType}`);
-        setRoom(response.data.room);
+        const response = await fetch('http://127.0.0.1:8000/api/reservations/2/2/2');
+        const data = await response.json();
+
+        setRooms(data);
+
       } catch (error) {
-        console.error('Error fetching room data:', error);
-      } finally {
-        setLoading(false);
+        console.error('Error fetching data:', error);
       }
     };
 
-    // Check if adults, children, and roomType have values before calling the API
-    if (adults !== undefined && children !== undefined && roomType !== undefined) {
+    if (rooms.length === 0) {
       fetchData();
     }
-  }, [adults, children, roomType]);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (!room) {
-    const messsign = "...khong tim thay";
-  }
+  }, [rooms]);
+  console.log(rooms[0]);
   // -------------------------------------------------------
   const [isOpen, setIsOpen] = useState(false);
   const toggleAccordion = () => {
@@ -86,7 +76,6 @@ export default function Page() {
     };
   }, []); // Dependency array rỗng để useEffect chỉ chạy một lần khi component mount
   // -------------------------------------------------------
-
   return (
     <main className='content_reservations'>
       <Container>
@@ -108,23 +97,31 @@ export default function Page() {
                     {/* <h6>Xem kết quả theo</h6> */}
                     <div className='justify-content-end'>
                       <Form.Label className="fw-normal fs-6">Xem kết quả theo</Form.Label>
-                      <Form.Select className="px-2 fw-bold" aria-label="Default select example">
+                      <Form.Select className="p-0 fw-bold" aria-label="Default select example">
                         <option value="1">Đề xuất</option>
-                        <option value="2">Giá cao - thấp</option>
-                        <option value="3">Giá thấp - cao</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
                       </Form.Select>
                     </div>
                   </div>
                 </div>
               </Row>
             </Container>
-            {/* end room seclect booking */}
-            {/* Item room keep book */}
             <Container>
+              {!rooms ? (
+                <p>Không tìm thấy</p>
+              ) : (
+                <div>
+                  {/* Vòng lặp để hiển thị danh sách các phòng */}
+                  {/* {rooms.map((room) => (
+                    <div key={room.id}>
+                     
+                    </div>
+                  ))} */}
 
-              <ItemRoomKeepBook />
-              <ItemRoomKeepBook />
-              <ItemRoomKeepBook />
+                  {/* <ItemRoomKeepBook item={rooms[0]} /> */}
+                </div>
+              )}
             </Container>
             {/* end Item room keep book */}
           </Col>

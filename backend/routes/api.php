@@ -26,4 +26,4 @@ Route::get('/room-types', [RoomTypeController::class, 'index']);
 
 //lan anh
 Route::get('rooms/{slug}', [RoomController::class, 'show']);
-Route::get('reservations/{adults}/{children}/{rty_id}', [ReservationsController::class, 'index']);
+Route::get('reservations/{adults}/{children}/{roomType}', [ReservationsController::class, 'index']);
