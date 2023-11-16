@@ -32,7 +32,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-6">
-                        <label for="room-price" class="form-control-label">Giá Phòng</label>
+                        <label for="room-price" class="form-control-label">Giá Phòng (/đêm)</label>
                         <div class="input-group">
                             <span class="input-group-text" id="basic-addon2">VND</span>
                             <input class="form-control" type="number" value="{{old('room-price', isset($room) ? $room->price : '') }}" id="room-price" name="room-price" required>
