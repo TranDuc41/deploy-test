@@ -26,7 +26,7 @@ class UserController extends Controller
 
             $user = User::find($user_id);
 
-            if ($user && $user->uesr_type === 'sp-admin') {
+            if ($user && $user->user_type === 'sp-admin') {
 
                 $validator = Validator::make($request->all(), [
                     'name-user' => 'required|max:55',
@@ -62,7 +62,7 @@ class UserController extends Controller
                     'name' => $request->input('name-user'),
                     'email' => $request->input('email-user'),
                     'password' => Hash::make($request->input('pass-user')),
-                    'uesr_type' => $requestedType,
+                    'user_type' => $requestedType,
                     'active' => 0,
                     'created_at' => $currentDateTime,
                 ]);
@@ -83,7 +83,7 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $result = DB::table('users')->select('name', 'email', 'uesr_type')->where('user_id', '=', $id)->first();
+        $result = DB::table('users')->select('name', 'email', 'user_type')->where('user_id', '=', $id)->first();
         return response()->json($result);
     }
 
@@ -98,7 +98,7 @@ class UserController extends Controller
         if ($user_id) {
             $user = User::find($user_id);
 
-            if ($user && $user->uesr_type === 'sp-admin') {
+            if ($user && $user->user_type === 'sp-admin') {
 
                 $user = User::find($id); // Tìm user cần cập nhật thông tin
 
@@ -125,7 +125,7 @@ class UserController extends Controller
                 // Cập nhật thông tin user
                 $user->name = $request->input('user-name');
                 $user->email = $request->input('user-email');
-                $user->uesr_type = $requestedType;
+                $user->user_type = $requestedType;
                 $user->save();
 
                 // Xử lý logic thành công
@@ -146,7 +146,7 @@ class UserController extends Controller
         if ($user_id) {
             $user = User::find($user_id);
 
-            if ($user && $user->uesr_type === 'sp-admin') {
+            if ($user && $user->user_type === 'sp-admin') {
 
                 $user = User::find($id);
 

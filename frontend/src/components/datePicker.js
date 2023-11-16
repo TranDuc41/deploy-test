@@ -1,11 +1,11 @@
 'use client'
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Form from 'react-bootstrap/Form';
 import { format, differenceInDays, isValid } from 'date-fns';
-import { useRouter } from 'next/navigation';
 
 const currentDate = new Date();
 const endOfYear = new Date(currentDate.getFullYear(), 11, 31);
@@ -64,9 +64,8 @@ export default function MyDatePicker() {
         } else {
             // console.log('Đã gửi');
             setError('');
-            // Chuyển dữ liệu sang trang Booking
-            router.push('/reservations', undefined, { shallow: true });
-            router.query = {
+            // Chuyển dữ liệu sang trang reservations
+            const dataToSend = {
                 formattedStartDate,
                 adults,
                 children,
@@ -74,7 +73,13 @@ export default function MyDatePicker() {
                 isDateRangeValid,
                 isStartDateValid,
                 roomType,
-            };
+              };
+          
+              const queryParams = new URLSearchParams(dataToSend);
+              const queryString = queryParams.toString();
+          
+              // Chuyển hướng với query parameters trong URL
+              router.push(`/reservations?${queryString}`);
         }
     };
 
