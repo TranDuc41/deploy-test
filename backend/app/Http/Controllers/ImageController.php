@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class ImageController extends Controller
-{    
+{
     public function index()
     {
         $results = DB::table('image')->paginate(10);
@@ -30,15 +31,21 @@ class ImageController extends Controller
                 // Đặt tên mới cho hình ảnh (ví dụ: timestamp + tên gốc của file)
                 $imageName = 'dominion' . '_' . $image->getClientOriginalName();
 
-                // Di chuyển file hình ảnh đến thư mục lưu trữ (ví dụ: public/uploads)
-                $image->move(public_path('uploads'), $imageName);
+                // Kiểm tra xem tệp có phải là hình ảnh không
+                if ($this->isImage($image) && !$this->imageExists($imageName)) {
+                    // Di chuyển file hình ảnh đến thư mục lưu trữ (ví dụ: public/uploads)
+                    $image->move(public_path('uploads'), $imageName);
 
-                // Lưu tên và địa chỉ lưu trữ của hình vào cơ sở dữ liệu sử dụng Query Builder
-                DB::table('image')->insert([
-                    'name' => $imageName,
-                    'img_src' => '/uploads/' . $imageName,
-                    'created_at' => now(),
-                ]);
+                    // Lưu tên và địa chỉ lưu trữ của hình vào cơ sở dữ liệu sử dụng Query Builder
+                    DB::table('image')->insert([
+                        'name' => $imageName,
+                        'img_src' => '/uploads/' . $imageName,
+                        'created_at' => now(),
+                    ]);
+                } else {
+                    // Xử lý trường hợp tệp không phải là hình ảnh hoặc đã tồn tại
+                    return redirect()->route('images.index')->with('error', 'File không phải là hình ảnh hoặc tên tệp đã tồn tại.');
+                }
             }
 
             // Thông báo thành công hoặc chuyển hướng đến trang khác
@@ -48,6 +55,19 @@ class ImageController extends Controller
         // Nếu không có file hình ảnh, xử lý lỗi ở đây
         return redirect()->route('images.index')->with('error', 'Vui lòng chọn ít nhất một hình ảnh để tải lên.');
     }
+
+    // Phương thức để kiểm tra xem tệp có phải là hình ảnh không
+    private function isImage($file)
+    {
+        return Str::startsWith($file->getMimeType(), 'image/');
+    }
+
+    // Phương thức để kiểm tra xem tên tệp đã tồn tại trong bảng image hay không
+    private function imageExists($imageName)
+    {
+        return DB::table('image')->where('name', $imageName)->exists();
+    }
+
 
     public function show($id)
     {
@@ -84,6 +104,6 @@ class ImageController extends Controller
         DB::table('image')->where('img_id', $id)->delete();
 
         session()->flash('success', 'Xóa thành công.');
-            return response()->json(['message' => 'Xóa thành công.']);
+        return response()->json(['message' => 'Xóa thành công.']);
     }
 }
