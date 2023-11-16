@@ -32,9 +32,9 @@
         <div class="card">
             <!-- Card header -->
             <div class="card-header pb-0">
-                <h6>Hotels table</h6>
+                <h6>Bảng Hotels</h6>
                 <button type="button" class="btn btn-sm bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Add New Hotel
+                    Thêm Hotel
                 </button>
             </div>
             @if(session('success'))
@@ -61,17 +61,20 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hotel ID</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created At</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Updated At</th>
-                                <th class="text-secondary opacity-7">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên Hotel</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Địa chỉ </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Số điện thoại</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thời gian tạo </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thời gian cập nhật</th>
+                                <th class="text-secondary opacity-7"> </th>
                             </tr>
                         </thead>
                         <tbody>
-
-                            <!-- Repeat this block for each hotel entry in your database -->
+                            @if(isset($errorMessage))
+                            <div class="alert alert-danger" role="alert">
+                                {{ $errorMessage }}
+                            </div>
+                            @endif
                             @foreach($hotels as $hotel)
                             <tr>
                                 <td>
@@ -101,9 +104,6 @@
                                         <form action="{{ route('hotel.destroy', ['hotel_id' => $hotel->hotel_id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa hotel này?');">
-                                                Xóa
-                                            </button> -->
                                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteHotelModal-{{ $hotel->hotel_id }}">
                                                 Xóa
                                             </button>
@@ -148,7 +148,6 @@
                             </div>
                             @endforeach
                             <!-- End of block -->
-
                         </tbody>
 
                     </table>
@@ -159,11 +158,7 @@
             </div>
         </div>
 
-
-        <!-- Button trigger modal -->
-
         <!-- ...Modal Thêm... -->
-
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -268,9 +263,9 @@
         // Cập nhật action của form để gửi đến route cập nhật thông tin
         var form = document.getElementById('editHotelForm');
         form.action = '/hotels/' + hotel.hotel_id;
-        form.method = 'post'; // Hoặc 'GET' nếu bạn muốn gửi thông tin qua URL
+        form.method = 'post'; 
 
-        // Thêm phần tử input ẩn để gửi phương thức PUT nếu bạn đang sử dụng phương thức POST
+        // Thêm phần tử input ẩn để gửi phương thức PUT 
         var hiddenInput = document.createElement('input');
         hiddenInput.type = 'hidden';
         hiddenInput.name = '_method';
@@ -285,8 +280,8 @@
         document.getElementById('editHotelPhone').value = hotel.phone;
 
         var form = document.getElementById('editHotelForm');
-        form.action = '/hotels/' + hotel.hotel_id; // Chắc chắn rằng đây là đường dẫn chính xác đến route chỉnh sửa
-        form.method = 'POST'; // Sử dụng phương thức POST để gửi thông tin
+        form.action = '/hotels/' + hotel.hotel_id; 
+        form.method = 'POST'; 
     }
 
     //----------------------------------------------------------------
@@ -301,7 +296,7 @@
 </script>
 
 <script>
-    // JavaScript for live search
+    // JavaScript  xử lý tìm kiếm 
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function() {
         const searchText = this.value.trim().toLowerCase();

@@ -107,11 +107,12 @@ Route::get('/sign-up', function () {
 //Hotels
 Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels');
 Route::post('/hotels', [HotelsController::class, 'store'])->name('hotelData');
-Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels.index');
+// Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels.index');
 Route::delete('/hotels/{hotel_id}', [HotelsController::class, 'destroy'])->name('hotel.destroy');
 Route::get('/hotels/{hotel_id}/edit', [HotelsController::class, 'edit'])->name('hotels.edit');
 Route::put('/hotels/{hotel_id}', [HotelsController::class, 'update'])->name('hotels.update');
 Route::get('/hotels/search', [HotelsController::class, 'search'])->name('hotels.search');
+
 //Info
 Route::get('/info', [InfoController::class, 'index'])->name('info.index');
 Route::post('/info', [InfoController::class, 'store'])->name('info.store');

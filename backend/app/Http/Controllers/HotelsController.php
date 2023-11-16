@@ -11,19 +11,25 @@ class HotelsController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-
     {
         $query = Hotels::query();
-
+    
         // Nếu có truy vấn tìm kiếm, lọc kết quả
         if ($request->has('search')) {
             $query->where('name', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('address', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('phone', 'LIKE', '%' . $request->search . '%');
         }
-
+    
         // Áp dụng phân trang với 10 bản ghi mỗi trang
         $hotels = $query->paginate(10);
+    
+        // Kiểm tra nếu số trang vượt quá giới hạn, truyền biến thông báo lỗi
+        if ($request->has('page') && $request->page > $hotels->lastPage()) {
+            $errorMessage = 'Trang không tồn tại.';
+            return view('hotels', compact('hotels', 'errorMessage'));
+        }
+    
         return view('hotels', compact('hotels'));
     }
 
@@ -116,7 +122,7 @@ class HotelsController extends Controller
         $hotel->phone = $request->input('phone');
         $hotel->save();
 
-        return redirect()->route('hotels.index')->with('success', 'Hotel updated successfully');
+        return redirect()->route('hotels.index')->with('success', 'Cập nhật Hotel thành công');
     }
     /**
      * Remove the specified resource from storage.

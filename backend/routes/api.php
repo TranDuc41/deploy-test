@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\InfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RoomController;
@@ -25,3 +26,6 @@ Route::get('/room-types', [RoomTypeController::class, 'index']);
 
 //lan anh
 Route::get('rooms/{slug}', [RoomController::class, 'show']);
+
+//Tri
+Route::get('/info', [InfoController::class, 'index']);

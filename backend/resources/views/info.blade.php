@@ -53,9 +53,9 @@
         <div class="card">
 
             <div class="card-header pb-0">
-                <h6>Info Table</h6>
+                <h6>Bảng Thông Tin </h6>
                 <button type="button" class="btn btn-sm bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#addInfoModal">
-                    Thêm Info
+                    Thêm Thông Tin 
                 </button>
             </div>
             <div class="card-body pt-0 pb-2">
@@ -64,16 +64,21 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Info ID</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Link</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tiêu đề </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Link khách sạn</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hotel ID</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Content</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Create_at</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Update_at</th>
-                                <th class="text-secondary opacity-7">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nội dung</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày tạo </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ngày cập nhật</th>
+                                <th class="text-secondary opacity-7"> </th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if($errors->any())
+                            <div class="alert alert-danger" role="alert">
+                                {{ $errors->first() }}
+                            </div>
+                            @endif
                             @foreach($infos as $info)
                             <tr>
                                 <td class="align-middle text-xs">
@@ -109,6 +114,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="card-footer py-4">
+                        {{$infos->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,18 +128,18 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addInfoModalLabel">Add New Info</h5>
+                        <h5 class="modal-title" id="addInfoModalLabel">Thêm mới thông tin </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{{ route('info.store') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
+                                <label for="title" class="form-label">Tiêu đề</label>
                                 <input type="text" class="form-control" id="title" name="title" required>
                             </div>
                             <div class="mb-3">
-                                <label for="link" class="form-label">Link</label>
+                                <label for="link" class="form-label">Link Hotel</label>
                                 <input type="url" class="form-control" id="link" name="link">
                             </div>
                             <div class="mb-3">
@@ -148,8 +156,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Info</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
                         </div>
                     </form>
                 </div>
@@ -161,11 +169,11 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteInfoModalLabel">Confirm Delete</h5>
+                        <h5 class="modal-title" id="deleteInfoModalLabel">xác nhận xóa</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete this info?
+                    Bạn có chắc chắn muốn xóa thông tin này?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -185,7 +193,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editInfoModalLabel">Edit Info</h5>
+                        <h5 class="modal-title" id="editInfoModalLabel">Cập nhật thông tin </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form id="editInfoForm-{{ $info->info_id }}" method="POST">
@@ -194,15 +202,15 @@
                         <div class="modal-body">
                             <input type="hidden" name="info_id" id="editInfoId-{{ $info->info_id }}">
                             <div class="mb-3">
-                                <label for="editTitle" class="form-label">Title</label>
+                                <label for="editTitle" class="form-label">Tiêu đề</label>
                                 <input type="text" class="form-control" id="editTitle-{{ $info->info_id }}" name="title" required>
                             </div>
                             <div class="mb-3">
-                                <label for="editLink" class="form-label">Link</label>
+                                <label for="editLink" class="form-label">Link Hotel </label>
                                 <input type="url" class="form-control" id="editLink-{{ $info->info_id }}" name="link">
                             </div>
                             <div class="mb-3">
-                                <label for="editHotelId" class="form-label">Hotel Name</label>
+                                <label for="editHotelId" class="form-label"> Tên Hotel </label>
                                 <select class="form-control" id="editHotelId-{{ $info->info_id }}" name="hotel_id" required>
                                     @foreach($hotels as $hotel)
                                     <option value="{{ $hotel->hotel_id }}">{{ $hotel->name }}</option>
@@ -210,13 +218,13 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="editContent" class="form-label">Content</label>
+                                <label for="editContent" class="form-label">Nội dung </label>
                                 <textarea class="form-control" id="editContent-{{ $info->info_id }}" name="content" rows="3"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update Info</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Cập nhật </button>
                         </div>
                     </form>
                 </div>
@@ -243,7 +251,7 @@
             }
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
-        // Code Js sửa info
+        // Js sửa info
         function editInfo(info) {
             document.getElementById('editInfoId-' + info.info_id).value = info.info_id;
             document.getElementById('editTitle-' + info.info_id).value = info.title;

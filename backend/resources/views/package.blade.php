@@ -10,14 +10,14 @@
     </div>
     @endif
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     @if(session('err'))
     <div class="alert alert-success">
         {{ session('err') }}
@@ -52,9 +52,9 @@
         <div class="card">
 
             <div class="card-header pb-0">
-                <h6>Package Table</h6>
+                <h6>Bảng Package </h6>
                 <button type="button" class="btn btn-sm bg-gradient-primary" data-bs-toggle="modal" data-bs-target="#addPackageModal">
-                    Add New Package
+                    Thêm Package
                 </button>
 
             </div>
@@ -65,13 +65,19 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Package ID</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Created At</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Updated At</th>
-                                <th class="text-secondary opacity-7">Actions</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thời gian tạo </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Thời gian cập nhật</th>
+                                <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if($packages->isEmpty() && $packages->currentPage() > 1)
+                            <div class="alert alert-danger" role="alert">
+                                Trang không tồn tại.
+                            </div>
+                            @endif
+
                             @foreach($packages as $package)
                             <tr>
                                 <td>
@@ -104,6 +110,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $packages->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

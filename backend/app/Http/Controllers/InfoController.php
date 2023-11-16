@@ -11,15 +11,24 @@ class InfoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        
+        $page = $request->input('page', 1); // Lấy số trang từ URL, mặc định là 1 nếu không có
+        $perPage = 10; // Số bản ghi trên mỗi trang
 
-        $hotels = Hotels::all(); // Hoặc lấy hotels theo một điều kiện cụ thể
-        $infos = Info::with('hotel')->get();
+        // Kiểm tra xem trang có tồn tại không
+        $infos = Info::with('hotel')->paginate($perPage, ['*'], 'page', $page);
+
+        if ($infos->isEmpty() && $page > 1) {
+            // Nếu trang không tồn tại và người dùng nhập số trang lớn hơn 1
+            abort(404, 'Page not found');
+        }
+
+        $hotels = Hotels::all();
+
         return view('info', compact('infos', 'hotels'));
-        $infoCount = Info::count(); // Đếm tổng số ID
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -41,7 +50,7 @@ class InfoController extends Controller
         ]);
 
         Info::create($validated);
-        return redirect()->route('info.index')->with('success', 'Info created successfully');
+        return redirect()->route('info.index')->with('success', 'Thêm Info thành công. ');
     }
 
     /**
@@ -55,56 +64,50 @@ class InfoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-   // Inside InfoController.php
+    // Inside InfoController.php
 
-public function edit($info_id)
-{
-    $info = Info::findOrFail($info_id);
-    $hotels = Hotels::all(); // Assuming you want to list all hotels in the dropdown
-
-    // Pass the 'info' and 'hotels' data to the edit view
-    return view('info.edit', compact('info', 'hotels'));
-}
+    public function edit($info_id)
+    {
+        $info = Info::findOrFail($info_id);
+        $hotels = Hotels::all(); // 
+        return view('info.edit', compact('info', 'hotels'));
+    }
 
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $info_id)
-{
-    $info = Info::findOrFail($info_id);
+    {
+        $info = Info::findOrFail($info_id);
 
-    $validatedData = $request->validate([
-        'title' => 'required|max:255',
-        'link' => 'nullable|url',
-        'hotel_id' => 'required|exists:hotels,hotel_id', // Đảm bảo hotel_id tồn tại trong bảng hotels
-        'content' => 'required',
-    ]);
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'link' => 'nullable|url',
+            'hotel_id' => 'required|exists:hotels,hotel_id', // Đảm bảo hotel_id tồn tại trong bảng hotels
+            'content' => 'required',
+        ]);
 
-    $info->update($validatedData);
+        $info->update($validatedData);
 
-    return redirect()->route('info.index')->with('success', 'Information updated successfully');
-}
+        return redirect()->route('info.index')->with('success', 'Cập nhật info thành công ');
+    }
 
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($info_id)
-{
-    // Tìm bản ghi thông tin dựa trên info_id
-    $info = Info::findOrFail($info_id);
-
-    // Optional: Kiểm tra quyền xóa thông tin
-    // $this->authorize('delete', $info);
-
-    // Xóa bản ghi và kiểm tra kết quả
-    if ($info->delete()) {
-        // Nếu xóa thành công, chuyển hướng với thông báo success
-        return redirect()->route('info.index')->with('success', 'Info deleted successfully.');
-    } else {
-        // Nếu xóa không thành công, chuyển hướng với thông báo error
-        return redirect()->route('info.index')->with('error', 'An error occurred while deleting the info.');
+    {
+        // Tìm bản ghi thông tin dựa trên info_id
+        $info = Info::findOrFail($info_id);
+        // Xóa bản ghi và kiểm tra kết quả
+        if ($info->delete()) {
+            // Nếu xóa thành công, chuyển hướng với thông báo success
+            return redirect()->route('info.index')->with('success', 'Info đã được xóa thành công.');
+        } else {
+            // Nếu xóa không thành công, chuyển hướng với thông báo error
+            return redirect()->route('info.index')->with('error', ' Xóa không thành công.');
+        }
     }
-}
 }

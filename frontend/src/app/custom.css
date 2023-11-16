@@ -681,7 +681,7 @@ footer .socialsing a {
 /* Trong Tri */
 
 .row-home .row {
-    padding-top: 150px
+    margin-top: 100px
 }
 
 .row-home .row-content-home {
@@ -815,6 +815,14 @@ footer .socialsing a {
 }
 
 /* Contact  - Trong Tri */
+.banner-contact-page {
+    width: 100vw;
+    /* Sử dụng 100vw để chiếm full viewport width */
+    height: auto;
+    object-fit: cover;
+    object-position: center
+}
+
 .contact-page {
     margin-top: 97px;
 
@@ -977,6 +985,114 @@ footer .socialsing a {
 
 /* Trọng Tri */
 /* ROOMSUITES */
+/* Use Bootstrap's container to center and pad content */
+.rooms-suites-container {
+    max-width: 1320px;
+
+}
+
+.banner-room-page {
+    width: 100vw;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
+
+.rooms-suites-container .banner-room-page {
+    width: 100%;
+    height: auto;
+    /* Hoặc bạn có thể đặt chiều cao cố định */
+    max-height: 458px;
+    object-fit: cover;
+}
+
+
+
+/* Center content with Bootstrap's utility classes */
+.logo-rome-page {
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* Heading styles can be adjusted for responsiveness */
+h1 {
+    color: #AB985F;
+  font-family: Inria Serif;
+  font-size: 30px; /* Bạn có thể tăng kích thước nếu cần */
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: 3px;
+  margin-bottom: 3px; /* Thêm một chút khoảng cách dưới tiêu đề */
+  max-width: 1300px; /* Giới hạn chiều rộng của tiêu đề */
+  margin-left: auto; /* Căn giữa block tiêu đề */
+  margin-right: auto; /* Căn giữa block tiêu đề */
+}
+
+/* Paragraph styles for better readability */
+p {
+    color: #666;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25px;
+  max-width: 900px; /* Giới hạn chiều rộng của đoạn văn 740 */
+  margin-left: auto; /* Căn giữa block đoạn văn */
+  margin-right: auto; /* Căn giữa block đoạn văn */
+  padding: 0 1em; /* Thêm padding nếu cần để không bị sát cạnh */
+}
+
+/* Utilize Bootstrap's d-flex and justify-content-between */
+.pavilions-villas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+/* Adjust padding for main content */
+.room-main-page {
+    padding: 0 1rem;
+    /* Use Bootstrap's padding utilities */
+}
+
+/* Adjustments for heading within 'Pavilions & Villas' */
+.pavilions-villas-header h2 {
+    color: #000;
+    font-family: Inria Serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/* Style 'Select All' link with Bootstrap's utility classes */
+.pavilions-villas-header a {
+    color: #AA8453 !important;
+    font-family: Inria Serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    margin-left: 5rem !important;
+}
+
+/* Update room grid for responsiveness */
+.room {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* Responsive grid */
+    gap: 1rem;
+}
+
+
+
+
+/* Điều chỉnh thêm cho các thành phần Room nếu cần */
+
+
+
 
 .SwiperSlide {
     color: rgb(0, 0, 0);
@@ -992,13 +1108,20 @@ footer .socialsing a {
 .roomsuite-main-section {
     border-top-left-radius: 10px !important;
     border-top-right-radius: 10px !important;
-    border: 2px
+    border: 2px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
 }
 
 .roomsuite-section img {
     width: 100%;
     height: auto;
     object-fit: cover;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    /* Chỉ nếu hình ảnh có góc tròn */
+    border-top-right-radius: 10px;
+    /* Chỉ nếu hình ảnh có góc tròn */
 
 }
 
@@ -1025,7 +1148,8 @@ footer .socialsing a {
 .over-view-button {
     text-align: center;
     padding: 10px 0;
-    background: #fff
+    background: #fff;
+    border-radius: 10px;
 }
 
 .over-view-button .btn .overview-btn {
@@ -1075,6 +1199,7 @@ footer .socialsing a {
         width: 100%;
         margin: 12px auto;
     }
+
 }
 
 /* CSS phản hồi cho điện thoại di động */
