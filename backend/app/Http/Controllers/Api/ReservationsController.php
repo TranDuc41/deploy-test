@@ -11,18 +11,22 @@ use Illuminate\Support\Facades\DB;
 class ReservationsController extends Controller
 {
     //nhận các tham số
-    public function index($adults, $children, $roomType)
+    public function index($adults, $children, $slug_rty)
     {
         try {
-            $room = Room::with('images', 'packages', 'amenities', 'roomType', 'sale')
-                ->where('adults', '>=', $adults)
-                ->where('children', '>=', $children)
-                ->where('rty_id', $roomType)
-                ->where('status', 'work')
+            $rooms = Room::with('images', 'packages', 'amenities', 'roomType', 'sale')
+                ->whereHas('roomType', function ($query) use ($slug_rty) {
+                    $query->where('slug', $slug_rty);
+                })
+                ->where(function ($query) use ($adults, $children) {
+                    $query->where('adults', '>=', $adults)
+                        ->where('children', '>=', $children)
+                        ->where('status', 'work');
+                })
                 ->get();
-            return response()->json(['rooms' => $room]);
+            return response()->json(['rooms' => $rooms]);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => 'Room not found'], 404);
+            return response()->json(['message' => 'Rooms not found'], 404);
         }
     }
 }

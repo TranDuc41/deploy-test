@@ -39,7 +39,7 @@ const ItemContentRoomDetail = ({ room }) => {
 
                                 ) : (
                                     <Card.Subtitle className="mb-2 text-muted text-center">
-                                        <span className="room-price">${room.price.toLocaleString()} </span>vnd/mỗi đêm
+                                        <span className="room-price">{room.price.toLocaleString()} </span>vnd/mỗi đêm
                                     </Card.Subtitle>
                                 )}
                             </Card.Body>

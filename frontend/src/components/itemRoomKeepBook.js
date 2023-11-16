@@ -123,7 +123,13 @@ const ItemRoomKeepBook = ({ item }) => {
                 </div>
                 <div class="thumb-cards_footer text-end">
                     <div class="thumb-cards_priceContainer">
-                        <div class="thumb-cards_price">{(item.price - (item.price * item.sale.discount) / 100).toLocaleString()} vnd</div>
+                        {item && item.sale ? (
+                            <div class="thumb-cards_price">
+                                {(item.price - (item.price * item.sale.discount) / 100).toLocaleString()} vnd</div>
+                        ) : (
+                            <div class="thumb-cards_price">
+                                {item.price.toLocaleString()} vnd</div>
+                        )}
                         <div class="price-and-nights-text_perNight">Mỗi đêm</div>
                         <div class="thumb-cards_taxesFees">Không bao gồm thuế và phí </div>
                     </div>
@@ -133,7 +139,7 @@ const ItemRoomKeepBook = ({ item }) => {
                 </div>
             </Col>
             {/* Modal */}
-            
+
             {/* End Modal  */}
             <ModalItemRoomKeepBook show={show} handleClose={handleClose} room={item} />
             {/*End Modal */}

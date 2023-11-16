@@ -3,15 +3,17 @@ import styles from '@/app/page.module.css';
 import Banner from '@/components/bannerroomdetail';
 import ItemContent from '@/components/itemroomdetail';
 import ItemContentRoomDetail from '@/components/tabroomdetail';
-
+import { useRouter } from 'next/navigation';
 // Import thư viện và hook cần thiết
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export default function RoomDetailPage({ params }) {
+  const router = useRouter();
     const [room, setRoom] = useState(null);
     const [loading, setLoading] = useState(true);
     const slug = params.slug;
+
     useEffect(() => {
       const fetchRoomData = async () => {
         try {
@@ -19,6 +21,7 @@ export default function RoomDetailPage({ params }) {
           const response = await axios.get(`http://127.0.0.1:8000/api/rooms/${params.slug}`);
           setRoom(response.data.room);
         } catch (error) {
+          router.push('/not-found');
           console.error('Error fetching room data:', error);
         } finally {
           setLoading(false);

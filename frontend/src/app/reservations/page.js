@@ -17,42 +17,25 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import BannerBooking from '@/components/selectBooking';
 import ItemRoomKeepBook from '@/components/itemRoomKeepBook';
 import ItemKeepRoom from '@/components/itemKeepRoom';
+import Spinner from '@/components/spinner';
 
+//check validation
+import validator from 'validator';
 
-export default function Page() {
-  const [rooms, setRooms] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/reservations/2/2/2');
-        const data = await response.json();
-
-        setRooms(data);
-
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    if (rooms.length === 0) {
-      fetchData();
-    }
-  }, [rooms]);
-  console.log(rooms[0]);
-  // -------------------------------------------------------
+const ReservationsPage = () => {
+  const router = useRouter();
+  //Lay dữ liệu và get api
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  //Accordion
   const [isOpen, setIsOpen] = useState(false);
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
-  ///// -------------------------------------------------------
+  //Offcanvas
   const [show, setShowSummary] = useState(false);
-
-  const handleSummaryClose = () => setShowSummary(false);
-  const handleSummaryShow = () => setShowSummary(true);
-  // -------------------------------------------------------
-  // State để theo dõi số lượng slides cần hiển thị
+  //summary
   const [summary, setSummary] = useState(2); // Giá trị mặc định cho desktop
-
+  // tạo chuỗi trạng thái
+  let status;
   useEffect(() => {
     // Hàm xử lý thay đổi kích thước màn hình
     const handleResize = () => {
@@ -76,6 +59,59 @@ export default function Page() {
     };
   }, []); // Dependency array rỗng để useEffect chỉ chạy một lần khi component mount
   // -------------------------------------------------------
+  useEffect(() => {
+    // Lấy dữ liệu từ URL khi được render
+    const fetchDataFromURL = async () => {
+      // window.location.href sẽ trả về URL đầy đủ
+      const currentURL = window.location.href;
+
+      // Thực hiện các thao tác cần thiết để lấy dữ liệu từ URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const parameterValue = urlParams.get('queryString');
+      const formattedStartDate = urlParams.get('formattedStartDate');
+      const adults = urlParams.get('adults');
+      const children = urlParams.get('children');
+      const formattedEndDate = urlParams.get('formattedEndDate');
+      const isDateRangeValid = urlParams.get('isDateRangeValid');
+      const isStartDateVali = urlParams.get('isStartDateVali');
+      const roomType = urlParams.get('roomType');
+      if (!adults || !children || !roomType) {
+        router.push('/not-found');
+      }
+      // Kiểm tra xem giá trị từ URL
+      if (!validator.isNumeric(adults) || !validator.isNumeric(children)) {
+        status = "Không thể xác định thông tin tìm kiếm.";
+      }
+      try {
+
+        // Sử dụng giá trị từ URL để gọi API hoặc thực hiện các thao tác khác
+        const response = await fetch(`http://127.0.0.1:8000/api/reservations/${adults}/${children}/${roomType}`);
+        const result = await response.json();
+        // Cập nhật state với dữ liệu lấy được từ URL
+        setData(result);
+      } catch (error) {
+        router.push('/not-found');
+        console.error('Error fetching room data:', error);
+        // router.push('/404');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchDataFromURL();
+  }, []);
+  console.log(data);
+  // -------------------------------------------------------
+  const toggleAccordion = () => {
+    setIsOpen(!isOpen);
+  };
+  ///// -------------------------------------------------------
+  const handleSummaryClose = () => setShowSummary(false);
+  const handleSummaryShow = () => setShowSummary(true);
+  // -------------------------------------------------------
+  // State để theo dõi số lượng slides cần hiển thị
+
+
   return (
     <main className='content_reservations'>
       <Container>
@@ -108,19 +144,19 @@ export default function Page() {
               </Row>
             </Container>
             <Container>
-              {!rooms ? (
-                <p>Không tìm thấy</p>
-              ) : (
+              {loading ? (
+                <Spinner />
+              ) : data.length !== 0 ? (
                 <div>
                   {/* Vòng lặp để hiển thị danh sách các phòng */}
-                  {/* {rooms.map((room) => (
+                  {data.rooms.map((room) => (
                     <div key={room.id}>
-                     
+                      <ItemRoomKeepBook item={room} />
                     </div>
-                  ))} */}
-
-                  {/* <ItemRoomKeepBook item={rooms[0]} /> */}
+                  ))}
                 </div>
+              ) : (
+                <p>Khong tim thay</p>
               )}
             </Container>
             {/* end Item room keep book */}
@@ -261,3 +297,5 @@ export default function Page() {
     </main>
   )
 }
+
+export default ReservationsPage;
