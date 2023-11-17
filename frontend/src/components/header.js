@@ -1,4 +1,5 @@
 import '../app/custom.css';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -7,7 +8,8 @@ import Link from 'next/link';
 import { Button } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import { LuMapPin, LuMail, LuPhone } from 'react-icons/lu';
-import { usePathname} from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { addDays, format } from 'date-fns';
 
 const links = [
   { href: '/', text: 'Trang chủ' },
@@ -34,6 +36,33 @@ function AppHeader() {
     // Khi bạn nhấp vào một liên kết, hãy đặt expanded về giá trị false để đóng collapse.
     setExpanded(false);
   };
+
+  const router = useRouter();
+
+  const startDate = new Date();
+  const endDate = addDays(startDate, 1);
+  const formattedStartDate = startDate ? format(startDate, 'dd/MM/yyyy') : '';
+  const formattedEndDate = endDate ? format(endDate, 'dd/MM/yyyy') : '';
+  const adults = '2';
+  const children = '2';
+  const roomType = 'villas';
+  
+  const handleButtonClick = () => {
+    // Chuyển dữ liệu sang trang reservations
+    const dataToSend = {
+      formattedStartDate,
+      adults,
+      children,
+      formattedEndDate,
+      roomType,
+    };
+
+    const queryParams = new URLSearchParams(dataToSend);
+    const queryString = queryParams.toString();
+
+    // Chuyển hướng với query parameters trong URL
+    router.push(`/reservations?${queryString}`);
+  }
 
   return (
     <Navbar fixed="top" expand="lg" className="bg-body-tertiary" expanded={expanded}>
@@ -62,11 +91,11 @@ function AppHeader() {
           </Nav>
           <Nav>
             {links.map((link, index) => (
-              <Link key={index} href={link.href} className= {`nav-link me-3 mt-2 ${pathname == link.href ? "active" : ""}`}  onClick={handleNavItemClick}>
+              <Link key={index} href={link.href} className={`nav-link me-3 mt-2 ${pathname == link.href ? "active" : ""}`} onClick={handleNavItemClick}>
                 {link.text}
               </Link>
             ))}
-            <Button href="/reservations" className='mt-2 px-4 btn-check-now text-white'>Đặt Ngay</Button>
+            <Button className='mt-2 px-4 btn-check-now text-white' onClick={handleButtonClick}>Đặt Ngay</Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

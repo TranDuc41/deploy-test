@@ -28,12 +28,12 @@ class ImageController extends Controller
             $images = $request->file('images');
 
             foreach ($images as $image) {
-                // Đặt tên mới cho hình ảnh (ví dụ: timestamp + tên gốc của file)
+                // Đặt tên mới cho hình ảnh
                 $imageName = 'dominion' . '_' . $image->getClientOriginalName();
 
                 // Kiểm tra xem tệp có phải là hình ảnh không
                 if ($this->isImage($image) && !$this->imageExists($imageName)) {
-                    // Di chuyển file hình ảnh đến thư mục lưu trữ (ví dụ: public/uploads)
+                    // Di chuyển file hình ảnh đến thư mục lưu trữ
                     $image->move(public_path('uploads'), $imageName);
 
                     // Lưu tên và địa chỉ lưu trữ của hình vào cơ sở dữ liệu sử dụng Query Builder
@@ -48,11 +48,11 @@ class ImageController extends Controller
                 }
             }
 
-            // Thông báo thành công hoặc chuyển hướng đến trang khác
+            // Thông báo thành công
             return redirect()->route('images.index')->with('success', 'Hình ảnh đã được tải lên thành công!');
         }
 
-        // Nếu không có file hình ảnh, xử lý lỗi ở đây
+        // Nếu không có file hình ảnh
         return redirect()->route('images.index')->with('error', 'Vui lòng chọn ít nhất một hình ảnh để tải lên.');
     }
 
