@@ -134,8 +134,8 @@ const ReservationsPage = () => {
                       <Form.Label className="fw-normal fs-6">Xem kết quả theo</Form.Label>
                       <Form.Select className="p-0 fw-bold" aria-label="Default select example">
                         <option value="1">Đề xuất</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        <option value="2">Giá Thấp - Cao</option>
+                        <option value="3">Giá Cao - Thấp</option>
                       </Form.Select>
                     </div>
                   </div>
