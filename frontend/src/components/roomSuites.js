@@ -11,34 +11,35 @@ import Image from 'react-bootstrap/Image';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import { Button } from 'react-bootstrap';
+import Link from 'next/link';
 const rooms = [
     {
         img: '/room-suite-image.png',
         roomtType: 'Villa',
         roomName: 'Phòng 1 ',
         content: 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được sử dụng như một v...',
-       
-    } ,
-    {
-        img: '/room-suite-image.png',
-        roomtType: 'Villa',
-        roomName: 'Phòng 1 ',
-        content: 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được sử dụng như một v...',
-       
+
     },
     {
         img: '/room-suite-image.png',
         roomtType: 'Villa',
         roomName: 'Phòng 1 ',
         content: 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được sử dụng như một v...',
-       
+
     },
     {
         img: '/room-suite-image.png',
         roomtType: 'Villa',
         roomName: 'Phòng 1 ',
         content: 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được sử dụng như một v...',
-       
+
+    },
+    {
+        img: '/room-suite-image.png',
+        roomtType: 'Villa',
+        roomName: 'Phòng 1 ',
+        content: 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được sử dụng như một v...',
+
     },
 
     {
@@ -46,18 +47,17 @@ const rooms = [
         roomtType: 'Villa',
         roomName: 'Phòng 1 ',
         content: 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được sử dụng như một v...',
-       
+
     },
     {
         img: '/room-suite-image.png',
         roomtType: 'Villa',
         roomName: 'Phòng 1 ',
         content: 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn. Lorem Ipsum đã được sử dụng như một v...',
-       
+
     }
-    
-]
 
+]
 export default () => {
     const [slidesPerView, setSlidesPerView] = useState(5); // Giá trị mặc định cho desktop
 
@@ -96,6 +96,7 @@ export default () => {
                 <SwiperSlide key={index}>
                     <div className='roomsuite-main-section'>
                         <div className='roomsuite-section'>
+
                             <Image src={room.img}
                                 width={409}
                                 height={243}
@@ -111,7 +112,8 @@ export default () => {
                         </div>
                         <div className='over-view-button'>
                             <div className='btn'>
-                                <Button className='overview-btn'>Tổng quan </Button>
+                                {/* lan anh sửa button-> Link thêm  href={`/roomdetail/${room.slug}`}*/}
+                                <Link className='overview-btn' href={`/roomdetail/${room.slug}`}>Tổng quan </Link>
                             </div>
                         </div>
                     </div>

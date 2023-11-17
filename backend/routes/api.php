@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\InfoController;
+use App\Http\Controllers\Api\ReservationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RoomController;
@@ -29,3 +30,4 @@ Route::get('rooms/{slug}', [RoomController::class, 'show']);
 
 //Tri
 Route::get('/info', [InfoController::class, 'index']);
+Route::get('reservations/{adults}/{children}/{slug_rty}', [ReservationsController::class, 'index']);

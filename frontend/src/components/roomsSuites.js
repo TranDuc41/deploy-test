@@ -6,7 +6,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 import { IoIosBed, IoIosWifi } from 'react-icons/io';
 import { GiBathtub } from 'react-icons/gi';
-
 // Import Swiper styles
 import 'swiper/css';
 import Image from 'react-bootstrap/Image';
@@ -103,7 +102,8 @@ const RoomsSuites = () => {
                                 </div>
                             </div>
                             <div className='text-center my-4'>
-                                <Button className='mt-2 px-5 btn-check-now btn btn-primary' datatype={room.slug}>Đặt Ngay</Button>
+                                {/* lan anh sửa button-> Link thêm  href={`/roomdetail/${room.slug}`}*/}
+                                <Link className='mt-2 px-5 btn-check-now btn btn-primary' href={`/roomdetail/${room.slug}`}  datatype={room.slug}>Đặt Ngay</Link>
                             </div>
                         </div>
                     </div>
