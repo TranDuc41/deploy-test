@@ -46,7 +46,7 @@ class InfoController extends Controller
             'title' => 'required|max:255',
             'link' => 'nullable|url',
             'hotel_id' => 'required|exists:hotels,hotel_id',
-            'content' => 'required',
+            'content' => 'required|max:255',
         ]);
 
         Info::create($validated);
@@ -85,7 +85,7 @@ class InfoController extends Controller
             'title' => 'required|max:255',
             'link' => 'nullable|url',
             'hotel_id' => 'required|exists:hotels,hotel_id', // Đảm bảo hotel_id tồn tại trong bảng hotels
-            'content' => 'required',
+            'content' => 'required|max:255',
         ]);
 
         $info->update($validatedData);

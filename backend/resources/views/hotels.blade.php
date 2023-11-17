@@ -60,7 +60,7 @@
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hotel ID</th>
+
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên Hotel</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Địa chỉ </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Số điện thoại</th>
@@ -77,9 +77,6 @@
                             @endif
                             @foreach($hotels as $hotel)
                             <tr>
-                                <td>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $hotel->hotel_id }}</p>
-                                </td>
                                 <td>
                                     <p class="text-xs font-weight-bold mb-0">{{ $hotel->name }}</p>
                                 </td>
@@ -263,7 +260,7 @@
         // Cập nhật action của form để gửi đến route cập nhật thông tin
         var form = document.getElementById('editHotelForm');
         form.action = '/hotels/' + hotel.hotel_id;
-        form.method = 'post'; 
+        form.method = 'post';
 
         // Thêm phần tử input ẩn để gửi phương thức PUT 
         var hiddenInput = document.createElement('input');
@@ -280,8 +277,8 @@
         document.getElementById('editHotelPhone').value = hotel.phone;
 
         var form = document.getElementById('editHotelForm');
-        form.action = '/hotels/' + hotel.hotel_id; 
-        form.method = 'POST'; 
+        form.action = '/hotels/' + hotel.hotel_id;
+        form.method = 'POST';
     }
 
     //----------------------------------------------------------------

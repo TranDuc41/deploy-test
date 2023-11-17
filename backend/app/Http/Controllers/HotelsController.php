@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hotels;
+use Illuminate\Support\Facades\Validator;
 
 class HotelsController extends Controller
 {
@@ -13,23 +14,23 @@ class HotelsController extends Controller
     public function index(Request $request)
     {
         $query = Hotels::query();
-    
+
         // Nếu có truy vấn tìm kiếm, lọc kết quả
         if ($request->has('search')) {
             $query->where('name', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('address', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('phone', 'LIKE', '%' . $request->search . '%');
         }
-    
+
         // Áp dụng phân trang với 10 bản ghi mỗi trang
         $hotels = $query->paginate(10);
-    
+
         // Kiểm tra nếu số trang vượt quá giới hạn, truyền biến thông báo lỗi
         if ($request->has('page') && $request->page > $hotels->lastPage()) {
             $errorMessage = 'Trang không tồn tại.';
             return view('hotels', compact('hotels', 'errorMessage'));
         }
-    
+
         return view('hotels', compact('hotels'));
     }
 
@@ -76,7 +77,6 @@ class HotelsController extends Controller
             $hotel->save();
 
             return redirect('/hotels')->with('success', 'Khách sạn mới đã được thêm thành công.');
-
         } catch (\Exception $e) {
             // Trường hợp xảy ra lỗi, chuyển hướng và gửi thông báo lỗi
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
@@ -109,15 +109,11 @@ class HotelsController extends Controller
         if (!$hotel) {
             return redirect()->route('hotels.index')->with('error', 'Hotel not found');
         }
-
-        // Kiểm tra số điện thoại đã tồn tại hay chưa
-        $existingHotel = Hotels::where('phone', $request->input('phone'))->first();
-
-        if ($existingHotel) {
-            // Nếu số điện thoại đã tồn tại, hiển thị thông báo lỗi
-            return redirect()->back()->with('error', 'Số điện thoại đã tồn tại. Vui lòng chọn số điện thoại khác.');
-        }
-
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:55',
+            'address' => 'required', 
+            'phone' => ['required', 'size:10', 'regex:/^0[0-9]*$/'],
+        ]);
         $hotel->name = $request->input('name');
         $hotel->address = $request->input('address');
         $hotel->phone = $request->input('phone');

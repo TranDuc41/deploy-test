@@ -63,7 +63,6 @@
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Info ID</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tiêu đề </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Link khách sạn</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hotel ID</th>
@@ -81,9 +80,6 @@
                             @endif
                             @foreach($infos as $info)
                             <tr>
-                                <td class="align-middle text-xs">
-                                    {{ $info->info_id }}
-                                </td>
                                 <td class="align-middle text-xs">
                                     {{ $info->title }}
                                 </td>

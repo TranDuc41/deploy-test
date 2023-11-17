@@ -680,23 +680,24 @@ footer .socialsing a {
 
 
 /* Trong Tri */
-
+.intro-home {
+    margin-bottom: 5%;
+}
 .row-home .row {
     margin-top: 100px
 }
-
 .row-home .row-content-home {
-    padding-top: 124px
+    
 }
 
 .img1-home img {
     width: auto;
     height: auto;
+    margin-bottom: 21px;
 }
 
 .img2-home img {
     width: auto;
-    padding-top: 21px;
     height: auto;
 }
 
@@ -730,6 +731,9 @@ footer .socialsing a {
 .color-span-home {
     margin-top: 20px;
 }
+.color-span-home p {
+
+}
 
 .title-home h2 {
     font-weight: 600;
@@ -737,7 +741,11 @@ footer .socialsing a {
     font-size: 45px;
     line-height: normal;
     letter-spacing: 4.5px;
+    
 
+}
+.row-content-home{
+    margin-left: 35px;
 }
 
 .row-content-home p {

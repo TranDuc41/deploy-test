@@ -19,7 +19,7 @@ class PackageController extends Controller
     {
         // Kiểm tra dữ liệu đầu vào
         $validatedData = $request->validate([
-            'name' => 'required|max:255|unique:packages',
+            'name' => 'required|max:255',
         ]);
 
         try {
@@ -49,10 +49,8 @@ class PackageController extends Controller
     public function update(Request $request, $packages_id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255|unique:packages,name,' . $packages_id . ',packages_id',
-        ], [
-            'name.unique' => 'Tên đã tồn tại, vui lòng nhập tên khác.',
-        ]);
+            'name' => 'required|max:255',
+        ], );
 
         try {
             $package = Package::findOrFail($packages_id);

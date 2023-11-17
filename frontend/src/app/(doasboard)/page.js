@@ -61,10 +61,9 @@ export default function Home() {
                     height={239}
                     alt="">
                   </Image></div>
-
                   <div className='img2-home'><Image className='w-100' src="/Amanoi_Gallery_14.jpg"
                     width={269}
-                    height={233}
+                    height={239}
                     alt="">
                   </Image></div>
                 </div>
