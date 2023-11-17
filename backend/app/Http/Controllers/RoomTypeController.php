@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -71,8 +72,22 @@ class RoomTypeController extends Controller
         if (!$room_type) {
             return redirect()->route('room-type');
         }
-        // Xóa
-        $room_type->delete();
-        return redirect('room-type')->with('success', 'Loại phòng đã được xóa thành công.');
+        try {
+            // Kiểm tra xem có phòng nào được liên kết với loại phòng nhất định không
+            $roomsCount = Room::where('rty_id', $rty_id)->count();
+
+            // Nếu có phòng liên quan đến loại phòng này, hãy ngăn chặn việc xóa
+            if ($roomsCount > 0) {
+                return redirect()->back()->with('error', 'Không thể xóa loại phòng vì có liên quan phòng. Bạn có thể thay đổi loại phòng từ trang quản lý phòng.');
+            }
+
+            // Nếu không có phòng liên quan, tiến hành xóa
+            $room_type->delete();
+
+            return redirect('room-type')->with('success', 'Loại phòng đã được xóa thành công.');
+        } catch (\Exception $e) {
+            // Xử lý các ngoại lệ, ghi lại chúng, v.v.
+            return redirect()->back()->with('error', 'Lỗi xóa loại phòng.');
+        }
     }
 }
