@@ -12,7 +12,7 @@ const restaurantsData = [
     id: 2,
     title: 'DINING',
     name: 'The Lake House',
-    description: 'Savor the fresh flavors by the serene lake.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classicalContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical',
+    description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ...',
     moreInfoUrl: '/discover/lake-house',
     imageUrl: '/restaurant_home.png'
   },
@@ -20,7 +20,7 @@ const restaurantsData = [
     id: 3,
     title: 'DINING',
     name: 'The Garden Grille',
-    description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classicalDine amidst the beauty of nature in our garden setting.',
+    description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. ...',
     moreInfoUrl: '/discover/garden-grille',
     imageUrl: '/restaurant_home.png'
   }

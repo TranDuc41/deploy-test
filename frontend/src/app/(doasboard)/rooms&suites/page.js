@@ -38,7 +38,7 @@ export default function RoomSuites() {
           </Col>
         </Row>
         <Row className="mb-4">
-          <Col>
+          <Col >
             <div className="pavilions-villas-header d-flex justify-content-between align-items-center">
             </div>
             <Roomtype index={0}></Roomtype>
