@@ -76,7 +76,7 @@ const RoomsSuites = () => {
                         </div>
                         <div className='room-content text-center my-4'>
                             <div className='mb-4'>
-                                <Link href={""} className="text-decoration-none text-black">
+                                <Link href={`/roomdetail/${room.slug}`}  datatype={room.slug} className="text-decoration-none text-black">
                                     <h3>{room.title}</h3>
                                 </Link>
                                 <span className="room-description">{room.description}</span>
