@@ -45,6 +45,7 @@ function AppHeader() {
   const formattedEndDate = endDate ? format(endDate, 'dd/MM/yyyy') : '';
   const adults = '2';
   const children = '2';
+  const roomType = 'villas';
   
   const handleButtonClick = () => {
     // Chuyển dữ liệu sang trang reservations
@@ -53,6 +54,7 @@ function AppHeader() {
       adults,
       children,
       formattedEndDate,
+      roomType,
     };
 
     const queryParams = new URLSearchParams(dataToSend);
