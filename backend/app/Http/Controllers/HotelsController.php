@@ -75,7 +75,8 @@ class HotelsController extends Controller
 
             $hotel->save();
 
-            return redirect()->route('hotels')->with('success', 'Khách sạn mới đã được thêm thành công.');
+            return redirect('/hotels')->with('success', 'Khách sạn mới đã được thêm thành công.');
+
         } catch (\Exception $e) {
             // Trường hợp xảy ra lỗi, chuyển hướng và gửi thông báo lỗi
             return redirect()->back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
