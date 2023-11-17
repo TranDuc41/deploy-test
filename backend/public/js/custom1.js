@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 nameInput.value = data.name;
                                 slugInput.value = data.slug;
                                 descriptionText.value = data.description;
-                                formEditRoomType.action = "/room-type/" + rty_id;
+                                formEditRoomType.action = "/room-type/" + encodeID(rty_id);
                             } else {
                                 console.log("Không có dữ liệu. Vui lòng thử lại!");
                             }
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
             item.addEventListener('click', function () {
                 const rty_id = item.dataset.rty_id;
                 const formEditRoomType = document.getElementById('formDeleteRoomType')
-                formEditRoomType.action = "/room-type/" + rty_id;
+                formEditRoomType.action = "/room-type/" + encodeID(rty_id);
                 // Sử dụng Fetch API để gửi yêu cầu GET tới "/room-type/{id}"
             });
         });
@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             if (Object.keys(data).length !== 0) {
                                 nameInput.value = data.name;
                                 slugInput.value = data.slug;
-                                formEditAmenities.action = "/amenities/" + amenities_id;
+                                formEditAmenities.action = "/amenities/" + encodeID(amenities_id);
                             } else {
                                 console.log("Không có dữ liệu. Vui lòng thử lại!");
                             }
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
             item.addEventListener('click', function () {
                 const amenities_id = item.dataset.amenities_id;
                 const formDeleteAmenities = document.getElementById('formDeleteRoomType')
-                formDeleteAmenities.action = "/amenities/" + amenities_id;
+                formDeleteAmenities.action = "/amenities/" + encodeID(amenities_id);
 
             });
         });
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     discountEdit.value = data.discount;
                                     startDateTime.value = data.start_date;
                                     endDateTime.value = data.end_date;
-                                    formEditSale.action = "/sale/" + sale_id;
+                                    formEditSale.action = "/sale/" + encodeID(sale_id);
                                 } else {
                                     console.log("Không có dữ liệu. Vui lòng thử lại!");
                                 }
@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     $('#exampleModalDeleteSale').modal('show');
                     const sale_id = item.dataset.e70b59714528d5798b1c8adaf0d0ed15;
                     const formDeleteSale = document.getElementById('formDeleteSale')
-                    formDeleteSale.action = "/sale/" + sale_id;
+                    formDeleteSale.action = "/sale/" + encodeID(sale_id);
                 } else {
                     $('#modal-notification').modal('show');
                 }
@@ -272,7 +272,7 @@ function insertStringAtIndex(str1, str2, position) {
     const result = str1.slice(0, position) + str2 + str1.slice(position);
     return result;
 }
-
+//key
 function encodeID(id) {
     const encodedID = btoa(id);
     const key = generateRandomString(5);

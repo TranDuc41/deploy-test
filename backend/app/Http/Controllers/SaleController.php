@@ -27,7 +27,6 @@ class SaleController extends Controller
             // Định dạng lại trường ngày giờ theo định dạng js
             $sale->start_date = Carbon::parse($sale->start_date)->format('Y-m-d\TH:i');
             $sale->end_date = Carbon::parse($sale->end_date)->format('Y-m-d\TH:i');
-
         } else {
             return redirect()->route('sales')->with('error', 'Không tìm thấy dữ liệu.');
         }
@@ -37,8 +36,8 @@ class SaleController extends Controller
     {
         //chuỗi mã hóa
         $encodedUserId  = $request->input('user_id');
-        
-        
+
+
         // tách chuỗi key và  encodedUserId
         $hashID = substr($encodedUserId, 0, 1) . substr($encodedUserId, 6);
         // giải mã
@@ -64,18 +63,24 @@ class SaleController extends Controller
         return redirect()->route('sales')->with('success', 'Mã đã được thêm thành công.');
     }
 
-    public function update(Request $request, $sale_id)
+    public function update(Request $request, $encodedSale_id)
     {
-        //chuỗi mã hóa
+        //chuỗi mã hóa userid
         $encodedUserId  = $request->input('user_id_edit');
-        
+
         // tách chuỗi key và  encodedUserId
         $hashID = substr($encodedUserId, 0, 1) . substr($encodedUserId, 6);
         // giải mã
         $decodedUserId = base64_decode($hashID);
-
-        $sale = Sale::find($sale_id);
         $sp_admin = Sale::with('user')->where('user_id', $decodedUserId);
+
+        //sale id
+        // tách chuỗi key và  encodedUserId
+        $hashSaleID = substr($encodedSale_id, 0, 1) . substr($encodedSale_id, 6);
+        // giải mã
+        $decodedSaleId = base64_decode($hashSaleID);
+        $sale = Sale::find($decodedSaleId);
+        
         if (!$sp_admin) {
             return redirect()->route('sales')->with('error', 'Việc này vượt quá quyền truy cập của bạn.');
         }
@@ -101,16 +106,18 @@ class SaleController extends Controller
         $sale->save();
         return redirect('sale')->with('success', 'Mã đã được cập nhật thành công.');
     }
-    public function delete($sale_id)
+    public function delete($encodedSale_id)
     {
-        // Tìm sản phẩm cần xóa
-        $sale = Sale::find($sale_id);
+        $hashSaleID = substr($encodedSale_id, 0, 1) . substr($encodedSale_id, 6);
+        // giải mã
+        $decodedSaleId = base64_decode($hashSaleID);
+        $sale = Sale::find($decodedSaleId);
         if (!$sale) {
             return redirect()->route('sales')->withErrors('error', 'Xóa không thành công.Hãy kiểm tra lại dữ liệu nhập.');
         }
         try {
             // Kiểm tra xem có phòng nào được liên kết với loại phòng nhất định không
-            $saleCount = Room::where('sale_id', $sale_id)->count();
+            $saleCount = Room::where('sale_id', $decodedSaleId)->count();
 
             // Nếu có phòng liên quan đến loại phòng này, hãy ngăn chặn việc xóa
             if ($saleCount > 0) {

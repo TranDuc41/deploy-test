@@ -35,10 +35,15 @@ class AmenitiesController extends Controller
         return redirect()->route('amenities')->with('success', 'Tiện ích đã được thêm thành công.');
     }
 
-    public function update(Request $request, $amenities_id)
+    public function update(Request $request, $encodedAmenities_id)
     {
+        //chuỗi mã hóa
         
-        $amenities = Amenities::find($amenities_id);
+        // tách chuỗi key và  encodedUserId
+        $hashID = substr($encodedAmenities_id, 0, 1) . substr($encodedAmenities_id, 6);
+        // giải mã
+        $decodedAmenities_id = base64_decode($hashID);
+        $amenities = Amenities::find($decodedAmenities_id);
         
         if (!$amenities) {
             return redirect()->route('amenities')->with('error', 'Sửa không thành công. Hãy kiểm tra lại dữ liệu nhập.');
@@ -60,10 +65,13 @@ class AmenitiesController extends Controller
        
         return redirect('amenities')->with('success', 'Sản phẩm đã được cập nhật thành công.');
     }
-    public function delete($amenities_id)
+    public function delete($encodedAmenities_id)
     {
-        // Tìm sản phẩm cần xóa
-        $amenities = Amenities::find($amenities_id);
+       // tách chuỗi key và  encodedUserId
+       $hashID = substr($encodedAmenities_id, 0, 1) . substr($encodedAmenities_id, 6);
+       // giải mã
+       $decodedAmenities_id = base64_decode($hashID);
+       $amenities = Amenities::find($decodedAmenities_id);
         if (!$amenities) {
             return redirect()->route('amenities');
         }

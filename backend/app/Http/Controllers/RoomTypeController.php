@@ -39,9 +39,13 @@ class RoomTypeController extends Controller
         return redirect()->route('room-types')->with('success', 'Loại phòng đã được thêm thành công.');
     }
 
-    public function update(Request $request, $rty_id)
-    {
-        $room_type = RoomType::find($rty_id);
+    public function update(Request $request, $encodedrty_id)
+    {   
+        // tách chuỗi key và  encodedUserId
+        $hashID = substr($encodedrty_id, 0, 1) . substr($encodedrty_id, 6);
+        // giải mã
+        $decodedrty_id = base64_decode($hashID);
+        $room_type = RoomType::find($decodedrty_id);
         
         if (!$room_type) {
             return redirect()->route('room-types');
@@ -65,16 +69,19 @@ class RoomTypeController extends Controller
        
         return redirect('room-type')->with('success', 'Loại phòng đã được cập nhật thành công.');
     }
-    public function delete($rty_id)
+    public function delete($encodedrty_id)
     {
-        // Tìm sản phẩm cần xóa
-        $room_type = RoomType::find($rty_id);
+        // tách chuỗi key và  encodedUserId
+        $hashID = substr($encodedrty_id, 0, 1) . substr($encodedrty_id, 6);
+        // giải mã
+        $decodedrty_id = base64_decode($hashID);
+        $room_type = RoomType::find($decodedrty_id);
         if (!$room_type) {
             return redirect()->route('room-type');
         }
         try {
             // Kiểm tra xem có phòng nào được liên kết với loại phòng nhất định không
-            $roomsCount = Room::where('rty_id', $rty_id)->count();
+            $roomsCount = Room::where('rty_id', $decodedrty_id)->count();
 
             // Nếu có phòng liên quan đến loại phòng này, hãy ngăn chặn việc xóa
             if ($roomsCount > 0) {
