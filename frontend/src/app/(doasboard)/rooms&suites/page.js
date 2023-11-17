@@ -1,6 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import Image from 'next/image';
 import Room from '@/components/roomSuites';
+import Roomtype from '@/components/roomtype';
 
 export default function RoomSuites() {
   return (
@@ -23,7 +24,6 @@ export default function RoomSuites() {
             />
           </Col>
         </Row>
-
         {/* Tiêu đề & Mô tả */}
         <Row className="mb-4">
           <Col>
@@ -37,14 +37,23 @@ export default function RoomSuites() {
             </p>
           </Col>
         </Row>
-
-        {/* Phần chính Pavilions & Villas */}
         <Row className="mb-4">
           <Col>
             <div className="pavilions-villas-header d-flex justify-content-between align-items-center">
-              <h2>Pavilions & Villas</h2>
-              <a href="#" className="text-decoration-underline text-dark">Select All</a>
             </div>
+            <Roomtype index={0}></Roomtype>
+            <Row>
+              <Col>
+                <Room />
+              </Col>
+            </Row>
+            <Roomtype index={1}></Roomtype>
+            <Row>
+              <Col>
+                <Room />
+              </Col>
+            </Row>
+            <Roomtype index={2}></Roomtype>
             <Row>
               <Col>
                 <Room />

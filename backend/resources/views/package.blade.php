@@ -95,13 +95,13 @@
                                 <td class="align-middle">
                                 <td class="align-middle">
                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPackageModal-{{ $package->packages_id }}">
-                                        Edit
+                                        Sửa
                                     </button>
                                     <form action="{{ route('packages.destroy', $package->packages_id) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePackageModal-{{ $package->packages_id }}">
-                                            Delete
+                                           Xóa
                                         </button>
                                     </form>
                                 </td>
@@ -120,20 +120,20 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addPackageModalLabel">Add New Package</h5>
+                        <h5 class="modal-title" id="addPackageModalLabel">Thêm Gói </h5>
                         <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form id="addPackageForm" action="{{ route('packages.store') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="packageName" class="form-label">Package Name</label>
+                                <label for="packageName" class="form-label">Tên gói tiện ích</label>
                                 <input type="text" class="form-control" id="packageName" name="name" required>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn bg-gradient-primary">Save</button>
+                            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn bg-gradient-primary">Thêm</button>
                         </div>
                     </form>
                 </div>
@@ -146,7 +146,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editPackageModalLabel-{{ $package->packages_id }}">Edit Package</h5>
+                        <h5 class="modal-title" id="editPackageModalLabel-{{ $package->packages_id }}">Sửa gói tiện ích </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form id="editPackageForm-{{ $package->packages_id }}" action="{{ route('packages.update', $package->packages_id) }}" method="POST">
@@ -154,13 +154,13 @@
                         @method('PUT')
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="editPackageName-{{ $package->packages_id }}" class="form-label">Package Name</label>
+                                <label for="editPackageName-{{ $package->packages_id }}" class="form-label">Tên gói tiện ích </label>
                                 <input type="text" class="form-control" id="editPackageName-{{ $package->packages_id }}" name="name" value="{{ $package->name }}" required>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                         </div>
                     </form>
                 </div>

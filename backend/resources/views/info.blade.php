@@ -104,10 +104,10 @@
                                 </td>
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editInfoModal-{{ $info->info_id }}" onclick="editInfo({{ json_encode($info) }})">
-                                        Edit
+                                        Sửa
                                     </button>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteInfoModal-{{ $info->info_id }}" data-info-id="{{ $info->info_id }}">
-                                        Delete
+                                        Xóa
                                     </button>
                                 </td>
                             </tr>
@@ -169,20 +169,20 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteInfoModalLabel">xác nhận xóa</h5>
+                        <h5 class="modal-title" id="deleteInfoModalLabel">Xác nhận xóa</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                     Bạn có chắc chắn muốn xóa thông tin này?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                         <!-- Form xóa -->
                         <form method="POST" action="{{ route('info.destroy', $info->info_id) }}" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" id="deleteInfoId" name="info_id" value="{{ $info->info_id }}">
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">Xóa</button>
                         </form>
                     </div>
                 </div>

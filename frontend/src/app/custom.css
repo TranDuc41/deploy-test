@@ -988,7 +988,6 @@ footer .socialsing a {
 /* Use Bootstrap's container to center and pad content */
 .rooms-suites-container {
     max-width: 1320px;
-
 }
 
 .banner-room-page {
@@ -1042,13 +1041,7 @@ p {
   padding: 0 1em; /* Thêm padding nếu cần để không bị sát cạnh */
 }
 
-/* Utilize Bootstrap's d-flex and justify-content-between */
-.pavilions-villas-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1rem 0;
-}
+
 
 /* Adjust padding for main content */
 .room-main-page {
@@ -1056,27 +1049,8 @@ p {
     /* Use Bootstrap's padding utilities */
 }
 
-/* Adjustments for heading within 'Pavilions & Villas' */
-.pavilions-villas-header h2 {
-    color: #000;
-    font-family: Inria Serif;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
 
-/* Style 'Select All' link with Bootstrap's utility classes */
-.pavilions-villas-header a {
-    color: #AA8453 !important;
-    font-family: Inria Serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-decoration-line: underline;
-    margin-left: 5rem !important;
-}
+
 
 /* Update room grid for responsiveness */
 .room {
@@ -1226,6 +1200,44 @@ p {
         margin: 8px auto;
     }
 }
+
+
+/* ROOM_TYPE */
+.roomtype-header {
+    margin-bottom: 3%;
+}
+.roomtype-header span {
+    color: #000;
+    font-family: Inria Serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+  .roomtype-header .select-all {
+    margin-left: auto; /* Điều này sẽ đẩy link "Select All" sang phải */
+    text-align: right; /* Căn chữ "Select All" sang phải */
+    color: #AA8453 !important;
+    font-family: Inria Serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    margin-right: 2%;
+    
+}
+
+/* Đảm bảo rằng bạn đang sử dụng flexbox cho Col để áp dụng justify-content */
+.roomtype-header .d-flex {
+    display: flex;
+    align-items: center; /* Căn giữa các items theo chiều dọc */
+}
+
+.roomtype-header .justify-content-between {
+    justify-content: space-between; /* Đẩy các items ra hai bên của container */
+}
+
 
 /* Map - Trong Tri*/
 .map-content {

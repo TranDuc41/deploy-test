@@ -28,5 +28,4 @@ class RoomController extends Controller
             return response()->json(['message' => 'Room not found'], 404);
         }
     }
-
 }
