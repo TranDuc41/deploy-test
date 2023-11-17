@@ -6,22 +6,27 @@ export default function NotFound() {
   return (
     <main className='text-center' id="notFound">
       <div className='background'>
-        <Container>
-          <div className='banner-content w-100'>
-            <div className='banner-title'>
-              <Image src="/dominion-logo.png"
-                width={90}
-                height={66}
-                alt="Dominion Logo">
-              </Image>
-              <h1 className='text-white'>Đã có vấn đề sảy ra!</h1>
-              <h4 className=''>Chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.</h4>
-              <h4>Trở về <Link href={'/'}>Trang chủ</Link></h4>
+        <Container className="justify-content-center">
+          <section class="page_404 ">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12 ">
+                  <div class="col-sm-10 col-sm-offset-1 custom-center">
+                    <div class="four_zero_four_bg">
+                      <h1 class="text-center">404</h1>
+                    </div>
+                    <div class="contant_box_404">
+                      <h3 class="h2">
+                        Có vẻ như bạn đang đi lạc
+                      </h3>
+                      <p>Trang bạn đang tìm kiếm không có sắn!</p>
+                      <a href="/" class="link_404">Trở về trang chủ</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className='banner-description d-flex justify-content-center'>
-              <span className='text-white d-flex'></span>
-            </div>
-          </div>
+          </section>
         </Container>
       </div>
     </main>
