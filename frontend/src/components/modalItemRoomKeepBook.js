@@ -32,15 +32,7 @@ const ModalItemRoomKeepBook = ({ show, handleClose, room }) => {
                                     <BsFillPersonFill /> {room.adults} người
                                 </div>
                                 <div className="trigger roomsize_bed">
-                                    <BiSolidBed />  {room.adults.length <= 2 && room.children.length <= 1 ? (
-                                1
-                            ) : room.adults.length > 2 && room.adults.length < 6 || room.adults.length < 5 && room.children.length <= 2 ? (
-                                2
-                            ) : room.adults.length > 5 && room.adults.length < 8 || room.adults.length < 7 && room.children.length <= 3 ? (
-                                3
-                            ) : (
-                                4
-                            )} Giường lớn
+                                    <BiSolidBed />  { (Number(room.adults)/2)} Giường lớn
                                 </div>
                             </div>
                             <div className="thumb-cards_trigger_and_room_ thumb-cards_trigger_and_room_info_2">

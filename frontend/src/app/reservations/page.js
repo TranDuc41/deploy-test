@@ -97,10 +97,10 @@ const ReservationsPage = () => {
         setLoading(false);
       }
     };
-    
+
     fetchDataFromURL();
   }, []);
-  console.log(data);
+  console.log("danh sach phonh", data);
   // -------------------------------------------------------
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
@@ -110,7 +110,6 @@ const ReservationsPage = () => {
   const handleSummaryShow = () => setShowSummary(true);
   // -------------------------------------------------------
   // State để theo dõi số lượng slides cần hiển thị
-
 
   return (
     <main className='content_reservations'>
@@ -146,7 +145,11 @@ const ReservationsPage = () => {
             <Container>
               {loading ? (
                 <Spinner />
-              ) : data.length !== 0 ? (
+              ) : data.countbyslug ? (
+                <p><span>{data.countbyslug}</span></p>
+              ) : data.countbyadults ? (
+                <p><span>{data.countbyadults}</span></p>
+              ) : (
                 <div>
                   {/* Vòng lặp để hiển thị danh sách các phòng */}
                   {data.rooms.map((room) => (
@@ -155,8 +158,6 @@ const ReservationsPage = () => {
                     </div>
                   ))}
                 </div>
-              ) : (
-                <p>Khong tim thay</p>
               )}
             </Container>
             {/* end Item room keep book */}

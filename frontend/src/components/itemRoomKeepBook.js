@@ -89,7 +89,7 @@ const ItemRoomKeepBook = ({ item }) => {
     return (
         <Row className="bg-light thumb-cards_keep_room my-4">
             <Col lg={5} className="px-0">
-                <div className="thumb-cards_images">
+                <div className="thumb-cards_images" id="thumb-cards_images_keep_book">
                     <ImageModals images={item.images} />
                 </div>
             </Col>
@@ -101,16 +101,7 @@ const ItemRoomKeepBook = ({ item }) => {
                             <BsFillPersonFill /> {item.adults} người
                         </div>
                         <div className="trigger roomsize_bed">
-                            <BiSolidBed />
-                            {item.adults.length <= 2 && item.children.length <= 1 ? (
-                                1
-                            ) : item.adults.length > 2 && item.adults.length < 6 || item.adults.length < 5 && item.children.length <= 2 ? (
-                                2
-                            ) : item.adults.length > 5 && item.adults.length < 8 || item.adults.length < 7 && item.children.length <= 3 ? (
-                                3
-                            ) : (
-                                4
-                            )} Giường lớn
+                            <BiSolidBed />{ (Number(item.adults)/2)} Giường lớn
                         </div>
                     </div>
                     <div className="thumb-cards_trigger_and_room_ thumb-cards_trigger_and_room_info_2">

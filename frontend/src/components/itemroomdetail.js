@@ -76,7 +76,7 @@ const ItemContentRoomDetail = ({ room }) => {
                 </Row>
             </Container>
             <Modal show={showEdit} keyboard={false} backdrop="static" size='lg'>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Thông tin đặt phòng </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -84,7 +84,7 @@ const ItemContentRoomDetail = ({ room }) => {
                         <SelectBooking />
                     </Row>
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className="border-0">
                     <Button className="btn-booking " variant="outline-secondary" onClick={handleCloseEdit}>Đóng</Button>
                     <Button className="btn-booking text-light" variant="warning" onClick={handleCloseEdit}>Đặt phòng</Button>
                 </Modal.Footer>
