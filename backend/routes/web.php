@@ -84,26 +84,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/billing', function () {
-    return view('billing');
-});
-Route::get('/virtual-reality', function () {
-    return view('virtual-reality');
-});
-Route::get('/rtl', function () {
-    return view('rtl');
-});
-Route::get('/profile', function () {
-    return view('profile');
-});
-Route::get('/sign-in', function () {
-    return view('sign-in');
-});
-Route::get('/sign-up', function () {
-    return view('sign-up');
-});
-
-
 //Hotels
 Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels');
 Route::post('/hotels', [HotelsController::class, 'store'])->name('hotelData');
@@ -136,25 +116,6 @@ Route::get('/search-packages', [PackageController::class, 'search']);
 
 
 
-
 Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('profile.edit');
 require __DIR__ . '/auth.php';
 
-// Route::get('/billing', function () {
-//     return view('billing');
-// });
-// Route::get('/virtual-reality', function () {
-//     return view('virtual-reality');
-// });
-// Route::get('/rtl', function () {
-//     return view('rtl');
-// });
-// Route::get('/profile', function () {
-//     return view('profile');
-// });
-// Route::get('/sign-in', function () {
-//     return view('sign-in');
-// });
-// Route::get('/sign-up', function () {
-//     return view('sign-up');
-// });
