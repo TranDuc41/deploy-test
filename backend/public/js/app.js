@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (Object.keys(data).length !== 0) {
                                 userNameInput.value = data.name;
                                 userEmailInput.value = data.email;
-                                roleSelect.value = data.uesr_type;
+                                roleSelect.value = data.user_type;
                                 formEditUser.action = "/users/" + userId;
                             } else {
                                 console.log("Không có dữ liệu. Vui lòng thử lại!");

@@ -152,7 +152,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0">Villa</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $room->room_type_name }}</p>
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                     <span class="text-secondary text-xs font-weight-bold">{{ number_format($room->price, 0, ',', '.') }} đ</span>

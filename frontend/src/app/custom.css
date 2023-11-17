@@ -524,6 +524,7 @@ footer .socialsing a {
 
     .rooms-suites .content-rooms-suites .rooms-suites-bottom .swiper-wrapper .swiper-slide .room-img img {
         width: 100% !important;
+        object-fit: cover;
     }
 }
 
