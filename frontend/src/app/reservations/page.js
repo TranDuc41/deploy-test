@@ -19,8 +19,6 @@ import ItemRoomKeepBook from '@/components/itemRoomKeepBook';
 import ItemKeepRoom from '@/components/itemKeepRoom';
 import Spinner from '@/components/spinner';
 
-//check validation
-import validator from 'validator';
 
 const ReservationsPage = () => {
   const router = useRouter();
@@ -78,10 +76,7 @@ const ReservationsPage = () => {
       if (!adults || !children || !roomType) {
         router.push('/not-found');
       }
-      // Kiểm tra xem giá trị từ URL
-      if (!validator.isNumeric(adults) || !validator.isNumeric(children)) {
-        status = "Không thể xác định thông tin tìm kiếm.";
-      }
+      
       try {
 
         // Sử dụng giá trị từ URL để gọi API hoặc thực hiện các thao tác khác
