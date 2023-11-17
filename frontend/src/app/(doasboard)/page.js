@@ -47,7 +47,7 @@ export default function Home() {
       </div>
       <div className='categoris-section'>
         <Container>
-          {/* <DatePicker /> */}
+          <DatePicker />
         </Container>
       </div>
       <div className='intro-home'>

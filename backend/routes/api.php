@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\RoomTypeController;
 
 Route::get('/rooms', [RoomController::class, 'index']);
 Route::get('/room-types', [RoomTypeController::class, 'index']);
+Route::get('/room-types-group', [RoomTypeController::class, 'getRoomType']);
 
 //lan anh
 Route::get('rooms/{slug}', [RoomController::class, 'show']);
@@ -31,3 +32,4 @@ Route::get('reservations/{adults}/{children}/{slug_rty}', [ReservationsControlle
 //Tri
 Route::get('/info', [InfoController::class, 'index']);
 
+Route::get('room-type/{sty_id}', [RoomController::class, 'showRoomByRoomType']);

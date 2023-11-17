@@ -29,15 +29,15 @@ class RoomController extends Controller
         }
     }
     //Tri
-    public function showRoomByRoomTypeID( $rty_id)
+    public function showRoomByRoomType($sty_id)
     {
         try {
-            $rooms = Room::with('images', 'packages', 'amenities', 'roomType', 'sale')
-            ->where('rty_id',$rty_id)->get();
-
-            return response()->json(['rooms' => $rooms]);
+            $room = Room::with('images', 'packages', 'amenities', 'roomType', 'sale')
+            ->where('rty_id', $sty_id)
+            ->get();
+            return response()->json(['room' => $room]);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['message' => 'Rooms not found'], 404);
+            return response()->json(['message' => 'Room not found'], 404);
         }
     }
 }
