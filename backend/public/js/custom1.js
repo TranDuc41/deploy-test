@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Nếu trùng thì bạn được quyền sửa nếu không trùng thì bạn ko được xóa
                 if (user_id_original === decodeID(item.dataset.e8701ad48ba05a91604e480dd60899a3) || item.dataset.d7b5164029f944313b08c6b778b7b178 === 'sp-admin') {
                     $('#exampleModalDeleteSale').modal('show');
-                    const sale_id = item.dataset.sale_id;
+                    const sale_id = item.dataset.e70b59714528d5798b1c8adaf0d0ed15;
                     const formDeleteSale = document.getElementById('formDeleteSale')
                     formDeleteSale.action = "/sale/" + sale_id;
                 } else {

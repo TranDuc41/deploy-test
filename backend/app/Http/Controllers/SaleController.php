@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Psy\Readline\Hoa\Console;
+use App\Models\Room;
 
 class SaleController extends Controller
 {
@@ -107,9 +108,22 @@ class SaleController extends Controller
         if (!$sale) {
             return redirect()->route('sales')->withErrors('error', 'Xóa không thành công.Hãy kiểm tra lại dữ liệu nhập.');
         }
-        // Xóa
-        $sale->delete();
+        try {
+            // Kiểm tra xem có phòng nào được liên kết với loại phòng nhất định không
+            $saleCount = Room::where('sale_id', $sale_id)->count();
 
-        return redirect('sale')->with('success', 'Mã đã được xóa thành công.');
+            // Nếu có phòng liên quan đến loại phòng này, hãy ngăn chặn việc xóa
+            if ($saleCount > 0) {
+                return redirect()->back()->with('error', 'Không thể xóa mã vì có liên quan phòng. Bạn có thể thay đổi mã sale phòng từ trang quản lý phòng.');
+            }
+
+            // Nếu không có phòng liên quan, tiến hành xóa
+            $sale->delete();
+
+            return redirect('sale')->with('success', 'Mã đã được xóa thành công.');
+        } catch (\Exception $e) {
+            // Xử lý các ngoại lệ, ghi lại chúng, v.v.
+            return redirect()->back()->with('error', 'Lỗi xóa loại phòng.');
+        }
     }
 }
