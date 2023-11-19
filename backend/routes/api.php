@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\ReservationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,4 @@ Route::get('/room-types', [RoomTypeController::class, 'index']);
 //lan anh
 Route::get('rooms/{slug}', [RoomController::class, 'show']);
 Route::get('reservations/{adults}/{children}/{slug_rty}', [ReservationsController::class, 'index']);
+Route::get('gallery', [GalleryController::class, 'index']);
