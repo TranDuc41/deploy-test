@@ -19,6 +19,7 @@
     "react-datepicker": "^4.21.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
+    "react-photo-album": "^2.3.0",
     "react-stars": "^2.2.5",
     "swiper": "^11.0.3",
     "validator": "^13.11.0"
