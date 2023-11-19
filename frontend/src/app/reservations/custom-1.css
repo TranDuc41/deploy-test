@@ -260,7 +260,7 @@ main.content_reservations{
     font-weight: 500;
     line-height: normal;
 }
-.thumb-cards_button .btn-continue {
+.thumb-cards_button .btn-continue ,.guest-info_contact_Info .btn-payment {
     color: #FFF;
     text-align: center;
     font-size: 18px;
@@ -301,4 +301,12 @@ footer#footer-reservations{
 }
 #thumb-cards_images_keep_book .carousel-inner{
     height: 180px;
+}
+/* Payment Page */
+.height-select_info_guest{
+    height: 58px;
+}
+.form-guest_info_ input,.form-guest_info_ select {
+    border-radius: 0;
+    border-color: #000;
 }

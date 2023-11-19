@@ -6,7 +6,7 @@ import { AiOutlineWarning } from 'react-icons/ai';
 import Link from 'next/link';
 import { Button, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-import SelectBooking from '@/components/selectBooking';
+import SelectBooking from '@/components/reservations/selectBooking';
 import '@/app/reservations/custom-1.css';
 
 function IteamKeepRoom() {

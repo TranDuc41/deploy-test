@@ -10,7 +10,7 @@ import '@/app/reservations/custom-1.css'
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import ModalItemRoomKeepBook from '@/components/modalItemRoomKeepBook';
+import ModalItemRoomKeepBook from '@/components/reservations/modalItemRoomKeepBook';
 //component
 import ImageModals from '@/components/bannerroomdetail';
 
