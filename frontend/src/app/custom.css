@@ -680,6 +680,13 @@ footer .socialsing a {
 
 
 /* Trong Tri */
+.row-content-home {
+    margin-left: 35px;
+}
+
+.intro-home {
+    margin-bottom: 5%;
+}
 
 .row-home .row {
     padding-top: 150px
@@ -757,7 +764,7 @@ footer .socialsing a {
     flex-shrink: 0;
     font-size: 32px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: normal;
     letter-spacing: 3.2px;
 }
@@ -815,7 +822,16 @@ footer .socialsing a {
     }
 }
 
+
 /* Contact  - Trong Tri */
+.banner-contact-page {
+    width: 100vw;
+    /* Sử dụng 100vw để chiếm full viewport width */
+    height: auto;
+    object-fit: cover;
+    object-position: center
+}
+
 .contact-page {
     margin-top: 97px;
 
@@ -978,6 +994,97 @@ footer .socialsing a {
 
 /* Trọng Tri */
 /* ROOMSUITES */
+/* Use Bootstrap's container to center and pad content */
+.rooms-suites-container {
+    max-width: 1320px;
+    
+}
+
+.banner-room-page {
+    width: 100vw;
+    height: auto;
+    object-fit: cover;
+    object-position: center;
+}
+
+.rooms-suites-container .banner-room-page {
+    width: 100%;
+    height: auto;
+    /* Hoặc bạn có thể đặt chiều cao cố định */
+    max-height: 458px;
+    object-fit: cover;
+}
+
+
+/* Center content with Bootstrap's utility classes */
+.logo-rome-page {
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* Heading styles can be adjusted for responsiveness */
+h1 {
+    color: #AB985F;
+    font-family: Inria Serif;
+    font-size: 30px;
+    /* Bạn có thể tăng kích thước nếu cần */
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 3px;
+    margin-bottom: 3px;
+    /* Thêm một chút khoảng cách dưới tiêu đề */
+    max-width: 1300px;
+    /* Giới hạn chiều rộng của tiêu đề */
+    margin-left: auto;
+    /* Căn giữa block tiêu đề */
+    margin-right: auto;
+    /* Căn giữa block tiêu đề */
+}
+
+/* Paragraph styles for better readability */
+p {
+    color: #666;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+    max-width: 900px;
+    /* Giới hạn chiều rộng của đoạn văn 740 */
+    margin-left: auto;
+    /* Căn giữa block đoạn văn */
+    margin-right: auto;
+    /* Căn giữa block đoạn văn */
+    padding: 0 1em;
+    /* Thêm padding nếu cần để không bị sát cạnh */
+}
+
+
+
+/* Adjust padding for main content */
+.room-main-page {
+    padding: 0 1rem;
+    /* Use Bootstrap's padding utilities */
+}
+
+
+
+
+/* Update room grid for responsiveness */
+.room {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* Responsive grid */
+    gap: 1rem;
+}
+
+
+
+
+/* Điều chỉnh thêm cho các thành phần Room nếu cần */
+
+
+
 
 .SwiperSlide {
     color: rgb(0, 0, 0);
@@ -993,13 +1100,20 @@ footer .socialsing a {
 .roomsuite-main-section {
     border-top-left-radius: 10px !important;
     border-top-right-radius: 10px !important;
-    border: 2px
+    border: 2px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
 }
 
 .roomsuite-section img {
     width: 100%;
     height: auto;
     object-fit: cover;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    /* Chỉ nếu hình ảnh có góc tròn */
+    border-top-right-radius: 10px;
+    /* Chỉ nếu hình ảnh có góc tròn */
 
 }
 
@@ -1026,7 +1140,8 @@ footer .socialsing a {
 .over-view-button {
     text-align: center;
     padding: 10px 0;
-    background: #fff
+    background: #fff;
+    border-radius: 10px;
 }
 
 .over-view-button .btn .overview-btn {
@@ -1076,6 +1191,7 @@ footer .socialsing a {
         width: 100%;
         margin: 12px auto;
     }
+
 }
 
 /* CSS phản hồi cho điện thoại di động */
@@ -1102,6 +1218,50 @@ footer .socialsing a {
         margin: 8px auto;
     }
 }
+
+
+/* ROOM_TYPE */
+.roomtype-header {
+    margin-bottom: 3%;
+}
+
+.roomtype-header span {
+    color: #000;
+    font-family: Inria Serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.roomtype-header .select-all {
+    margin-left: auto;
+    /* Điều này sẽ đẩy link "Select All" sang phải */
+    text-align: right;
+    /* Căn chữ "Select All" sang phải */
+    color: #AA8453 !important;
+    font-family: Inria Serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+    margin-right: 2%;
+
+}
+
+/* Đảm bảo rằng bạn đang sử dụng flexbox cho Col để áp dụng justify-content */
+.roomtype-header .d-flex {
+    display: flex;
+    align-items: center;
+    /* Căn giữa các items theo chiều dọc */
+}
+
+.roomtype-header .justify-content-between {
+    justify-content: space-between;
+    /* Đẩy các items ra hai bên của container */
+}
+
 
 /* Map - Trong Tri*/
 .map-content {
@@ -1202,6 +1362,10 @@ footer .socialsing a {
 /* Restaurant-page home - Trong Tri */
 .restaurant-module {
     margin: 7% 6%;
+}
+
+.restaurant-module p {
+    padding-left: 0%;
 }
 
 .image-container img {
@@ -1501,9 +1665,11 @@ section.spacer ul.grid-list li {
     padding-right: 20px;
 
 }
-.suggest-other-products_header h2{
+
+.suggest-other-products_header h2 {
     color: #AA8453;
 }
+
 /* END TAB CONTENT ROOM DETAIL */
 /* REPONSIVE ROOM DETAIL */
 /* Phones */
@@ -1638,36 +1804,46 @@ section.spacer ul.grid-list li {
 =======================*/
 
 
-.page_404{ padding:40px 0; background:#fff; font-family: 'Arvo', serif;
+.page_404 {
+    padding: 40px 0;
+    background: #fff;
+    font-family: 'Arvo', serif;
 }
 
-.page_404  img{ width:100%;}
+.page_404 img {
+    width: 100%;
+}
 
-.four_zero_four_bg{
- 
- background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+.four_zero_four_bg {
+
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
     height: 400px;
     background-position: center;
     background-repeat: no-repeat;
 
- }
- 
- 
- .four_zero_four_bg h1{
- font-size:80px;
- }
- 
-  .four_zero_four_bg h3{
-       font-size:80px;
-       }
-       
-       .link_404{      
-  color: #fff!important;
+}
+
+
+.four_zero_four_bg h1 {
+    font-size: 80px;
+}
+
+.four_zero_four_bg h3 {
+    font-size: 80px;
+}
+
+.link_404 {
+    color: #fff !important;
     padding: 10px 20px;
     background: #39ac31;
     margin: 20px 0;
-    display: inline-block;}
-  .contant_box_404{ margin-top:-50px;}
-.custom-center{
+    display: inline-block;
+}
+
+.contant_box_404 {
+    margin-top: -50px;
+}
+
+.custom-center {
     text-align: center;
 }

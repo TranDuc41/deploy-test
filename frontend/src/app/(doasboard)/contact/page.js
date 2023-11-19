@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap'
 import { LuMapPin, LuMail, LuPhone } from 'react-icons/lu';
 import FormContact from '@/components/formContact';
 import GoogleMap from '@/components/map';
+import Image from 'next/image';
 
 export const metadata = {
   title: 'Contact Page',
@@ -18,8 +19,13 @@ const contacts = [
 export default function Contact() {
   return (
     <main >
+      <Image className='banner-contact-page' src="/Baner-contact.png"
+        width={1440}
+        height={458}
+        alt="Banner contact" />
       <div className='contact-page' >
         <Container>
+        
           <div className='row'>
             <div className='col-12 col-xl-6'>
               <h3>Khách sạn Dominion</h3>

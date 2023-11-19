@@ -28,5 +28,16 @@ class RoomController extends Controller
             return response()->json(['message' => 'Room not found'], 404);
         }
     }
-
+    //Tri
+    public function showRoomByRoomType($sty_id)
+    {
+        try {
+            $room = Room::with('images', 'packages', 'amenities', 'roomType', 'sale')
+            ->where('rty_id', $sty_id)
+            ->get();
+            return response()->json(['room' => $room]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['message' => 'Room not found'], 404);
+        }
+    }
 }
