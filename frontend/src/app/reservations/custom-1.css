@@ -15,7 +15,7 @@ main.content_reservations{
     line-height: normal;
     padding-left: 50px;
 }
-.logo {
+#header-reservations .logo {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -313,7 +313,7 @@ footer#footer-reservations{
 /* GALLERY PAGE */
 #banner-gellary{
  width: auto;
- height: 458px;
+ height: 500px;
  overflow: hidden;
 }
 #banner-gellary img{
@@ -323,5 +323,10 @@ footer#footer-reservations{
 }
 .gallery-header{
     color: #AA8453;
-
+}
+.react-photo-album.react-photo-album--columns .react-photo-album--column img{
+    object-fit: cover;
+}
+.yarl__container .yarl__carousel .yarl__slide {
+ background-color: rgba(198, 164, 120, 0.22);
 }
