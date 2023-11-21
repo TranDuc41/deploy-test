@@ -678,6 +678,124 @@ footer .socialsing a {
     }
 }
 
+/* Restaurant */
+
+.restaurant-top-content {
+    padding-top: 80px;
+}
+
+.restaurant-top-content .content {
+    width: 56%;
+    margin: auto;
+    padding-top: 6px;
+}
+
+.restaurant-top-content .content span {
+    display: block;
+    text-align: center;
+    max-width: 63%;
+    margin: auto;
+    padding-top: 10px;
+}
+
+.restaurante-item.even {
+    flex-direction: row-reverse;
+}
+
+.restaurante-item.even .restaurant-img {
+    text-align: right;
+    padding: 0;
+    max-width: 46%;
+}
+
+.restaurante-item.odd {
+    flex-direction: row;
+}
+
+.restaurante-item.odd .restaurant-img {
+    padding: 0;
+    max-width: 46%;
+}
+
+.restaurante-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 44px 20px;
+}
+
+.restaurante-item .bg-white.text-center.d-flex.justify-content-center {
+    flex: 1;
+    order: 2;
+}
+
+.restaurante-item .restaurant-img {
+    flex: 1;
+    order: 1;
+}
+
+.restaurante-item .bg-white {
+    align-items: center;
+}
+
+.restaurante-item h3 {
+    color: #AA8453;
+}
+
+.restaurante-item span {
+    color: rgba(0, 0, 0, 0.60);
+    margin-bottom: 6px;
+}
+
+.restaurante-item .restaurant-link {
+    margin-top: 6px;
+}
+
+.restaurante-item .restaurant-link a {
+    padding-right: 10px;
+    margin-right: 10px;
+    border-right: 1px solid #AB985F;
+    color: #AB985F;
+}
+.restaurante-item .restaurant-link span {
+    color: #000;
+}
+
+.restaurante-item .btn-booking button {
+    background-color: rgba(170, 132, 83, 0.80);
+    border: none;
+    padding: 10px 28px;
+}
+
+.banner-bootom-restaurant {
+    display: flex;
+}
+
+.banner-bootom-restaurant .content{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.banner-bootom-restaurant .btn-booking button {
+    margin-top: 16px;
+    background-color: #AA8453;
+    border: none;
+    padding: 10px 28px;
+}
+
+.banner-bootom-restaurant .content span {
+    display: block;
+    width: 65%;
+    margin: auto;
+}
+
+.banner-bootom-restaurant {
+    background-image: url(../../public/tra-chieu-banner.png);
+    width: 100%;
+    height: 694px;
+    object-fit: cover;
+    background-repeat: round;
+}
 
 /* Trong Tri */
 .row-content-home {
@@ -997,7 +1115,7 @@ footer .socialsing a {
 /* Use Bootstrap's container to center and pad content */
 .rooms-suites-container {
     max-width: 1320px;
-    
+
 }
 
 .banner-room-page {
