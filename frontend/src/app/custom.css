@@ -756,6 +756,7 @@ footer .socialsing a {
     border-right: 1px solid #AB985F;
     color: #AB985F;
 }
+
 .restaurante-item .restaurant-link span {
     color: #000;
 }
@@ -770,7 +771,7 @@ footer .socialsing a {
     display: flex;
 }
 
-.banner-bootom-restaurant .content{
+.banner-bootom-restaurant .content {
     width: 50%;
     margin: auto;
     text-align: center;
@@ -795,6 +796,100 @@ footer .socialsing a {
     height: 694px;
     object-fit: cover;
     background-repeat: round;
+}
+
+/* Spa */
+.spa-top-content {
+    margin-top: 80px;
+}
+
+.spa-top-content .content {
+    width: 60%;
+}
+
+.spa-top-content .content h1 {
+    width: 77%;
+}
+
+.spa-top-content .content span {
+    display: block;
+    text-align: center;
+}
+
+.content-spa .item-content {
+    padding: 50px;
+}
+
+.content-spa .item-content .col-8 .col:first-child {
+    text-align: end;
+}
+
+.content-spa .item-content .col-4 {
+    padding-left: 56px;
+}
+
+.content-spa .item-content .col-4 span {
+    text-align: justify;
+    width: 106%;
+    display: block;
+    line-height: 30px;
+}
+
+.content-spa .item-content .col-4 .mb-3 a {
+    color: #AA8453;
+    margin-left: 6px;
+    border-left: 1px solid #AA8453;
+    padding-left: 6px;
+}
+
+.content-spa .item-content .col-4 button {
+    background-color: #AA8453;
+    border: none;
+    padding: 10px 28px;
+}
+
+.content-wellness {
+    margin: 80px 0;
+}
+
+.content-wellness .container .row .col-5 span {
+    line-height: 30px;
+    text-align: justify;
+    display: block;
+    width: 76%;
+}
+
+.content-faq {
+    background-color: #FAF7F3;
+}
+
+.content-faq .accordion {
+    max-width: 66%;
+    margin: auto;
+    padding: 10px 0;
+}
+
+.content-faq .accordion .accordion-item {
+    margin-bottom: 20px;
+    border-bottom: none;
+    border-radius: 10px;
+}
+
+.content-faq .accordion .accordion-item .accordion-header .accordion-button {
+    border-radius: 10px;
+}
+
+.content-faq .accordion-button::after {
+    background-image: url(../../public/icon-cong.png);
+}
+
+
+.content-faq .accordion-button:not(.collapsed)::after {
+    background-image: url(../../public/icon-tru.png);
+}
+
+.content-faq .top-content h4:first-child {
+    color: #AA8453;
 }
 
 /* Trong Tri */
