@@ -1,4 +1,4 @@
-import '@/app/reservations/custom-1.css';
+import '@/app/custom-1.css';
 import { Container, Row } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 import PhotoAlbum from '@/components/gallery';

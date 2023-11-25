@@ -1,5 +1,5 @@
 //css
-import '@/app/reservations/custom-1.css'
+import '@/app/custom-1.css'
 //icon
 import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidBed } from "react-icons/bi";

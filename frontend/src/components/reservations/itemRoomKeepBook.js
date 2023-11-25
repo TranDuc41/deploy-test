@@ -5,9 +5,9 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidBed } from "react-icons/bi";
 import Card from 'react-bootstrap/Card';
 //css
-import '@/app/reservations/custom-1.css'
+import '@/app/custom-1.css'
 //Modal
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ModalItemRoomKeepBook from '@/components/reservations/modalItemRoomKeepBook';
@@ -85,7 +85,28 @@ const ItemRoomKeepBook = ({ item }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    var status = true;
+    useEffect(() => {
+        // Lấy danh sách các keys trong Local Storage
+        const localStorageKeys = count(localStorage);
 
+        console.log(localStorageKeys);
+        if (localStorageKeys.length > 2) {
+            status = false;
+        }
+        else{
+            status = true;
+            // localStorage.setItem(item.slug, item.slug);
+        }
+    }, []);
+
+    //tạo Local Storage
+  const handleChange = () => {
+    if (status === true) {
+    // Lưu dữ liệu vào Local Storage với key là 'myData'
+    localStorage.setItem(item.slug, item.slug);
+    }
+  };
     return (
         <Row className="bg-light thumb-cards_keep_room my-4">
             <Col lg={5} className="px-0">
@@ -125,7 +146,7 @@ const ItemRoomKeepBook = ({ item }) => {
                         <div class="thumb-cards_taxesFees">Không bao gồm thuế và phí </div>
                     </div>
                     <div class="thumb-cards_button">
-                        <button className="btn-booking" variant="warning">Đặt phòng</button>
+                        <button className="btn-booking" onClick={handleChange}  variant="warning">Đặt phòng</button>
                     </div>
                 </div>
             </Col>

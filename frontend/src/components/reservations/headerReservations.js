@@ -1,4 +1,4 @@
-import '@/app/reservations/custom-1.css';
+import '@/app/custom-1.css';
 import { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';

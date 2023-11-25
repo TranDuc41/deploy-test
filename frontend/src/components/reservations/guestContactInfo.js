@@ -6,7 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Row from 'react-bootstrap/Row';
-import '@/app/reservations/custom-1.css';
+import '@/app/custom-1.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 //Floating labels

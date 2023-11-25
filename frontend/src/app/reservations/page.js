@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 //Css #
-import '@/app/reservations/custom-1.css';
+import '@/app/custom-1.css';
 import Image from 'react-bootstrap/Image';
 
 //react-bootstrap-icon
@@ -115,7 +115,6 @@ const ReservationsPage = () => {
 
     fetchDataFromURL();
   }, []);
-  console.log("danh sach phonh", data);
   // -------------------------------------------------------
   const toggleAccordion = () => {
     setIsOpen(!isOpen);

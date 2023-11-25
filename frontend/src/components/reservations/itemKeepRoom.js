@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Button, Row } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import SelectBooking from '@/components/reservations/selectBooking';
-import '@/app/reservations/custom-1.css';
+import '@/app/custom-1.css';
 
 function IteamKeepRoom() {
     const [isOpen, setIsOpen] = useState(false);
