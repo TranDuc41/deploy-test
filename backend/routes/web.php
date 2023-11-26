@@ -84,6 +84,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/restaurant', [RestaurantController::class, 'create'])->name('restaurant');
     Route::get('/restaurant/{slug}', [RestaurantController::class, 'show'])->name('restaurant.show');
     Route::put('/restaurant/{slug}', [RestaurantController::class, 'update'])->name('restaurant.update');
+    Route::delete('/restaurant/{slug}', [RestaurantController::class, 'destroy'])->name('restaurant.destroy');
 });
 
 Route::middleware('auth')->group(function () {

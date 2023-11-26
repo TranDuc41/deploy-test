@@ -245,6 +245,48 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    //Delete Restaurant
+    var deleteRooms = document.querySelectorAll('.delete-restaurant');
+    var comfirmDeleteRoom = document.getElementById('comfirm-delete-restaurant');
+    deleteRooms.forEach(function (deleteRoom) {
+        deleteRoom.addEventListener("click", function () {
+            var roomSlug = this.getAttribute('data-slug');
+            comfirmDeleteRoom.setAttribute('delete-restaurant', roomSlug);
+        })
+    })
+    if (comfirmDeleteRoom != null) {
+        comfirmDeleteRoom.addEventListener('click', function () {
+            var roomSlug = this.getAttribute('delete-restaurant');
+            fetch(`/restaurant/${roomSlug}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý kết quả từ server
+                    // console.log(data);
+
+                    // Kiểm tra thông báo từ server và chuyển hướng trang
+                    if (data.message === 'Xóa thành công.') {
+                        // Chuyển hướng trang /rooms
+                        window.location.href = '/restaurant';
+                    } else if (data.message === 'Xóa thất bại') {
+                        window.location.href = '/restaurant';
+                    }
+                    else {
+                        window.location.href = '/restaurant';
+                    }
+                })
+                .catch(error => {
+                    // Xử lý lỗi
+                    console.error('Error:', error);
+                });
+        });
+    }
     
 });
 

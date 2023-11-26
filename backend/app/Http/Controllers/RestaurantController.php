@@ -216,4 +216,52 @@ class RestaurantController extends Controller
             return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!' . $e->getMessage());
         }
     }
+
+    public function destroy($slug)
+    {
+        try {
+            $restaurantModel = new Restaurant();
+            $restaurant = $restaurantModel->findRestaurant($slug);
+
+            if ($restaurant) {
+                // Xóa hình ảnh liên quan trước khi xóa nhà hàng
+                $restaurant->images()->delete();
+
+                $oldDrinkListPath = '/uploads/file/' . $restaurant->drink_link;
+                $filePath = public_path($oldDrinkListPath);
+
+                if (File::exists($filePath)) {
+                    File::delete($filePath);
+                }
+
+                $oldFoodListPath = '/uploads/file/' . $restaurant->food_link;
+                $filePath = public_path($oldFoodListPath);
+
+                if (File::exists($filePath)) {
+                    File::delete($filePath);
+                }
+
+                $images = DB::table('image')->where('imageable_id', $restaurant->restaurant_id)->get();
+                foreach ($images as $image) {
+                    // Xóa hình ảnh từ thư mục uploads
+                    $filePath = public_path($image->img_src);
+
+                    if (File::exists($filePath)) {
+                        File::delete($filePath);
+                    }
+                }
+
+                // Xóa nhà hàng
+                $restaurant->delete();
+                session()->flash('success', 'Xóa thành công.');
+                return response()->json(['message' => 'Xóa thành công.']);
+            } else {
+                // Xử lý khi không tìm thấy nhà hàng
+                session()->flash('error', 'Nhà hàng không tồn tại!');
+                return response()->json(['message' => 'Nhà hàng không tồn tại!']);
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!' . $th->getMessage());
+        }
+    }
 }

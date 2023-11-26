@@ -69,7 +69,7 @@
                                         <button type="button" class="btn bg-gradient-warning btn-block mb-3 edit-restaurant" data-bs-toggle="modal" data-bs-target="#modalEditRestaurant" data-slug="{{ $restaurant->slug }}">
                                             Edit
                                         </button>
-                                        <button type="button" class="delete-room btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $restaurant->slug }}">Delete</button>
+                                        <button type="button" class="delete-restaurant btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $restaurant->slug }}">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -235,7 +235,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="comfirm-delete-room" class="btn btn-danger">Xác nhận</button>
+                        <button type="button" id="comfirm-delete-restaurant" class="btn btn-danger">Xác nhận</button>
                         <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
                     </div>
                 </div>
