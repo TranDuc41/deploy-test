@@ -189,6 +189,62 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
+
+    //Xử lý để yêu cầu sửa nhà hàng
+    // Lấy tham chiếu đến nút "Edit"
+    var editRestaurants = document.querySelectorAll('.edit-restaurant');
+
+    if (editRestaurants !== null) {
+        editRestaurants.forEach(function (editRestaurant) {
+            // Thêm sự kiện click cho nút "Edit"
+            editRestaurant.addEventListener('click', function () {
+                //Tham chiều đến các trường input/select
+                const nameRestaurant = document.getElementById('name');
+                const timeOpen = document.getElementById('open_time');
+                const timeClose = document.getElementById('close_time');
+                const imageFile = document.getElementById("restaurant_img");
+                const description = document.getElementById('description_restaurant');
+                const image = document.getElementById('restaurant_img_select');
+                const time_update = document.getElementById('time_update');
+                const form_edit_restaurant = document.getElementById('form_edit_restaurant');
+
+                //Lấy ra slug của nhà hàng
+                const slugRestaurant = editRestaurant.dataset.slug;
+
+                // Sử dụng Fetch API để gửi yêu cầu GET tới "/restaurant/{slug}"
+                fetch(`/restaurant/${slugRestaurant}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Xử lý dữ liệu nhận được từ server (data) ở đây
+                        if (data !== null && data !== undefined) {
+                            if (Object.keys(data).length !== 0) {
+                                nameRestaurant.value = data.restaurant.name;
+                                timeOpen.value = data.restaurant.time_open.slice(0, -3);
+                                timeClose.value = data.restaurant.time_close.slice(0, -3);
+                                description.value = data.restaurant.description;
+                                image.src = data.images[0].img_src;
+                                time_update.value = data.restaurant.updated_at;
+
+                                form_edit_restaurant.action = "/restaurant/" + slugRestaurant;
+                            } else {
+                                console.log("Không có dữ liệu. Vui lòng thử lại!");
+                            }
+                        } else {
+                            console.log("Không có dữ liệu. Vui lòng thử lại!");
+                        }
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi ở đây
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    }
     
 });
 

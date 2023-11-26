@@ -66,11 +66,9 @@
                                 <td class="align-middle">
                                     <div class="col-md-4">
                                         <!-- Button trigger modal -->
-                                        <a href="/edit-room/{{ $restaurant->slug }}">
-                                            <button type="button" class="btn bg-gradient-warning btn-block mb-3">
-                                                Edit
-                                            </button>
-                                        </a>
+                                        <button type="button" class="btn bg-gradient-warning btn-block mb-3 edit-restaurant" data-bs-toggle="modal" data-bs-target="#modalEditRestaurant" data-slug="{{ $restaurant->slug }}">
+                                            Edit
+                                        </button>
                                         <button type="button" class="delete-room btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $restaurant->slug }}">Delete</button>
                                     </div>
                                 </td>
@@ -82,6 +80,76 @@
                 {{ $restaurants->links('pagination::bootstrap-5') }}
             </div>
         </div>
+
+        <!-- Modal Sửa -->
+        <div class="modal fade" id="modalEditRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sửa Thông Tin Nhà Hàng</h5>
+                        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/restaurant/" method="POST" class="needs-validation" enctype="multipart/form-data" id="form_edit_restaurant">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Tên</label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên nhà hàng sua..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Thời gian mở cửa</label>
+                                <input class="form-control" type="time" id="open_time" name="open_time" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Thời gian đóng cửa</label>
+                                <input class="form-control" type="time" id="close_time" name="close_time" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">File Drink List</label>
+                                <input type="file" name="drink_list" id="drink_list" class="form-control">
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">File Food Menu</label>
+                                <input type="file" name="food_menu" id="food_menu" class="form-control">
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Hình Ảnh</label>
+                                <input type="file" name="restaurant_img" id="restaurant_img" class="form-control">
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                                <img id="restaurant_img_select" src="" alt="Dominion" class="avatar avatar-xxl mt-3">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Nội dung mô tả</label>
+                                <textarea class="form-control" id="description_restaurant" name="description" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="time_update" name="time_update" hidden />
+                            </div>
+                            <button type="submit" class="btn bg-gradient-primary">Sửa</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Modal thêm mới -->
         <div class="modal fade" id="exampleModalAddRoomType" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -147,6 +215,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Modal Delete-->
         <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
             <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
