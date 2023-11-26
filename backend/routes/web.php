@@ -11,6 +11,8 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\AmenitiesController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\RestaurantController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +78,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/amenities/{amenities_id}', [AmenitiesController::class, 'show'])->name('amenities.update');
     Route::put('/amenities/{amenities_id}', [AmenitiesController::class, 'update'])->name('amenities.update');
     Route::delete('/amenities/{amenities_id}', [AmenitiesController::class, 'delete'])->name('amenities.delete');
+
+    //Restaurant
+    Route::get('/restaurant', [RestaurantController::class, 'index'])->name('restaurant');
+    Route::post('/restaurant', [RestaurantController::class, 'create'])->name('restaurant');
 });
 
 Route::middleware('auth')->group(function () {

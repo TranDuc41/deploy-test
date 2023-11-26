@@ -28,7 +28,7 @@ export default function Spa() {
             alt="Dominion Logo"
             className=" mx-auto d-block" // Căn giữa ảnh
           />
-          <div className='content mx-auto mt-3'>
+          <div className='content mx-auto mt-3 mb-5'>
             <h1>Chăm sóc sức khỏe & Spa tại Dominion</h1>
             <span className='mt-3'>
               Nơi bạn có thể trải nghiệm sự toàn diện về chăm sóc sức khỏe. Chúng tôi cung cấp  dịch vụ mát-xa chuyên nghiệp, liệu pháp thảo dược tối ưu và các liệu pháp làm đẹp độc đáo.
