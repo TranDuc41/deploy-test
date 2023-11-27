@@ -12,6 +12,7 @@ use App\Http\Controllers\AmenitiesController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\SpaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +86,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/restaurant/{slug}', [RestaurantController::class, 'show'])->name('restaurant.show');
     Route::put('/restaurant/{slug}', [RestaurantController::class, 'update'])->name('restaurant.update');
     Route::delete('/restaurant/{slug}', [RestaurantController::class, 'destroy'])->name('restaurant.destroy');
+
+    //Spa
+    Route::get('/spa', [SpaController::class, 'index'])->name('spa');
+    Route::post('/spa', [SpaController::class, 'create'])->name('spa');
 });
 
 Route::middleware('auth')->group(function () {
