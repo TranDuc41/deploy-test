@@ -892,9 +892,40 @@ footer .socialsing a {
     color: #AA8453;
 }
 
+/* Modal */
+#restaurant-modal input {
+    padding: 6px;
+}
+
+#restaurant-modal .detail_user {
+    padding: 38px 6px;
+    margin: 22px 0;
+    border-top: 1px solid #AA8453;
+    border-bottom: 1px solid #AA8453;
+}
+
+#restaurant-modal .button-booking {
+    display: flex;
+    justify-content: center;
+}
+
+#restaurant-modal .button-booking button {
+    background-color: #AA8453;
+    border: none;
+    padding: 6px 56px;
+}
+
+#restaurant-modal .react-datepicker__input-container input {
+    border: 1px solid;
+    border-radius: unset;
+    max-width: unset;
+    padding: 5px 0;
+}
+
 /* Trong Tri */
 .row-content-home {
     margin-left: 35px;
+    border-radius: 30px;
 }
 
 .intro-home {
