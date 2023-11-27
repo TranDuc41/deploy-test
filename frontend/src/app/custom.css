@@ -997,7 +997,7 @@ footer .socialsing a {
 /* Use Bootstrap's container to center and pad content */
 .rooms-suites-container {
     max-width: 1320px;
-    
+
 }
 
 .banner-room-page {
@@ -1525,9 +1525,312 @@ p {
 
 
 
+/* BLOGS TRI */
+/* Styles cho BlogBanner */
+.dominion-blog-banner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 97px;
+}
 
+.dominion-blog-banner .dominion-blog-banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    max-width: 100%;
+}
 
+.dominion-blog-banner .banner-title {
+    color: #FFF;
+    text-align: center;
+    font-family: Arima Madurai;
+    font-size: 3.5rem;
+    font-weight: 100;
+    line-height: normal;
+    margin: 0.5em 1em;
+}
 
+.dominion-blog-banner .banner-subtitle {
+    color: #FFF;
+    text-align: center;
+    font-family: Arima Madurai;
+    font-size: 1.6rem;
+    font-weight: 200;
+    line-height: normal;
+}
+
+@media (max-width: 768px) {
+    .dominion-blog-banner .banner-title {
+        font-size: 2.5rem;
+        /* Kích thước nhỏ hơn cho màn hình tablet */
+    }
+
+    .dominion-blog-banner .banner-subtitle {
+        font-size: 1.2rem;
+        /* Kích thước nhỏ hơn cho mô tả */
+    }
+}
+
+@media (max-width: 480px) {
+    .dominion-blog-banner .banner-title {
+        font-size: 2rem;
+        /* Kích thước nhỏ hơn cho màn hình điện thoại */
+    }
+
+    .dominion-blog-banner .banner-subtitle {
+        font-size: 0.5rem;
+        /* Kích thước nhỏ hơn nữa cho mô tả */
+    }
+}
+
+/*----------------- Css cho component BlogPost ----------------*/
+.dominion-blog-post {
+    border: none;
+    /* Bỏ đường viền mặc định của card */
+    border-radius: 10px;
+    /* Bạn có thể điều chỉnh giá trị này theo ý muốn */
+    overflow: hidden;
+    /* Đảm bảo hình ảnh không tràn ra ngoài card */
+    margin-bottom: 20px;
+    /* Khoảng cách giữa các card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Thêm bóng đổ cho card */
+}
+
+.dominion-blog-post__image {
+    width: 100%;
+    /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng của card */
+    height: auto;
+    /* Chiều cao tự động điều chỉnh theo tỷ lệ của hình ảnh */
+}
+
+.dominion-blog-post__body {
+    padding: 15px;
+    /* Padding bên trong card */
+}
+
+.dominion-blog-post__read-time {
+    color: #666;
+    font-family: Arima Madurai;
+    font-size: 0.85rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-left: 14rem;
+}
+
+.dominion-blog-post__title {
+    color: #AA8453;
+    font-family: Inter;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.dominion-blog-post__summary {
+    color: #666;
+    font-family: Inter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: unset;
+}
+
+.dominion-blog-post__button {
+    background-color: #fff;
+    border: 1px solid #E4A853;
+    ;
+    padding: 10px;
+    border-radius: 7px;
+    color: #E4A853;
+    text-align: center;
+    font-family: Arima Madurai;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 10px 20px;
+    /* Padding cho nút */
+    margin-top: 15px;
+    /* Khoảng cách giữa nút và phần tóm tắt */
+}
+
+.dominion-blog-post__button:hover {
+    background-color: #E4A853;
+    /* Màu nền khi hover */
+    border-color: #E4A853;
+    /* Màu viền khi hover */
+}
+
+/* Css cho phần tìm kiếm trong page Blog */
+/*--------------- Kiểu cho form tìm kiếm-=------------ */
+.search-blog {
+    background-color: #FFF;
+    padding: 2px 11px;
+    margin-bottom: 1rem;
+
+}
+.search-blog span {
+   font-size: 1rem;
+   font-weight: 600;
+}
+.search-form-blog {
+    display: flex;
+    background-color: #fff;
+    /* Màu nền trắng */
+    border: 1px solid #6e7071;
+    /* Viền màu xám */
+    border-radius: 0.25rem;
+    /* Bo góc nhẹ */
+    overflow: hidden;
+    /* Ẩn nội dung tràn ra ngoài */
+}
+
+/* Kiểu cho trường nhập */
+.search-blog .search-form-blog.form-control {
+    background-color: #fff;
+    flex-grow: 1;
+    /* Cho phép trường nhập mở rộng đầy đủ */
+    border: 0;
+    /* Bỏ viền */
+}
+
+.search-blog .search-form-blog.form:active {
+    background-color: #fff;
+}
+
+/* Kiểu cho nút tìm kiếm */
+.search-blog .search-form-blog .btn-search {
+    background-color: #dfad15;
+    /* Màu nền vàng */
+    color: #fff;
+    /* Chữ màu trắng */
+    border: 0;
+    /* Bỏ viền */
+    padding: 1px 35px;
+    border: 1px solid #6e7071;
+    /* Viền màu xám */
+    border-radius: 0.25rem;
+    /* Bo góc nhẹ */
+}
+
+/* Thay đổi màu nền khi hover và focus vào nút */
+.search-blog .search-form-blog .btn-search:hover,
+.search-blog .search-form-blog .btn-search:focus {
+    background-color: #feab05;
+    /* Màu nền vàng đậm hơn */
+}
+
+/* --------------Css  bài viết mới trang blog------------------- */
+.latest-posts-blog {
+    background-color: #fff;
+    padding: 20px ;
+    border-radius: 6px;
+}
+.latest-posts-blog .blog-sidebar__post {
+    position: relative;
+    padding: 15px 0px;
+  }
+  
+  .latest-posts-blog .blog-sidebar__post:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    border-bottom: 1px solid black;
+  }
+  
+.latest-posts-blog .blog-sidebar__title {
+    font-size: 1.5rem; /* Đặt kích thước cho tiêu đề */
+    margin-bottom: 1rem; /* Khoảng cách dưới tiêu đề */
+    color: #333; /* Màu sắc cho tiêu đề */
+    margin-left: 14px;
+  }
+  
+  .latest-posts-blog .blog-sidebar__post {
+    display: flex; /* Hiển thị các items dạng hàng ngang */
+    align-items: center; /* Căn giữa các items theo chiều dọc */
+    border: unset;
+    margin-bottom: unset !important;
+  }
+  
+  .latest-posts-blog .blog-sidebar__post:last-child::after  {
+    border-bottom: none !important; /* Bỏ viền dưới cho bài viết cuối cùng */
+  }
+  
+  .latest-posts-blog .blog-sidebar__post-image {
+    border: 2px none #fff;
+    border-radius: 6px;
+    width: 100px; /* Chiều rộng ảnh */
+    height: 70px; /* Chiều cao ảnh, giữ tỉ lệ vuông */
+    /* Bo tròn góc ảnh */
+    object-fit: cover; /* Đảm bảo ảnh bao phủ kín khung hình */
+    margin-right: 1rem; /* Khoảng cách giữa ảnh và tiêu đề */
+  }
+  
+  .latest-posts-blog .blog-sidebar__post-title {
+    font-size: 1rem; /* Đặt kích thước cho tiêu đề bài viết */
+    color: #333; /* Màu sắc cho tiêu đề */
+    margin: 0; /* Xóa các khoảng cách mặc định */
+  }
+  /* Media query cho tablet (giả sử tablet có chiều rộng từ 768px đến 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .latest-posts-blog .blog-sidebar__post-image {
+        width: 80px; /* Chiều rộng giảm xuống cho tablet */
+        height: 56px; /* Chiều cao giảm tương ứng cho tablet */
+    }
+    .latest-posts-blog .blog-sidebar__post {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    /* Thêm các điều chỉnh styles khác cho tablet nếu cần */
+}
+/* Media query cho điện thoại di động (giả sử điện thoại có chiều rộng dưới 768px) */
+@media (max-width: 767px) {
+    .latest-posts-blog {
+        padding: 10px; /* Giảm padding cho điện thoại */
+    }
+    .latest-posts-blog .blog-sidebar__post-image {
+        width: 60px; /* Chiều rộng giảm xuống cho điện thoại */
+        height: 42px; /* Chiều cao giảm tương ứng cho điện thoại */
+    }
+    .latest-posts-blog .blog-sidebar__post {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+}
+
+/* ----------------BLOG DETAIL ------------------- */
+/* custom.css hoặc file CSS tương ứng của bạn */
+
+.card-img-top {
+    max-height: 300px;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .card-text {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  
 
 
 
