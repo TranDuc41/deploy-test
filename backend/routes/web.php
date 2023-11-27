@@ -13,6 +13,7 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SpaController;
+use App\Http\Controllers\BookinsRestaurantSpaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/spa/{slug}', [SpaController::class, 'show'])->name('spa.show');
     Route::put('/spa/{slug}', [SpaController::class, 'update'])->name('spa.update');
     Route::delete('/spa/{slug}', [SpaController::class, 'destroy'])->name('spa.destroy');
+
+    //Bookings Restaurant Spa
+    Route::get('/bookings/{id}', [BookinsRestaurantSpaController::class, 'show'])->name('bookingRestaurantSpa');
+    Route::put('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'update'])->name('bookingRestaurantSpa.update');
+    Route::delete('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'destroy'])->name('bookingRestaurantSpa.destroy');
 });
 
 Route::middleware('auth')->group(function () {

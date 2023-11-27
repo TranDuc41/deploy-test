@@ -79,6 +79,123 @@
                 </div>
                 {{ $restaurants->links('pagination::bootstrap-5') }}
             </div>
+
+            <h4 class="mt-5">Lịch đặt bàn</h4>
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table align-items-center mb-0" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Khách Hàng</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Số Điện Thoại</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ngày Giờ Đặt Bàn</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên Nhà Hàng</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ghi Chú</th>
+                                <th class="text-secondary opacity-7"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($bookingsRestaurants as $bookingsRestaurant)
+                            <tr>
+                                <td>
+                                    <div class="d-flex px-2 py-1">
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-xs">{{ $bookingsRestaurant->full_name }}</h6>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $bookingsRestaurant->phone_number }}</p>
+                                </td>
+                                <td>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $bookingsRestaurant->email }}</span>
+                                </td>
+                                <td>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $bookingsRestaurant->date_time }}</span>
+                                </td>
+                                <td>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $bookingsRestaurant->restaurant_name }}</span>
+                                </td>
+                                <td>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $bookingsRestaurant->note }}</span>
+                                </td>
+                                <td class="align-middle">
+                                    <div class="col-md-4">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn bg-gradient-warning btn-block mb-3 edit-booking-restaurant" data-bs-toggle="modal" data-bs-target="#modalEditBookingRestaurant" data-slug="{{ $bookingsRestaurant->id }}">
+                                            Edit
+                                        </button>
+                                        <button type="button" class="delete-booking-restaurant btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $bookingsRestaurant->id }}">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                {{ $restaurants->links('pagination::bootstrap-5') }}
+            </div>
+        </div>
+
+        <!-- Modal Sửa Booking -->
+        <div class="modal fade" id="modalEditBookingRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sửa Thông Tin Đặt Chỗ</h5>
+                        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/bookings-restaurant-spa/" method="POST" class="needs-validation" enctype="multipart/form-data" id="form_edit_booking_restaurant">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Tên Khách Hàng</label>
+                                <input type="text" class="form-control" name="name" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Số Điện Thoại</label>
+                                <input class="form-control" type="text" id="phone_number" name="phone_number" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Email</label>
+                                <input class="form-control" type="email" id="email" name="email" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Ngày Đặt</label>
+                                <input class="form-control" type="date" id="date" name="date" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">Giờ Đặt</label>
+                                <input class="form-control" type="time" id="time" name="time" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Ghi Chú</label>
+                                <textarea class="form-control" id="note" name="note" rows="3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="time_update" name="time_update" hidden />
+                            </div>
+                            <button type="submit" class="btn bg-gradient-primary">Sửa</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Modal Sửa -->

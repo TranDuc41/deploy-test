@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingRestaurantSpa;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +19,10 @@ class RestaurantController extends Controller
         $restaurantModel = new Restaurant();
         $restaurants = $restaurantModel->getAllRestaurants();
 
-        return view('restaurant', compact('restaurants'));
+        $bookings = new BookingRestaurantSpa();
+        $bookingsRestaurants = $bookings->getAllBookings();
+
+        return view('restaurant', compact('restaurants', 'bookingsRestaurants'));
     }
 
     public function create(Request $request)
@@ -207,7 +211,7 @@ class RestaurantController extends Controller
 
                     return redirect()->route('restaurant')->with('success', 'Sửa thông tin thành công!');
                 } else {
-                    return redirect()->route('restaurant')->with('error', 'Giá trị updated_at không khớp!');
+                    return redirect()->route('restaurant')->with('error', 'Đã có dữ liệu mới hơn. Tải lại trang và thử lại!');
                 }
             } else {
                 // Xử lý khi không tìm thấy nhà hàng
@@ -215,7 +219,7 @@ class RestaurantController extends Controller
             }
         } catch (\Exception $e) {
             // Xử lý exception nếu có
-            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!' . $e->getMessage());
+            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
     }
 

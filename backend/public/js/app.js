@@ -386,6 +386,114 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    //Xử lý để yêu cầu sửa đặt bàn
+    // Lấy tham chiếu đến nút "Edit"
+    var editBookingRestaurants = document.querySelectorAll('.edit-booking-restaurant');
+
+    if (editBookingRestaurants !== null) {
+        editBookingRestaurants.forEach(function (editBookingRestaurant) {
+            // Thêm sự kiện click cho nút "Edit"
+            editBookingRestaurant.addEventListener('click', function () {
+                //Tham chiều đến các trường input/select
+                const name = document.getElementById('name');
+                const phone = document.getElementById('phone_number');
+                const email = document.getElementById('email');
+                const date = document.getElementById("date");
+                const time = document.getElementById('time');
+                const note = document.getElementById('note');
+                const time_update = document.getElementById('time_update');
+                const form_edit_bookings = document.getElementById('form_edit_booking_restaurant');
+
+                //Lấy ra id của booking
+                const idBookings = editBookingRestaurant.dataset.slug;
+
+                // Sử dụng Fetch API để gửi yêu cầu GET tới "/bookings/{id}"
+                fetch(`/bookings/${idBookings}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Xử lý dữ liệu nhận được từ server (data) ở đây
+                        if (data !== null && data !== undefined) {
+                            if (Object.keys(data).length !== 0) {
+
+                                var dateTimeParts = data.date_time.split(' - ');
+                                var datePart = dateTimeParts[0];
+                                var dateParts = datePart.split('/');
+                                var formattedDate = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
+                                var timePart = dateTimeParts[1];
+
+                                name.value = data.full_name;
+                                phone.value = data.phone_number;
+                                email.value = data.email;
+                                date.value = formattedDate;
+                                time.value = timePart;
+                                note.value = data.note;
+                                time_update.value = data.updated_at;
+
+
+                                form_edit_bookings.action = "/bookings-restaurant-spa/" + idBookings;
+                                console.log(data);
+                            } else {
+                                console.log("Không có dữ liệu. Vui lòng thử lại!");
+                            }
+                        } else {
+                            console.log("Không có dữ liệu. Vui lòng thử lại!");
+                        }
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi ở đây
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    }
+
+    //Delete Booking
+    var deleteBookings = document.querySelectorAll('.delete-booking-restaurant');
+    var comfirmDeleteSpa = document.getElementById('comfirm-delete-restaurant');
+    deleteBookings.forEach(function (deleteBooking) {
+        deleteBooking.addEventListener("click", function () {
+            var idBooking = this.getAttribute('data-slug');
+            comfirmDeleteSpa.setAttribute('delete-booking-restaurant', idBooking);
+        })
+    })
+    if (comfirmDeleteSpa != null) {
+        comfirmDeleteSpa.addEventListener('click', function () {
+            var idBooking = this.getAttribute('delete-booking-restaurant');
+            fetch(`/bookings-restaurant-spa/${idBooking}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý kết quả từ server
+                    // console.log(data);
+
+                    // Kiểm tra thông báo từ server và chuyển hướng trang
+                    if (data.message === 'Xóa thành công.') {
+                        // Chuyển hướng trang /rooms
+                        window.location.href = '/restaurant';
+                    } else if (data.message === 'Xóa thất bại') {
+                        window.location.href = '/restaurant';
+                    }
+                    else {
+                        window.location.href = '/spa';
+                    }
+                })
+                .catch(error => {
+                    // Xử lý lỗi
+                    console.error('Error:', error);
+                });
+        });
+    }
+
 });
 
 
