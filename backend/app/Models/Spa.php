@@ -31,18 +31,18 @@ class Spa extends Model
         return $this->orderBy('created_at', 'desc')->paginate($perPage);
     }
 
-    // public function findRestaurant($slug)
-    // {
-    //     $restaurant = Restaurant::where('slug', $slug)->first();
+    public function findSpa($slug)
+    {
+        $spa = Spa::where('slug', $slug)->first();
 
-    //     if ($restaurant) {
-    //         return $restaurant;
-    //     } else {
-    //         return null;
-    //     }
-    // }
+        if ($spa) {
+            return $spa;
+        } else {
+            return null;
+        }
+    }
 
-    // public function isUpdatedAtMatch($userUpdatedAt, $dbUpdatedAt) {
-    //     return $userUpdatedAt == $dbUpdatedAt;
-    // }
+    public function isUpdatedAtMatch($userUpdatedAt, $dbUpdatedAt) {
+        return $userUpdatedAt == $dbUpdatedAt;
+    }
 }

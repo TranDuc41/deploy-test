@@ -90,6 +90,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Spa
     Route::get('/spa', [SpaController::class, 'index'])->name('spa');
     Route::post('/spa', [SpaController::class, 'create'])->name('spa');
+    Route::get('/spa/{slug}', [SpaController::class, 'show'])->name('spa.show');
+    Route::put('/spa/{slug}', [SpaController::class, 'update'])->name('spa.update');
+    Route::delete('/spa/{slug}', [SpaController::class, 'destroy'])->name('spa.destroy');
 });
 
 Route::middleware('auth')->group(function () {

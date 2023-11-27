@@ -66,10 +66,10 @@
                                 <td class="align-middle">
                                     <div class="col-md-4">
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn bg-gradient-warning btn-block mb-3 edit-restaurant" data-bs-toggle="modal" data-bs-target="#modalEditRestaurant" data-slug="{{ $spa->slug }}">
+                                        <button type="button" class="btn bg-gradient-warning btn-block mb-3 edit-spa" data-bs-toggle="modal" data-bs-target="#modalEditSpa" data-slug="{{ $spa->slug }}">
                                             Edit
                                         </button>
-                                        <button type="button" class="delete-restaurant btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $spa->slug }}">Delete</button>
+                                        <button type="button" class="delete-spa btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $spa->slug }}">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -82,22 +82,22 @@
         </div>
 
         <!-- Modal Sửa -->
-        <div class="modal fade" id="modalEditRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal fade" id="modalEditSpa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Sửa Thông Tin Nhà Hàng</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Sửa Thông Tin Spa</h5>
                         <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/restaurant/" method="POST" class="needs-validation" enctype="multipart/form-data" id="form_edit_restaurant">
+                        <form action="/spa/" method="POST" class="needs-validation" enctype="multipart/form-data" id="form_edit_spa">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Tên</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên nhà hàng sua..." required>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên spa..." required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Thời gian mở cửa</label>
@@ -114,30 +114,23 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">File Drink List</label>
-                                <input type="file" name="drink_list" id="drink_list" class="form-control">
-                                <div class="invalid-feedback">
-                                    Please provide a valid.
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">File Food Menu</label>
-                                <input type="file" name="food_menu" id="food_menu" class="form-control">
+                                <label for="exampleFormControlInput1">File Menu Spa (chỉ nhập file PDF)</label>
+                                <input type="file" name="spa_menu" id="spa_menu" class="form-control">
                                 <div class="invalid-feedback">
                                     Please provide a valid.
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Hình Ảnh</label>
-                                <input type="file" name="restaurant_img" id="restaurant_img" class="form-control">
+                                <input type="file" name="spa_img" id="spa_img" class="form-control">
                                 <div class="invalid-feedback">
                                     Please provide a valid.
                                 </div>
-                                <img id="restaurant_img_select" src="" alt="Dominion" class="avatar avatar-xxl mt-3">
+                                <img id="spa_img_select" src="" alt="Dominion" class="avatar avatar-xxl mt-3">
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Nội dung mô tả</label>
-                                <textarea class="form-control" id="description_restaurant" name="description" rows="3" required></textarea>
+                                <textarea class="form-control" id="description_spa" name="description" rows="3" required></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="text" id="time_update" name="time_update" hidden />
@@ -228,7 +221,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="comfirm-delete-restaurant" class="btn btn-danger">Xác nhận</button>
+                        <button type="button" id="comfirm-delete-spa" class="btn btn-danger">Xác nhận</button>
                         <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
                     </div>
                 </div>

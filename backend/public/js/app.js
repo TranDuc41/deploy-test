@@ -287,7 +287,105 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
-    
+
+    //Xử lý để yêu cầu sửa spa
+    // Lấy tham chiếu đến nút "Edit"
+    var editSpas = document.querySelectorAll('.edit-spa');
+
+    if (editSpas !== null) {
+        editSpas.forEach(function (editSpa) {
+            // Thêm sự kiện click cho nút "Edit"
+            editSpa.addEventListener('click', function () {
+                //Tham chiều đến các trường input/select
+                const nameSpa = document.getElementById('name');
+                const timeOpen = document.getElementById('open_time');
+                const timeClose = document.getElementById('close_time');
+                const imageFile = document.getElementById("spa_img");
+                const description = document.getElementById('description_spa');
+                const image = document.getElementById('spa_img_select');
+                const time_update = document.getElementById('time_update');
+                const form_edit_spa = document.getElementById('form_edit_spa');
+
+                //Lấy ra slug của spa
+                const slugSpa = editSpa.dataset.slug;
+
+                // Sử dụng Fetch API để gửi yêu cầu GET tới "/spa/{slug}"
+                fetch(`/spa/${slugSpa}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Xử lý dữ liệu nhận được từ server (data) ở đây
+                        if (data !== null && data !== undefined) {
+                            if (Object.keys(data).length !== 0) {
+                                nameSpa.value = data.spa.name;
+                                timeOpen.value = data.spa.time_open.slice(0, -3);
+                                timeClose.value = data.spa.time_close.slice(0, -3);
+                                description.value = data.spa.description;
+                                image.src = data.images[0].img_src;
+                                time_update.value = data.spa.updated_at;
+
+                                form_edit_spa.action = "/spa/" + slugSpa;
+                            } else {
+                                console.log("Không có dữ liệu. Vui lòng thử lại!");
+                            }
+                        } else {
+                            console.log("Không có dữ liệu. Vui lòng thử lại!");
+                        }
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi ở đây
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    }
+
+    //Delete Spa
+    var deleteSpa = document.querySelectorAll('.delete-spa');
+    var comfirmDeleteSpa = document.getElementById('comfirm-delete-spa');
+    deleteSpa.forEach(function (deleteRoom) {
+        deleteRoom.addEventListener("click", function () {
+            var spaSlug = this.getAttribute('data-slug');
+            comfirmDeleteSpa.setAttribute('delete-spa', spaSlug);
+        })
+    })
+    if (comfirmDeleteSpa != null) {
+        comfirmDeleteSpa.addEventListener('click', function () {
+            var spaSlug = this.getAttribute('delete-spa');
+            fetch(`/spa/${spaSlug}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý kết quả từ server
+                    // console.log(data);
+
+                    // Kiểm tra thông báo từ server và chuyển hướng trang
+                    if (data.message === 'Xóa thành công.') {
+                        // Chuyển hướng trang /rooms
+                        window.location.href = '/spa';
+                    } else if (data.message === 'Xóa thất bại') {
+                        window.location.href = '/spa';
+                    }
+                    else {
+                        window.location.href = '/spa';
+                    }
+                })
+                .catch(error => {
+                    // Xử lý lỗi
+                    console.error('Error:', error);
+                });
+        });
+    }
+
 });
 
 
@@ -301,7 +399,7 @@ function searchInTableFunction() {
     tr = table.getElementsByTagName("tr");
 
     var noResultsRow = document.getElementById("no-results-row");
-    
+
     // Tạo dòng "Trống" nếu chưa có
     if (!noResultsRow) {
         noResultsRow = table.insertRow();
