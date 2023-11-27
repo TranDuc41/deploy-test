@@ -494,6 +494,99 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    //Xử lý để yêu cầu sửa Faq
+    // Lấy tham chiếu đến nút "Edit"
+    var editFaqs = document.querySelectorAll('.edit-faq');
+
+    if (editFaqs !== null) {
+        editFaqs.forEach(function (editFaq) {
+            // Thêm sự kiện click cho nút "Edit"
+            editFaq.addEventListener('click', function () {
+                //Tham chiều đến các trường input/select
+                const name = document.getElementById('title');
+                const description = document.getElementById('description');
+                const time_update = document.getElementById('time_update');
+                const form_edit_faq = document.getElementById('form_edit_faq');
+
+                //Lấy ra slug của faq
+                const slugFaq = editFaq.dataset.slug;
+
+                // Sử dụng Fetch API để gửi yêu cầu GET tới "/faq/{id}"
+                fetch(`/faq/${slugFaq}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Xử lý dữ liệu nhận được từ server (data) ở đây
+                        if (data !== null && data !== undefined) {
+                            if (Object.keys(data).length !== 0) {
+
+                                name.value = data.title;
+                                description.value = data.description;
+                                time_update.value = data.updated_at;
+
+
+                                form_edit_faq.action = "/faq/" + slugFaq;
+                                console.log(data);
+                            } else {
+                                console.log("Không có dữ liệu. Vui lòng thử lại!");
+                            }
+                        } else {
+                            console.log("Không có dữ liệu. Vui lòng thử lại!");
+                        }
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi ở đây
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    }
+
+    //Delete Faq
+    var deleteFaqs = document.querySelectorAll('.delete-faq');
+    var comfirmDeleteFaq = document.getElementById('comfirm-delete-faq');
+    deleteFaqs.forEach(function (deleteFaq) {
+        deleteFaq.addEventListener("click", function () {
+            var slugFaq = this.getAttribute('data-slug');
+            comfirmDeleteFaq.setAttribute('delete-faq', slugFaq);
+        })
+    })
+    if (comfirmDeleteFaq != null) {
+        comfirmDeleteFaq.addEventListener('click', function () {
+            var slugFaq = this.getAttribute('delete-faq');
+            fetch(`/faq/${slugFaq}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý kết quả từ server
+                    // console.log(data);
+
+                    // Kiểm tra thông báo từ server và chuyển hướng trang
+                    if (data.message === 'Xóa thành công.') {
+                        // Chuyển hướng trang /rooms
+                        window.location.href = '/faq';
+                    } else if (data.message === 'Xóa thất bại') {
+                        window.location.href = '/faq';
+                    }
+                    else {
+                        window.location.href = '/faq';
+                    }
+                })
+                .catch(error => {
+                    // Xử lý lỗi
+                    console.error('Error:', error);
+                });
+        });
+    }
 });
 
 

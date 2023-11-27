@@ -14,6 +14,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SpaController;
 use App\Http\Controllers\BookinsRestaurantSpaController;
+use App\Http\Controllers\FaqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +100,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/bookings/{id}', [BookinsRestaurantSpaController::class, 'show'])->name('bookingRestaurantSpa');
     Route::put('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'update'])->name('bookingRestaurantSpa.update');
     Route::delete('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'destroy'])->name('bookingRestaurantSpa.destroy');
+
+    //FAQ
+    Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+    Route::get('/faq/{slug}', [FaqController::class, 'show'])->name('faq.show');
+    Route::post('/faq', [FaqController::class, 'create'])->name('faq');
+    Route::put('/faq/{slug}', [FaqController::class, 'update'])->name('faq.update');
+    Route::delete('/faq/{slug}', [FaqController::class, 'delete'])->name('faq.delete');
 });
 
 Route::middleware('auth')->group(function () {

@@ -108,7 +108,7 @@ class BookinsRestaurantSpaController extends Controller
                 return redirect()->route('restaurant')->with('error', 'Không tìm thấy lịch đặt!');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!' . $th->getMessage());
+            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
     }
 }
