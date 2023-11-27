@@ -136,12 +136,6 @@ class RestaurantController extends Controller
                 if ($isUpdatedAtMatch) {
                     // Thực hiện cập nhật thông tin
 
-                    // Chỉ cập nhật các trường thực sự được gửi qua request
-                    $restaurant->name = $request->input('name');
-                    $restaurant->description = $request->input('description');
-                    $restaurant->time_open = $request->input('open_time');
-                    $restaurant->time_close = $request->input('close_time');
-
                     // Cập nhật đường dẫn cho drink_list nếu có file mới
                     if ($request->hasFile('drink_list')) {
                         $oldDrinkListPath = '/uploads/file/' . $restaurant->drink_link;
@@ -153,7 +147,7 @@ class RestaurantController extends Controller
 
                         $drinkList = time() . '_' . $request->file('drink_list')->getClientOriginalName();
                         $request->file('drink_list')->move(public_path('uploads/file'), $drinkList);
-                        $restaurant->drink_link = $drinkList;
+                        // $restaurant->drink_link = $drinkList;
                     }
 
                     // Cập nhật đường dẫn cho food_menu nếu có file mới
@@ -167,7 +161,7 @@ class RestaurantController extends Controller
 
                         $foodMenu  = time() . '_' . $request->file('food_menu')->getClientOriginalName();
                         $request->file('food_menu')->move(public_path('uploads/file'), $foodMenu);
-                        $restaurant->food_link = $foodMenu;
+                        // $restaurant->food_link = $foodMenu;
                     }
 
                     if ($request->hasFile('restaurant_img')) {
@@ -200,6 +194,14 @@ class RestaurantController extends Controller
                         $restaurant->images()->save($image);
                     }
 
+                    // Chỉ cập nhật các trường thực sự được gửi qua request
+                    $restaurant->name = $request->input('name');
+                    $restaurant->description = $request->input('description');
+                    $restaurant->time_open = $request->input('open_time');
+                    $restaurant->time_close = $request->input('close_time');
+                    $restaurant->drink_link = $drinkList;
+                    $restaurant->food_link = $foodMenu;
+                    
                     // Lưu các thay đổi
                     $restaurant->save();
 
@@ -224,6 +226,17 @@ class RestaurantController extends Controller
             $restaurant = $restaurantModel->findRestaurant($slug);
 
             if ($restaurant) {
+
+                $images = DB::table('image')->where('imageable_id', $restaurant->restaurant_id)->get();
+                foreach ($images as $image) {
+                    // Xóa hình ảnh từ thư mục uploads
+                    $filePath = public_path($image->img_src);
+
+                    if (File::exists($filePath)) {
+                        File::delete($filePath);
+                    }
+                }
+
                 // Xóa hình ảnh liên quan trước khi xóa nhà hàng
                 $restaurant->images()->delete();
 
@@ -239,16 +252,6 @@ class RestaurantController extends Controller
 
                 if (File::exists($filePath)) {
                     File::delete($filePath);
-                }
-
-                $images = DB::table('image')->where('imageable_id', $restaurant->restaurant_id)->get();
-                foreach ($images as $image) {
-                    // Xóa hình ảnh từ thư mục uploads
-                    $filePath = public_path($image->img_src);
-
-                    if (File::exists($filePath)) {
-                        File::delete($filePath);
-                    }
                 }
 
                 // Xóa nhà hàng
