@@ -452,18 +452,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     //Delete Booking
-    var deleteBookings = document.querySelectorAll('.delete-booking-restaurant');
-    var comfirmDeleteSpa = document.getElementById('comfirm-delete-booking-restaurant');
-    deleteBookings.forEach(function (deleteBooking) {
+    var deleteBookingsRestaurant = document.querySelectorAll('.delete-booking-restaurant');
+    var comfirmDeletebookingrestaurant = document.getElementById('comfirm-delete-faq');
+    deleteBookingsRestaurant.forEach(function (deleteBooking) {
         deleteBooking.addEventListener("click", function () {
-            var idBooking = this.getAttribute('data-slug');
-            comfirmDeleteSpa.setAttribute('delete-booking-restaurant', idBooking);
+            var idBookingrestaurant = this.getAttribute('data-slug');
+            comfirmDeletebookingrestaurant.setAttribute('data-slug', idBookingrestaurant);
         })
     })
-    if (comfirmDeleteSpa != null) {
-        comfirmDeleteSpa.addEventListener('click', function () {
-            var idBooking = this.getAttribute('delete-booking-restaurant');
-            fetch(`/bookings-restaurant-spa/${idBooking}`, {
+    if (comfirmDeletebookingrestaurant != null) {
+        comfirmDeletebookingrestaurant.addEventListener('click', function () {
+            var idBookingrestaurant = this.getAttribute('data-slug');
+            fetch(`/bookings-restaurant-spa/${idBookingrestaurant}`, {
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Kiểm tra thông báo từ server và chuyển hướng trang
                     if (data.message === 'Xóa thành công.') {
-                        // Chuyển hướng trang /rooms
+                        
                         window.location.href = '/bookings';
                     } else if (data.message === 'Xóa thất bại') {
                         window.location.href = '/bookings';
@@ -545,18 +545,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    //Delete Faq
-    var deleteFaqs = document.querySelectorAll('.delete-faq');
-    var comfirmDeleteFaq = document.getElementById('comfirm-delete-faq');
-    deleteFaqs.forEach(function (deleteFaq) {
-        deleteFaq.addEventListener("click", function () {
+    //Xóa Faq
+    var deleteBookings = document.querySelectorAll('.delete-faq');
+    var comfirmDeleteSpa = document.getElementById('comfirm-delete-faq');
+    deleteBookings.forEach(function (deleteBooking) {
+        deleteBooking.addEventListener("click", function () {
             var slugFaq = this.getAttribute('data-slug');
-            comfirmDeleteFaq.setAttribute('delete-faq', slugFaq);
+            comfirmDeleteSpa.setAttribute('data-slug', slugFaq);
         })
     })
-    if (comfirmDeleteFaq != null) {
-        comfirmDeleteFaq.addEventListener('click', function () {
-            var slugFaq = this.getAttribute('delete-faq');
+    if (comfirmDeleteSpa != null) {
+        comfirmDeleteSpa.addEventListener('click', function () {
+            var slugFaq = this.getAttribute('data-slug');
             fetch(`/faq/${slugFaq}`, {
                 method: 'DELETE',
                 headers: {

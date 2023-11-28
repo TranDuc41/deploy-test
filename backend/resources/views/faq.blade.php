@@ -35,7 +35,8 @@
                     @endif
                 </div>
             </div>
-            <div></div>
+            <div>
+            </div>
             <div class="card">
                 <div class="table-responsive">
                     <table class="table align-items-center mb-0" id="usersTable">
@@ -95,7 +96,7 @@
                                 <label for="exampleFormControlInput1">Câu hỏi</label>
                                 <input type="text" class="form-control" name="title" id="title" placeholder="Nhập tên câu hỏi..." required>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Nội dung mô tả</label>
                                 <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
@@ -131,7 +132,7 @@
                                     Please provide a valid.
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Nội dung</label>
                                 <textarea class="form-control" name="description" rows="3" required></textarea>

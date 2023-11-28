@@ -101,18 +101,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/spa-bookings/{id}', [SpaController::class, 'show1'])->name('spaBooking.show');
     Route::delete('/spa-bookings/{id}', [SpaController::class, 'delete1'])->name('spaBooking.delete');
 
-    //Bookings Restaurant Spa
-    Route::get('/bookings', [BookinsRestaurantSpaController::class, 'index'])->name('bookings');
-    Route::get('/bookings/{id}', [BookinsRestaurantSpaController::class, 'show'])->name('bookingRestaurantSpa');
-    Route::put('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'update'])->name('bookingRestaurantSpa.update');
-    Route::delete('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'destroy'])->name('bookingRestaurantSpa.destroy');
-
     //FAQ
     Route::get('/faq', [FaqController::class, 'index'])->name('faq');
     Route::get('/faq/{slug}', [FaqController::class, 'show'])->name('faq.show');
     Route::post('/faq', [FaqController::class, 'create'])->name('faq');
     Route::put('/faq/{slug}', [FaqController::class, 'update'])->name('faq.update');
     Route::delete('/faq/{slug}', [FaqController::class, 'delete'])->name('faq.delete');
+
+    //Bookings Restaurant Spa
+    Route::get('/bookings', [BookinsRestaurantSpaController::class, 'index'])->name('bookings');
+    Route::get('/bookings/{id}', [BookinsRestaurantSpaController::class, 'show'])->name('bookingRestaurantSpa');
+    Route::put('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'update'])->name('bookingRestaurantSpa.update');
+    Route::delete('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'delete'])->name('bookingRestaurantSpa.delete');
 });
 
 Route::middleware('auth')->group(function () {

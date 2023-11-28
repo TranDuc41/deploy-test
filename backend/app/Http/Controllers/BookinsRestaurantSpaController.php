@@ -108,7 +108,7 @@ class BookinsRestaurantSpaController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         try {
             $bookingRestaurantSpaModel = new BookingRestaurantSpa();
