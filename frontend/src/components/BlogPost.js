@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import Link from 'next/link';
 
+
 const BlogPost = ({ id, title, summary, imageUrl, readTime }) => {
 
   return (
@@ -13,8 +14,8 @@ const BlogPost = ({ id, title, summary, imageUrl, readTime }) => {
         <Card.Text className="dominion-blog-post__read-time text-muted">{readTime}</Card.Text>
         <Card.Title className="dominion-blog-post__title">{title}</Card.Title>
         <Card.Text className="dominion-blog-post__summary">{summary}</Card.Text>
-        <Link href={`/blogdetail?page=${id}`} passHref>
-          <a className="dominion-blog-post__button">Xem Thêm</a> {/* Thay Button bằng thẻ a để tránh lỗi hydration */}
+        <Link href={`/blogdetail?page=${id}`} className="dominion-blog-post__button">
+          Xem Thêm
         </Link>
       </Card.Body>
     </Card>

@@ -1662,7 +1662,8 @@ p {
 }
 
 .dominion-blog-post__button:hover {
-    background-color: #E4A853;
+    background-color: rgb(175, 117, 37);
+    color: rgb(0, 0, 0);
     /* Màu nền khi hover */
     border-color: #E4A853;
     /* Màu viền khi hover */
@@ -1676,10 +1677,12 @@ p {
     margin-bottom: 1rem;
 
 }
+
 .search-blog span {
-   font-size: 1rem;
-   font-weight: 600;
+    font-size: 1rem;
+    font-weight: 600;
 }
+
 .search-form-blog {
     display: flex;
     background-color: #fff;
@@ -1730,15 +1733,16 @@ p {
 /* --------------Css  bài viết mới trang blog------------------- */
 .latest-posts-blog {
     background-color: #fff;
-    padding: 20px ;
+    padding: 20px;
     border-radius: 6px;
 }
+
 .latest-posts-blog .blog-sidebar__post {
     position: relative;
     padding: 15px 0px;
-  }
-  
-  .latest-posts-blog .blog-sidebar__post:not(:last-child)::after {
+}
+
+.latest-posts-blog .blog-sidebar__post:not(:last-child)::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -1746,62 +1750,86 @@ p {
     transform: translateX(-50%);
     width: 80%;
     border-bottom: 1px solid black;
-  }
-  
+}
+
 .latest-posts-blog .blog-sidebar__title {
-    font-size: 1.5rem; /* Đặt kích thước cho tiêu đề */
-    margin-bottom: 1rem; /* Khoảng cách dưới tiêu đề */
-    color: #333; /* Màu sắc cho tiêu đề */
+    font-size: 1.5rem;
+    /* Đặt kích thước cho tiêu đề */
+    margin-bottom: 1rem;
+    /* Khoảng cách dưới tiêu đề */
+    color: #333;
+    /* Màu sắc cho tiêu đề */
     margin-left: 14px;
-  }
-  
-  .latest-posts-blog .blog-sidebar__post {
-    display: flex; /* Hiển thị các items dạng hàng ngang */
-    align-items: center; /* Căn giữa các items theo chiều dọc */
+}
+
+.latest-posts-blog .blog-sidebar__post {
+    display: flex;
+    /* Hiển thị các items dạng hàng ngang */
+    align-items: center;
+    /* Căn giữa các items theo chiều dọc */
     border: unset;
     margin-bottom: unset !important;
-  }
-  
-  .latest-posts-blog .blog-sidebar__post:last-child::after  {
-    border-bottom: none !important; /* Bỏ viền dưới cho bài viết cuối cùng */
-  }
-  
-  .latest-posts-blog .blog-sidebar__post-image {
+}
+
+.latest-posts-blog .blog-sidebar__post:last-child::after {
+    border-bottom: none !important;
+    /* Bỏ viền dưới cho bài viết cuối cùng */
+}
+
+.latest-posts-blog .blog-sidebar__post-image {
     border: 2px none #fff;
     border-radius: 6px;
-    width: 100px; /* Chiều rộng ảnh */
-    height: 70px; /* Chiều cao ảnh, giữ tỉ lệ vuông */
+    width: 100px;
+    /* Chiều rộng ảnh */
+    height: 70px;
+    /* Chiều cao ảnh, giữ tỉ lệ vuông */
     /* Bo tròn góc ảnh */
-    object-fit: cover; /* Đảm bảo ảnh bao phủ kín khung hình */
-    margin-right: 1rem; /* Khoảng cách giữa ảnh và tiêu đề */
-  }
-  
-  .latest-posts-blog .blog-sidebar__post-title {
-    font-size: 1rem; /* Đặt kích thước cho tiêu đề bài viết */
-    color: #333; /* Màu sắc cho tiêu đề */
-    margin: 0; /* Xóa các khoảng cách mặc định */
-  }
-  /* Media query cho tablet (giả sử tablet có chiều rộng từ 768px đến 1024px) */
+    object-fit: cover;
+    /* Đảm bảo ảnh bao phủ kín khung hình */
+    margin-right: 1rem;
+    /* Khoảng cách giữa ảnh và tiêu đề */
+}
+
+.latest-posts-blog .blog-sidebar__post-title {
+    font-size: 1rem;
+    /* Đặt kích thước cho tiêu đề bài viết */
+    color: #333;
+    /* Màu sắc cho tiêu đề */
+    margin: 0;
+    /* Xóa các khoảng cách mặc định */
+}
+
+/* Media query cho tablet (giả sử tablet có chiều rộng từ 768px đến 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
     .latest-posts-blog .blog-sidebar__post-image {
-        width: 80px; /* Chiều rộng giảm xuống cho tablet */
-        height: 56px; /* Chiều cao giảm tương ứng cho tablet */
+        width: 80px;
+        /* Chiều rộng giảm xuống cho tablet */
+        height: 56px;
+        /* Chiều cao giảm tương ứng cho tablet */
     }
+
     .latest-posts-blog .blog-sidebar__post {
         display: flex;
         flex-direction: row-reverse;
     }
+
     /* Thêm các điều chỉnh styles khác cho tablet nếu cần */
 }
+
 /* Media query cho điện thoại di động (giả sử điện thoại có chiều rộng dưới 768px) */
 @media (max-width: 767px) {
     .latest-posts-blog {
-        padding: 10px; /* Giảm padding cho điện thoại */
+        padding: 10px;
+        /* Giảm padding cho điện thoại */
     }
+
     .latest-posts-blog .blog-sidebar__post-image {
-        width: 60px; /* Chiều rộng giảm xuống cho điện thoại */
-        height: 42px; /* Chiều cao giảm tương ứng cho điện thoại */
+        width: 60px;
+        /* Chiều rộng giảm xuống cho điện thoại */
+        height: 42px;
+        /* Chiều cao giảm tương ứng cho điện thoại */
     }
+
     .latest-posts-blog .blog-sidebar__post {
         display: flex;
         flex-direction: row-reverse;
@@ -1814,23 +1842,101 @@ p {
 .card-img-top {
     max-height: 300px;
     object-fit: cover;
-  }
-  
-  .card-body {
+}
+
+.card-body {
     padding: 20px;
-  }
-  
-  .card-title {
+}
+
+.card-title {
     font-size: 24px;
     margin-bottom: 15px;
-  }
-  
-  .card-text {
+}
+
+.card-text {
     font-size: 16px;
     line-height: 1.6;
+}
+
+
+/* CSS cho phần category trong trang blogdetail */
+.category-blog {
+    padding-top: 20px;
+    background-color: #fff;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+}
+
+.blog-sidebar__title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #000;
+    /* Thêm dấu gạch ngang */
+    margin-left: 32px;
+    margin-right: 32px;
+    /* Để áp dụng border-bottom cho text */
+}
+
+.category-item {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+
+.category-link {
+    display: block;
+    color: #333;
+    text-decoration: none !important;
+    /* Sử dụng !important để ghi đè */
+    padding: 10px 0;
+    /* Chỉnh sửa padding cho phù hợp */
+    cursor: pointer;
+}
+
+.category-link:hover {
+    background-color: #e2e6ea;
+}
+
+/* Phân trang Blog  */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Điều chỉnh khoảng cách từ trên xuống */
   }
   
+  .pagination-btn {
+    border: 1px solid #ccc; /* Màu viền */
+    padding: 5px 10px; /* Kích thước padding */
+    margin: 0 5px; /* Khoảng cách giữa các nút */
+    cursor: pointer; /* Hiển thị con trỏ khi hover */
+    background-color: #fff; /* Màu nền */
+    color: #333; /* Màu chữ */
+  }
   
+  .pagination-btn:hover {
+    background-color: #f0f0f0; /* Màu nền khi hover */
+  }
+  
+  .pagination-btn.active {
+    background-color: #f9c513; /* Màu nền cho nút trang hiện tại */
+    color: #fff; /* Màu chữ cho nút trang hiện tại */
+  }
+  
+  .pagination-btn.disabled {
+    color: #ccc; /* Màu chữ cho nút bị vô hiệu hóa */
+    cursor: not-allowed; /* Hiển thị con trỏ vô hiệu hóa khi hover */
+  }
+  
+  .pagination-ellipsis {
+    padding: 5px 10px; /* Kích thước padding */
+    color: #333; /* Màu chữ */
+  }
+  
+
+
 
 
 
