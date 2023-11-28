@@ -10,7 +10,7 @@
         <div class="row mt-4">
             <div class="row">
                 <div class="col-6">
-                    <!-- <button class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#exampleModalAddSpa">Thêm Mới</button> -->
+                    <button class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#exampleModalAddSpa">Thêm Mới</button>
                 </div>
                 <div class="col-6">
                     <input class="form-control" onkeyup="searchInTableFunction()" type="search" value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
@@ -69,7 +69,7 @@
                                         <button type="button" class="btn bg-gradient-warning btn-block mb-3 edit-spa" data-bs-toggle="modal" data-bs-target="#modalEditSpa" data-slug="{{ $spa->slug }}">
                                             Edit
                                         </button>
-                                        <!-- <button type="button" class="delete-spa btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $spa->slug }}">Delete</button> -->
+                                        <button type="button" class="delete-spa btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $spa->slug }}">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -144,7 +144,7 @@
 
 
         <!-- Modal thêm mới -->
-        <!-- <div class="modal fade" id="exampleModalAddSpa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal fade" id="exampleModalAddSpa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -200,10 +200,10 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <!-- Modal Delete-->
-        <!-- <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+        <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
             <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -221,12 +221,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="comfirm-delete-spa" class="btn btn-danger">Xác nhận</button>
+                        <button type="button" id="comfirm-delete-bookings-spa" class="btn btn-danger">Xác nhận</button>
                         <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
     @include('includes.footer')
     </div>

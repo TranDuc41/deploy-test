@@ -170,7 +170,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="comfirm-delete-faq" class="btn btn-danger">Xác nhận</button>
+                        <button type="button" id="comfirm-delete-restaurants" class="btn btn-danger">Xác nhận</button>
                         <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
                     </div>
                 </div>
