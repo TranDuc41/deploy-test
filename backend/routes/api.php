@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\InfoController;
 use App\Http\Controllers\Api\ReservationsController;
 use App\Http\Controllers\Api\RestaurantController;
@@ -30,6 +31,8 @@ Route::get('/room-types-group', [RoomTypeController::class, 'getRoomType']);
 Route::get('/restaurants', [RestaurantController::class, 'index']);
 
 Route::post('/restaurants', [RestaurantController::class, 'create']);
+
+Route::get('faqs', [FaqController::class, 'index']);
 
 //lan anh
 Route::get('rooms/{slug}', [RoomController::class, 'show']);

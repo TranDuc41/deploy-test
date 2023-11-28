@@ -1,24 +1,22 @@
 "use client"
 // components/FAQ.js
-import React, { useEffect } from 'react';
-
-const faqData = [
-    {
-        id: 1,
-        question: 'Xin chào?',
-        answer: 'You can use this service by...'
-    },
-    {
-        id: 2,
-        question: 'Is there a free trial?',
-        answer: 'Yes, we offer a free trial for...'
-    },
-    // Add more FAQ items as needed
-];
+import React, { useState, useEffect } from 'react';
 
 const FAQ = () => {
+    const [faqData, setFaqData] = useState([]);
+
     useEffect(() => {
-        // Đặt logic JavaScript cho FAQ component ở đây (nếu cần)
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/faqs');
+                const data = await response.json();
+                setFaqData(data);
+            } catch (error) {
+                console.error('Error fetching FAQ data:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
@@ -40,7 +38,7 @@ const FAQ = () => {
                                 aria-expanded="false"
                                 aria-controls={`flush-collapse${item.id}`}
                             >
-                                {item.question}
+                                {item.title}
                             </button>
                         </h2>
                         <div
@@ -49,7 +47,7 @@ const FAQ = () => {
                             aria-labelledby={`flush-heading${item.id}`}
                             data-bs-parent="#accordionFlushExample"
                         >
-                            <div className="accordion-body">{item.answer}</div>
+                            <div className="accordion-body">{item.description}</div>
                         </div>
                     </div>
                 ))}

@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Thêm sự kiện click cho nút "Edit"
             editRestaurant.addEventListener('click', function () {
                 //Tham chiều đến các trường input/select
-                const nameRestaurant = document.getElementById('name');
+                const nameRestaurant = document.getElementById('name_restaurant');
                 const timeOpen = document.getElementById('open_time');
                 const timeClose = document.getElementById('close_time');
                 const imageFile = document.getElementById("restaurant_img");

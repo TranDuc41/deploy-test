@@ -214,7 +214,7 @@
                             @method('PUT')
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Tên</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên nhà hàng sua..." required>
+                                <input type="text" class="form-control" name="name" id="name_restaurant" required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">Thời gian mở cửa</label>
