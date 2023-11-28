@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\RoomTypeController;
+use App\Http\Controllers\Api\SpaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +30,12 @@ Route::get('/room-types', [RoomTypeController::class, 'index']);
 Route::get('/room-types-group', [RoomTypeController::class, 'getRoomType']);
 
 Route::get('/restaurants', [RestaurantController::class, 'index']);
-
 Route::post('/restaurants', [RestaurantController::class, 'create']);
 
-Route::get('faqs', [FaqController::class, 'index']);
+Route::get('/faqs', [FaqController::class, 'index']);
+
+Route::get('/spa', [SpaController::class, 'index']);
+Route::post('/spa', [SpaController::class, 'create']);
 
 //lan anh
 Route::get('rooms/{slug}', [RoomController::class, 'show']);

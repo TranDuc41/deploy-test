@@ -96,7 +96,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/spa/{slug}', [SpaController::class, 'update'])->name('spa.update');
     Route::delete('/spa/{slug}', [SpaController::class, 'destroy'])->name('spa.destroy');
 
+    Route::get('/spa-bookings', [SpaController::class, 'index1'])->name('spa.index1');
+    Route::put('/spa-bookings/{id}', [SpaController::class, 'update1'])->name('spaBooking.update');
+    Route::get('/spa-bookings/{id}', [SpaController::class, 'show1'])->name('spaBooking.show');
+    Route::delete('/spa-bookings/{id}', [SpaController::class, 'delete1'])->name('spaBooking.delete');
+
     //Bookings Restaurant Spa
+    Route::get('/bookings', [BookinsRestaurantSpaController::class, 'index'])->name('bookings');
     Route::get('/bookings/{id}', [BookinsRestaurantSpaController::class, 'show'])->name('bookingRestaurantSpa');
     Route::put('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'update'])->name('bookingRestaurantSpa.update');
     Route::delete('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'destroy'])->name('bookingRestaurantSpa.destroy');

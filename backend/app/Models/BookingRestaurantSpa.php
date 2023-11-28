@@ -24,12 +24,29 @@ class BookingRestaurantSpa extends Model
 
     public function getAllBookings($perPage = 10)
     {
-        return $this->select('bookings_restaurant_spa.*', 'restaurants.restaurant_id as restaurant_id', 'restaurants.name as restaurant_name')
-                ->leftJoin('restaurants', 'bookings_restaurant_spa.restaurant_id', '=', 'restaurants.restaurant_id')
-                ->orderBy('bookings_restaurant_spa.created_at', 'desc')
-                ->paginate($perPage);
+        return $this->select(
+            'bookings_restaurant_spa.*',
+            'restaurants.restaurant_id as restaurant_id',
+            'restaurants.name as restaurant_name',
+        )
+            ->leftJoin('restaurants', 'bookings_restaurant_spa.restaurant_id', '=', 'restaurants.restaurant_id')
+            ->whereNotNull('bookings_restaurant_spa.restaurant_id')
+            ->orderBy('bookings_restaurant_spa.created_at', 'desc')
+            ->paginate($perPage);
     }
 
+    public function getAllBookingsSpa($perPage = 10)
+    {
+        return $this->select(
+            'bookings_restaurant_spa.*',
+            'spa.name as spa_name'
+        )
+            ->leftJoin('spa', 'bookings_restaurant_spa.sw_id', '=', 'spa.sw_id')
+            ->whereNotNull('bookings_restaurant_spa.sw_id')
+            ->orderBy('bookings_restaurant_spa.created_at', 'desc')
+            ->paginate($perPage);
+    }
+    
     public function findBookingsId($id)
     {
         $booking = BookingRestaurantSpa::where('id', $id)->first();
@@ -41,7 +58,8 @@ class BookingRestaurantSpa extends Model
         }
     }
 
-    public function isUpdatedAtMatch($userUpdatedAt, $dbUpdatedAt) {
+    public function isUpdatedAtMatch($userUpdatedAt, $dbUpdatedAt)
+    {
         return $userUpdatedAt == $dbUpdatedAt;
     }
 }

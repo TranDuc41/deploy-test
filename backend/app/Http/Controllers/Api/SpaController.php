@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\BookingRestaurantSpa;
-use App\Models\Restaurant;
+use App\Models\Spa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use App\Models\BookingRestaurantSpa;
 
-class RestaurantController extends Controller
+class SpaController extends Controller
 {
     public function index()
     {
-        $restaurants = Restaurant::with('images')->select('*')->orderBy('restaurant_id', 'desc')->take(10)->get();
-        return response()->json($restaurants);
+        $spas = Spa::with('images')->orderByDesc('sw_id')->take(6)->get();
+    return response()->json($spas);
     }
 
     public function create(Request $request)
@@ -34,13 +33,13 @@ class RestaurantController extends Controller
             $date = $data['date'];
             $formattedDate = Carbon::createFromFormat('dmY', $date)->format('d/m/Y');
 
-            $restaurantId = Restaurant::where('slug', $data['restaurant'])->value('restaurant_id');
+            $spaId = Spa::where('slug', $data['spa'])->value('sw_id');
 
-            if ($restaurantId) {
+            if ($spaId) {
                 $bookingRestaurantSpa = new BookingRestaurantSpa();
 
-                $bookingRestaurantSpa->sw_id = isset($data['spa']) ? $data['spa'] : null;
-                $bookingRestaurantSpa->restaurant_id = $restaurantId;
+                $bookingRestaurantSpa->sw_id = isset($data['spa']) ? $spaId : null;
+                $bookingRestaurantSpa->restaurant_id = null;
                 $bookingRestaurantSpa->full_name = $data['fullName'];
                 $bookingRestaurantSpa->phone_number = $data['phone'];
                 $bookingRestaurantSpa->date_time = $formattedDate . ' - ' . $data['time'];

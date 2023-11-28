@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingRestaurantSpa;
 use App\Models\Spa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,6 +11,7 @@ use App\Models\Image;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
+use DateTime;
 
 class SpaController extends Controller
 {
@@ -21,19 +23,27 @@ class SpaController extends Controller
         return view('spa', compact('spas'));
     }
 
+    public function index1()
+    {
+        $spaModel = new BookingRestaurantSpa();
+        $spas = $spaModel->getAllBookingsSpa();
+
+        return view('booking-spa', compact('spas'));
+    }
+
     public function create(Request $request)
     {
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|max:100',
-                'description' => 'required|max:500',
+                'description' => 'required|max:1000',
                 'spa_menu' => 'required|file|mimes:pdf|max:20480',
                 'open_time' => 'required|date_format:H:i',
                 'close_time' => 'required|date_format:H:i',
-                'spa_img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
             if ($validator->fails()) {
-                return redirect()->route('restaurant')->with('error', 'Thêm không thành công. Kiểm tra nội dung nhập vào!');
+                $errors = $validator->errors()->all();
+                return redirect()->route('spa')->with('error', 'Thêm không thành công. Kiểm tra nội dung nhập vào!' . implode(', ', $errors));
             }
             $spa = new Spa();
             $spa->name = $request->input('name');
@@ -42,11 +52,11 @@ class SpaController extends Controller
 
             // Tạo tên mới cho tệp tin (ví dụ: sử dụng timestamp để tránh trùng lặp)
             $spaMenu = time() . '_' . $request->file('spa_menu')->getClientOriginalName();
-            $image = time() . '_' . $request->file('spa_img')->getClientOriginalName();
+            // $image = time() . '_' . $request->file('spa_img')->getClientOriginalName();
 
             // Di chuyển tệp tin đến đường dẫn mong muốn
             $request->file('spa_menu')->move(public_path('uploads/file'), $spaMenu);
-            $request->file('spa_img')->move(public_path('uploads'), $image);
+            // $request->file('spa_img')->move(public_path('uploads'), $image);
 
             // Gán tên tệp tin cho các trường trong model
             $spa->spa_menu = $spaMenu;
@@ -55,16 +65,62 @@ class SpaController extends Controller
 
             $spa->save();
 
-            $imageModel = new Image([
-                'name' => $image,
-                'img_src' => '/uploads/' . $image,
-            ]);
-            $spa->images()->save($imageModel);
+            // Kiểm tra và xử lý ảnh
+            $this->processImages($spa, $request->file('spa_img'));
 
             return redirect()->route('spa')->with('success', 'Spa đã được thêm thành công.');
         } catch (\Throwable $th) {
             return redirect()->route('spa')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại.' . $th->getMessage());
         }
+    }
+
+    // Hàm kiểm tra và xử lý ảnh
+    private function processImages($spa, $images)
+    {
+        if (!empty($images)) {
+            foreach ($images as $image) {
+                // Kiểm tra xem có phải là file ảnh hay không
+                if ($image->isValid() && $this->isImage($image)) {
+                    $imageName = 'dominion' . '_' . $image->getClientOriginalName();
+                    // Kiểm tra xem tên ảnh đã tồn tại trong bảng image hay chưa
+                    if (!$this->isImageNameExists($imageName)) {
+                        $image->move(public_path('uploads'), $imageName);
+                    } else {
+                        $imageName = 'dominion' . '_' . uniqid() . '_' . $imageName;
+                        $image->move(public_path('uploads'), $imageName);
+                    }
+
+                    // Lưu thông tin ảnh vào bảng image và liên kết với phòng thông qua mối quan hệ đa hình
+                    $imageModel = new Image([
+                        'name' => $imageName,
+                        'img_src' => '/uploads/' . $imageName,
+                    ]);
+
+                    $spa->images()->save($imageModel);
+                }
+            }
+        }
+    }
+
+    //Kiểm tra file ảnh
+    public function isImage($file)
+    {
+        // Kiểm tra xem tệp có phải là hình ảnh hay không
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if ($file instanceof \Illuminate\Http\UploadedFile && $file->isValid()) {
+            $extension = $file->getClientOriginalExtension();
+
+            return in_array(strtolower($extension), $allowedExtensions);
+        }
+
+        return false;
+    }
+
+    //Kiểm tra tên ảnh đã tồn tại trong bảng image hay chưa
+    private function isImageNameExists($imageName)
+    {
+        return Image::where('name', $imageName)->exists();
     }
 
     //Tạo slug
@@ -107,11 +163,10 @@ class SpaController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|max:100',
-                'description' => 'required|max:500',
+                'description' => 'required|max:1000',
                 'spa_menu' => 'file|mimes:pdf|max:20480',
                 'open_time' => 'required|date_format:H:i',
                 'close_time' => 'required|date_format:H:i',
-                'spa_img' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
 
             if ($validator->fails()) {
@@ -131,26 +186,12 @@ class SpaController extends Controller
                 if ($isUpdatedAtMatch) {
                     // Thực hiện cập nhật thông tin
 
-                    // Cập nhật đường dẫn cho spa_menu nếu có file mới
-                    if ($request->hasFile('spa_menu')) {
-                        $oldSpamenuPath = '/uploads/file/' . $spa->spa_menu;
-                        $filePath = public_path($oldSpamenuPath);
-
-                        if (File::exists($filePath)) {
-                            File::delete($filePath);
-                        }
-
-                        $spaMenu = time() . '_' . $request->file('spa_menu')->getClientOriginalName();
-                        $request->file('spa_menu')->move(public_path('uploads/file'), $spaMenu);
-                        // $spa->spa_menu = $spaMenu;
-                    }
-
                     if ($request->hasFile('spa_img')) {
                         $spa = Spa::where('slug', $slug)->first();
                         $images = DB::table('image')->where('imageable_id', $spa->sw_id)->get();
 
                         if (!$spa) {
-                            session()->flash('error', 'Không tìm thấy nhà hàng.');
+                            session()->flash('error', 'Không tìm thấy spa.');
                         }
 
                         foreach ($images as $image) {
@@ -166,13 +207,21 @@ class SpaController extends Controller
                         $spa->images()->delete();
 
                         // Lưu hình ảnh mới
-                        $image = new Image();
-                        $image->name = time() . '_' . $request->file('spa_img')->getClientOriginalName();
-                        $image->img_src = '/uploads/' . $image->name;
-                        $request->file('spa_img')->move(public_path('uploads'), $image->name);
+                        $this->processImages($spa, $request->file('spa_img'));
+                    }
 
-                        // Lưu thông tin hình ảnh vào cơ sở dữ liệu
-                        $spa->images()->save($image);
+                    // Cập nhật đường dẫn cho spa_menu nếu có file mới
+                    if ($request->hasFile('spa_menu')) {
+                        $oldSpamenuPath = '/uploads/file/' . $spa->spa_menu;
+                        $filePath = public_path($oldSpamenuPath);
+
+                        if (File::exists($filePath)) {
+                            File::delete($filePath);
+                        }
+
+                        $spaMenu = time() . '_' . $request->file('spa_menu')->getClientOriginalName();
+                        $request->file('spa_menu')->move(public_path('uploads/file'), $spaMenu);
+                        $spa->spa_menu = $spaMenu;
                     }
 
                     // Chỉ cập nhật các trường thực sự được gửi qua request
@@ -181,7 +230,6 @@ class SpaController extends Controller
                     $spa->description = $request->input('description');
                     $spa->time_open = $request->input('open_time');
                     $spa->time_close = $request->input('close_time');
-                    $spa->spa_menu = $spaMenu;
 
                     // Lưu các thay đổi
                     $spa->save();
@@ -207,7 +255,7 @@ class SpaController extends Controller
             $spa = $spaModel->findSpa($slug);
 
             if ($spa) {
-                
+
                 $images = DB::table('image')->where('imageable_id', $spa->sw_id)->get();
                 foreach ($images as $image) {
                     // Xóa hình ảnh từ thư mục uploads
@@ -238,6 +286,119 @@ class SpaController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->route('spa')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!' . $th->getMessage());
+        }
+    }
+
+    public function update1(Request $request, $id)
+    {
+        function isVietnamesePhoneNumber($number)
+        {
+            return preg_match('/^(03|05|07|08|09|01[2|6|8|9])[0-9]{8}$/', $number);
+        }
+
+        function isValidEmail($email)
+        {
+            $emailRegex = '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
+            return preg_match($emailRegex, $email);
+        }
+
+        try {
+
+            if (!isVietnamesePhoneNumber($request->phone_number)) {
+                return redirect()->route('bookings')->with('error', 'Số điện thoại không hợp lệ!');
+            } elseif (!isValidEmail($request->email)) {
+                return redirect()->route('bookings')->with('error', 'email không hợp lệ!');
+            }
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|max:55',
+                'phone_number' => 'required',
+                'email' => 'required|max:100',
+                'date' => 'required|max:100',
+                'time' => 'required|date_format:H:i',
+                'note' => 'max:120',
+            ]);
+
+            if ($validator->fails()) {
+                $errors = $validator->errors()->all();
+                return redirect()->route('bookings')->with('error', 'Sửa không thành công. Kiểm tra nội dung nhập vào!' . implode(', ', $errors));
+            }
+
+            // Kiểm tra xem có bản ghi có id cụ thể và restaurant_id là null không
+            $booking = BookingRestaurantSpa::where('id', $id)
+                ->whereNull('restaurant_id')
+                ->first();
+
+            if ($booking) {
+
+                $databaseUpdatedAt = Carbon::parse($booking->updated_at);
+                $newUpdatedAt = Carbon::parse($request->input('time_update'));
+
+                $isUpdatedAtMatch = $booking->isUpdatedAtMatch($newUpdatedAt, $booking->updated_at);
+
+                if (!$isUpdatedAtMatch) {
+                    return redirect()->route('spa.index1')->with('error', 'Đã có dữ liệu mới hơn. Vui lòng tải lại trang!');
+                }
+
+                $dateTime = new DateTime($request->input('date'));
+                $currentDate = new DateTime();
+
+                // Tính sự khác biệt giữa ngày được yêu cầu và ngày hiện tại
+                $dateDifference = $currentDate->diff($dateTime);
+
+                if ($dateTime > $currentDate && $dateDifference->days <= 36) {
+                    $formattedDate = $dateTime->format('d/m/Y');
+
+                    $booking->full_name = $request->input('name');
+                    $booking->phone_number = $request->input('phone_number');
+                    $booking->date_time = $formattedDate . ' - ' . $request->input('time');
+                    $booking->note = $request->input('note');
+                    $booking->email = $request->input('email');
+                    $booking->save();
+
+                    return redirect()->route('spa.index1')->with('success', 'Sửa thông tin thành công!');
+                } else {
+                    return redirect()->route('spa.index1')->with('error', 'Ngày giờ không hợp lệ!');
+                }
+            } else {
+                // Bản ghi không tồn tại hoặc restaurant_id không phải là null
+                return redirect()->route('spa.index1')->with('error', 'Sửa thất bại. Lịch đặt không tồn tại!');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('spa.index1')->with('error', 'Có lỗi xảy ra!' . $th);
+        }
+    }
+
+    public function show1($id)
+    {
+        $booking = DB::table('bookings_restaurant_spa')
+            ->where('id', $id)
+            ->whereNull('restaurant_id')
+            ->first();
+        if ($booking) {
+            return response()->json($booking);
+        } else {
+            return redirect()->route('spa.index1')->with('error', 'Lịch đặt không tồn tại!');
+        }
+    }
+
+    public function delete1($id)
+    {
+        try {
+            $booking = BookingRestaurantSpa::where('id', $id)
+                ->whereNull('restaurant_id')
+                ->first();
+
+            if($booking) {
+                $booking->delete();
+                session()->flash('success', 'Xóa thành công.');
+                return response()->json(['message' => 'Xóa thành công.']);
+            }else {
+                session()->flash('error', 'Không tìm thấy lịch đặt!');
+                return response()->json(['message' => 'Không tìm thấy lịch đặt!']);
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('bookings')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
     }
 }

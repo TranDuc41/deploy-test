@@ -19,10 +19,7 @@ class RestaurantController extends Controller
         $restaurantModel = new Restaurant();
         $restaurants = $restaurantModel->getAllRestaurants();
 
-        $bookings = new BookingRestaurantSpa();
-        $bookingsRestaurants = $bookings->getAllBookings();
-
-        return view('restaurant', compact('restaurants', 'bookingsRestaurants'));
+        return view('restaurant', compact('restaurants'));
     }
 
     public function create(Request $request)
@@ -151,7 +148,7 @@ class RestaurantController extends Controller
 
                         $drinkList = time() . '_' . $request->file('drink_list')->getClientOriginalName();
                         $request->file('drink_list')->move(public_path('uploads/file'), $drinkList);
-                        // $restaurant->drink_link = $drinkList;
+                        $restaurant->drink_link = $drinkList;
                     }
 
                     // Cập nhật đường dẫn cho food_menu nếu có file mới
@@ -165,7 +162,7 @@ class RestaurantController extends Controller
 
                         $foodMenu  = time() . '_' . $request->file('food_menu')->getClientOriginalName();
                         $request->file('food_menu')->move(public_path('uploads/file'), $foodMenu);
-                        // $restaurant->food_link = $foodMenu;
+                        $restaurant->food_link = $foodMenu;
                     }
 
                     if ($request->hasFile('restaurant_img')) {
@@ -203,8 +200,6 @@ class RestaurantController extends Controller
                     $restaurant->description = $request->input('description');
                     $restaurant->time_open = $request->input('open_time');
                     $restaurant->time_close = $request->input('close_time');
-                    $restaurant->drink_link = $drinkList;
-                    $restaurant->food_link = $foodMenu;
                     
                     // Lưu các thay đổi
                     $restaurant->save();
@@ -219,7 +214,7 @@ class RestaurantController extends Controller
             }
         } catch (\Exception $e) {
             // Xử lý exception nếu có
-            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
+            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!'.$e);
         }
     }
 

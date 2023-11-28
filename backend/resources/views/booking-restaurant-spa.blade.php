@@ -10,9 +10,6 @@
         <div class="row mt-4">
             <div class="row">
                 <div class="col-6">
-                    <!-- <button class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#exampleModalAddSpa">Thêm Mới</button> -->
-                </div>
-                <div class="col-6">
                     <input class="form-control" onkeyup="searchInTableFunction()" type="search" value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input">
                 </div>
                 <div class="col-12">
@@ -36,40 +33,53 @@
                 </div>
             </div>
             <div></div>
+            <h4 class="mt-5">Lịch đặt bàn</h4>
             <div class="card">
                 <div class="table-responsive">
                     <table class="table align-items-center mb-0" id="usersTable">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Spa</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Thời gian mở cửa</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Thời gian đóng cửa</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Khách Hàng</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Số Điện Thoại</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ngày Giờ Đặt Bàn</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên Nhà Hàng</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ghi Chú</th>
                                 <th class="text-secondary opacity-7"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($spas as $spa)
+                            @foreach($bookingsRestaurants as $bookingsRestaurant)
                             <tr>
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-xs">{{ $spa->name }}</h6>
+                                            <h6 class="mb-0 text-xs">{{ $bookingsRestaurant->full_name }}</h6>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <p class="text-xs font-weight-bold mb-0">{{ $spa->time_open }}</p>
+                                    <p class="text-xs font-weight-bold mb-0">{{ $bookingsRestaurant->phone_number }}</p>
                                 </td>
-                                <td class="align-middle text-center text-sm">
-                                    <span class="text-secondary text-xs font-weight-bold">{{ $spa->time_close }}</span>
+                                <td>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $bookingsRestaurant->email }}</span>
+                                </td>
+                                <td>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $bookingsRestaurant->date_time }}</span>
+                                </td>
+                                <td>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $bookingsRestaurant->restaurant_name }}</span>
+                                </td>
+                                <td>
+                                    <span class="text-secondary text-xs font-weight-bold">{{ $bookingsRestaurant->note }}</span>
                                 </td>
                                 <td class="align-middle">
                                     <div class="col-md-4">
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn bg-gradient-warning btn-block mb-3 edit-spa" data-bs-toggle="modal" data-bs-target="#modalEditSpa" data-slug="{{ $spa->slug }}">
+                                        <button type="button" class="btn bg-gradient-warning btn-block mb-3 edit-booking-restaurant" data-bs-toggle="modal" data-bs-target="#modalEditBookingRestaurant" data-slug="{{ $bookingsRestaurant->id }}">
                                             Edit
                                         </button>
-                                        <!-- <button type="button" class="delete-spa btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $spa->slug }}">Delete</button> -->
+                                        <button type="button" class="delete-booking-restaurant btn btn-block bg-gradient-danger mb-3" data-bs-toggle="modal" data-bs-target="#modal-notification" data-slug="{{ $bookingsRestaurant->id }}">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -77,60 +87,59 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $spas->links('pagination::bootstrap-5') }}
+                {{ $bookingsRestaurants->links('pagination::bootstrap-5') }}
             </div>
         </div>
 
-        <!-- Modal Sửa -->
-        <div class="modal fade" id="modalEditSpa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+        <!-- Modal Sửa Booking -->
+        <div class="modal fade" id="modalEditBookingRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Sửa Thông Tin Spa</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Sửa Thông Tin Đặt Chỗ</h5>
                         <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/spa/" method="POST" class="needs-validation" enctype="multipart/form-data" id="form_edit_spa">
+                        <form action="/bookings-restaurant-spa/" method="POST" class="needs-validation" enctype="multipart/form-data" id="form_edit_booking_restaurant">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">Tên</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên spa..." required>
+                                <label for="exampleFormControlInput1">Tên Khách Hàng</label>
+                                <input type="text" class="form-control" name="name" id="name" required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">Thời gian mở cửa</label>
-                                <input class="form-control" type="time" id="open_time" name="open_time" required>
+                                <label for="exampleFormControlInput1">Số Điện Thoại</label>
+                                <input class="form-control" type="text" id="phone_number" name="phone_number" required>
                                 <div class="invalid-feedback">
                                     Please provide a valid.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">Thời gian đóng cửa</label>
-                                <input class="form-control" type="time" id="close_time" name="close_time" required>
+                                <label for="exampleFormControlInput1">Email</label>
+                                <input class="form-control" type="email" id="email" name="email" required>
                                 <div class="invalid-feedback">
                                     Please provide a valid.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">File Menu Spa (chỉ nhập file PDF)</label>
-                                <input type="file" name="spa_menu" id="spa_menu" class="form-control">
+                                <label for="exampleFormControlInput1">Ngày Đặt</label>
+                                <input class="form-control" type="date" id="date" name="date" required>
                                 <div class="invalid-feedback">
                                     Please provide a valid.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">Hình Ảnh</label>
-                                <input type="file" name="spa_img[]" id="spa_img" class="form-control" multiple>
+                                <label for="exampleFormControlInput1">Giờ Đặt</label>
+                                <input class="form-control" type="time" id="time" name="time" required>
                                 <div class="invalid-feedback">
                                     Please provide a valid.
                                 </div>
-                                <img id="spa_img_select" src="" alt="Dominion" class="avatar avatar-xxl mt-3">
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Nội dung mô tả</label>
-                                <textarea class="form-control" id="description_spa" name="description" rows="3" required></textarea>
+                                <label for="exampleFormControlTextarea1">Ghi Chú</label>
+                                <textarea class="form-control" id="note" name="note" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="text" id="time_update" name="time_update" hidden />
@@ -142,68 +151,8 @@
             </div>
         </div>
 
-
-        <!-- Modal thêm mới -->
-        <!-- <div class="modal fade" id="exampleModalAddSpa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thêm Spa</h5>
-                        <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="{{ route('spa') }}" method="POST" class="needs-validation" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Tên</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nhập tên spa..." required>
-                                <div class="invalid-feedback">
-                                    Please provide a valid.
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Thời gian mở cửa</label>
-                                <input class="form-control" type="time" value="07:00" id="open_time" name="open_time" required>
-                                <div class="invalid-feedback">
-                                    Please provide a valid.
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Thời gian đóng cửa</label>
-                                <input class="form-control" type="time" value="22:30" id="close_time" name="close_time" required>
-                                <div class="invalid-feedback">
-                                    Please provide a valid.
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">File Menu (chỉ nhập file PDF)</label>
-                                <input type="file" name="spa_menu" id="spa_menu" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Please provide a valid.
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlInput1">Hình Ảnh</label>
-                                <input type="file" name="spa_img[]" id="spa_img" class="form-control" multiple required>
-                                <div class="invalid-feedback">
-                                    Please provide a valid.
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Nội dung mô tả</label>
-                                <textarea class="form-control" name="description" rows="3" required></textarea>
-                            </div>
-                            <button type="submit" class="btn bg-gradient-primary">Thêm</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <!-- Modal Delete-->
-        <!-- <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+        <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
             <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -221,12 +170,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="comfirm-delete-spa" class="btn btn-danger">Xác nhận</button>
+                        <button type="button" id="comfirm-delete-booking-restaurant" class="btn btn-danger">Xác nhận</button>
                         <button type="button" class="btn bg-gradient-default ml-auto" data-bs-dismiss="modal">Hủy</button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
     @include('includes.footer')
     </div>

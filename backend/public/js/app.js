@@ -227,8 +227,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 timeOpen.value = data.restaurant.time_open.slice(0, -3);
                                 timeClose.value = data.restaurant.time_close.slice(0, -3);
                                 description.value = data.restaurant.description;
-                                image.src = data.images[0].img_src;
                                 time_update.value = data.restaurant.updated_at;
+                                image.src = data.images[0].img_src;
 
                                 form_edit_restaurant.action = "/restaurant/" + slugRestaurant;
                             } else {
@@ -325,10 +325,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 timeOpen.value = data.spa.time_open.slice(0, -3);
                                 timeClose.value = data.spa.time_close.slice(0, -3);
                                 description.value = data.spa.description;
-                                image.src = data.images[0].img_src;
                                 time_update.value = data.spa.updated_at;
-
                                 form_edit_spa.action = "/spa/" + slugSpa;
+                                image.src = data.images[0].img_src;
                             } else {
                                 console.log("Không có dữ liệu. Vui lòng thử lại!");
                             }
@@ -454,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //Delete Booking
     var deleteBookings = document.querySelectorAll('.delete-booking-restaurant');
-    var comfirmDeleteSpa = document.getElementById('comfirm-delete-restaurant');
+    var comfirmDeleteSpa = document.getElementById('comfirm-delete-booking-restaurant');
     deleteBookings.forEach(function (deleteBooking) {
         deleteBooking.addEventListener("click", function () {
             var idBooking = this.getAttribute('data-slug');
@@ -479,12 +478,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     // Kiểm tra thông báo từ server và chuyển hướng trang
                     if (data.message === 'Xóa thành công.') {
                         // Chuyển hướng trang /rooms
-                        window.location.href = '/restaurant';
+                        window.location.href = '/bookings';
                     } else if (data.message === 'Xóa thất bại') {
-                        window.location.href = '/restaurant';
+                        window.location.href = '/bookings';
                     }
                     else {
-                        window.location.href = '/spa';
+                        window.location.href = '/bookings';
                     }
                 })
                 .catch(error => {
@@ -579,6 +578,113 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                     else {
                         window.location.href = '/faq';
+                    }
+                })
+                .catch(error => {
+                    // Xử lý lỗi
+                    console.error('Error:', error);
+                });
+        });
+    }
+
+    //Xử lý để yêu cầu sửa lịch spa
+    // Lấy tham chiếu đến nút "Edit"
+    var editBookingSpas = document.querySelectorAll('.edit-booking-spa');
+
+    if (editBookingSpas !== null) {
+        editBookingSpas.forEach(function (editBookingSpa) {
+            // Thêm sự kiện click cho nút "Edit"
+            editBookingSpa.addEventListener('click', function () {
+                //Tham chiều đến các trường input/select
+                const name = document.getElementById('name');
+                const phone = document.getElementById('phone_number');
+                const email = document.getElementById('email');
+                const date = document.getElementById("date");
+                const time = document.getElementById('time');
+                const note = document.getElementById('note');
+                const time_update = document.getElementById('time_update');
+                const form_edit_bookings = document.getElementById('form_edit_booking_spa');
+
+                //Lấy ra id của booking
+                const idBookingSpa = editBookingSpa.dataset.slug;
+
+                // Sử dụng Fetch API để gửi yêu cầu GET tới "/bookings/{id}"
+                fetch(`/spa-bookings/${idBookingSpa}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Xử lý dữ liệu nhận được từ server (data) ở đây
+                        if (data !== null && data !== undefined) {
+                            if (Object.keys(data).length !== 0) {
+
+                                var dateTimeParts = data.date_time.split(' - ');
+                                var datePart = dateTimeParts[0];
+                                var dateParts = datePart.split('/');
+                                var formattedDate = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0];
+                                var timePart = dateTimeParts[1];
+
+                                name.value = data.full_name;
+                                phone.value = data.phone_number;
+                                email.value = data.email;
+                                date.value = formattedDate;
+                                time.value = timePart;
+                                note.value = data.note;
+                                time_update.value = data.updated_at;
+
+
+                                form_edit_bookings.action = "/spa-bookings/" + idBookingSpa;
+                            } else {
+                                console.log("Không có dữ liệu. Vui lòng thử lại!");
+                            }
+                        } else {
+                            console.log("Không có dữ liệu. Vui lòng thử lại!");
+                        }
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi ở đây
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    }
+
+    //Delete lich spa
+    var deleteFaqs = document.querySelectorAll('.delete-booking-spa');
+    var comfirmDeleteFaq = document.getElementById('comfirm-delete-booking-spa');
+    deleteFaqs.forEach(function (deleteFaq) {
+        deleteFaq.addEventListener("click", function () {
+            var slugFaq = this.getAttribute('data-slug');
+            comfirmDeleteFaq.setAttribute('delete-booking-spa', slugFaq);
+        })
+    })
+    if (comfirmDeleteFaq != null) {
+        comfirmDeleteFaq.addEventListener('click', function () {
+            var slugFaq = this.getAttribute('delete-booking-spa');
+            fetch(`/spa-bookings/${slugFaq}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Xử lý kết quả từ server
+                    // console.log(data);
+
+                    // Kiểm tra thông báo từ server và chuyển hướng trang
+                    if (data.message === 'Xóa thành công.') {
+                        // Chuyển hướng trang /rooms
+                        window.location.href = '/spa-bookings';
+                    } else if (data.message === 'Xóa thất bại') {
+                        window.location.href = '/spa-bookings';
+                    }
+                    else {
+                        window.location.href = '/spa-bookings';
                     }
                 })
                 .catch(error => {
