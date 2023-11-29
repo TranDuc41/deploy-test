@@ -113,6 +113,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/bookings/{id}', [BookinsRestaurantSpaController::class, 'show'])->name('bookingRestaurantSpa');
     Route::put('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'update'])->name('bookingRestaurantSpa.update');
     Route::delete('/bookings-restaurant/{id}', [BookinsRestaurantSpaController::class, 'delete'])->name('bookingRestaurant.delete');
+
+    Route::delete('/delete-all-booking-restaurant', [BookinsRestaurantSpaController::class, 'deleteAllRestaurant']);
+    Route::delete('/delete-all-booking-spa', [BookinsRestaurantSpaController::class, 'deleteAllSpa']);
 });
 
 Route::middleware('auth')->group(function () {

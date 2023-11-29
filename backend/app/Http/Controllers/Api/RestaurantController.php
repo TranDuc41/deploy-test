@@ -31,32 +31,41 @@ class RestaurantController extends Controller
             // Log::info('Received Data: ', $requestData['data']);
             $data =  $requestData['data'];
 
+            // Lấy ngày hiện tại
+            $currentDate = Carbon::now();
+
             $date = $data['date'];
-            $formattedDate = Carbon::createFromFormat('dmY', $date)->format('d/m/Y');
+            $dateObject = Carbon::createFromFormat('dmY', $date);
 
-            $restaurantId = Restaurant::where('slug', $data['restaurant'])->value('restaurant_id');
+            if ($dateObject->greaterThanOrEqualTo($currentDate) && $dateObject->diffInDays($currentDate) <= 30) {
 
-            if ($restaurantId) {
-                $bookingRestaurantSpa = new BookingRestaurantSpa();
+                $formattedDate = $dateObject->format('d/m/Y');
+                $restaurantId = Restaurant::where('slug', $data['restaurant'])->value('restaurant_id');
 
-                $bookingRestaurantSpa->sw_id = isset($data['spa']) ? $data['spa'] : null;
-                $bookingRestaurantSpa->restaurant_id = $restaurantId;
-                $bookingRestaurantSpa->full_name = $data['fullName'];
-                $bookingRestaurantSpa->phone_number = $data['phone'];
-                $bookingRestaurantSpa->date_time = $formattedDate . ' - ' . $data['time'];
-                $bookingRestaurantSpa->email = $data['email'];
-                $bookingRestaurantSpa->note = isset($data['note']) ? $data['note'] : '';
+                if ($restaurantId) {
+                    $bookingRestaurantSpa = new BookingRestaurantSpa();
 
-                $bookingRestaurantSpa->save();
+                    $bookingRestaurantSpa->sw_id = isset($data['spa']) ? $data['spa'] : null;
+                    $bookingRestaurantSpa->restaurant_id = $restaurantId;
+                    $bookingRestaurantSpa->full_name = $data['fullName'];
+                    $bookingRestaurantSpa->phone_number = $data['phone'];
+                    $bookingRestaurantSpa->date_time = $formattedDate . ' - ' . $data['time'];
+                    $bookingRestaurantSpa->email = $data['email'];
+                    $bookingRestaurantSpa->note = isset($data['note']) ? $data['note'] : '';
 
-                // Log::info($formattedDate);
-                return response()->json(['success' => true, 'message' => 'Request processed successfully']);
+                    $bookingRestaurantSpa->save();
+
+                    // Log::info($formattedDate);
+                    return response()->json(['success' => true, 'message' => 'Request processed successfully']);
+                } else {
+                    return response()->json(['error' => false, 'message' => 'Không tìm thấy nhà hàng!'], 404);
+                }
             }else{
-                return response()->json(['success' => false, 'message' => 'Invalid signature'], 404);
+                return response()->json(['error' => false, 'message' => 'Ngày tháng không hợp lệ. Ngày phải lớn hơn ngày hiện tại!'], 422);
             }
         } else {
             // Chữ ký không hợp lệ, trả về lỗi
-            return response()->json(['success' => false, 'message' => 'Invalid signature'], 403);
+            return response()->json(['error' => false, 'message' => 'Có lỗi khi gửi đi!'], 403);
         }
     }
 }

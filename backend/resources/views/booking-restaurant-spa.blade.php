@@ -34,11 +34,19 @@
             </div>
             <div></div>
             <h4 class="mt-5">Lịch đặt bàn</h4>
+            <div id="btn-delete-all">
+            </div>
             <div class="card">
                 <div class="table-responsive">
                     <table class="table align-items-center mb-0" id="usersTable">
                         <thead>
                             <tr>
+                                <th>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="selectAllCheckbox">
+                                        <label class="form-check-label" for="selectAllCheckbox"></label>
+                                    </div>
+                                </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên Khách Hàng</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Số Điện Thoại</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
@@ -51,6 +59,12 @@
                         <tbody>
                             @foreach($bookingsRestaurants as $bookingsRestaurant)
                             <tr>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input booking-checkbox" type="checkbox" id="bookingCheckbox{{ $loop->index }}" data-slug="{{ $bookingsRestaurant->id }}">
+                                        <label class="form-check-label" for="bookingCheckbox{{ $loop->index }}"></label>
+                                    </div>
+                                </td>
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
@@ -247,6 +261,152 @@
     </div>
 </div>
 <!--   Core JS Files   -->
+<script>
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    //Hàm thực hiện xóa nhiều
+    function initializeTable(tableId, selectAllCheckboxId, deleteButtonContainerId, deleteAllEndpoint) {
+        // Lấy ra tất cả các checkbox hàng và checkbox "Chọn Tất Cả"
+        var allCheckboxes = document.querySelectorAll(`#${tableId} .booking-checkbox`);
+        var selectAllCheckbox = document.getElementById(selectAllCheckboxId);
+
+        // Xử lý sự kiện khi checkbox "Chọn Tất Cả" thay đổi
+        selectAllCheckbox.addEventListener('change', function () {
+            var isChecked = this.checked;
+
+            // Thiết lập trạng thái của tất cả các checkbox hàng
+            allCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = isChecked;
+            });
+
+            // Lấy ra mảng giá trị "data-slug" của các hàng được chọn
+            var selectedSlugs = getSelectedSlugs();
+
+            // Thêm hoặc xóa button dựa trên việc có hàng được chọn hay không
+            if (selectedSlugs.length > 0) {
+                addDeleteButton();
+            } else {
+                removeDeleteButton();
+            }
+
+            console.log(selectedSlugs);
+        });
+
+        // Xử lý sự kiện khi một trong các checkbox hàng thay đổi
+        allCheckboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                // Nếu tất cả các checkbox hàng đều được chọn, chọn checkbox "Chọn Tất Cả"
+                if (document.querySelectorAll(`#${tableId} .booking-checkbox:checked`).length === allCheckboxes.length) {
+                    selectAllCheckbox.checked = true;
+                } else {
+                    selectAllCheckbox.checked = false;
+                }
+
+                // Lấy ra mảng giá trị "data-slug" của các hàng được chọn
+                var selectedSlugs = getSelectedSlugs();
+
+                // Thêm hoặc xóa button dựa trên việc có hàng được chọn hay không
+                if (selectedSlugs.length > 0) {
+                    addDeleteButton();
+                } else {
+                    removeDeleteButton();
+                }
+
+                console.log(selectedSlugs);
+            });
+        });
+
+        // Hàm thêm button vào DOM
+        function addDeleteButton() {
+            // Kiểm tra xem button đã tồn tại trong DOM chưa
+            var deleteButton = document.getElementById('delete-all');
+            if (!deleteButton) {
+                // Nếu chưa tồn tại, tạo button và thêm vào DOM
+                deleteButton = document.createElement('button');
+                deleteButton.type = 'button';
+                deleteButton.id = 'delete-all';
+                deleteButton.className = 'btn btn-danger';
+                deleteButton.innerHTML = 'Xóa tất cả';
+                deleteButton.addEventListener('click', function () {
+                    // Xử lý logic khi button được click
+                    var userConfirmed = confirm("Bạn chắc muốn xóa chứ. \n Nội dung sẽ không thể khôi phục!");
+
+                    if (userConfirmed) {
+                        // Người dùng đã xác nhận, thực hiện xóa hoặc các thao tác khác
+                        console.log('Đã xác nhận xóa tất cả.');
+
+                        // Gọi hàm thực hiện xóa tất cả hoặc các thao tác khác
+                        deleteAll(deleteAllEndpoint);
+                    } else {
+                        // Người dùng đã hủy bỏ
+                        console.log('Đã hủy xóa tất cả.');
+                    }
+                });
+
+                // Thêm button vào DOM
+                var divElement = document.getElementById(deleteButtonContainerId);
+                divElement.appendChild(deleteButton);
+            }
+        }
+
+        // Hàm xóa button khỏi DOM
+        function removeDeleteButton() {
+            // Kiểm tra xem button đã tồn tại trong DOM không
+            var deleteButton = document.getElementById('delete-all');
+            if (deleteButton) {
+                // Nếu tồn tại, xóa button khỏi DOM
+                deleteButton.remove();
+            }
+        }
+
+        // Hàm lấy ra mảng giá trị "data-slug" của các hàng được chọn
+        function getSelectedSlugs() {
+            var selectedSlugs = [];
+            allCheckboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    selectedSlugs.push(checkbox.getAttribute('data-slug'));
+                }
+            });
+            return selectedSlugs;
+        }
+
+        //Hàm xóa tất cả
+        function deleteAll(endpoint) {
+            // Lấy ra mảng giá trị "data-slug" của các hàng được chọn
+            var selectedSlugs = getSelectedSlugs();
+
+            if (selectedSlugs.length > 0) {
+                // Gửi yêu cầu DELETE đến endpoint với danh sách ID cần xóa
+                fetch(endpoint, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken, // Đảm bảo thêm CSRF token nếu cần
+                    },
+                    body: JSON.stringify({ ids: selectedSlugs }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Xử lý kết quả từ server
+                        console.log(data);
+
+                        // Hiển thị thông báo hoặc thực hiện các thao tác khác
+                        alert(data.message);
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi
+                        console.error('Error:', error);
+                    });
+            } else {
+                // Nếu không có hàng nào được chọn
+                alert('Vui lòng chọn ít nhất một hàng để xóa.');
+            }
+        }
+    }
+
+    // Sử dụng hàm initializeTable cho mỗi bảng cụ thể
+    initializeTable('usersTable', 'selectAllCheckbox', 'btn-delete-all', '/delete-all-booking-restaurant');
+</script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>
 <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
