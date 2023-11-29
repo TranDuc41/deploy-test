@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\RoomTypeController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,4 @@ Route::get('/info', [InfoController::class, 'index']);
 Route::get('room-type/{sty_id}', [RoomController::class, 'showRoomByRoomType']);
 
 Route::get('/list-category', [CategoryController::class, 'index']);
+Route::post('/save-data', [ContactController::class, 'saveData']);

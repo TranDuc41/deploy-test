@@ -12,6 +12,7 @@ use App\Http\Controllers\AmenitiesController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -121,6 +122,8 @@ Route::delete('/categories/{id}', [CategoryController::class, 'delete'])->name('
 Route::post('/categories', [CategoryController::class, 'create'])->name('categories');
 Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('category');
 Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('category.update');
+// Contact
+Route::post('/api/save-data', [ContactController::class, 'saveData']);
 
 
 
