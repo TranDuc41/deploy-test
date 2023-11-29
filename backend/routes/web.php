@@ -13,6 +13,11 @@ use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\SpaController;
+use App\Http\Controllers\BookinsRestaurantSpaController;
+use App\Http\Controllers\FaqController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,6 +92,41 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
     Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
+
+    //Restaurant
+    Route::get('/restaurant', [RestaurantController::class, 'index'])->name('restaurant');
+    Route::post('/restaurant', [RestaurantController::class, 'create'])->name('restaurant');
+    Route::get('/restaurant/{slug}', [RestaurantController::class, 'show'])->name('restaurant.show');
+    Route::put('/restaurant/{slug}', [RestaurantController::class, 'update'])->name('restaurant.update');
+    Route::delete('/restaurant/{slug}', [RestaurantController::class, 'destroy'])->name('restaurant.destroy');
+
+    //Spa
+    Route::get('/spa', [SpaController::class, 'index'])->name('spa');
+    Route::post('/spa', [SpaController::class, 'create'])->name('spa');
+    Route::get('/spa/{slug}', [SpaController::class, 'show'])->name('spa.show');
+    Route::put('/spa/{slug}', [SpaController::class, 'update'])->name('spa.update');
+    Route::delete('/spa/{slug}', [SpaController::class, 'destroy'])->name('spa.destroy');
+
+    Route::get('/spa-bookings', [SpaController::class, 'index1'])->name('spa.index1');
+    Route::put('/spa-bookings/{id}', [SpaController::class, 'update1'])->name('spaBooking.update');
+    Route::get('/spa-bookings/{id}', [SpaController::class, 'show1'])->name('spaBooking.show');
+    Route::delete('/spa-bookings/{id}', [SpaController::class, 'delete1'])->name('spaBooking.delete');
+
+    //FAQ
+    Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+    Route::get('/faq/{slug}', [FaqController::class, 'show'])->name('faq.show');
+    Route::post('/faq', [FaqController::class, 'create'])->name('faq');
+    Route::put('/faq/{slug}', [FaqController::class, 'update'])->name('faq.update');
+    Route::delete('/faq/{slug}', [FaqController::class, 'delete'])->name('faq.delete');
+
+    //Bookings Restaurant Spa
+    Route::get('/bookings', [BookinsRestaurantSpaController::class, 'index'])->name('bookings');
+    Route::get('/bookings/{id}', [BookinsRestaurantSpaController::class, 'show'])->name('bookingRestaurantSpa');
+    Route::put('/bookings-restaurant-spa/{id}', [BookinsRestaurantSpaController::class, 'update'])->name('bookingRestaurantSpa.update');
+    Route::delete('/bookings-restaurant/{id}', [BookinsRestaurantSpaController::class, 'delete'])->name('bookingRestaurant.delete');
+
+    Route::delete('/delete-all-booking-restaurant', [BookinsRestaurantSpaController::class, 'deleteAllRestaurant']);
+    Route::delete('/delete-all-booking-spa', [BookinsRestaurantSpaController::class, 'deleteAllSpa']);
 });
 
 Route::middleware('auth')->group(function () {
