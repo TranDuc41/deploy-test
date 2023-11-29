@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\InfoController;
 use App\Http\Controllers\Api\ReservationsController;
 use Illuminate\Http\Request;
@@ -33,3 +34,5 @@ Route::get('reservations/{adults}/{children}/{slug_rty}', [ReservationsControlle
 Route::get('/info', [InfoController::class, 'index']);
 
 Route::get('room-type/{sty_id}', [RoomController::class, 'showRoomByRoomType']);
+
+Route::get('/list-category', [CategoryController::class, 'index']);

@@ -11,6 +11,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\AmenitiesController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -113,6 +114,16 @@ Route::put('/packages/{packages_id}', [PackageController::class, 'update'])->nam
 // Xóa package
 Route::delete('/packages/{packages_id}', [PackageController::class, 'destroy'])->name('packages.destroy');
 Route::get('/search-packages', [PackageController::class, 'search']);
+
+// Categories
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+Route::delete('/categories/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+Route::post('/categories', [CategoryController::class, 'create'])->name('categories');
+Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('category');
+Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('category.update');
+
+
+
 
 
 

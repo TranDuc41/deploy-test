@@ -5,10 +5,28 @@ import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import Image from 'next/image';
 import BlogPost from '@/components/BlogPost';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 
 // Component Blogs chính
 export default function BlogDetail() {
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('http://localhost:8000/api/list-category');
+            const data = await response.json();
+            setCategories(data.categories);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, []);
+
     const fakePosts = new Array(6).fill({
         imageUrl: '/blogpost_default.png',
         readTime: '7 Phút đọc',
@@ -85,10 +103,10 @@ export default function BlogDetail() {
                         <div className='category-blog'>
                             <h3 className="blog-sidebar__title">Thể Loại</h3>
                             <ul className="list-unstyled">
-                                {fakeCategories.map((category, index) => (
+                                {categories.map((category, index) => (
                                     <li key={index} className='category-item'>
                                         <Link href="/path-to-category" passHref>
-                                            <span className='category-link'>{"\u00BB " + category.name}</span>
+                                            <span className='category-link'>{"\u00BB " + category.title}</span>
                                         </Link>
                                     </li>
                                 ))}
