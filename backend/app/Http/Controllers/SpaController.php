@@ -43,7 +43,17 @@ class SpaController extends Controller
             ]);
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();
-                return redirect()->route('spa')->with('error', 'Thêm không thành công. Kiểm tra nội dung nhập vào!' . implode(', ', $errors));
+                return redirect()->route('spa')->with('error', 'Thêm không thành công. Kiểm tra nội dung nhập vào!');
+            }
+
+            $openTime = $request->input('open_time');
+            $closeTime = $request->input('close_time');
+
+            $openDateTime = \DateTime::createFromFormat('H:i', $openTime);
+            $closeDateTime = \DateTime::createFromFormat('H:i', $closeTime);
+
+            if ($closeDateTime <= $openDateTime) {
+                return redirect()->route('spa')->with('error', 'Thời gian mở và đóng cửa không hợp lệ!.');
             }
             $spa = new Spa();
             $spa->name = $request->input('name');
@@ -70,7 +80,7 @@ class SpaController extends Controller
 
             return redirect()->route('spa')->with('success', 'Spa đã được thêm thành công.');
         } catch (\Throwable $th) {
-            return redirect()->route('spa')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại.' . $th->getMessage());
+            return redirect()->route('spa')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại.');
         }
     }
 
@@ -171,7 +181,16 @@ class SpaController extends Controller
 
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();
-                return redirect()->route('spa')->with('error', 'Sửa không thành công. Kiểm tra nội dung nhập vào!' . implode(', ', $errors));
+                return redirect()->route('spa')->with('error', 'Sửa không thành công. Kiểm tra nội dung nhập vào!');
+            }
+
+            $openTime = $request->input('open_time');
+            $closeTime = $request->input('close_time');
+            $openDateTime = \DateTime::createFromFormat('H:i', $openTime);
+            $closeDateTime = \DateTime::createFromFormat('H:i', $closeTime);
+
+            if ($closeDateTime <= $openDateTime) {
+                return redirect()->route('restaurant')->with('error', 'Thời gian mở và đóng cửa không hợp lệ!');
             }
 
             $spaModel = new Spa();
@@ -244,7 +263,7 @@ class SpaController extends Controller
             }
         } catch (\Exception $e) {
             // Xử lý exception nếu có
-            return redirect()->route('spa')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!' . $e->getMessage());
+            return redirect()->route('spa')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
     }
 
@@ -285,7 +304,7 @@ class SpaController extends Controller
                 return response()->json(['message' => 'Spa không tồn tại!']);
             }
         } catch (\Throwable $th) {
-            return redirect()->route('spa')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!' . $th->getMessage());
+            return redirect()->route('spa')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
     }
 
@@ -321,7 +340,7 @@ class SpaController extends Controller
 
             if ($validator->fails()) {
                 $errors = $validator->errors()->all();
-                return redirect()->route('bookings')->with('error', 'Sửa không thành công. Kiểm tra nội dung nhập vào!' . implode(', ', $errors));
+                return redirect()->route('bookings')->with('error', 'Sửa không thành công. Kiểm tra nội dung nhập vào!');
             }
 
             // Kiểm tra xem có bản ghi có id cụ thể và restaurant_id là null không
@@ -365,7 +384,7 @@ class SpaController extends Controller
                 return redirect()->route('spa.index1')->with('error', 'Sửa thất bại. Lịch đặt không tồn tại!');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('spa.index1')->with('error', 'Có lỗi xảy ra!' . $th);
+            return redirect()->route('spa.index1')->with('error', 'Có lỗi xảy ra!');
         }
     }
 
@@ -389,11 +408,11 @@ class SpaController extends Controller
                 ->whereNull('restaurant_id')
                 ->first();
 
-            if($booking) {
+            if ($booking) {
                 $booking->delete();
                 session()->flash('success', 'Xóa thành công.');
                 return response()->json(['message' => 'Xóa thành công.']);
-            }else {
+            } else {
                 session()->flash('error', 'Không tìm thấy lịch đặt!');
                 return response()->json(['message' => 'Không tìm thấy lịch đặt!']);
             }

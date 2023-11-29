@@ -37,6 +37,16 @@ class RestaurantController extends Controller
             if ($validator->fails()) {
                 return redirect()->route('restaurant')->with('error', 'Thêm không thành công. Kiểm tra nội dung nhập vào!');
             }
+
+            $openTime = $request->input('open_time');
+            $closeTime = $request->input('close_time');
+            $openDateTime = \DateTime::createFromFormat('H:i', $openTime);
+            $closeDateTime = \DateTime::createFromFormat('H:i', $closeTime);
+
+            if ($closeDateTime <= $openDateTime) {
+                return redirect()->route('restaurant')->with('error', 'Thời gian mở và đóng cửa không hợp lệ!');
+            }
+
             $restaurants = new Restaurant();
             $restaurants->name = $request->input('name');
             $restaurants->slug = $this->createUniqueSlug($request->input('name') . '-' . uniqid());
@@ -68,7 +78,7 @@ class RestaurantController extends Controller
 
             return redirect()->route('restaurant')->with('success', 'Nhà hàng đã được thêm thành công.');
         } catch (\Throwable $th) {
-            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại.' . $th->getMessage());
+            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra. Vui lòng thử lại.');
         }
     }
 
@@ -121,8 +131,17 @@ class RestaurantController extends Controller
             ]);
 
             if ($validator->fails()) {
-                $errors = $validator->errors()->all();
-                return redirect()->route('restaurant')->with('error', 'Sửa không thành công. Kiểm tra nội dung nhập vào!' . implode(', ', $errors));
+                // $errors = $validator->errors()->all();
+                return redirect()->route('restaurant')->with('error', 'Sửa không thành công. Kiểm tra nội dung nhập vào!');
+            }
+
+            $openTime = $request->input('open_time');
+            $closeTime = $request->input('close_time');
+            $openDateTime = \DateTime::createFromFormat('H:i', $openTime);
+            $closeDateTime = \DateTime::createFromFormat('H:i', $closeTime);
+
+            if ($closeDateTime <= $openDateTime) {
+                return redirect()->route('restaurant')->with('error', 'Thời gian mở và đóng cửa không hợp lệ!');
             }
 
             $restaurantModel = new Restaurant();
@@ -200,7 +219,7 @@ class RestaurantController extends Controller
                     $restaurant->description = $request->input('description');
                     $restaurant->time_open = $request->input('open_time');
                     $restaurant->time_close = $request->input('close_time');
-                    
+
                     // Lưu các thay đổi
                     $restaurant->save();
 
@@ -214,7 +233,7 @@ class RestaurantController extends Controller
             }
         } catch (\Exception $e) {
             // Xử lý exception nếu có
-            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!'.$e);
+            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
     }
 
@@ -263,7 +282,7 @@ class RestaurantController extends Controller
                 return response()->json(['message' => 'Nhà hàng không tồn tại!']);
             }
         } catch (\Throwable $th) {
-            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!' . $th->getMessage());
+            return redirect()->route('restaurant')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
     }
 }
