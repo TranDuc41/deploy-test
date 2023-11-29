@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
-
 function FormContact() {
     const [formData, setFormData] = useState({
         name: '',
@@ -15,7 +14,6 @@ function FormContact() {
         title: '',
         content: ''
     });
-
     const [errors, setErrors] = useState({});
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -74,7 +72,6 @@ function FormContact() {
         setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
     }
     const [isSubmitting, setIsSubmitting] = useState(false);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (isSubmitting) return;
@@ -84,7 +81,11 @@ function FormContact() {
             setIsSubmitting(true);
     
             try {
-                const response = await axios.post('http://localhost:8000/api/save-data', formData);
+                axios.post('http://localhost:8000/api/save-data', formData, {
+                    headers: {
+                      'X-CSRF-TOKEN': document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN')).split('=')[1]
+                    }
+                  })
                 console.log(response.data);
                 setSubmitSuccess(true);
     
@@ -96,8 +97,6 @@ function FormContact() {
                     title: '',
                     content: ''
                 });
-                 // Xóa các lỗi sau khi gửi thành công
-            setErrors({});
             } catch (error) {
                 console.error('Có lỗi xảy ra khi gửi dữ liệu:', error);
             } finally {
@@ -109,12 +108,6 @@ function FormContact() {
     };
     
 
-
-
-
-
-
-
     return (
         <Container>
             <Form onSubmit={handleSubmit}>
@@ -125,7 +118,6 @@ function FormContact() {
                             type="text"
                             placeholder="Họ tên..."
                             name="name"
-                            value={formData.name}
                             onChange={handleInputChange}
                             isInvalid={!!errors.name}
                         />
@@ -139,7 +131,6 @@ function FormContact() {
                             type="email"
                             placeholder="Email..."
                             name="email"
-                            value={formData.email}
                             onChange={handleInputChange}
                             isInvalid={!!errors.email}
                         />
@@ -153,7 +144,6 @@ function FormContact() {
                             type="text"
                             placeholder="Số điện thoại..."
                             name="phone"
-                            value={formData.phone}
                             onChange={handleInputChange}
                             isInvalid={!!errors.phone}
                         />
@@ -167,7 +157,6 @@ function FormContact() {
                             type="text"
                             placeholder="Tiêu đề..."
                             name="title"
-                            value={formData.title}
                             onChange={handleInputChange}
                             isInvalid={!!errors.title}
                         />
@@ -181,7 +170,6 @@ function FormContact() {
                             rows={6}
                             placeholder="Nội dung..."
                             name="content"
-                            value={formData.content}
                             onChange={handleInputChange}
                             isInvalid={!!errors.content}
                         />
@@ -189,36 +177,34 @@ function FormContact() {
                             {errors.content}
                         </Form.Control.Feedback>
                     </Col>
-                    {/* Hiển thị thông báo lỗi trên nút "Send Message" */}
-                    {/* {Object.keys(errors).length > 0 && (
-                    <div>
-                        <p style={{ color: 'red', fontWeight: 'bold' }}>Đã có lỗi xảy ra:</p>
-                        <ul>
-                            {Object.values(errors).map((error, index) => (
-                                <li key={index} style={{ color: 'red' }}>{error}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )} */}
                     <Col className='submit-contact'>
                         
-
-                        <Button type="submit" disabled={isSubmitting}>Gửi</Button>
+                        <Button type="submit" >Gửi</Button>
                         {/* Hiển thị thông báo thành công */}
                         {submitSuccess && (
                             <div style={{ color: 'green', textAlign: 'center', margin: '20px 0' }}>
                                 Nội dung đã được gửi thành công. Cảm ơn bạn!
                             </div>
                         )}
-
                     </Col>
-
                 </Row>
-
-
             </Form>
         </Container>
     );
 }
-
 export default FormContact;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
