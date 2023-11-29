@@ -52,7 +52,6 @@ function FormExample() {
         setSelectedDistrict(districtCode);
         callApiWard(districtCode);
     };
-
     const handleWardChange = () => {
         // Handle ward change if needed
     };
@@ -69,6 +68,8 @@ function FormExample() {
 
         setValidated(true);
     };
+    // ---------------------------------------------------------------------------------
+    
     return (
         <>
             <Row className='bg-light my-5 py-5 px-2'>

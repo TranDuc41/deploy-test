@@ -22,7 +22,7 @@ import BannerBooking from '@/components/reservations/selectBooking';
 import ItemRoomKeepBook from '@/components/reservations/itemRoomKeepBook';
 import ItemKeepRoom from '@/components/reservations/itemKeepRoom';
 import Spinner from '@/components/spinner';
-
+import { format, addDays, eachDayOfInterval, parse, differenceInDays } from 'date-fns';
 import { LuMapPin, LuMail, LuPhone } from 'react-icons/lu';
 
 //Data header
@@ -41,6 +41,7 @@ const address = [
 ]
 
 const ReservationsPage = () => {
+
   const router = useRouter();
   //Lay dữ liệu và get api
   const [data, setData] = useState(null);
@@ -52,8 +53,14 @@ const ReservationsPage = () => {
   const [show, setShowSummary] = useState(false);
   //summary
   const [summary, setSummary] = useState(2); // Giá trị mặc định cho desktop
-  // tạo chuỗi trạng thái
-  let status;
+
+  const [dataCheckIn, setdataCheckIn] = useState([]);
+  const [dataCheckOut, setdataCheckOut] = useState([]);
+  const [dataAdults, setdataAdults] = useState([]);
+  const [total_amountLocalStorage, settotal_amountLocalStorage] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalWithVATAndServiceFee, setTotalWithVATAndServiceFee] = useState(0);
+
   useEffect(() => {
     // Hàm xử lý thay đổi kích thước màn hình
     const handleResize = () => {
@@ -77,6 +84,7 @@ const ReservationsPage = () => {
     };
   }, []); // Dependency array rỗng để useEffect chỉ chạy một lần khi component mount
   // -------------------------------------------------------
+  let tmpCheckIn, tmpCheckout, tmpadults, tmpchildren;
   useEffect(() => {
     // Lấy dữ liệu từ URL khi được render
     const fetchDataFromURL = async () => {
@@ -96,7 +104,11 @@ const ReservationsPage = () => {
       if (!adults || !children || !roomType) {
         router.push('/not-found');
       }
-
+      tmpCheckIn = formattedStartDate;
+      tmpCheckout = formattedEndDate;
+      setdataCheckIn(formattedStartDate);
+      setdataCheckOut(formattedEndDate);
+      setdataAdults(adults);
       try {
 
         // Sử dụng giá trị từ URL để gọi API hoặc thực hiện các thao tác khác
@@ -104,6 +116,18 @@ const ReservationsPage = () => {
         const result = await response.json();
         // Cập nhật state với dữ liệu lấy được từ URL
         setData(result);
+        // Đối tượng cần lưu trữ
+        const itemObject = {
+          check_in: formattedStartDate,
+          check_out: formattedEndDate,
+          adults: adults,
+          children: children,
+        };
+
+        const itemsArray = [itemObject];
+
+        // Chuyển đổi mảng thành chuỗi JSON và lưu vào localStorage
+        localStorage.setItem('itemsArray', JSON.stringify(itemsArray));
       } catch (error) {
         router.push('/not-found');
         console.error('Error fetching room data:', error);
@@ -114,6 +138,22 @@ const ReservationsPage = () => {
     };
 
     fetchDataFromURL();
+  }, []);
+  ///------------------------------------------------
+  //lấy dữ liệu trên local Storage
+  useEffect(() => {
+    const excludedKey = 'total_amount';
+    const storedTotalAmount = localStorage.getItem(excludedKey);
+
+    if (storedTotalAmount !== null) {
+      // Nếu "total_amount" tồn tại trong localStorage
+      settotal_amountLocalStorage(storedTotalAmount);
+    } else {
+      // Nếu "total_amount" không tồn tại trong localStorage
+      // Thực hiện các hành động khác, ví dụ: gán một giá trị mặc định cho total_amount
+      settotal_amountLocalStorage('0');
+    }
+
   }, []);
   // -------------------------------------------------------
   const toggleAccordion = () => {
@@ -128,120 +168,232 @@ const ReservationsPage = () => {
   const handleNavItemClick = () => {
     setExpanded(false);
   };
-  return (
-    <main className='content_reservations'>
-      <Container fluid className="p-0">
-        <header>
-          <Navbar id='header-reservations' fixed="top" expand="lg" className="m-0 p-0 bg-body-tertiary" expanded={expanded}>
-            <Container>
-              {/* logo */}
-              <Navbar.Brand href="/" className='logo'>
-                <Image src="/dominion-logo.png"
-                  width={40}
-                  alt="Dominion Logo">
-                </Image>
-                <Image src="/dominion--.png"
-                  width={100}
-                  alt="Dominion logo">
-                </Image>
-              </Navbar.Brand>
-              <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(!expanded)} />
-              <Navbar.Collapse id="responsive-navbar-nav" className='justify-content-start flex-wrap'>
-                <Nav>
-                  {links.map((link, index) => (
-                    <Link key={index} href={link.href} className={`nav-link ${pathname == link.href ? "active" : ""}`} onClick={handleNavItemClick}>
-                      {link.text}
-                    </Link>
-                  ))}
+  //--------------------------------------------------------
+  //cap nhat tong tien
+  useEffect(() => {
+    // thoi gian 
+    const setcheckIn = parse(tmpCheckIn, 'dd/MM/yyyy', new Date());
+    const setcheckOut = parse(tmpCheckout, 'dd/MM/yyyy', new Date());
+    // Tính số ngày giữa hai ngày
+    const daysDifference = differenceInDays(setcheckOut, setcheckIn);
+    const songay = parseFloat(daysDifference);
+    // Mảng chứa tên các key cần lấy
+    const keysToRetrieve = ["key1", "key2", "key3"];
 
-                  <NavDropdown title="Dịch vụ khác" id="nav-dropdown">
-                    {dropdown.map((link, index) => (
-                      <NavDropdown.Item eventKey={index} href={link.href}>{link.text}</NavDropdown.Item>
+    // Khởi tạo biến để lưu tổng giá trị
+    let total = 0;
+    let totalVAT = 0;
+    console.log(songay);
+    // Duyệt qua mảng key và lấy dữ liệu từ localStorage
+    keysToRetrieve.forEach((key) => {
+      const storedItem = localStorage.getItem(key);
 
-                    ))}
-                  </NavDropdown>
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
-          {/* BANNER */}
-          <div className='banner-booking'>
-            <Container>
-              <div className='address-booking'>
-                <h1>Dominion</h1>
-                <div className='address'>
-                  {address.map((addres, index) => (
-                    <div key={index}>
-                      {addres.icon}
-                      <span>{addres.text}</span>
-                    </div>
+      // Kiểm tra xem storedItem có tồn tại hay không
+      if (storedItem !== null) {
+        const parsedItem = JSON.parse(storedItem);
+
+        // Tính tổng giá trị từ thuộc tính "price"
+        total += parsedItem?.price * songay || 0;
+        totalVAT += parsedItem?.price * 0.08 || 0;
+      }
+    });
+
+    // Tính tổng giá trị với 8% VAT và 2% phí dịch vụ
+    //const vatAmount = total * 0.08; // 8% VAT
+    const serviceFeeAmount = total * 0.02; // 2% phí dịch vụ
+    const totalWithVATAndServiceFee = total + totalVAT + serviceFeeAmount;
+
+    // Cập nhật state với tổng giá trị và tổng giá trị sau VAT và phí dịch vụ
+    setTotalPrice(totalVAT + serviceFeeAmount);
+    setTotalWithVATAndServiceFee(totalWithVATAndServiceFee);
+  }, []);
+
+  //---------------------------------------------------------
+return (
+  <main className='content_reservations'>
+    <Container fluid className="p-0">
+      <header>
+        <Navbar id='header-reservations' fixed="top" expand="lg" className="m-0 p-0 bg-body-tertiary" expanded={expanded}>
+          <Container>
+            {/* logo */}
+            <Navbar.Brand href="/" className='logo'>
+              <Image src="/dominion-logo.png"
+                width={40}
+                alt="Dominion Logo">
+              </Image>
+              <Image src="/dominion--.png"
+                width={100}
+                alt="Dominion logo">
+              </Image>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(!expanded)} />
+            <Navbar.Collapse id="responsive-navbar-nav" className='justify-content-start flex-wrap'>
+              <Nav>
+                {links.map((link, index) => (
+                  <Link key={index} href={link.href} className={`nav-link ${pathname == link.href ? "active" : ""}`} onClick={handleNavItemClick}>
+                    {link.text}
+                  </Link>
+                ))}
+
+                <NavDropdown title="Dịch vụ khác" id="nav-dropdown">
+                  {dropdown.map((link, index) => (
+                    <NavDropdown.Item eventKey={index} href={link.href}>{link.text}</NavDropdown.Item>
+
                   ))}
-                </div>
+                </NavDropdown>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+        {/* BANNER */}
+        <div className='banner-booking'>
+          <Container>
+            <div className='address-booking'>
+              <h1>Dominion</h1>
+              <div className='address'>
+                {address.map((addres, index) => (
+                  <div key={index}>
+                    {addres.icon}
+                    <span>{addres.text}</span>
+                  </div>
+                ))}
               </div>
-            </Container>
-          </div>
-          {/* END BANNER */}
-        </header>
-      </Container>
-      <Container>
+            </div>
+          </Container>
+        </div>
+        {/* END BANNER */}
+      </header>
+    </Container>
+    <Container>
 
-        <Row>
-          <Col lg={7} sm={12}>
-            {/* seclect booking */}
-            <Container>
-              <Row className='seclect-booking mt-5'>
-                <BannerBooking />
-              </Row>
-            </Container>
-            {/* end seclect booking */}
-            {/* room seclect booking */}
-            <Container>
-              <Row className='room-select my-3'>
-                <div className='select-room p-0'>
-                  <h4>Chọn Phòng</h4>
-                  <div className='select-items'>
-                    {/* <h6>Xem kết quả theo</h6> */}
-                    <div className='justify-content-end'>
-                      <Form.Label className="fw-normal fs-6">Xem kết quả theo</Form.Label>
-                      <Form.Select className="p-0 fw-bold" aria-label="Default select example">
-                        <option value="1">Đề xuất</option>
-                        <option value="2">Giá Thấp - Cao</option>
-                        <option value="3">Giá Cao - Thấp</option>
-                      </Form.Select>
-                    </div>
+      <Row>
+        <Col lg={7} sm={12}>
+          {/* seclect booking */}
+          <Container>
+            <Row className='seclect-booking mt-5'>
+              <BannerBooking />
+            </Row>
+          </Container>
+          {/* end seclect booking */}
+          {/* room seclect booking */}
+          <Container>
+            <Row className='room-select my-3'>
+              <div className='select-room p-0'>
+                <h4>Chọn Phòng</h4>
+                <div className='select-items'>
+                  {/* <h6>Xem kết quả theo</h6> */}
+                  <div className='justify-content-end'>
+                    <Form.Label className="fw-normal fs-6">Xem kết quả theo</Form.Label>
+                    <Form.Select className="p-0 fw-bold" aria-label="Default select example">
+                      <option value="1">Đề xuất</option>
+                      <option value="2">Giá Thấp - Cao</option>
+                      <option value="3">Giá Cao - Thấp</option>
+                    </Form.Select>
                   </div>
                 </div>
-              </Row>
-            </Container>
-            <Container>
-              {loading ? (
-                <Spinner />
-              ) : data.countbyslug ? (
-                <p><span>{data.countbyslug}</span></p>
-              ) : data.countbyadults ? (
-                <p><span>{data.countbyadults}</span></p>
-              ) : (
-                <div>
-                  {/* Vòng lặp để hiển thị danh sách các phòng */}
-                  {data.rooms.map((room) => (
-                    <div key={room.id}>
-                      <ItemRoomKeepBook item={room} />
+              </div>
+            </Row>
+          </Container>
+          <Container>
+            {loading ? (
+              <Spinner />
+            ) : data.countbyslug ? (
+              <p><span>{data.countbyslug}</span></p>
+            ) : data.countbyadults ? (
+              <p><span>{data.countbyadults}</span></p>
+            ) : (
+              <div>
+                {/* Vòng lặp để hiển thị danh sách các phòng */}
+                {data.rooms.map((room) => (
+                  <div key={room.id}>
+                    <ItemRoomKeepBook item={room} checkin={dataCheckIn} checkout={dataCheckOut} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </Container>
+          {/* end Item room keep book */}
+        </Col>
+        {summary === 2 ? (
+          <Col lg={5}>
+            <section id="summary">
+              <Container className="bg-light p-4 my-5">
+                <div className="summary-header pb-3">
+                  <Row className="summary-total-heading mb-3">
+                    <Col className="grand-total-heading--title">Tổng
+                    </Col>
+                    <Col className="grand-total-heading--amount text-end">{(parseFloat(total_amountLocalStorage)).toLocaleString()} vnd
+                    </Col>
+                  </Row>
+                  <Row className="summary-cart_hotelDetails ">
+                    <div className="summary-cart_checkIn" style={{ width: '50%' }}>
+                      <b><span>Nhận phòng</span></b><br />
+                      <span>Sau 2:00 chiều</span>
                     </div>
-                  ))}
+
+                    <div class="summary-cart_checkOut" style={{ width: '50%' }}>
+                      <b><span>Trả phòng</span></b><br />
+                      <span>Trước 12:00 chiều</span>
+                    </div>
+                  </Row>
                 </div>
-              )}
-            </Container>
-            {/* end Item room keep book */}
+                <div className="summary-content">
+                  <ItemKeepRoom checkin={dataCheckIn} checkout={dataCheckOut} adults={dataAdults} />
+                </div>
+                <div className="summary-footer mt-3">
+                  <Row className="summary-total-footer">
+                    <Col className="grand-total-footer--title">Tổng
+                    </Col>
+                    <Col className="grand-total-footer--amount text-end">{(parseFloat(totalWithVATAndServiceFee)).toLocaleString()} vnd
+                    </Col>
+                  </Row>
+                  <Row className="summary-total-prices_displayed_include_fees">
+                    <div className="accordion-header" onClick={toggleAccordion}>
+                      <h6>Đã bao gồm thuế + phí  <RiArrowDropDownLine /></h6>
+                    </div>
+                    {isOpen && (
+                      <div className="accordion-content d-flex px-4" style={{ justifyContent: "space-between" }}>
+                        {/* vat va phí */}
+                        <p>VAT & Phí dịch vụ</p> <p>{totalPrice} VND</p>
+                      </div>
+                    )}
+                  </Row>
+                  <div class="thumb-cards_button text-center mt-5">
+                    <Button href="/reservations/payment" className="btn-continue" variant="warning">Tiếp tục thanh toán</Button>
+                  </div>
+                </div>
+              </Container>
+            </section>
           </Col>
-          {summary === 2 ? (
-            <Col lg={5}>
+        ) : (
+          <div>
+            <Button variant="light" onClick={handleSummaryShow}
+              style={{
+                position: 'fixed',
+                bottom: '20px',
+                right: '20px',
+                padding: '10px',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '50%',
+                cursor: 'pointer',
+              }}>
+              <Image
+                src="/dominion-logo.png"
+                alt="dominion-logo"
+                width={40} />
+            </Button>
+
+            <Offcanvas show={show} onHide={handleSummaryClose} backdrop="static">
+              <Offcanvas.Header closeButton>
+              </Offcanvas.Header>
               <section id="summary">
-                <Container className="bg-light p-4 my-5">
+                <Container className="p-4 my-5">
                   <div className="summary-header pb-3">
                     <Row className="summary-total-heading mb-3">
                       <Col className="grand-total-heading--title">Tổng
                       </Col>
-                      <Col className="grand-total-heading--amount text-end">70.791.126 vnd
+                      <Col className="grand-total-heading--amount text-end">{total_amountLocalStorage} vnd
                       </Col>
                     </Row>
                     <Row className="summary-cart_hotelDetails ">
@@ -258,7 +410,7 @@ const ReservationsPage = () => {
                   </div>
                   <div className="summary-content">
                     <Row>
-                      <ItemKeepRoom />
+                      {/* <ItemKeepRoom /> */}
                     </Row>
                   </div>
                   <div className="summary-footer mt-3">
@@ -286,88 +438,14 @@ const ReservationsPage = () => {
 
                 </Container>
               </section>
-            </Col>
-          ) : (
-            <div>
-              <Button variant="light" onClick={handleSummaryShow}
-                style={{
-                  position: 'fixed',
-                  bottom: '20px',
-                  right: '20px',
-                  padding: '10px',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '50%',
-                  cursor: 'pointer',
-                }}>
-                <Image
-                  src="/dominion-logo.png"
-                  alt="dominion-logo"
-                  width={40} />
-              </Button>
+            </Offcanvas>
+          </div>
+        )}
+      </Row>
+    </Container>
 
-              <Offcanvas show={show} onHide={handleSummaryClose} backdrop="static">
-                <Offcanvas.Header closeButton>
-                </Offcanvas.Header>
-                <section id="summary">
-                  <Container className="p-4 my-5">
-                    <div className="summary-header pb-3">
-                      <Row className="summary-total-heading mb-3">
-                        <Col className="grand-total-heading--title">Tổng
-                        </Col>
-                        <Col className="grand-total-heading--amount text-end">70.791.126 vnd
-                        </Col>
-                      </Row>
-                      <Row className="summary-cart_hotelDetails ">
-                        <div className="summary-cart_checkIn" style={{ width: '50%' }}>
-                          <b><span>Nhận phòng</span></b><br />
-                          <span>Sau 2:00 chiều</span>
-                        </div>
-
-                        <div class="summary-cart_checkOut" style={{ width: '50%' }}>
-                          <b><span>Trả phòng</span></b><br />
-                          <span>Trước 12:00 chiều</span>
-                        </div>
-                      </Row>
-                    </div>
-                    <div className="summary-content">
-                      <Row>
-                        <ItemKeepRoom />
-                      </Row>
-                    </div>
-                    <div className="summary-footer mt-3">
-                      <Row className="summary-total-footer">
-                        <Col className="grand-total-footer--title">Tổng
-                        </Col>
-                        <Col className="grand-total-footer--amount text-end">70.791.126 vnd
-                        </Col>
-                      </Row>
-                      <Row className="summary-total-prices_displayed_include_fees">
-                        <div className="accordion-header" onClick={toggleAccordion}>
-                          <h6>Đã bao gồm thuế + phí  <RiArrowDropDownLine /></h6>
-                        </div>
-                        {isOpen && (
-                          <div className="accordion-content d-flex px-4" style={{ justifyContent: "space-between" }}>
-                            {/* vat va phí */}
-                            <p>VAT & Phí dịch vụ</p> <p>10.250.555 vnd</p>
-                          </div>
-                        )}
-                      </Row>
-                      <div class="thumb-cards_button text-center mt-5">
-                        <Button href="/reservations/payment" className="btn-continue" variant="warning" >Tiếp tục thanh toán</Button>
-                      </div>
-                    </div>
-
-                  </Container>
-                </section>
-              </Offcanvas>
-            </div>
-          )}
-        </Row>
-      </Container>
-
-    </main>
-  )
+  </main>
+)
 }
 
 export default ReservationsPage;

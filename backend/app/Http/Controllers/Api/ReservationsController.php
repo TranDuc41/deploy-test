@@ -24,7 +24,6 @@ class ReservationsController extends Controller
                         ->where('status', 'work');
                 })
                 ->get();
-
             if ($rooms->isEmpty()) {
                 // kiem tra so phòng tìm kiếm có phải do số lượng
                 $countByAdults = Room::where('adults', '>=', $adults)->count();

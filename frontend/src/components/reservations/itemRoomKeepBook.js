@@ -7,13 +7,13 @@ import Card from 'react-bootstrap/Card';
 //css
 import '@/app/custom-1.css'
 //Modal
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ModalItemRoomKeepBook from '@/components/reservations/modalItemRoomKeepBook';
 //component
 import ImageModals from '@/components/bannerroomdetail';
-
+import { format, addDays, eachDayOfInterval, parse, differenceInDays } from 'date-fns';
 // //Data
 // const room = {
 //     room_id: 1,
@@ -81,32 +81,48 @@ import ImageModals from '@/components/bannerroomdetail';
 
 // }
 
-const ItemRoomKeepBook = ({ item }) => {
+const ItemRoomKeepBook = ({ item ,checkin, checkout }) => {
+    //------------------------------------------
+    // thoi gian 
+    const setcheckIn = parse(checkin, 'dd/MM/yyyy', new Date());
+    const setcheckOut = parse(checkout, 'dd/MM/yyyy', new Date());
+
+    // const dateArray = eachDayOfInterval({ start: setcheckIn, end: addDays(setcheckOut, -1) });
+
+    // Tính số ngày giữa hai ngày
+    const daysDifference = differenceInDays(setcheckOut, setcheckIn);
+    const songay = parseFloat(daysDifference);
+    // -------------------------------
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [reloadKey, setReloadKey] = useState(false);
     var status = true;
-    useEffect(() => {
-        // Lấy danh sách các keys trong Local Storage
-        const localStorageKeys = count(localStorage);
-
-        console.log(localStorageKeys);
-        if (localStorageKeys.length > 2) {
-            status = false;
-        }
-        else{
-            status = true;
-            // localStorage.setItem(item.slug, item.slug);
-        }
-    }, []);
 
     //tạo Local Storage
-  const handleChange = () => {
-    if (status === true) {
-    // Lưu dữ liệu vào Local Storage với key là 'myData'
-    localStorage.setItem(item.slug, item.slug);
-    }
-  };
+    const handleChange = () => {
+        var total_amount = localStorage.getItem('total_amount');
+        var numericTotalAmount = parseFloat(total_amount);
+        numericTotalAmount = isNaN(numericTotalAmount) ? 0 : numericTotalAmount;
+        // Assuming item.price is always a valid numeric value
+        var itemPrice = parseFloat(item.price);
+
+        // const targetKeys = ['key1', 'key2', 'key3'];
+        if (!localStorage.getItem('key1')) {
+            localStorage.setItem('key1',JSON.stringify(item));
+            numericTotalAmount += (itemPrice*songay);
+        } else if (!localStorage.getItem('key2')) {
+            localStorage.setItem('key2', JSON.stringify(item));
+            numericTotalAmount +=  (itemPrice*songay);
+        } else if (!localStorage.getItem('key3')) {
+            localStorage.setItem('key3',JSON.stringify(item));
+            numericTotalAmount +=  (itemPrice*songay);
+            
+        }
+        // Update the total_amount in local storage outside the if conditions
+        localStorage.setItem('total_amount', numericTotalAmount);
+        window.location.reload();
+    };
     return (
         <Row className="bg-light thumb-cards_keep_room my-4">
             <Col lg={5} className="px-0">
@@ -122,7 +138,7 @@ const ItemRoomKeepBook = ({ item }) => {
                             <BsFillPersonFill /> {item.adults} người
                         </div>
                         <div className="trigger roomsize_bed">
-                            <BiSolidBed />{ (Number(item.adults)/2)} Giường lớn
+                            <BiSolidBed />{(Number(item.adults) / 2)} Giường lớn
                         </div>
                     </div>
                     <div className="thumb-cards_trigger_and_room_ thumb-cards_trigger_and_room_info_2">
@@ -146,7 +162,7 @@ const ItemRoomKeepBook = ({ item }) => {
                         <div class="thumb-cards_taxesFees">Không bao gồm thuế và phí </div>
                     </div>
                     <div class="thumb-cards_button">
-                        <button className="btn-booking" onClick={handleChange}  variant="warning">Đặt phòng</button>
+                        <button className="btn-booking" onClick={handleChange} variant="warning">Đặt phòng</button>
                     </div>
                 </div>
             </Col>
