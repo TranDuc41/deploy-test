@@ -83,7 +83,7 @@ class BookinsRestaurantSpaController extends Controller
                     // Tính sự khác biệt giữa ngày được yêu cầu và ngày hiện tại
                     $dateDifference = $currentDate->diff($dateTime);
 
-                    if ($dateTime > $currentDate && $dateDifference->days <= 36) {
+                    if ($dateTime >= $currentDate && $dateDifference->days <= 36) {
                         $formattedDate = $dateTime->format('d/m/Y');
 
                         $bookingRestaurantSpa->full_name = $request->input('name');
@@ -125,5 +125,47 @@ class BookinsRestaurantSpaController extends Controller
         } catch (\Throwable $th) {
             return redirect()->route('bookings')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
         }
+    }
+
+    public function deleteAllRestaurant(Request $request)
+    {
+        // Lấy danh sách các ID cần xóa từ request
+        $ids = $request->input('ids');
+
+        // Lấy danh sách các ID có sw_id bằng null
+        $idsWithNullSwId = BookingRestaurantSpa::whereNull('sw_id')->pluck('id')->toArray();
+
+        // Kiểm tra xem có ID nào không tồn tại trong cơ sở dữ liệu không
+        $nonExistingIds = array_diff($ids, $idsWithNullSwId);
+
+        if (!empty($nonExistingIds)) {
+            return response()->json(['message' => 'Có phần nội dung không tồn tại.'], 422);
+        }
+
+        // Nếu mọi thứ đều hợp lệ, thực hiện xóa dữ liệu từ cơ sở dữ liệu
+        BookingRestaurantSpa::whereIn('id', $ids)->delete();
+
+        return response()->json(['message' => 'Xóa thành công.']);
+    }
+
+    public function deleteAllSpa(Request $request)
+    {
+        // Lấy danh sách các ID cần xóa từ request
+        $ids = $request->input('ids');
+
+        // Lấy danh sách các ID có sw_id bằng null
+        $idsWithNullSwId = BookingRestaurantSpa::whereNull('restaurant_id')->pluck('id')->toArray();
+
+        // Kiểm tra xem có ID nào không tồn tại trong cơ sở dữ liệu không
+        $nonExistingIds = array_diff($ids, $idsWithNullSwId);
+
+        if (!empty($nonExistingIds)) {
+            return response()->json(['message' => 'Có phần nội dung không tồn tại.'], 422);
+        }
+
+        // Nếu mọi thứ đều hợp lệ, thực hiện xóa dữ liệu từ cơ sở dữ liệu
+        BookingRestaurantSpa::whereIn('id', $ids)->delete();
+
+        return response()->json(['message' => 'Xóa thành công.']);
     }
 }

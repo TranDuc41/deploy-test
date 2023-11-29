@@ -693,9 +693,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
+
 });
-
-
 
 //Xử lý tìm kiếm trong table
 function searchInTableFunction() {

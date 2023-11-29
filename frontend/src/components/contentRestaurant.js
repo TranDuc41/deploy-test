@@ -129,8 +129,10 @@ const contentRestaurant = () => {
                     if (responseData.success) {
                         handleCloseModal();
                         alert('Đặt chỗ thành công.\n Nhân viên sẽ sớm liên hệ để xác nhận với bạn. \n Xin cảm ơn.');
+                        window.location.reload();
                     } else {
-                        alert('Đặt chỗ thất bại!. Chỗ đã được đặt hết.');
+                        alert(responseData.message);
+                        window.location.reload();
                     }
                 } catch (error) {
                     console.error('Error:', error);
