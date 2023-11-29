@@ -179,8 +179,8 @@
                         <div class="modal-body" id="modal-room-body_item">
                             @foreach ($rooms as $item)
                                 <div class="card card-blog card-plain">
-
-                                    <div class="row">
+                                       <div class="row">
+                                        
                                         <div class="col-lg-4">
                                             <div class="position-relative">
                                                 <a class="d-block blur-shadow-image">

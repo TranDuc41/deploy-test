@@ -29,7 +29,16 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header pb-0 px-3">
+                        <div class="row">
+                            <div class="col-lg-7 col-7">
+                               
+                            </div>
+                            <div class="col-lg-5 col-5 my-auto mb-2 d-flex text-end justify-content-end">
+                                <button class="btn bg-gradient-primary btn-sm mb-0" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalAddRoomType">Thêm khách hàng</button>
 
+                            </div>
+                        </div>
                         <div class="row">
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -39,6 +48,7 @@
                                     <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
                                         data-bs-target="#nav-contact" type="button" role="tab"
                                         aria-controls="nav-contact" aria-selected="false">Contact</button>
+                                        
                                 </div>
                             </nav>
                             
@@ -100,7 +110,56 @@
                     {{-- {{ $encodedCustomers->links('pagination::bootstrap-5') }} --}}
                 </div>
             </div>
-
+            {{-- Modal thêm --}}
+            <div class="modal fade" id="exampleModalAddRoomType" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Thêm Khách hàng</h5>
+                            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('customer.create') }}" method="POST" class="needs-validation">
+                                @csrf
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="prefix" id="flexRadioDefault1" value="Ông" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                       Ông
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="prefix" id="flexRadioDefault2" value="Bà" >
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Bà
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Tên Khách hàng</label>
+                                    <input class="form-control" type="text" name="full_name" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-email-input" class="form-control-label">Email</label>
+                                    <input class="form-control" type="email" name="email" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-tel-input" class="form-control-label">Số điện thoại</label>
+                                    <input class="form-control" type="text" name="phone_number" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-number-input" class="form-control-label">Địa chỉ</label>
+                                    <input class="form-control" type="text" name="address" >
+                                    
+                                </div>
+                                <button type="submit" class="btn bg-gradient-primary">Thêm</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="footer pt-3  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">

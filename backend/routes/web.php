@@ -17,7 +17,7 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SpaController;
 use App\Http\Controllers\BookinsRestaurantSpaController;
 use App\Http\Controllers\FaqController;
-
+use App\Http\Controllers\AddressController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,15 +83,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/amenities/{amenities_id}', [AmenitiesController::class, 'show'])->name('amenities.update');
     Route::put('/amenities/{amenities_id}', [AmenitiesController::class, 'update'])->name('amenities.update');
     Route::delete('/amenities/{amenities_id}', [AmenitiesController::class, 'delete'])->name('amenities.delete');
-    
+
     //Reservations
     Route::get('/reservation', [ReservationsController::class, 'showReservationsList']);
     Route::get('/reservation/new', [ReservationsController::class, 'createReservations'])->name('reservation.createReservations');
     Route::get('/rooms/{slug}', [ReservationsController::class, 'showRoom'])->name('reservation.showRoom');
     //Customer
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+    Route::post('/customer', [CustomerController::class, 'create'])->name('customer.create');
     Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
     Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
+
+    Route::get('/api/cities', [AddressController::class, 'getCities']);
+    Route::get('/api/districts/{cityCode}', [AddressController::class, 'getDistricts']);
+    Route::get('/api/wards/{districtCode}', [AddressController::class, 'getWards']);
 
     //Restaurant
     Route::get('/restaurant', [RestaurantController::class, 'index'])->name('restaurant');
@@ -169,4 +174,3 @@ Route::get('/search-packages', [PackageController::class, 'search']);
 
 Route::get('/user/profile/edit', [UserProfileController::class, 'edit'])->name('profile.edit');
 require __DIR__ . '/auth.php';
-

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->char('email', 55)->unique(); // Thêm unique key cho email
             $table->string('address', 255);
             $table->char('phone_number', 10)->unique(); // Thêm unique key cho phone_number
-            $table->char('number_cccd')->unique();
+            $table->char('number_cccd')->unique()->nullable();
             $table->timestamps();
         });
     }
