@@ -19,7 +19,99 @@
 })()
 
 document.addEventListener("DOMContentLoaded", function () {
+    var total_amount = document.getElementById('total_amount');
+    var discount = document.getElementById('discount');
+    var service_charge = document.getElementById('service_charge');
+    var VAT = document.getElementById('VAT');
 
+    var room_booking = document.querySelectorAll('.room-booking-item');
+    if (room_booking !== null) {
+        room_booking.forEach(function (item) {
+            item.addEventListener('click', function () {
+                console.log("thanh cong");
+                const cardContainer = document.getElementById('booking-body');
+                const slug = item.dataset.slug;
+                console.log(slug);
+                fetch(`/rooms/${slug}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Xử lý dữ liệu nhận được từ server (data) ở đây
+                        if (data !== null && data !== undefined) {
+                            if (Object.keys(data).length !== 0) {
+
+                                const newCard = document.createElement('div');
+                                
+                                newCard.innerHTML = `
+                                <div class="card card-blog card-plain my-3" >
+                                <div class="row">
+                                <button type="button" class="btn btn-link text-end remove-room-booking" style="position: absolute"><i class="ni ni-fat-remove h3"></i></button>
+                                    <div class="col-lg-4">
+                                        <div class="position-relative">
+                                            <a class="d-block blur-shadow-image">
+                                                <img src="${data.images[0].img_src}" alt="img-blur-shadow"
+                                                    class="img-fluid shadow border-radius-lg" width="100%"
+                                                    height="500px" style="object-fit: cover">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="card-body px-0 pt-4">
+                                            <p
+                                                class="text-gradient text-primary text-gradient font-weight-bold text-sm text-uppercase">
+                                            ${data.price} VND</p>
+                                            <a href="javascript:;">
+                                                <h3>
+                                                ${data.title}
+                                                </h3>
+                                            </a>
+                                            <p>
+                                            ${data.description}
+                                            </p>
+                                            <blockquote class="blockquote text-white mb-0">
+                                                <p class="text-dark ms-3">Người lớn :  ${data.adults} người</p>
+                                                <p class="text-dark ms-3">Trẻ em :  ${data.children} người </p>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                `;
+                                
+                                cardContainer.appendChild(newCard);
+                                
+                            } else {
+                                console.log("Không có dữ liệu. Vui lòng thử lại!");
+                            }
+                        } else {
+                            console.log("Không có dữ liệu. Vui lòng thử lại!");
+                        }
+                    })
+                    .catch(error => {
+                        // Xử lý lỗi ở đây
+                        console.error('Error:', error);
+                    });
+
+            });
+        });
+    }
+
+    var remove_room_booking = document.querySelectorAll('.remove-room-booking');
+    if (remove_room_booking != null) {
+        remove_room_booking.forEach(function (item) {
+            item.addEventListener('click', function () {
+                const card = item.closest('.card');
+                console.log(card);
+                if (card) {
+                    card.remove();
+                }
+            });
+        });
+    }
     // ---------------------------------------------------------------------------------------------------------------------
     //Edit room type
     var editRoomtypes = document.querySelectorAll('.editRoomtype');
@@ -140,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ---------------------------------------------------------------------------------------------------------------------
     // Lấy phần tử input bằng id
     var user_id = document.getElementById('user_id_item');
-    
+
     const user_id_original = user_id.value;
     // Đặt giá trị cho phần tử input
     user_id.value = encodeID(user_id.value);;
@@ -231,8 +323,8 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     // ---------------------------------------------------------------------------------------------------------------------
-    
-    
+
+
 });
 //tạo slug
 function createSlug(name) {
@@ -351,3 +443,18 @@ function searchInTableRoomTypeFunction() {
         }
     }
 }
+//chan duuble click
+var isButtonClicked = false;
+
+function handleClick() {
+    if (!isButtonClicked) {
+        isButtonClicked = true;
+        // Thực hiện hành động của bạn ở đây
+
+        // Sau khi hoàn thành, đặt lại trạng thái
+        setTimeout(function () {
+            isButtonClicked = false;
+        }, 2000); // Thời gian chờ giữa các lần click để tránh double click
+    }
+}
+

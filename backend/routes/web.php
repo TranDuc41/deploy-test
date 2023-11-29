@@ -9,6 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoomTypeController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\AmenitiesController;
+use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\PackageController;
 /*
@@ -76,6 +78,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/amenities/{amenities_id}', [AmenitiesController::class, 'show'])->name('amenities.update');
     Route::put('/amenities/{amenities_id}', [AmenitiesController::class, 'update'])->name('amenities.update');
     Route::delete('/amenities/{amenities_id}', [AmenitiesController::class, 'delete'])->name('amenities.delete');
+    
+    //Reservations
+    Route::get('/reservation', [ReservationsController::class, 'showReservationsList']);
+    Route::get('/reservation/new', [ReservationsController::class, 'createReservations'])->name('reservation.createReservations');
+    Route::get('/rooms/{slug}', [ReservationsController::class, 'showRoom'])->name('reservation.showRoom');
+    //Customer
+    Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
+    Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
 });
 
 Route::middleware('auth')->group(function () {

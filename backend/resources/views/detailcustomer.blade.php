@@ -26,81 +26,70 @@
                 @endif
 
             </div>
+            <div class="row d-flex">
+                <a href="/customer"><i class="ni ni-bold-left size-2"></i> <span class="h4">
+                        {{ $customer->full_name }}</span></a>
+            </div>
             <div class="row">
-                <div class="card">
-                    <div class="card-header pb-0 px-3">
-
-                        <div class="row">
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
-                                        aria-selected="true">Khách Hàng</button>
-                                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-contact" type="button" role="tab"
-                                        aria-controls="nav-contact" aria-selected="false">Contact</button>
+                <div class="col-md-7 mt-4">
+                    <div class="card">
+                        <div class="card-header pb-0 px-3">
+                            <h6 class="text-uppercase text-body text-xs font-weight-bolder">Phòng đã đặt</h6>
+                        </div>
+                        <div class="card-body pt-4 p-3">
+                            <ul class="list-group">
+                                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                    <div class="d-flex flex-column">
+                                        <h6 class="mb-3 text-sm">Oliver Liam</h6>
+                                        <span class="mb-2 text-xs">Company Name: <span
+                                                class="text-dark font-weight-bold ms-sm-2">Viking Burrito</span></span>
+                                        <span class="mb-2 text-xs">Email Address: <span
+                                                class="text-dark ms-sm-2 font-weight-bold">oliver@burrito.com</span></span>
+                                        <span class="text-xs">VAT Number: <span
+                                                class="text-dark ms-sm-2 font-weight-bold">FRB1235476</span></span>
+                                    </div>
+                                    <div class="ms-auto text-end">
+                                        <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i
+                                                class="far fa-trash-alt me-2"></i>Delete</a>
+                                        <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i
+                                                class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 mt-4">
+                    <div class="card mb-4">
+                        <div class="card-body pt-4 p-3">
+                            <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Thông tin khách hàng</h6>
+                            <form method="POST" action="{{ route('customer.show', ['id' => $customer->encoded_id]) }}">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Tên Khách hàng</label>
+                                    <input class="form-control" type="text" name="full_name"  value="{{ $customer->full_name }}" >
                                 </div>
-                            </nav>
-                            
+                                <div class="form-group">
+                                    <label for="example-email-input" class="form-control-label">Email</label>
+                                    <input class="form-control" type="email" name="email" value="{{ $customer->email }}" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-tel-input" class="form-control-label">Số điện thoại</label>
+                                    <input class="form-control" type="text" name="phone_number" value="{{ $customer->phone_number }}" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-number-input" class="form-control-label">Địa chỉ</label>
+                                    <input class="form-control" type="text" name="address" value="{{ $customer->address }}">
+                                    <input class="form-control" type="hidden" name="update" value="{{ $customer->updated_at }}" >
+                                </div>
+                                
+                                <button type="submit" onclick="handleClick()" class="btn bg-gradient-primary" id="Sửa thông tin">Sửa thông tin</button>
+                            </form>
                         </div>
-                        
                     </div>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
-                            tabindex="0">
-                            <div class="table-responsive">
-                                <table class="table align-items-center mb-0" id="usersTable">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Tên
-                                                khách hàng</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Email</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Địa
-                                                chỉ</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Số điện thoại</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($encodedCustomers as $item)
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ route('customer.show', ['id' => $item->encoded_id]) }}"
-                                                        class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-xs">{{ $item->full_name }}</h6>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->email }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->address }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->phone_number }}</p>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"
-                            tabindex="0">2</div>
-                    </div>
-
-                    {{-- {{ $encodedCustomers->links('pagination::bootstrap-5') }} --}}
                 </div>
             </div>
-
             <footer class="footer pt-3  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">

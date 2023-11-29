@@ -28,73 +28,58 @@
             </div>
             <div class="row">
                 <div class="card">
-                    <div class="card-header pb-0 px-3">
-
+                    <div class="card-header pb-1  border-bottom-1">
                         <div class="row">
-                            <nav>
-                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
-                                        aria-selected="true">Khách Hàng</button>
-                                    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
-                                        data-bs-target="#nav-contact" type="button" role="tab"
-                                        aria-controls="nav-contact" aria-selected="false">Contact</button>
-                                </div>
-                            </nav>
-                            
-                        </div>
-                        
-                    </div>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
-                            tabindex="0">
-                            <div class="table-responsive">
-                                <table class="table align-items-center mb-0" id="usersTable">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Tên
-                                                khách hàng</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Email</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Địa
-                                                chỉ</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Số điện thoại</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($encodedCustomers as $item)
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ route('customer.show', ['id' => $item->encoded_id]) }}"
-                                                        class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-xs">{{ $item->full_name }}</h6>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->email }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->address }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->phone_number }}</p>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                            <div class="col-lg-7 col-7">
+                                <h5 class="text-uppercase text-body text-xs font-weight-bolder">Thông tin đặt phòng</h5>
+                            </div>
+                            <div class="col-lg-5 col-5 my-auto mb-2 d-flex text-end">
+                                <input class="form-control mx-3 mt" onkeyup="searchInTableRoomTypeFunction()" type="search"
+                                    value="" placeholder="Nhập nội dung tìm kiếm..." id="search-input-roomRype">
+                                <a href="{{ route('reservation.createReservations') }}" class="btn bg-gradient-primary">Thêm</a>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab"
-                            tabindex="0">2</div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center mb-0" id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Mã đơn</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Thời gian</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Khách hàng</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Tổng số tiền</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Tình trạng thanh toán </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($encodedReservations as $item)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('customer.show', ['id' => $item->encoded_id]) }}"
+                                                class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-xs"> #{{ $item->reservations_id }}</h6>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->create_at }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->customer->full_name }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->invoices->total_amount }}</p>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
 
                     {{-- {{ $encodedCustomers->links('pagination::bootstrap-5') }} --}}

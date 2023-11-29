@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id('reservations_id');
             $table->string('note', 255)->nullable();
+            $table->char('method', 10); // phương thức đặt (online đặt tại website/offline đặt tại khách sạn)
             $table->timestamps();
 
             //tao khoa ngoai
