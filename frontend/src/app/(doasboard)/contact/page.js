@@ -4,6 +4,7 @@ import { LuMapPin, LuMail, LuPhone } from 'react-icons/lu';
 import FormContact from '@/components/formContact';
 import GoogleMap from '@/components/map';
 import Image from 'next/image';
+import CustomHead from '@/components/CustomHead';
 
 export const metadata = {
   title: 'Contact Page',
@@ -25,7 +26,7 @@ export default function Contact() {
         alt="Banner contact" />
       <div className='contact-page' >
         <Container>
-        
+
           <div className='row'>
             <div className='col-12 col-xl-6'>
               <h3>Khách sạn Dominion</h3>
@@ -43,12 +44,12 @@ export default function Contact() {
             </div>
             <div className='col-12  col-xl-6'>
               <h3>Đánh giá & Góp ý</h3>
-              <FormContact/>
+              <FormContact />
             </div>
           </div>
           <div className='map-container'><GoogleMap /></div>
         </Container>
-       
+
       </div>
     </main>
   )
