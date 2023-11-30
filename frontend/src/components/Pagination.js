@@ -1,8 +1,7 @@
 // Pagination.js
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
 
 const Pagination = ({ currentPage, setPage, pageCount }) => {
@@ -38,7 +37,7 @@ const Pagination = ({ currentPage, setPage, pageCount }) => {
             {/* Nút quay lại */}
             {currentPage > 1 && (
                 <Button className="pagination-btn" onClick={() => setPage(currentPage - 1)}>
-                    <FontAwesomeIcon icon={faArrowLeft} />
+                    <GrFormPrevious />
                 </Button>
             )}
 
@@ -70,7 +69,7 @@ const Pagination = ({ currentPage, setPage, pageCount }) => {
             {/* Nút đi tiếp */}
             {currentPage < pageCount && (
                 <Button className="pagination-btn" onClick={() => setPage(currentPage + 1)}>
-                    <FontAwesomeIcon icon={faArrowRight} />
+                    <GrFormNext />
                 </Button>
             )}
         </div>
