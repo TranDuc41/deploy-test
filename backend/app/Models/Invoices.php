@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Customer;
-use App\Models\Payment;
 use App\Models\Reservation;
 class Invoices extends Model
 {
@@ -14,7 +12,7 @@ class Invoices extends Model
     
     public function reservation()
     {
-        return $this->belongsTo(Reservation::class, 'reservation_id');
+        return $this->belongsTo(Reservation::class, 'reservations_id');
     }
     use HasFactory;
 }

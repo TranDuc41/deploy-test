@@ -88,7 +88,8 @@
                             <ul class="list-group " style="width: 50%">
                                 <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg text-end justify-content-end">
                                     <div class="d-flex flex-column">
-                                        <h6 class="mb-3 text-sm" id="total_amount">0</h6>
+                                        <h6 class="mb-3 text-sm" ><span id="total_amount">0</span> VND</h6>
+                                        <input type="hidden" name="total_amount" id="total_amount-input">
                                         <span class="mb-2 text-xs" id="discount">0</span>
                                         <span class="mb-2 text-xs" id="service_charge">0</span>
                                         <span class="text-xs" id="VAT">0</span>

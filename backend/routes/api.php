@@ -43,7 +43,9 @@ Route::post('/spa', [SpaController::class, 'create']);
 //lan anh
 Route::get('rooms/{slug}', [RoomController::class, 'show']);
 Route::get('reservations/{adults}/{children}/{slug_rty}', [ReservationsController::class, 'index']);
+Route::post('/reservations', [ReservationsController::class, 'create']);
 Route::get('gallery', [GalleryController::class, 'index']);
+
 //Tri
 Route::get('/info', [InfoController::class, 'index']);
 

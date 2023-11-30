@@ -24,15 +24,12 @@ class ReservationsController extends Controller
         // } catch (\Throwable $th) {
         //     return view('/');
         // }
-        $reservations = Reservations::with('keep_room ', 'payment ', 'invoices', 'customer')->paginate(20);
+        $reservations = Reservations::with('customer')->paginate(20);
 
         // Mã hóa ID của khách hàng và truyền nó vào view
 
-        $encodedReservations = $reservations->map(function ($reservation) {
-            $reservation->encoded_id =  Crypt::encrypt($reservation->reservations_id);
-            return $reservation;
-        });
-        return view('reservationlist', compact('encodedReservations'));
+
+        return view('reservationlist', compact('reservations'));
     }
     public function create(Request $request)
     {
@@ -128,13 +125,8 @@ class ReservationsController extends Controller
             return redirect()->back()->with('error', 'Không tìm thấy phòng.vui lòng thao tác lại');
         }
     }
-<<<<<<< HEAD
-    
-    private function saveRoom($reservations, $roomIDS )
-=======
     // Hàm lưu vào bảng room_package và room_amenities
     private function saveRoom($reservations_id, $roomIDS)
->>>>>>> a188f543943bc5e78e70dc6a8103fa9d34369c06
     {
         $roomData = [];
         foreach ($roomIDS as $room) {

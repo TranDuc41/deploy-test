@@ -385,9 +385,12 @@ function removerItem() {
         });
     }
 }
-
+var arrayListR = [];
+var total_ = 1;
+var service_, VAT_ = 1;
 // Hàm lưu trạng thái đã đánh dấu vào local storage
 function saveCheckedState() {
+    arrayListR = [];
     const myKey = 'difference';
     const myValue = localStorage.getItem(myKey);
 
@@ -396,25 +399,49 @@ function saveCheckedState() {
 
     localStorage.setItem('checkedCheckboxes', JSON.stringify(checkedCheckboxes));
 
-    // var total_, service_, VAT_;
-    // const rooms = JSON.parse(checkedCheckboxes);
-    // console.log(rooms);
-    // rooms.forEach(room => {
+    let total_amount = document.getElementById('total_amount');
+    let total_amount_input = document.getElementById('total_amount-input');
+    let service_charge = document.getElementById('service_charge');
+    let VAT_amount = document.getElementById('VAT');
+    
+    console.log(checkedCheckboxes);
+    checkedCheckboxes.forEach(room => {
+        fetch(`/room/${room}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Xử lý dữ liệu nhận được từ server (data) ở đây
+                if (data !== null && data !== undefined) {
+                    if (Object.keys(data).length !== 0) {
+                        total_amount.textContent = data.price;
+                        total_amount_input.value = parseInt(data.price);
+                    } else {
+                        console.log("Không có dữ liệu. Vui lòng thử lại!");
+                    }
+                } else {
+                    console.log("Không có dữ liệu. Vui lòng thử lại!");
+                }
+            })
+            .catch(error => {
+                // Xử lý lỗi ở đây
+                console.error('Error:', error);
+            });
 
-    //     total_ += parseFloat(room.price) * parseFloat(myValue)
-    //     service_ = parseFloat(room.price) * parseFloat(myValue) * 0.02;
-    //     VAT_ = parseFloat(room.price) * 0.08;
-    //     total_ = parseFloat(room.price) + service_ + VAT_;
+        
 
-    // });
-
-    // let total_amount = document.getElementById('total_amount');
-    // let service_charge = document.getElementById('service_charge');
-    // let VAT_amount = document.getElementById('VAT');
-
-    // service_charge.textContent = service_.toString();
-    // VAT_amount.textContent = VAT_.toString();
-    // total_amount.textContent = total_.toString();
+    });
+    console.log(arrayListR);
+    for (var i = 0; i < arrayListR.length; i++) {
+        total_ += arrayListR[i];
+    }
+    console.log(total_);
+    service_charge.textContent = service_.toString();
+    VAT_amount.textContent = VAT_.toString();
+    total_amount.textContent = total_.toString();
 }
 
 // Hàm tải trạng thái đã đánh dấu từ local storage
@@ -452,6 +479,5 @@ function calculateDateDifference() {
 
     // Chuyển đổi số mili giây thành số ngày
     const dayDifference = timeDifference / (1000 * 60 * 60 * 24);
-    console.log(dayDifference);
     localStorage.setItem('difference', dayDifference);
 }

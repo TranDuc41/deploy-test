@@ -57,10 +57,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($encodedReservations as $item)
+                                @foreach ($reservations as $item)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('customer.show', ['id' => $item->encoded_id]) }}"
+                                            <a href="{{ route('customer.show', ['id' => $item->reservations_id]) }}"
                                                 class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-xs"> #{{ $item->reservations_id }}</h6>
@@ -68,13 +68,13 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->create_at }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->created_at }}</p>
                                         </td>
                                         <td>
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->customer->full_name }}</p>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $item->invoices->total_amount }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->total_amount }}</p>
                                         </td>
                                     </tr>
                                 @endforeach

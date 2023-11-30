@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Reservations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -35,7 +36,7 @@ class CustomerController extends Controller
             $customerId = Crypt::decrypt($encodedId);
             $customer = Customer::find($customerId);
             if (!$customer) {
-                return redirect()->back()->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
+                return redirect()->route('customer.index')->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
             }
             $customer->encoded_id =  Crypt::encrypt($customer->customer_id);
             return view('detailcustomer', compact('customer'));
@@ -86,9 +87,9 @@ class CustomerController extends Controller
             $customerId = Crypt::decrypt($encodedId);
             $customer = Customer::find($customerId);
             if (!$customer) {
-                return redirect()->back()->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
+                return redirect()->route('customer.index')->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
             } else if ($customer->updated_at != $request->input('update')) {
-                return redirect()->back()->with('error', 'Hãy cập nhật dữ liệu mới nhất trước khi sửa thông tin.');
+                return redirect()->route('customer.index')->with('error', 'Hãy cập nhật dữ liệu mới nhất trước khi sửa thông tin.');
             }
             $validator = Validator::make($request->all(), [
                 'full_name' => 'required|max:55',
@@ -130,8 +131,8 @@ class CustomerController extends Controller
             }
             $customerId = Crypt::decrypt($encodedId);
             $customer = Customer::find($customerId);
-            if (!$customer) {
-                return redirect()->back()->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
+            if (!$customer->status!= '0') {
+                return redirect()->route('customer.index')->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
             }
             $customer->status = '0';
             $customer->save();
