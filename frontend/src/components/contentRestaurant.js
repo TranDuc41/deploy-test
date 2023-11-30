@@ -132,7 +132,6 @@ const contentRestaurant = () => {
                         window.location.reload();
                     } else {
                         alert(responseData.message);
-                        window.location.reload();
                     }
                 } catch (error) {
                     console.error('Error:', error);

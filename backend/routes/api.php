@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\FaqController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\InfoController;
 use App\Http\Controllers\Api\ReservationsController;
 use App\Http\Controllers\Api\RestaurantController;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\RoomTypeController;
 use App\Http\Controllers\Api\SpaController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +48,6 @@ Route::get('gallery', [GalleryController::class, 'index']);
 Route::get('/info', [InfoController::class, 'index']);
 
 Route::get('room-type/{sty_id}', [RoomController::class, 'showRoomByRoomType']);
+
+Route::get('/list-category', [CategoryController::class, 'index']);
+Route::post('/save-data', [ContactController::class, 'saveData']);
