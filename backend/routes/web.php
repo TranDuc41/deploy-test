@@ -90,11 +90,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reservation', [ReservationsController::class, 'showReservationsList']);
     Route::get('/reservation/new', [ReservationsController::class, 'createReservations'])->name('reservation.createReservations');
     Route::get('/rooms/{slug}', [ReservationsController::class, 'showRoom'])->name('reservation.showRoom');
+    Route::post('/reservation', [ReservationsController::class, 'create'])->name('reservation.create');
+    
     //Customer
     Route::get('/customer', [CustomerController::class, 'index'])->name('customer.index');
     Route::post('/customer', [CustomerController::class, 'create'])->name('customer.create');
     Route::get('/customer/{id}', [CustomerController::class, 'show'])->name('customer.show');
     Route::put('/customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('/customer/{id}', [CustomerController::class, 'delete'])->name('customer.delete');
 
     Route::get('/api/cities', [AddressController::class, 'getCities']);
     Route::get('/api/districts/{cityCode}', [AddressController::class, 'getDistricts']);

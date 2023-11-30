@@ -231,7 +231,7 @@ function FormExample() {
                 </Form>
             </Row>
             <div className='text-end pb-5 mb-5'>
-                <Button type="submit" className='px-5 py-2 text-light btn-payment' variant="warning" onClick={handleSubmit}>Submit form</Button>
+                <Button type="submit" className='px-5 py-2 text-light btn-payment' variant="warning" onClick={handleSubmit}>Thanh toán</Button>
             </div>
 
         </>

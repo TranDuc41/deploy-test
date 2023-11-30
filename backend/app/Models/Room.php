@@ -53,8 +53,8 @@ class Room extends Model
     {
         return $this->belongsTo(Sale::class, 'sale_id');
     }
-    public function keep_room()
+    public function rooms()
     {
-        return $this->hasMany(KeepRoom::class, 'keep_room_id');
+        return $this->belongsToMany(Room::class, 'reservation_room', 'reservation_id', 'room_id');
     }
 }

@@ -24,90 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var service_charge = document.getElementById('service_charge');
     var VAT = document.getElementById('VAT');
 
-    var room_booking = document.querySelectorAll('.room-booking-item');
-    if (room_booking !== null) {
-        room_booking.forEach(function (item) {
-            item.addEventListener('click', function () {
-
-                const cardContainer = document.getElementById('booking-body');
-                const slug = item.dataset.slug;
-                console.log(slug);
-                fetch(`/rooms/${slug}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Xử lý dữ liệu nhận được từ server (data) ở đây
-                        if (data !== null && data !== undefined) {
-                            if (Object.keys(data).length !== 0) {
-
-                                const newCard = document.createElement('div');
-
-                                newCard.innerHTML = `
-
-
-                                <div class="card card-blog card-plain">
-                                <button type="button" onclick="removerItem()" class="btn btn-link text-end remove-room-booking m-0 p-0" style="position: relative"><i class="ni ni-fat-remove h3"></i></button>
-                                <div class="row">
-                                    
-                                    <div class="col-lg-4">
-                                        <div class="position-relative">
-                                            <a class="d-block blur-shadow-image">
-                                                <img src="${data.images[0].img_src}" alt="img-blur-shadow"
-                                                    class="img-fluid shadow border-radius-lg" width="100%"
-                                                    height="500px" style="object-fit: cover">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-8">
-
-                                        <div class="card-body px-0 pt-4">
-                                            <p
-                                                class="text-gradient text-primary text-gradient font-weight-bold text-sm text-uppercase">
-                                                ${data.price} VND</p>
-                                            <a href="javascript:;">
-                                                <h3>
-                                                ${data.title}
-                                                </h3>
-                                            </a>
-                                            <p>
-                                            ${data.description}
-                                            </p>
-                                            <blockquote class="blockquote text-white mb-0">
-                                                <p class="text-dark ms-3">Người lớn : ${data.adults} người</p>
-                                                <p class="text-dark ms-3">Trẻ em :${data.children}người </p>
-                                            </blockquote>
-                                            <button type="button" data-slug="{{ $item->slug }}"
-                                                class="btn bg-gradient-primary mt-3 room-booking-item"
-                                                data-bs-dismiss="modal">Chọn
-                                                phòng</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                `;
-
-                                cardContainer.appendChild(newCard);
-                                
-                            } else {
-                                console.log("Không có dữ liệu. Vui lòng thử lại!");
-                            }
-                        } else {
-                            console.log("Không có dữ liệu. Vui lòng thử lại!");
-                        }
-                    })
-                    .catch(error => {
-                        // Xử lý lỗi ở đây
-                        console.error('Error:', error);
-                    });
-            });
-        });
-    }
-
-
     // ---------------------------------------------------------------------------------------------------------------------
     //Edit room type
     var editRoomtypes = document.querySelectorAll('.editRoomtype');
@@ -468,4 +384,74 @@ function removerItem() {
             });
         });
     }
+}
+
+// Hàm lưu trạng thái đã đánh dấu vào local storage
+function saveCheckedState() {
+    const myKey = 'difference';
+    const myValue = localStorage.getItem(myKey);
+
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const checkedCheckboxes = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+    localStorage.setItem('checkedCheckboxes', JSON.stringify(checkedCheckboxes));
+
+    // var total_, service_, VAT_;
+    // const rooms = JSON.parse(checkedCheckboxes);
+    // console.log(rooms);
+    // rooms.forEach(room => {
+
+    //     total_ += parseFloat(room.price) * parseFloat(myValue)
+    //     service_ = parseFloat(room.price) * parseFloat(myValue) * 0.02;
+    //     VAT_ = parseFloat(room.price) * 0.08;
+    //     total_ = parseFloat(room.price) + service_ + VAT_;
+
+    // });
+
+    // let total_amount = document.getElementById('total_amount');
+    // let service_charge = document.getElementById('service_charge');
+    // let VAT_amount = document.getElementById('VAT');
+
+    // service_charge.textContent = service_.toString();
+    // VAT_amount.textContent = VAT_.toString();
+    // total_amount.textContent = total_.toString();
+}
+
+// Hàm tải trạng thái đã đánh dấu từ local storage
+function loadCheckedState() {
+    const checkedCheckboxes = JSON.parse(localStorage.getItem('checkedCheckboxes')) || [];
+
+    checkedCheckboxes.forEach(value => {
+        const checkbox = document.getElementById(`checkbox${value}`);
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+    });
+}
+
+// Thêm bộ lắng nghe sự kiện cho các ô đánh dấu
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', saveCheckedState);
+});
+
+// Tải trạng thái đã đánh dấu khi trang được tải
+window.addEventListener('load', loadCheckedState);
+//chuyen doi
+function calculateDateDifference() {
+    // Lấy giá trị từ các trường input
+    const startDateString = document.getElementById("checkIn").value;
+    const endDateString = document.getElementById("checkOut").value;
+
+    // Chuyển đổi chuỗi ngày thành đối tượng Date
+    const startDate = new Date(startDateString);
+    const endDate = new Date(endDateString);
+
+    // Tính số mili giây giữa hai ngày
+    const timeDifference = endDate - startDate;
+
+    // Chuyển đổi số mili giây thành số ngày
+    const dayDifference = timeDifference / (1000 * 60 * 60 * 24);
+    console.log(dayDifference);
+    localStorage.setItem('difference', dayDifference);
 }

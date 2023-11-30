@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservations_keep_room', function (Blueprint $table) {
+        Schema::create('reservations_room', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('reservations_id');
-            $table->unsignedBigInteger('keep_room_id');
+            $table->unsignedBigInteger('room_id');
             $table->timestamps();
-
             $table->foreign('reservations_id')->references('reservations_id')->on('reservations')->onDelete('cascade');
-            $table->foreign('keep_room_id')->references('keep_room_id')->on('keep_rooms')->onDelete('cascade');
+            $table->foreign('room_id')->references('room_id')->on('room')->onDelete('cascade');
         });
     }
 

@@ -61,30 +61,73 @@
                 </div>
                 <div class="col-md-5 mt-4">
                     <div class="card mb-4">
-                        <div class="card-body pt-4 p-3">
-                            <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Thông tin khách hàng</h6>
+                        <div class="row mx-2 pt-4">
+                            <div class="col-md-6">
+                                <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Thông tin khách hàng
+                                </h6>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-end align-items-center">
+                                <button class="btn btn-link text-secondary mb-0" data-bs-toggle="modal"
+                                    data-bs-target="#modal-notification">
+                                    <i class="fa fa-ellipsis-v text-xs" aria-hidden="true"></i>
+                                </button>
+                                {{--  --}}
+
+                                <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog"
+                                    aria-labelledby="modal-notification" aria-hidden="true">
+                                    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="py-3 text-center">
+                                                    <i class="ni ni-bell-55 ni-3x"></i>
+                                                    <h4 class="text-gradient text-danger mt-4">Bạn có muốn xóa!</h4>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-0 text-center justify-content-center">
+                                                <form action="{{ route('customer.delete', $customer->encoded_id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Xóa</button>
+                                                </form>
+                                                <button type="button" class="btn btn-secondary text-white ml-auto"
+                                                    data-bs-dismiss="modal">Thoát</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{--  --}}
+                            </div>
+                        </div>
+                        <div class="card-body p-3">
                             <form method="POST" action="{{ route('customer.show', ['id' => $customer->encoded_id]) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="example-text-input" class="form-control-label">Tên Khách hàng</label>
-                                    <input class="form-control" type="text" name="full_name"  value="{{ $customer->full_name }}" >
+                                    <input class="form-control" type="text" name="full_name"
+                                        value="{{ $customer->full_name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="example-email-input" class="form-control-label">Email</label>
-                                    <input class="form-control" type="email" name="email" value="{{ $customer->email }}" >
+                                    <input class="form-control" type="email" name="email"
+                                        value="{{ $customer->email }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="example-tel-input" class="form-control-label">Số điện thoại</label>
-                                    <input class="form-control" type="text" name="phone_number" value="{{ $customer->phone_number }}" >
+                                    <input class="form-control" type="text" name="phone_number"
+                                        value="{{ $customer->phone_number }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="example-number-input" class="form-control-label">Địa chỉ</label>
-                                    <input class="form-control" type="text" name="address" value="{{ $customer->address }}">
-                                    <input class="form-control" type="hidden" name="update" value="{{ $customer->updated_at }}" >
+                                    <input class="form-control" type="text" name="address"
+                                        value="{{ $customer->address }}">
+                                    <input class="form-control" type="hidden" name="update"
+                                        value="{{ $customer->updated_at }}">
                                 </div>
-                                
-                                <button type="submit" onclick="handleClick()" class="btn bg-gradient-primary" id="Sửa thông tin">Sửa thông tin</button>
+
+                                <button type="submit" onclick="handleClick()" class="btn bg-gradient-primary"
+                                    id="Sửa thông tin">Sửa thông tin</button>
                             </form>
                         </div>
                     </div>
