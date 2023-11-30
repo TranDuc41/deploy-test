@@ -105,19 +105,19 @@
                             <h6 class="mb-0">Khách hàng</h6>
                             <div class="form-group">
                                 <label for="example-text-input" class="form-control-label">Tên Khách hàng</label>
-                                <input class="form-control" type="text" name="full_name">
+                                <input class="form-control" type="text" name="full_name" required>
                             </div>
                             <div class="form-group">
                                 <label for="example-email-input" class="form-control-label">Email</label>
-                                <input class="form-control" type="email" name="email">
+                                <input class="form-control" type="email" name="email" required>
                             </div>
                             <div class="form-group">
                                 <label for="example-tel-input" class="form-control-label">Số điện thoại</label>
-                                <input class="form-control" type="text" name="phone_number">
+                                <input class="form-control" type="text" name="phone_number" required>
                             </div>
                             <div class="form-group">
                                 <label for="example-number-input" class="form-control-label">Địa chỉ</label>
-                                <input class="form-control" type="text" name="address">
+                                <input class="form-control" type="text" name="address" required>
                                 <input class="form-control" type="hidden" name="update">
                             </div>
                         </div>
