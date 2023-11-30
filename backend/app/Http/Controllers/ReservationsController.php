@@ -124,7 +124,7 @@ class ReservationsController extends Controller
             return redirect()->back()->with('error', 'Không tìm thấy phòng.vui lòng thao tác lại');
         }
     }
-    // Hàm lưu vào bảng room_package và room_amenities
+    
     private function saveRoom($reservations, $roomIDS )
     {
         $roomData = [];
