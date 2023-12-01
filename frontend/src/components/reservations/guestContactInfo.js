@@ -76,8 +76,8 @@ function FormExample() {
         })
 
         handlePutRequest(formData);
+        console.log(formData);
     };
-    console.log(formData);
     useEffect(() => {
         // Lấy dữ liệu từ localStorage khi component được tạo
         const keys = ['key1', 'key2', 'key3']; // Thay đổi các key tương ứng với keys bạn sử dụng
@@ -309,7 +309,7 @@ function FormExample() {
             </Row>
 
             <div className='text-end pb-5 mb-5'>
-                <Button type="submit" className='px-5 py-2 text-light btn-payment' variant="warning" >Thanh toán</Button>
+                <Button type="submit" className='px-5 py-2 text-light btn-payment' onClick={handlePutRequest} variant="warning" >Thanh toán</Button>
             </div>
         </Form>
     );

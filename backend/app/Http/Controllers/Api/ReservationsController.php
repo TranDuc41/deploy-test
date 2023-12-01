@@ -68,7 +68,7 @@ class ReservationsController extends Controller
                 'check_out' => 'required|date',
                 'adults' => 'required|numeric',
                 'children' => 'required|numeric',
-                // 'total_amount' => 'required|numeric',
+                'total_amount' => 'required|numeric',
                 'room' => 'required|array',
 
             ]);
@@ -119,11 +119,10 @@ class ReservationsController extends Controller
             $this->saveRoom($reservations_id, $selectedRoomIds);
             
 
-            return redirect()->back()->with('success', 'Thêm phòng thành công.');
+            return response()->json(['success' => true, 'message' => 'Request processed successfully']);
         } catch (\Throwable $th) {
             dd($th);
-            return redirect()->back()->with('error', 'Thêm thất bại! Vui lòng kiểm tra lại dữ liệu nhập vào.' . $th);
-        }
+            return response()->json(['error' => false, 'message' => 'Có lỗi khi gửi đi!'], 403); }
     }
     private function saveRoom($reservations_id, $roomIDS)
     {

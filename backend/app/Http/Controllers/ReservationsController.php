@@ -38,12 +38,13 @@ class ReservationsController extends Controller
                 // customer
                 // 'prefix' => 'required|in:Ông,Bà',
                 'full_name' => 'required|max:55',
-                // 'email' => 'required|email|unique:customer,email|max:100',
+                'email' => 'required|email|max:100',
                 'address' => 'required|max:255',
                 'phone_number' => ['required', 'size:10', 'regex:/^0[0-9]*$/'],
                 'check_in' => 'required|date',
-                'check_out' => 'required|date',
-                'adults' => 'required|numeric',
+                'check_out' => 'required|date|after:check_in',
+                'adults' => 'required|numeric|min:1',
+                'children' => 'required|numeric|min:0',
                 // 'total_amount' => 'required|numeric',
                 'roomsIDS' => 'required|array',
 
