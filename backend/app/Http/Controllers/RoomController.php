@@ -195,6 +195,13 @@ class RoomController extends Controller
 
     public function show($id)
     {
+        try {
+            $room = Room::find($id);
+            return response()->json($room);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
     }
 
     public function edit($slug)

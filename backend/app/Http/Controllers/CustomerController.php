@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Reservations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -15,9 +16,7 @@ class CustomerController extends Controller
     public function index()
     {
         try {
-            // $customer = Customer::paginate(10);
-
-            // return view('reservations.customer', compact('customer'));
+           
             $customers = Customer::paginate(10);
 
             // Mã hóa ID của khách hàng và truyền nó vào view
@@ -37,7 +36,7 @@ class CustomerController extends Controller
             $customerId = Crypt::decrypt($encodedId);
             $customer = Customer::find($customerId);
             if (!$customer) {
-                return redirect()->back()->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
+                return redirect()->route('customer.index')->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
             }
             $customer->encoded_id =  Crypt::encrypt($customer->customer_id);
             return view('detailcustomer', compact('customer'));
@@ -49,7 +48,7 @@ class CustomerController extends Controller
     public function create(Request $request)
     {
         // try {
-            
+
         // } catch (\Throwable $th) {
         //     return redirect()->back()->with('error', 'Lỗi thao tác.Kiểm tra lại dữ liệu');
         // }
@@ -75,19 +74,22 @@ class CustomerController extends Controller
         $customer->email = $request->input('email');
         $customer->address = $request->input('address');
         $customer->phone_number = $request->input('phone_number');
+        $customer->status = '1';
         $customer->save();
         return redirect()->back()->with('success', 'Thông tin đã được thêm thành công.');
     }
-
     public function update(Request $request, $encodedId)
     {
         try {
+            if (!$encodedId) {
+                return redirect()->route('customer.index')->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
+            }
             $customerId = Crypt::decrypt($encodedId);
             $customer = Customer::find($customerId);
             if (!$customer) {
-                return redirect()->back()->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
+                return redirect()->route('customer.index')->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
             } else if ($customer->updated_at != $request->input('update')) {
-                return redirect()->back()->with('error', 'Hãy cập nhật dữ liệu mới nhất trước khi sửa thông tin.');
+                return redirect()->route('customer.index')->with('error', 'Hãy cập nhật dữ liệu mới nhất trước khi sửa thông tin.');
             }
             $validator = Validator::make($request->all(), [
                 'full_name' => 'required|max:55',
@@ -117,6 +119,24 @@ class CustomerController extends Controller
             $customer->updated_at = $currentDateTime;
             $customer->save();
             return redirect()->back()->with('success', 'Thông tin đã được cập nhật thành công.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Lỗi thao tác.Kiểm tra lại dữ liệu');
+        }
+    }
+    public function delete($encodedId)
+    {
+        try {
+            if (!$encodedId) {
+                return redirect()->route('customer.index')->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
+            }
+            $customerId = Crypt::decrypt($encodedId);
+            $customer = Customer::find($customerId);
+            if (!$customer->status!= '0') {
+                return redirect()->route('customer.index')->with('error', 'Không tìm thấy khách hàng.vui lòng thao tác lại');
+            }
+            $customer->status = '0';
+            $customer->save();
+            return redirect()->route('customer.index')->with('success', 'Xóa thành công.');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'Lỗi thao tác.Kiểm tra lại dữ liệu');
         }

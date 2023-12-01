@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Reservations;
 use Illuminate\Http\Request;
 use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ReservationsController extends Controller
 {
@@ -48,5 +53,87 @@ class ReservationsController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json(['message' => 'Rooms not found'], 404);
         }
+    }
+    public function create(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                // customer
+                'prefix' => 'required|in:Ông,Bà',
+                'full_name' => 'required|max:55',
+                'email' => 'required|email|max:100',
+                'address' => 'required|max:255',
+                'phone_number' => ['required', 'size:10', 'regex:/^0[0-9]*$/'],
+                'check_in' => 'required|date',
+                'check_out' => 'required|date',
+                'adults' => 'required|numeric',
+                'children' => 'required|numeric',
+                'total_amount' => 'required|numeric',
+                'room' => 'required|array',
+
+            ]);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+
+                // Lấy tên trường lỗi đầu tiên
+                $firstErrorField = $errors->keys()[0];
+
+                return redirect()->back()->with('error', "Thêm không thành công. ($firstErrorField) không hợp lệ.");
+            }
+            $request->validate([
+                'room' => [
+                    'required',
+                    'array',
+                    Rule::exists('room', 'room_id'), // Kiểm tra xem giá trị trong mảng tồn tại trong cột 'id' của bảng 'rooms' hay không
+                ],
+            ]);
+
+            // Nếu kiểm tra thành công, bạn có thể lấy dữ liệu như sau:
+            $selectedRoomIds = $request->input('room', []);
+
+            $customer = new Customer();
+            $customer->prefix = $request->input('prefix');
+            $customer->full_name = $request->input('full_name');
+            $customer->email = $request->input('email');
+            $customer->address = $request->input('address');
+            $customer->phone_number = $request->input('phone_number');
+            $customer->status = '1';
+            $customer->save();
+
+
+            $reservations = new Reservations();
+            $reservations->method = "Online";
+            $reservations->check_in = Carbon::createFromFormat('Y-m-d', $request->input('check_in'))->toDateString();
+            $reservations->check_out = Carbon::createFromFormat('Y-m-d', $request->input('check_out'))->toDateString();
+            $reservations->adults = $request->input('adults');
+            $reservations->children = $request->input('children');
+            $reservations->note = $request->input('note');
+            $reservations->customer_id = $customer->customer_id;
+            // Lưu phòng để có được ID
+            $reservations->save();
+
+            // Lấy reservations_id sau khi đã lưu vào cơ sở dữ liệu
+            $reservations_id = $reservations->reservations_id;
+
+            // Lưu vào bảng room_package và room_amenities
+            $this->saveRoom($reservations_id, $selectedRoomIds);
+            
+
+            return response()->json(['success' => true, 'message' => 'Request processed successfully']);
+        } catch (\Throwable $th) {
+            dd($th);
+            return response()->json(['error' => false, 'message' => 'Có lỗi khi gửi đi!'], 403); }
+    }
+    private function saveRoom($reservations_id, $roomIDS)
+    {
+        $roomData = [];
+        foreach ($roomIDS as $room) {
+            $roomData[] = [
+                'reservations_id' => $reservations_id,
+                'room_id' => $room,
+            ];
+        }
+
+        DB::table('reservations_room')->insert($roomData);
     }
 }

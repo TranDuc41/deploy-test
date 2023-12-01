@@ -79,25 +79,49 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($encodedCustomers as $item)
-                                            <tr>
-                                                <td>
-                                                    <a href="{{ route('customer.show', ['id' => $item->encoded_id]) }}"
-                                                        class="d-flex px-2 py-1">
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-xs">{{ $item->full_name }}</h6>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->email }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->address }}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">{{ $item->phone_number }}</p>
-                                                </td>
-                                            </tr>
+                                        @if ($item->status == '0')
+                                        <tr class="text-decoration-line-through">
+                                            <td>
+                                                <p
+                                                    class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-xs">{{ $item->full_name }}</h6>
+                                                    </div>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->email }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->address }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->phone_number }}</p>
+                                            </td>
+                                            
+                                        </tr>
+                                        @else
+                                        <tr>
+                                            <td>
+                                                <a href="{{ route('customer.show', ['id' => $item->encoded_id]) }}"
+                                                    class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-xs">{{ $item->full_name }}</h6>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->email }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->address }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">{{ $item->phone_number }}</p>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                            
                                         @endforeach
                                     </tbody>
                                 </table>

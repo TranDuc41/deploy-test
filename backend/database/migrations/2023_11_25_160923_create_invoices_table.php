@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('invoice_id');
             $table->unsignedBigInteger('reservation_id');
             $table->double('total_amount');
-            $table->tinyInteger('payment_status');
+            $table->string('payment_status');
             $table->integer('paid')->nullable();
             $table->timestamps();
 
