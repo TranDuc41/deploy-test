@@ -18,9 +18,22 @@ class Blogs extends Model
         'short_desc',
         'description',
         'read_time',
-        'active',
+        'action',
+        'categories_id',
         // các thuộc tính khác
     ];
+
+    // Mối quan hệ với User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Mối quan hệ với Category
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categories_id');
+    }
 
     public function images()
     {

@@ -4,179 +4,194 @@ import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import Image from 'next/image';
 import BlogPost from '@/components/BlogPost';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Pagination from '@/components/Pagination';
 
 
 // Component Blogs chính
 export default function Blogs() {
-  const fakePosts = [
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '1 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '2 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '3 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '4 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '5 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '6 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '7 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '8 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '9 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '10 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '11 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '12 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '13 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '14 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '15 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '16 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '17 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '18 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    {
-      id: 'post-1',
-      imageUrl: '/blogpost_default.png',
-      readTime: '19 Phút đọc',
-      title: 'Benefits of Swimming for your health',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
-    },
-    {
-      id: 'post-2',
-      imageUrl: '/blogpost_default.png',
-      readTime: '20 Phút đọc',
-      title: 'Morning Yoga to Refresh',
-      summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
-      longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
-    },
-    // ... thêm các bài viết khác cùng với longDescription
-  ];
+  // const fakePosts = [
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '1 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '2 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '3 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '4 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '5 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '6 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '7 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '8 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '9 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '10 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '11 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '12 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '13 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '14 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '15 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '16 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '17 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '18 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   {
+  //     id: 'post-1',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '19 Phút đọc',
+  //     title: 'Benefits of Swimming for your health',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về lợi ích của việc bơi lội cho sức khỏe của bạn...'
+  //   },
+  //   {
+  //     id: 'post-2',
+  //     imageUrl: '/blogpost_default.png',
+  //     readTime: '20 Phút đọc',
+  //     title: 'Morning Yoga to Refresh',
+  //     summary: 'Aliquam nec turpis in nunc venenatis aliquam at ut enimAliquam nec turpis in nunc venenatis aliquam at ut enim...',
+  //     longDescription: 'Mô tả dài về yoga buổi sáng để làm mới bản thân...'
+  //   },
+  //   // ... thêm các bài viết khác cùng với longDescription
+  // ];
   // State cho phân trang
   const [currentPage, setCurrentPage] = useState(1);
+  const [fakePosts, setPosts] = useState([]);
   const postsPerPage = 6;
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/list-blog');
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
   const pageCount = Math.ceil(fakePosts.length / postsPerPage);
+
 
   // Lấy các bài viết hiện tại
   const indexOfLastPost = currentPage * postsPerPage;

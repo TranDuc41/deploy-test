@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\FaqController;
 use App\Http\Controllers\Api\CategoryController;
@@ -51,3 +52,4 @@ Route::get('room-type/{sty_id}', [RoomController::class, 'showRoomByRoomType']);
 
 Route::get('/list-category', [CategoryController::class, 'index']);
 Route::post('/save-data', [ContactController::class, 'saveData']);
+Route::get('/list-blog', [BlogController::class, 'index']);

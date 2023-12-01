@@ -18,8 +18,11 @@ use App\Http\Controllers\SpaController;
 use App\Http\Controllers\BookinsRestaurantSpaController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Models\Blogs;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -180,6 +183,30 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 Route::put('/categories/{id}', [CategoryController::class, 'update'])->name('category.update');
 // Contact
 Route::post('/api/save-data', [ContactController::class, 'saveData']);
+
+//Blogs
+Route::get('/blogs', [BlogController::class, 'index'])->name('blog');
+Route::get('/add-blogs', [BlogController::class, 'blog'])->name('addBlog');
+Route::post('/add-blog-new', [BlogController::class, 'create'])->name('blog.create');
+Route::get('/edit-blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::put('/edit-blog/{slug}', [BlogController::class, 'edit'])->name('blog.edit');
+Route::delete('/delete-blog/{slug}', [BlogController::class, 'delete'])->name('blog.delete');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
