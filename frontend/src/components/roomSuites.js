@@ -58,7 +58,7 @@ const rooms = [
     }
 
 ]
-export default function roomsuites() {
+export default function RoomSuites () {
     const [slidesPerView, setSlidesPerView] = useState(5); // Giá trị mặc định cho desktop
 
     useEffect(() => {
