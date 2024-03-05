@@ -5,7 +5,7 @@ import DatePicker from '@/components/datePicker'
 import Swiper from '@/components/swiper'
 import RoomsSuites from '@/components/roomsSuites'
 import { TbWorld } from 'react-icons/tb'
-import { MdRestaurant } from 'react-icons/Md'
+import { MdRestaurant } from 'react-icons/md'
 import { IconBase } from 'react-icons';
 import GoogleMap from '@/components/map';
 import RestaurantsPage from '@/components/restaurant';
