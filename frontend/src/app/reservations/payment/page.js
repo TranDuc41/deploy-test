@@ -23,7 +23,7 @@ export default function Payment() {
     setIsOpen(!isOpen);
   };
   return (
-    <Layoutreservations children showHeader={false}>
+    <Layoutreservations showHeader={false}>
       <main className='content_reservations'>
         <Container>
           <Row>
