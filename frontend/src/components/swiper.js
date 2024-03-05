@@ -17,7 +17,7 @@ const reviews = [
     { img: '/user-img/clients.png', name: 'User Name 2', role: 'Khách hàng', star: 3, content: 'Nội dung đánh giá của khách hàng' },
 ]
 
-export default () => {
+export default function Swiper () => {
     return (
         <Swiper
             modules={[Pagination, A11y, Autoplay]}
