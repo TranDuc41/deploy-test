@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
     build: {
-        outDir: 'public/js', // Thư mục đầu ra của tệp biên dịch
+        outDir: 'public/build', // Thư mục đầu ra của tệp biên dịch
     },
 
     plugins: [
